@@ -22,6 +22,7 @@ import history from './routerHistory'
 // Views included in the main bundle
 import Pools from './views/Pools'
 import Swap from './views/Swap'
+import BlindBox from './views/BlindBox'
 import {
   RedirectDuplicateTokenIds,
   RedirectOldAddLiquidityPathStructure,
@@ -89,6 +90,12 @@ const App: React.FC = () => {
             <Route exact path="/farms/auction">
               <FarmAuction />
             </Route>
+
+            {/* Adding the Blindbox here @crackaf */}
+            <Route path="/blindbox">
+              <BlindBox />
+            </Route>
+
             <Route path="/farms">
               <Farms />
             </Route>
