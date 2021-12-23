@@ -1,12 +1,12 @@
-import { Box } from '@pancakeswap/uikit'
-import styled from 'styled-components'
+import { Box } from '@pancakeswap/uikit';
+import styled from 'styled-components';
 
 const IfoLayout = styled(Box)`
   display: grid;
   > div:not(.sticky-header) {
     margin-bottom: 32px;
   }
-`
+`;
 export const IfoLayoutWrapper = styled(IfoLayout)`
   column-gap: 32px;
   display: grid;
@@ -20,6 +20,6 @@ export const IfoLayoutWrapper = styled(IfoLayout)`
     margin: 0 auto;
     align-items: flex-start;
   }
-`
+`;
 
-export default IfoLayout
+export default IfoLayout;

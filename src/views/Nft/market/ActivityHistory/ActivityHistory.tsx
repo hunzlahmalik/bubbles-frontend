@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { uniqBy } from 'lodash'
-import { isAddress } from 'utils'
-import { useAppDispatch } from 'state'
+import React, { useEffect, useState } from 'react';
+import { uniqBy } from 'lodash';
+import { isAddress } from 'utils';
+import { useAppDispatch } from 'state';
 import {
   ArrowBackIcon,
   ArrowForwardIcon,
@@ -12,108 +12,108 @@ import {
   Text,
   Th,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import { getCollectionActivity, getNftsFromDifferentCollectionsApi } from 'state/nftMarket/helpers'
-import Container from 'components/Layout/Container'
-import TableLoader from 'components/TableLoader'
-import { Activity, Collection, NftToken, TokenIdWithCollectionAddress } from 'state/nftMarket/types'
-import { useTranslation } from 'contexts/Localization'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import useTheme from 'hooks/useTheme'
-import useLastUpdated from 'hooks/useLastUpdated'
-import { useGetNftActivityFilters } from 'state/nftMarket/hooks'
-import { Arrow, PageButtons } from '../components/PaginationButtons'
-import NoNftsImage from '../components/Activity/NoNftsImage'
-import ActivityFilters from './ActivityFilters'
-import ActivityRow from '../components/Activity/ActivityRow'
-import { sortActivity } from './utils/sortActivity'
+} from '@pancakeswap/uikit';
+import { getCollectionActivity, getNftsFromDifferentCollectionsApi } from 'state/nftMarket/helpers';
+import Container from 'components/Layout/Container';
+import TableLoader from 'components/TableLoader';
+import { Activity, Collection, NftToken, TokenIdWithCollectionAddress } from 'state/nftMarket/types';
+import { useTranslation } from 'contexts/Localization';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import useTheme from 'hooks/useTheme';
+import useLastUpdated from 'hooks/useLastUpdated';
+import { useGetNftActivityFilters } from 'state/nftMarket/hooks';
+import { Arrow, PageButtons } from '../components/PaginationButtons';
+import NoNftsImage from '../components/Activity/NoNftsImage';
+import ActivityFilters from './ActivityFilters';
+import ActivityRow from '../components/Activity/ActivityRow';
+import { sortActivity } from './utils/sortActivity';
 
-const MAX_PER_PAGE = 8
+const MAX_PER_PAGE = 8;
 
-const MAX_PER_QUERY = 100
+const MAX_PER_QUERY = 100;
 
 interface ActivityHistoryProps {
-  collection?: Collection
+  collection?: Collection;
 }
 
 const ActivityHistory: React.FC<ActivityHistoryProps> = ({ collection }) => {
-  const dispatch = useAppDispatch()
-  const { address: collectionAddress } = collection || { address: '' }
-  const nftActivityFilters = useGetNftActivityFilters(collectionAddress)
-  const { theme } = useTheme()
-  const { t } = useTranslation()
+  const dispatch = useAppDispatch();
+  const { address: collectionAddress } = collection || { address: '' };
+  const nftActivityFilters = useGetNftActivityFilters(collectionAddress);
+  const { theme } = useTheme();
+  const { t } = useTranslation();
   const [paginationData, setPaginationData] = useState<{
-    activity: Activity[]
-    currentPage: number
-    maxPage: number
+    activity: Activity[];
+    currentPage: number;
+    maxPage: number;
   }>({
     activity: [],
     currentPage: 1,
     maxPage: 1,
-  })
-  const [activitiesSlice, setActivitiesSlice] = useState<Activity[]>([])
-  const [nftMetadata, setNftMetadata] = useState<NftToken[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [isInitialized, setIsInitialized] = useState(false)
-  const [queryPage, setQueryPage] = useState(1)
-  const { lastUpdated, setLastUpdated: refresh } = useLastUpdated()
-  const bnbBusdPrice = useBNBBusdPrice()
-  const { isXs, isSm } = useMatchBreakpoints()
+  });
+  const [activitiesSlice, setActivitiesSlice] = useState<Activity[]>([]);
+  const [nftMetadata, setNftMetadata] = useState<NftToken[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [queryPage, setQueryPage] = useState(1);
+  const { lastUpdated, setLastUpdated: refresh } = useLastUpdated();
+  const bnbBusdPrice = useBNBBusdPrice();
+  const { isXs, isSm } = useMatchBreakpoints();
 
-  const nftActivityFiltersString = JSON.stringify(nftActivityFilters)
+  const nftActivityFiltersString = JSON.stringify(nftActivityFilters);
 
   useEffect(() => {
     const fetchCollectionActivity = async () => {
       try {
-        setIsLoading(true)
-        const nftActivityFiltersParsed = JSON.parse(nftActivityFiltersString)
+        setIsLoading(true);
+        const nftActivityFiltersParsed = JSON.parse(nftActivityFiltersString);
         const collectionActivity = await getCollectionActivity(
           collectionAddress.toLowerCase(),
           nftActivityFiltersParsed,
           MAX_PER_QUERY,
-        )
-        const activity = sortActivity(collectionActivity)
+        );
+        const activity = sortActivity(collectionActivity);
         setPaginationData({
           activity,
           currentPage: 1,
           maxPage: Math.ceil(activity.length / MAX_PER_PAGE) || 1,
-        })
-        setIsLoading(false)
-        setIsInitialized(true)
+        });
+        setIsLoading(false);
+        setIsInitialized(true);
       } catch (error) {
-        console.error('Failed to fetch collection activity', error)
+        console.error('Failed to fetch collection activity', error);
       }
-    }
+    };
 
     if ((collectionAddress && isAddress(collectionAddress)) || collectionAddress === '') {
-      fetchCollectionActivity()
+      fetchCollectionActivity();
     }
-  }, [dispatch, collectionAddress, nftActivityFiltersString, lastUpdated])
+  }, [dispatch, collectionAddress, nftActivityFiltersString, lastUpdated]);
 
   useEffect(() => {
     const fetchActivityNftMetadata = async () => {
       const activityNftTokenIds = uniqBy(
         activitiesSlice.map((activity): TokenIdWithCollectionAddress => {
-          return { tokenId: activity.nft.tokenId, collectionAddress: activity.nft.collection.id }
+          return { tokenId: activity.nft.tokenId, collectionAddress: activity.nft.collection.id };
         }),
         'tokenId',
-      )
-      const nfts = await getNftsFromDifferentCollectionsApi(activityNftTokenIds)
-      setNftMetadata(nfts)
-    }
+      );
+      const nfts = await getNftsFromDifferentCollectionsApi(activityNftTokenIds);
+      setNftMetadata(nfts);
+    };
 
     if (activitiesSlice.length > 0) {
-      fetchActivityNftMetadata()
+      fetchActivityNftMetadata();
     }
-  }, [activitiesSlice])
+  }, [activitiesSlice]);
 
   useEffect(() => {
     const slice = paginationData.activity.slice(
       MAX_PER_PAGE * (paginationData.currentPage - 1),
       MAX_PER_PAGE * paginationData.currentPage,
-    )
-    setActivitiesSlice(slice)
-  }, [paginationData])
+    );
+    setActivitiesSlice(slice);
+  }, [paginationData]);
 
   return (
     <Box py="32px">
@@ -128,7 +128,7 @@ const ActivityHistory: React.FC<ActivityHistoryProps> = ({ collection }) => {
             scale="sm"
             disabled={isLoading}
             onClick={() => {
-              refresh()
+              refresh();
             }}
           >
             {t('Refresh')}
@@ -170,7 +170,7 @@ const ActivityHistory: React.FC<ActivityHistoryProps> = ({ collection }) => {
                   <TableLoader />
                 ) : (
                   activitiesSlice.map((activity) => {
-                    const nftMeta = nftMetadata.find((metaNft) => metaNft.tokenId === activity.nft.tokenId)
+                    const nftMeta = nftMetadata.find((metaNft) => metaNft.tokenId === activity.nft.tokenId);
                     return (
                       <ActivityRow
                         key={`${activity.marketEvent}#${activity.nft.tokenId}#${activity.timestamp}#${activity.tx}`}
@@ -178,7 +178,7 @@ const ActivityHistory: React.FC<ActivityHistoryProps> = ({ collection }) => {
                         nft={nftMeta}
                         bnbBusdPrice={bnbBusdPrice}
                       />
-                    )
+                    );
                   })
                 )}
               </tbody>
@@ -197,7 +197,7 @@ const ActivityHistory: React.FC<ActivityHistoryProps> = ({ collection }) => {
                       setPaginationData((prevState) => ({
                         ...prevState,
                         currentPage: prevState.currentPage - 1,
-                      }))
+                      }));
                     }
                   }}
                 >
@@ -215,32 +215,32 @@ const ActivityHistory: React.FC<ActivityHistoryProps> = ({ collection }) => {
                       setPaginationData((prevState) => ({
                         ...prevState,
                         currentPage: prevState.currentPage + 1,
-                      }))
+                      }));
 
                       if (
                         paginationData.maxPage - paginationData.currentPage === 1 &&
                         paginationData.activity.length === MAX_PER_QUERY * queryPage
                       ) {
                         try {
-                          setIsLoading(true)
-                          const nftActivityFiltersParsed = JSON.parse(nftActivityFiltersString)
+                          setIsLoading(true);
+                          const nftActivityFiltersParsed = JSON.parse(nftActivityFiltersString);
                           const collectionActivity = await getCollectionActivity(
                             collectionAddress.toLowerCase(),
                             nftActivityFiltersParsed,
                             MAX_PER_QUERY * (queryPage + 1),
-                          )
-                          const activity = sortActivity(collectionActivity)
+                          );
+                          const activity = sortActivity(collectionActivity);
                           setPaginationData((prevState) => {
                             return {
                               ...prevState,
                               activity,
                               maxPage: Math.ceil(activity.length / MAX_PER_PAGE) || 1,
-                            }
-                          })
-                          setIsLoading(false)
-                          setQueryPage((prevState) => prevState + 1)
+                            };
+                          });
+                          setIsLoading(false);
+                          setQueryPage((prevState) => prevState + 1);
                         } catch (error) {
-                          console.error('Failed to fetch collection activity', error)
+                          console.error('Failed to fetch collection activity', error);
                         }
                       }
                     }
@@ -256,7 +256,7 @@ const ActivityHistory: React.FC<ActivityHistoryProps> = ({ collection }) => {
         )}
       </Container>
     </Box>
-  )
-}
+  );
+};
 
-export default ActivityHistory
+export default ActivityHistory;

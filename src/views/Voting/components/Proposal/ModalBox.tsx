@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const VotingBox = styled.div`
   align-items: center;
@@ -9,6 +9,6 @@ const VotingBox = styled.div`
   justify-content: space-between;
   margin-bottom: 24px;
   padding: 0 16px;
-`
+`;
 
-export default VotingBox
+export default VotingBox;

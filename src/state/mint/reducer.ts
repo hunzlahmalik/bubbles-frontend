@@ -1,17 +1,17 @@
-import { createReducer } from '@reduxjs/toolkit'
-import { Field, resetMintState, typeInput } from './actions'
+import { createReducer } from '@reduxjs/toolkit';
+import { Field, resetMintState, typeInput } from './actions';
 
 export interface MintState {
-  readonly independentField: Field
-  readonly typedValue: string
-  readonly otherTypedValue: string // for the case when there's no liquidity
+  readonly independentField: Field;
+  readonly typedValue: string;
+  readonly otherTypedValue: string; // for the case when there's no liquidity
 }
 
 const initialState: MintState = {
   independentField: Field.CURRENCY_A,
   typedValue: '',
   otherTypedValue: '',
-}
+};
 
 export default createReducer<MintState>(initialState, (builder) =>
   builder
@@ -24,7 +24,7 @@ export default createReducer<MintState>(initialState, (builder) =>
             ...state,
             independentField: field,
             typedValue,
-          }
+          };
         }
         // they're typing into a new field, store the other value
 
@@ -33,13 +33,13 @@ export default createReducer<MintState>(initialState, (builder) =>
           independentField: field,
           typedValue,
           otherTypedValue: state.typedValue,
-        }
+        };
       }
       return {
         ...state,
         independentField: field,
         typedValue,
         otherTypedValue: '',
-      }
+      };
     }),
-)
+);

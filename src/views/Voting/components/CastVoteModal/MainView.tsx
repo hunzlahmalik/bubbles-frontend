@@ -1,22 +1,22 @@
-import React from 'react'
-import { IconButton, Text, Skeleton, Button, AutoRenewIcon, ChevronRightIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { formatNumber } from 'utils/formatBalance'
-import TextEllipsis from '../TextEllipsis'
-import { VotingBox, ModalInner } from './styles'
-import { CastVoteModalProps } from './types'
+import React from 'react';
+import { IconButton, Text, Skeleton, Button, AutoRenewIcon, ChevronRightIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { formatNumber } from 'utils/formatBalance';
+import TextEllipsis from '../TextEllipsis';
+import { VotingBox, ModalInner } from './styles';
+import { CastVoteModalProps } from './types';
 
 interface MainViewProps {
   vote: {
-    label: string
-    value: number
-  }
-  isLoading: boolean
-  isPending: boolean
-  total: number
-  onConfirm: () => void
-  onViewDetails: () => void
-  onDismiss: CastVoteModalProps['onDismiss']
+    label: string;
+    value: number;
+  };
+  isLoading: boolean;
+  isPending: boolean;
+  total: number;
+  onConfirm: () => void;
+  onViewDetails: () => void;
+  onDismiss: CastVoteModalProps['onDismiss'];
 }
 
 const MainView: React.FC<MainViewProps> = ({
@@ -28,7 +28,7 @@ const MainView: React.FC<MainViewProps> = ({
   onViewDetails,
   onDismiss,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <>
@@ -72,7 +72,7 @@ const MainView: React.FC<MainViewProps> = ({
         {t('Cancel')}
       </Button>
     </>
-  )
-}
+  );
+};
 
-export default MainView
+export default MainView;

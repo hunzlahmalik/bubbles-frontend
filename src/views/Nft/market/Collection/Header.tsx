@@ -1,36 +1,36 @@
-import React from 'react'
-import { useLocation, useParams } from 'react-router'
-import { Text } from '@pancakeswap/uikit'
-import { Collection } from 'state/nftMarket/types'
-import { formatNumber } from 'utils/formatBalance'
-import { useTranslation } from 'contexts/Localization'
-import Container from 'components/Layout/Container'
-import MarketPageHeader from '../components/MarketPageHeader'
-import MarketPageTitle from '../components/MarketPageTitle'
-import StatBox, { StatBoxItem } from '../components/StatBox'
-import BannerHeader from '../components/BannerHeader'
-import AvatarImage from '../components/BannerHeader/AvatarImage'
-import BaseSubMenu from '../components/BaseSubMenu'
-import { nftsBaseUrl } from '../constants'
-import TopBar from './TopBar'
-import LowestPriceStatBoxItem from './LowestPriceStatBoxItem'
+import React from 'react';
+import { useLocation, useParams } from 'react-router';
+import { Text } from '@pancakeswap/uikit';
+import { Collection } from 'state/nftMarket/types';
+import { formatNumber } from 'utils/formatBalance';
+import { useTranslation } from 'contexts/Localization';
+import Container from 'components/Layout/Container';
+import MarketPageHeader from '../components/MarketPageHeader';
+import MarketPageTitle from '../components/MarketPageTitle';
+import StatBox, { StatBoxItem } from '../components/StatBox';
+import BannerHeader from '../components/BannerHeader';
+import AvatarImage from '../components/BannerHeader/AvatarImage';
+import BaseSubMenu from '../components/BaseSubMenu';
+import { nftsBaseUrl } from '../constants';
+import TopBar from './TopBar';
+import LowestPriceStatBoxItem from './LowestPriceStatBoxItem';
 
 interface HeaderProps {
-  collection: Collection
+  collection: Collection;
 }
 
 const Header: React.FC<HeaderProps> = ({ collection }) => {
-  const { collectionAddress } = useParams<{ collectionAddress: string }>()
-  const { totalSupply, numberTokensListed, totalVolumeBNB, banner, avatar } = collection
-  const { t } = useTranslation()
-  const { pathname, hash } = useLocation()
+  const { collectionAddress } = useParams<{ collectionAddress: string }>();
+  const { totalSupply, numberTokensListed, totalVolumeBNB, banner, avatar } = collection;
+  const { t } = useTranslation();
+  const { pathname, hash } = useLocation();
 
   const volume = totalVolumeBNB
     ? parseFloat(totalVolumeBNB).toLocaleString(undefined, {
         minimumFractionDigits: 3,
         maximumFractionDigits: 3,
       })
-    : '0'
+    : '0';
 
   const itemsConfig = [
     {
@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({ collection }) => {
       label: t('Activity'),
       href: `${nftsBaseUrl}/collections/${collectionAddress}#activity`,
     },
-  ]
+  ];
 
   return (
     <>
@@ -71,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ collection }) => {
         <BaseSubMenu items={itemsConfig} activeItem={`${pathname}${hash || '#items'}`} mt="24px" mb="8px" />
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -1,9 +1,9 @@
-import { Box, Flex, Heading, Progress, ProgressBar } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import React from 'react'
-import styled from 'styled-components'
-import { PublicIfoData } from '../../types'
-import LiveTimer, { SoonTimer } from './Timer'
+import { Box, Flex, Heading, Progress, ProgressBar } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import React from 'react';
+import styled from 'styled-components';
+import { PublicIfoData } from '../../types';
+import LiveTimer, { SoonTimer } from './Timer';
 
 const BigCurve = styled(Box)<{ $status: PublicIfoData['status'] }>`
   width: 150%;
@@ -22,35 +22,35 @@ const BigCurve = styled(Box)<{ $status: PublicIfoData['status'] }>`
       case 'coming_soon':
         return `
           background: ${theme.colors.tertiary};
-        `
+        `;
       case 'live':
         return `
           background: linear-gradient(#8051D6 100%, #492286 100%);
-        `
+        `;
       case 'finished':
         return `
           background: ${theme.colors.input};
-        `
+        `;
       default:
-        return ''
+        return '';
     }
   }}
-`
+`;
 
 export const IfoRibbon = ({ publicIfoData }: { publicIfoData: PublicIfoData }) => {
-  const { status } = publicIfoData
+  const { status } = publicIfoData;
 
-  let Component
+  let Component;
   if (status === 'finished') {
-    Component = <IfoRibbonEnd />
+    Component = <IfoRibbonEnd />;
   } else if (status === 'live') {
-    Component = <IfoRibbonLive publicIfoData={publicIfoData} />
+    Component = <IfoRibbonLive publicIfoData={publicIfoData} />;
   } else if (status === 'coming_soon') {
-    Component = <IfoRibbonSoon publicIfoData={publicIfoData} />
+    Component = <IfoRibbonSoon publicIfoData={publicIfoData} />;
   }
 
   if (status === 'idle') {
-    return null
+    return null;
   }
 
   return (
@@ -75,11 +75,11 @@ export const IfoRibbon = ({ publicIfoData }: { publicIfoData: PublicIfoData }) =
         {Component}
       </Flex>
     </>
-  )
-}
+  );
+};
 
 const IfoRibbonEnd = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <BigCurve $status="finished" />
@@ -89,8 +89,8 @@ const IfoRibbonEnd = () => {
         </Heading>
       </Box>
     </>
-  )
-}
+  );
+};
 
 const IfoRibbonSoon = ({ publicIfoData }: { publicIfoData: PublicIfoData }) => {
   return (
@@ -102,8 +102,8 @@ const IfoRibbonSoon = ({ publicIfoData }: { publicIfoData: PublicIfoData }) => {
         </Heading>
       </Box>
     </>
-  )
-}
+  );
+};
 
 const IfoRibbonLive = ({ publicIfoData }: { publicIfoData: PublicIfoData }) => {
   return (
@@ -113,5 +113,5 @@ const IfoRibbonLive = ({ publicIfoData }: { publicIfoData: PublicIfoData }) => {
         <LiveTimer publicIfoData={publicIfoData} />
       </Box>
     </>
-  )
-}
+  );
+};

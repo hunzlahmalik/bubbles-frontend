@@ -1,9 +1,9 @@
-import { request, gql } from 'graphql-request'
-import { INFO_CLIENT } from 'config/constants/endpoints'
-import { ChartEntry } from 'state/info/types'
-import { PCS_V2_START } from 'config/constants/info'
-import { TokenDayDatasResponse } from '../types'
-import { mapDayData, fetchChartData } from '../helpers'
+import { request, gql } from 'graphql-request';
+import { INFO_CLIENT } from 'config/constants/endpoints';
+import { ChartEntry } from 'state/info/types';
+import { PCS_V2_START } from 'config/constants/info';
+import { TokenDayDatasResponse } from '../types';
+import { mapDayData, fetchChartData } from '../helpers';
 
 const getTokenChartData = async (skip: number, address: string): Promise<{ data?: ChartEntry[]; error: boolean }> => {
   try {
@@ -21,22 +21,22 @@ const getTokenChartData = async (skip: number, address: string): Promise<{ data?
           totalLiquidityUSD
         }
       }
-    `
+    `;
     const { tokenDayDatas } = await request<TokenDayDatasResponse>(INFO_CLIENT, query, {
       startTime: PCS_V2_START,
       skip,
       address,
-    })
-    const data = tokenDayDatas.map(mapDayData)
-    return { data, error: false }
+    });
+    const data = tokenDayDatas.map(mapDayData);
+    return { data, error: false };
   } catch (error) {
-    console.error('Failed to fetch token chart data', error)
-    return { error: true }
+    console.error('Failed to fetch token chart data', error);
+    return { error: true };
   }
-}
+};
 
 const fetchTokenChartData = async (address: string): Promise<{ data?: ChartEntry[]; error: boolean }> => {
-  return fetchChartData(getTokenChartData, address)
-}
+  return fetchChartData(getTokenChartData, address);
+};
 
-export default fetchTokenChartData
+export default fetchTokenChartData;

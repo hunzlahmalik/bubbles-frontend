@@ -1,21 +1,21 @@
-import React from 'react'
-import { useTranslation } from 'contexts/Localization'
-import styled from 'styled-components'
-import { Modal, Text, Button, OpenNewIcon, Link } from '@pancakeswap/uikit'
-import useTheme from 'hooks/useTheme'
+import React from 'react';
+import { useTranslation } from 'contexts/Localization';
+import styled from 'styled-components';
+import { Modal, Text, Button, OpenNewIcon, Link } from '@pancakeswap/uikit';
+import useTheme from 'hooks/useTheme';
 
 interface NotEnoughTokensModalProps {
-  tokenSymbol: string
-  onDismiss?: () => void
+  tokenSymbol: string;
+  onDismiss?: () => void;
 }
 
 const StyledLink = styled(Link)`
   width: 100%;
-`
+`;
 
 const NotEnoughTokensModal: React.FC<NotEnoughTokensModalProps> = ({ tokenSymbol, onDismiss }) => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <Modal
@@ -45,7 +45,7 @@ const NotEnoughTokensModal: React.FC<NotEnoughTokensModalProps> = ({ tokenSymbol
         {t('Close Window')}
       </Button>
     </Modal>
-  )
-}
+  );
+};
 
-export default NotEnoughTokensModal
+export default NotEnoughTokensModal;

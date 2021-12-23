@@ -1,27 +1,27 @@
-import React from 'react'
-import { Modal, Flex, Text } from '@pancakeswap/uikit'
-import { ethers } from 'ethers'
-import { formatUnits } from '@ethersproject/units'
-import { useAppDispatch } from 'state'
-import { useTranslation } from 'contexts/Localization'
-import { useCake, useProfile } from 'hooks/useContract'
-import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { fetchProfile } from 'state/profile'
-import useToast from 'hooks/useToast'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import ApproveConfirmButtons from 'components/ApproveConfirmButtons'
-import { REGISTER_COST } from './config'
-import { State } from './contexts/types'
+import React from 'react';
+import { Modal, Flex, Text } from '@pancakeswap/uikit';
+import { ethers } from 'ethers';
+import { formatUnits } from '@ethersproject/units';
+import { useAppDispatch } from 'state';
+import { useTranslation } from 'contexts/Localization';
+import { useCake, useProfile } from 'hooks/useContract';
+import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction';
+import { fetchProfile } from 'state/profile';
+import useToast from 'hooks/useToast';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import ApproveConfirmButtons from 'components/ApproveConfirmButtons';
+import { REGISTER_COST } from './config';
+import { State } from './contexts/types';
 
 interface Props {
-  userName: string
-  selectedNft: State['selectedNft']
-  account: string
-  teamId: number
-  minimumCakeRequired: ethers.BigNumber
-  allowance: ethers.BigNumber
-  onDismiss?: () => void
+  userName: string;
+  selectedNft: State['selectedNft'];
+  account: string;
+  teamId: number;
+  minimumCakeRequired: ethers.BigNumber;
+  allowance: ethers.BigNumber;
+  onDismiss?: () => void;
 }
 
 const ConfirmProfileCreationModal: React.FC<Props> = ({
@@ -32,39 +32,39 @@ const ConfirmProfileCreationModal: React.FC<Props> = ({
   allowance,
   onDismiss,
 }) => {
-  const { t } = useTranslation()
-  const profileContract = useProfile()
-  const dispatch = useAppDispatch()
-  const { toastSuccess } = useToast()
-  const cakeContract = useCake()
-  const { callWithGasPrice } = useCallWithGasPrice()
+  const { t } = useTranslation();
+  const profileContract = useProfile();
+  const dispatch = useAppDispatch();
+  const { toastSuccess } = useToast();
+  const cakeContract = useCake();
+  const { callWithGasPrice } = useCallWithGasPrice();
 
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
       onRequiresApproval: async () => {
         try {
-          const response = await cakeContract.allowance(account, profileContract.address)
-          return response.gte(minimumCakeRequired)
+          const response = await cakeContract.allowance(account, profileContract.address);
+          return response.gte(minimumCakeRequired);
         } catch (error) {
-          return false
+          return false;
         }
       },
       onApprove: () => {
-        return callWithGasPrice(cakeContract, 'approve', [profileContract.address, allowance.toJSON()])
+        return callWithGasPrice(cakeContract, 'approve', [profileContract.address, allowance.toJSON()]);
       },
       onConfirm: () => {
         return callWithGasPrice(profileContract, 'createProfile', [
           teamId,
           selectedNft.collectionAddress,
           selectedNft.tokenId,
-        ])
+        ]);
       },
       onSuccess: async ({ receipt }) => {
-        await dispatch(fetchProfile(account))
-        onDismiss()
-        toastSuccess(t('Profile created!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />)
+        await dispatch(fetchProfile(account));
+        onDismiss();
+        toastSuccess(t('Profile created!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />);
       },
-    })
+    });
 
   return (
     <Modal title={t('Complete Profile')} onDismiss={onDismiss}>
@@ -84,7 +84,7 @@ const ConfirmProfileCreationModal: React.FC<Props> = ({
         onConfirm={handleConfirm}
       />
     </Modal>
-  )
-}
+  );
+};
 
-export default ConfirmProfileCreationModal
+export default ConfirmProfileCreationModal;

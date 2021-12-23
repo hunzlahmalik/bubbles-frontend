@@ -5,4 +5,4 @@ export enum CurrencyModalView {
   importList,
 }
 
-export default CurrencyModalView
+export default CurrencyModalView;

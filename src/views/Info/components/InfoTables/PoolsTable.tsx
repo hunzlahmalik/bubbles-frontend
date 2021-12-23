@@ -1,13 +1,13 @@
-import React, { useCallback, useState, useMemo, useEffect } from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { Text, Flex, Box, Skeleton, ArrowBackIcon, ArrowForwardIcon } from '@pancakeswap/uikit'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import { PoolData } from 'state/info/types'
-import { ITEMS_PER_INFO_TABLE_PAGE } from 'config/constants/info'
-import { DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo'
-import { useTranslation } from 'contexts/Localization'
-import { ClickableColumnHeader, TableWrapper, PageButtons, Arrow, Break } from './shared'
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Text, Flex, Box, Skeleton, ArrowBackIcon, ArrowForwardIcon } from '@pancakeswap/uikit';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import { PoolData } from 'state/info/types';
+import { ITEMS_PER_INFO_TABLE_PAGE } from 'config/constants/info';
+import { DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo';
+import { useTranslation } from 'contexts/Localization';
+import { ClickableColumnHeader, TableWrapper, PageButtons, Arrow, Break } from './shared';
 
 /**
  *  Columns on different layouts
@@ -45,7 +45,7 @@ const ResponsiveGrid = styled.div`
       display: none;
     }
   }
-`
+`;
 
 const LinkWrapper = styled(Link)`
   text-decoration: none;
@@ -53,7 +53,7 @@ const LinkWrapper = styled(Link)`
     cursor: pointer;
     opacity: 0.7;
   }
-`
+`;
 
 const SORT_FIELD = {
   volumeUSD: 'volumeUSD',
@@ -61,7 +61,7 @@ const SORT_FIELD = {
   volumeUSDWeek: 'volumeUSDWeek',
   lpFees24h: 'lpFees24h',
   lpApr7d: 'lpApr7d',
-}
+};
 
 const LoadingRow: React.FC = () => (
   <ResponsiveGrid>
@@ -73,7 +73,7 @@ const LoadingRow: React.FC = () => (
     <Skeleton />
     <Skeleton />
   </ResponsiveGrid>
-)
+);
 
 const TableLoader: React.FC = () => (
   <>
@@ -81,7 +81,7 @@ const TableLoader: React.FC = () => (
     <LoadingRow />
     <LoadingRow />
   </>
-)
+);
 
 const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
   return (
@@ -101,30 +101,30 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
         <Text>${formatAmount(poolData.liquidityUSD)}</Text>
       </ResponsiveGrid>
     </LinkWrapper>
-  )
-}
+  );
+};
 
 interface PoolTableProps {
-  poolDatas: PoolData[]
-  loading?: boolean // If true shows indication that SOME pools are loading, but the ones already fetched will be shown
+  poolDatas: PoolData[];
+  loading?: boolean; // If true shows indication that SOME pools are loading, but the ones already fetched will be shown
 }
 
 const PoolTable: React.FC<PoolTableProps> = ({ poolDatas, loading }) => {
   // for sorting
-  const [sortField, setSortField] = useState(SORT_FIELD.volumeUSD)
-  const [sortDirection, setSortDirection] = useState<boolean>(true)
-  const { t } = useTranslation()
+  const [sortField, setSortField] = useState(SORT_FIELD.volumeUSD);
+  const [sortDirection, setSortDirection] = useState<boolean>(true);
+  const { t } = useTranslation();
 
   // pagination
-  const [page, setPage] = useState(1)
-  const [maxPage, setMaxPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
   useEffect(() => {
-    let extraPages = 1
+    let extraPages = 1;
     if (poolDatas.length % ITEMS_PER_INFO_TABLE_PAGE === 0) {
-      extraPages = 0
+      extraPages = 0;
     }
-    setMaxPage(Math.floor(poolDatas.length / ITEMS_PER_INFO_TABLE_PAGE) + extraPages)
-  }, [poolDatas])
+    setMaxPage(Math.floor(poolDatas.length / ITEMS_PER_INFO_TABLE_PAGE) + extraPages);
+  }, [poolDatas]);
 
   const sortedPools = useMemo(() => {
     return poolDatas
@@ -133,29 +133,29 @@ const PoolTable: React.FC<PoolTableProps> = ({ poolDatas, loading }) => {
             if (a && b) {
               return a[sortField as keyof PoolData] > b[sortField as keyof PoolData]
                 ? (sortDirection ? -1 : 1) * 1
-                : (sortDirection ? -1 : 1) * -1
+                : (sortDirection ? -1 : 1) * -1;
             }
-            return -1
+            return -1;
           })
           .slice(ITEMS_PER_INFO_TABLE_PAGE * (page - 1), page * ITEMS_PER_INFO_TABLE_PAGE)
-      : []
-  }, [page, poolDatas, sortDirection, sortField])
+      : [];
+  }, [page, poolDatas, sortDirection, sortField]);
 
   const handleSort = useCallback(
     (newField: string) => {
-      setSortField(newField)
-      setSortDirection(sortField !== newField ? true : !sortDirection)
+      setSortField(newField);
+      setSortDirection(sortField !== newField ? true : !sortDirection);
     },
     [sortDirection, sortField],
-  )
+  );
 
   const arrow = useCallback(
     (field: string) => {
-      const directionArrow = !sortDirection ? '↑' : '↓'
-      return sortField === field ? directionArrow : ''
+      const directionArrow = !sortDirection ? '↑' : '↓';
+      return sortField === field ? directionArrow : '';
     },
     [sortDirection, sortField],
-  )
+  );
 
   return (
     <TableWrapper>
@@ -222,15 +222,15 @@ const PoolTable: React.FC<PoolTableProps> = ({ poolDatas, loading }) => {
                   <DataRow index={(page - 1) * ITEMS_PER_INFO_TABLE_PAGE + i} poolData={poolData} />
                   <Break />
                 </React.Fragment>
-              )
+              );
             }
-            return null
+            return null;
           })}
           {loading && <LoadingRow />}
           <PageButtons>
             <Arrow
               onClick={() => {
-                setPage(page === 1 ? page : page - 1)
+                setPage(page === 1 ? page : page - 1);
               }}
             >
               <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
@@ -240,7 +240,7 @@ const PoolTable: React.FC<PoolTableProps> = ({ poolDatas, loading }) => {
 
             <Arrow
               onClick={() => {
-                setPage(page === maxPage ? page : page + 1)
+                setPage(page === maxPage ? page : page + 1);
               }}
             >
               <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
@@ -255,7 +255,7 @@ const PoolTable: React.FC<PoolTableProps> = ({ poolDatas, loading }) => {
         </>
       )}
     </TableWrapper>
-  )
-}
+  );
+};
 
-export default PoolTable
+export default PoolTable;

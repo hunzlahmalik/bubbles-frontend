@@ -1,27 +1,27 @@
-import React from 'react'
-import { Flex, LinkExternal, Text, Tag, CheckmarkCircleIcon } from '@pancakeswap/uikit'
-import truncateHash from 'utils/truncateHash'
-import { getBscScanLink } from 'utils'
-import { useTranslation } from 'contexts/Localization'
-import { Vote } from 'state/types'
-import { IPFS_GATEWAY } from '../../config'
-import TextEllipsis from '../TextEllipsis'
-import Row, { AddressColumn, ChoiceColumn, VotingPowerColumn } from './Row'
+import React from 'react';
+import { Flex, LinkExternal, Text, Tag, CheckmarkCircleIcon } from '@pancakeswap/uikit';
+import truncateHash from 'utils/truncateHash';
+import { getBscScanLink } from 'utils';
+import { useTranslation } from 'contexts/Localization';
+import { Vote } from 'state/types';
+import { IPFS_GATEWAY } from '../../config';
+import TextEllipsis from '../TextEllipsis';
+import Row, { AddressColumn, ChoiceColumn, VotingPowerColumn } from './Row';
 
 interface VoteRowProps {
-  vote: Vote
-  isVoter: boolean
+  vote: Vote;
+  isVoter: boolean;
 }
 
 const VoteRow: React.FC<VoteRowProps> = ({ vote, isVoter }) => {
-  const { t } = useTranslation()
-  const hasVotingPower = !!vote.metadata?.votingPower
+  const { t } = useTranslation();
+  const hasVotingPower = !!vote.metadata?.votingPower;
   const votingPower = hasVotingPower
     ? parseFloat(vote.metadata.votingPower).toLocaleString(undefined, {
         minimumFractionDigits: 0,
         maximumFractionDigits: 3,
       })
-    : '--'
+    : '--';
 
   return (
     <Row>
@@ -47,7 +47,7 @@ const VoteRow: React.FC<VoteRowProps> = ({ vote, isVoter }) => {
         </Flex>
       </VotingPowerColumn>
     </Row>
-  )
-}
+  );
+};
 
-export default VoteRow
+export default VoteRow;

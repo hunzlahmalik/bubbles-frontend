@@ -12,7 +12,7 @@ export const getBaseNftFields = () => `
   collection {
     id
   }
-`
+`;
 
 export const getBaseTransactionFields = () => `
   id
@@ -27,7 +27,7 @@ export const getBaseTransactionFields = () => `
   seller {
     id
   }
-`
+`;
 
 export const getCollectionBaseFields = () => `
   id
@@ -41,4 +41,4 @@ export const getCollectionBaseFields = () => `
   tradingFee
   creatorFee
   whitelistChecker
-`
+`;

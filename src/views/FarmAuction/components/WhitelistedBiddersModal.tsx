@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Modal, Box, Text, Flex, Input, OpenNewIcon, useMatchBreakpoints, Spinner } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useTheme from 'hooks/useTheme'
-import { FarmAuctionBidderConfig } from 'config/constants/types'
-import truncateHash from 'utils/truncateHash'
-import useWhitelistedAddresses from '../hooks/useWhitelistedAddresses'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Modal, Box, Text, Flex, Input, OpenNewIcon, useMatchBreakpoints, Spinner } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useTheme from 'hooks/useTheme';
+import { FarmAuctionBidderConfig } from 'config/constants/types';
+import truncateHash from 'utils/truncateHash';
+import useWhitelistedAddresses from '../hooks/useWhitelistedAddresses';
 
 interface WhitelistedBiddersModalProps {
-  onDismiss?: () => void
+  onDismiss?: () => void;
 }
 
 const StyledModal = styled(Modal)`
   & > div:nth-child(2) {
     padding: 0;
   }
-`
+`;
 
 const InputContainer = styled(Flex)`
   border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
-`
+`;
 
 const AddressRowContainer = styled.div`
   display: grid;
@@ -30,10 +30,10 @@ const AddressRowContainer = styled.div`
     cursor: pointer;
     opacity: 0.5;
   }
-`
+`;
 
 const AddressRow: React.FC<{ bidder: FarmAuctionBidderConfig; isMobile: boolean }> = ({ bidder, isMobile }) => {
-  const { farmName, tokenName, account, projectSite } = bidder
+  const { farmName, tokenName, account, projectSite } = bidder;
   return (
     <a href={projectSite} target="_blank" rel="noopener noreferrer">
       <AddressRowContainer>
@@ -49,19 +49,19 @@ const AddressRow: React.FC<{ bidder: FarmAuctionBidderConfig; isMobile: boolean 
         <OpenNewIcon color="primary" />
       </AddressRowContainer>
     </a>
-  )
-}
+  );
+};
 
 const WhitelistedBiddersModal: React.FC<WhitelistedBiddersModalProps> = ({ onDismiss }) => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const { isMobile } = useMatchBreakpoints()
-  const bidders = useWhitelistedAddresses()
+  const [searchTerm, setSearchTerm] = useState('');
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const { isMobile } = useMatchBreakpoints();
+  const bidders = useWhitelistedAddresses();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value)
-  }
+    setSearchTerm(e.target.value);
+  };
 
   const filteredBidders = bidders
     ? bidders.filter(
@@ -70,7 +70,7 @@ const WhitelistedBiddersModal: React.FC<WhitelistedBiddersModalProps> = ({ onDis
           tokenName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           account.toLowerCase().includes(searchTerm.toLowerCase()),
       )
-    : []
+    : [];
 
   const modalContent = bidders ? (
     filteredBidders.map((bidder) => <AddressRow key={bidder.account} bidder={bidder} isMobile={isMobile} />)
@@ -78,7 +78,7 @@ const WhitelistedBiddersModal: React.FC<WhitelistedBiddersModalProps> = ({ onDis
     <Flex justifyContent="center" alignItems="center" py="24px">
       <Spinner />
     </Flex>
-  )
+  );
 
   return (
     <StyledModal
@@ -95,7 +95,7 @@ const WhitelistedBiddersModal: React.FC<WhitelistedBiddersModalProps> = ({ onDis
         {modalContent}
       </Box>
     </StyledModal>
-  )
-}
+  );
+};
 
-export default WhitelistedBiddersModal
+export default WhitelistedBiddersModal;

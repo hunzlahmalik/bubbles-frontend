@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, TooltipText, IconButton, useModal, CalculateIcon, Skeleton, useTooltip } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import Balance from 'components/Balance'
-import RoiCalculatorModal from 'components/RoiCalculatorModal'
-import { DeserializedPool } from 'state/types'
-import BigNumber from 'bignumber.js'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { vaultPoolConfig } from 'config/constants/pools'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, TooltipText, IconButton, useModal, CalculateIcon, Skeleton, useTooltip } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import Balance from 'components/Balance';
+import RoiCalculatorModal from 'components/RoiCalculatorModal';
+import { DeserializedPool } from 'state/types';
+import BigNumber from 'bignumber.js';
+import { BIG_ZERO } from 'utils/bigNumber';
+import { vaultPoolConfig } from 'config/constants/pools';
 
 const ApyLabelContainer = styled(Flex)`
   cursor: pointer;
@@ -15,16 +15,16 @@ const ApyLabelContainer = styled(Flex)`
   &:hover {
     opacity: 0.5;
   }
-`
+`;
 
 interface AprRowProps {
-  pool: DeserializedPool
-  stakedBalance: BigNumber
-  performanceFee?: number
+  pool: DeserializedPool;
+  stakedBalance: BigNumber;
+  performanceFee?: number;
 }
 
 const AprRow: React.FC<AprRowProps> = ({ pool, stakedBalance, performanceFee = 0 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const {
     stakingToken,
     earningToken,
@@ -35,17 +35,17 @@ const AprRow: React.FC<AprRowProps> = ({ pool, stakedBalance, performanceFee = 0
     stakingTokenPrice,
     userData,
     vaultKey,
-  } = pool
+  } = pool;
 
-  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
+  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO;
 
   const tooltipContent = vaultKey
     ? t('APY includes compounding, APR doesn’t. This pool’s CAKE is compounded automatically, so we show APY.')
-    : t('This pool’s rewards aren’t compounded automatically, so we show APR')
+    : t('This pool’s rewards aren’t compounded automatically, so we show APR');
 
-  const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, { placement: 'bottom-start' })
+  const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, { placement: 'bottom-start' });
 
-  const apyModalLink = stakingToken.address ? `/swap?outputCurrency=${stakingToken.address}` : '/swap'
+  const apyModalLink = stakingToken.address ? `/swap?outputCurrency=${stakingToken.address}` : '/swap';
 
   const [onPresentApyModal] = useModal(
     <RoiCalculatorModal
@@ -60,7 +60,7 @@ const AprRow: React.FC<AprRowProps> = ({ pool, stakedBalance, performanceFee = 0
       autoCompoundFrequency={vaultPoolConfig[vaultKey]?.autoCompoundFrequency ?? 0}
       performanceFee={performanceFee}
     />,
-  )
+  );
 
   return (
     <Flex alignItems="center" justifyContent="space-between">
@@ -86,7 +86,7 @@ const AprRow: React.FC<AprRowProps> = ({ pool, stakedBalance, performanceFee = 0
         <Skeleton width="82px" height="32px" />
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default AprRow
+export default AprRow;

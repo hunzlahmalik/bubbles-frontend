@@ -1,8 +1,8 @@
-import { request, gql } from 'graphql-request'
-import { INFO_CLIENT } from 'config/constants/endpoints'
-import { Transaction } from 'state/info/types'
-import { MintResponse, SwapResponse, BurnResponse } from 'state/info/queries/types'
-import { mapMints, mapBurns, mapSwaps } from 'state/info/queries/helpers'
+import { request, gql } from 'graphql-request';
+import { INFO_CLIENT } from 'config/constants/endpoints';
+import { Transaction } from 'state/info/types';
+import { MintResponse, SwapResponse, BurnResponse } from 'state/info/queries/types';
+import { mapMints, mapBurns, mapSwaps } from 'state/info/queries/helpers';
 
 /**
  * Transactions for Transaction table on the Home page
@@ -66,31 +66,31 @@ const GLOBAL_TRANSACTIONS = gql`
       amountUSD
     }
   }
-`
+`;
 interface TransactionResults {
-  mints: MintResponse[]
-  swaps: SwapResponse[]
-  burns: BurnResponse[]
+  mints: MintResponse[];
+  swaps: SwapResponse[];
+  burns: BurnResponse[];
 }
 
 const fetchTopTransactions = async (): Promise<Transaction[] | undefined> => {
   try {
-    const data = await request<TransactionResults>(INFO_CLIENT, GLOBAL_TRANSACTIONS)
+    const data = await request<TransactionResults>(INFO_CLIENT, GLOBAL_TRANSACTIONS);
 
     if (!data) {
-      return undefined
+      return undefined;
     }
 
-    const mints = data.mints.map(mapMints)
-    const burns = data.burns.map(mapBurns)
-    const swaps = data.swaps.map(mapSwaps)
+    const mints = data.mints.map(mapMints);
+    const burns = data.burns.map(mapBurns);
+    const swaps = data.swaps.map(mapSwaps);
 
     return [...mints, ...burns, ...swaps].sort((a, b) => {
-      return parseInt(b.timestamp, 10) - parseInt(a.timestamp, 10)
-    })
+      return parseInt(b.timestamp, 10) - parseInt(a.timestamp, 10);
+    });
   } catch {
-    return undefined
+    return undefined;
   }
-}
+};
 
-export default fetchTopTransactions
+export default fetchTopTransactions;

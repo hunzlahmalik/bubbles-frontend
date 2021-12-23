@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import {
   ModalContainer,
   ModalBody,
@@ -15,31 +15,31 @@ import {
   Box,
   ModalCloseButton,
   Skeleton,
-} from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { useAppDispatch } from 'state'
-import { REWARD_RATE } from 'state/predictions/config'
-import { fetchNodeHistory, markAsCollected } from 'state/predictions'
-import { Bet } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import useToast from 'hooks/useToast'
-import { usePredictionsContract } from 'hooks/useContract'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import { useGetHistory, useGetIsFetchingHistory } from 'state/predictions/hooks'
-import { multiplyPriceByAmount } from 'utils/prices'
-import { formatNumber } from 'utils/formatBalance'
-import { logError } from 'utils/sentry'
-import { getPayout } from './History/helpers'
+} from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { useAppDispatch } from 'state';
+import { REWARD_RATE } from 'state/predictions/config';
+import { fetchNodeHistory, markAsCollected } from 'state/predictions';
+import { Bet } from 'state/types';
+import { useTranslation } from 'contexts/Localization';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import useToast from 'hooks/useToast';
+import { usePredictionsContract } from 'hooks/useContract';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import { useGetHistory, useGetIsFetchingHistory } from 'state/predictions/hooks';
+import { multiplyPriceByAmount } from 'utils/prices';
+import { formatNumber } from 'utils/formatBalance';
+import { logError } from 'utils/sentry';
+import { getPayout } from './History/helpers';
 
 interface CollectRoundWinningsModalProps extends InjectedModalProps {
-  onSuccess?: () => Promise<void>
+  onSuccess?: () => Promise<void>;
 }
 
 const Modal = styled(ModalContainer)`
   overflow: visible;
-`
+`;
 
 const BunnyDecoration = styled.div`
   position: absolute;
@@ -47,95 +47,95 @@ const BunnyDecoration = styled.div`
   left: 0px;
   text-align: center;
   width: 100%;
-`
+`;
 
 interface ClaimableRounds {
-  epochs: number[]
-  total: number
+  epochs: number[];
+  total: number;
 }
 
 const calculateClaimableRounds = (history): ClaimableRounds => {
   if (!history) {
-    return { epochs: [], total: 0 }
+    return { epochs: [], total: 0 };
   }
 
   return history.reduce(
     (accum: ClaimableRounds, bet: Bet) => {
       if (!bet.claimed && bet.position === bet.round.position) {
-        const betPayout = getPayout(bet, REWARD_RATE)
+        const betPayout = getPayout(bet, REWARD_RATE);
         return {
           ...accum,
           epochs: [...accum.epochs, bet.round.epoch],
           total: accum.total + betPayout,
-        }
+        };
       }
 
-      return accum
+      return accum;
     },
     { epochs: [], total: 0 },
-  )
-}
+  );
+};
 
 const CollectRoundWinningsModal: React.FC<CollectRoundWinningsModalProps> = ({ onDismiss, onSuccess }) => {
-  const [isPendingTx, setIsPendingTx] = useState(false)
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
-  const { toastSuccess, toastError } = useToast()
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const predictionsContract = usePredictionsContract()
-  const bnbBusdPrice = useBNBBusdPrice()
-  const dispatch = useAppDispatch()
-  const isLoadingHistory = useGetIsFetchingHistory()
-  const history = useGetHistory()
+  const [isPendingTx, setIsPendingTx] = useState(false);
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
+  const { toastSuccess, toastError } = useToast();
+  const { callWithGasPrice } = useCallWithGasPrice();
+  const predictionsContract = usePredictionsContract();
+  const bnbBusdPrice = useBNBBusdPrice();
+  const dispatch = useAppDispatch();
+  const isLoadingHistory = useGetIsFetchingHistory();
+  const history = useGetHistory();
 
-  const { epochs, total } = calculateClaimableRounds(history)
-  const totalBnb = multiplyPriceByAmount(bnbBusdPrice, total)
+  const { epochs, total } = calculateClaimableRounds(history);
+  const totalBnb = multiplyPriceByAmount(bnbBusdPrice, total);
 
   useEffect(() => {
     // Fetch history if they have not opened the history pane yet
     if (history.length === 0) {
-      dispatch(fetchNodeHistory({ account }))
+      dispatch(fetchNodeHistory({ account }));
     }
-  }, [account, history, dispatch])
+  }, [account, history, dispatch]);
 
   const handleClick = async () => {
     try {
-      const tx = await callWithGasPrice(predictionsContract, 'claim', [epochs])
-      setIsPendingTx(true)
-      const receipt = await tx.wait()
+      const tx = await callWithGasPrice(predictionsContract, 'claim', [epochs]);
+      setIsPendingTx(true);
+      const receipt = await tx.wait();
 
       // Immediately mark rounds as claimed
       dispatch(
         markAsCollected(
           epochs.reduce((accum, epoch) => {
-            return { ...accum, [epoch]: true }
+            return { ...accum, [epoch]: true };
           }, {}),
         ),
-      )
+      );
 
       if (onSuccess) {
-        await onSuccess()
+        await onSuccess();
       }
 
-      onDismiss()
-      setIsPendingTx(false)
+      onDismiss();
+      setIsPendingTx(false);
       toastSuccess(
         t('Winnings collected!'),
         <ToastDescriptionWithTx txHash={receipt.transactionHash}>
           {t('Your prizes have been sent to your wallet')}
         </ToastDescriptionWithTx>,
-      )
+      );
     } catch (error) {
-      console.error('Unable to claim winnings', error)
-      logError(error)
+      console.error('Unable to claim winnings', error);
+      logError(error);
       toastError(
         t('Error'),
         error?.data?.message || t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-      )
+      );
     } finally {
-      setIsPendingTx(false)
+      setIsPendingTx(false);
     }
-  }
+  };
 
   return (
     <Modal minWidth="288px" position="relative" mt="124px">
@@ -181,7 +181,7 @@ const CollectRoundWinningsModal: React.FC<CollectRoundWinningsModalProps> = ({ o
         </Button>
       </ModalBody>
     </Modal>
-  )
-}
+  );
+};
 
-export default CollectRoundWinningsModal
+export default CollectRoundWinningsModal;

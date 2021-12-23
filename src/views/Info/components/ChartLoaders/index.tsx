@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import LineChartLoaderSVG from './LineChartLoaderSVG'
-import BarChartLoaderSVG from './BarChartLoaderSVG'
-import CandleChartLoaderSVG from './CandleChartLoaderSVG'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import LineChartLoaderSVG from './LineChartLoaderSVG';
+import BarChartLoaderSVG from './BarChartLoaderSVG';
+import CandleChartLoaderSVG from './CandleChartLoaderSVG';
 
 const LoadingText = styled(Box)`
   position: absolute;
@@ -14,15 +14,15 @@ const LoadingText = styled(Box)`
   left: 0;
   right: 0;
   text-align: center;
-`
+`;
 
 const LoadingIndicator = styled(Box)`
   height: 100%;
   position: relative;
-`
+`;
 
 export const BarChartLoader: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <LoadingIndicator>
       <BarChartLoaderSVG />
@@ -32,11 +32,11 @@ export const BarChartLoader: React.FC = () => {
         </Text>
       </LoadingText>
     </LoadingIndicator>
-  )
-}
+  );
+};
 
 export const LineChartLoader: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <LoadingIndicator>
       <LineChartLoaderSVG />
@@ -46,11 +46,11 @@ export const LineChartLoader: React.FC = () => {
         </Text>
       </LoadingText>
     </LoadingIndicator>
-  )
-}
+  );
+};
 
 export const CandleChartLoader: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <LoadingIndicator>
       <CandleChartLoaderSVG />
@@ -60,5 +60,5 @@ export const CandleChartLoader: React.FC = () => {
         </Text>
       </LoadingText>
     </LoadingIndicator>
-  )
-}
+  );
+};

@@ -1,37 +1,37 @@
-import React, { useState } from 'react'
-import orderBy from 'lodash/orderBy'
-import { BunnyPlaceholderIcon, Button, Flex, Grid, Text } from '@pancakeswap/uikit'
+import React, { useState } from 'react';
+import orderBy from 'lodash/orderBy';
+import { BunnyPlaceholderIcon, Button, Flex, Grid, Text } from '@pancakeswap/uikit';
 import {
   useGetNftFilterLoadingState,
   useGetNftOrdering,
   useGetNftShowOnlyOnSale,
   useNftsFromCollection,
-} from 'state/nftMarket/hooks'
-import { Collection, NftFilterLoadingState } from 'state/nftMarket/types'
-import { useTranslation } from 'contexts/Localization'
-import GridPlaceholder from '../../components/GridPlaceholder'
-import { CollectibleLinkCard } from '../../components/CollectibleCard'
-import { REQUEST_SIZE } from '../config'
+} from 'state/nftMarket/hooks';
+import { Collection, NftFilterLoadingState } from 'state/nftMarket/types';
+import { useTranslation } from 'contexts/Localization';
+import GridPlaceholder from '../../components/GridPlaceholder';
+import { CollectibleLinkCard } from '../../components/CollectibleCard';
+import { REQUEST_SIZE } from '../config';
 
 interface FilteredCollectionNftsProps {
-  collection: Collection
+  collection: Collection;
 }
 
 const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collection }) => {
-  const { address: collectionAddress } = collection
-  const [numToShow, setNumToShow] = useState(REQUEST_SIZE)
-  const { t } = useTranslation()
-  const selectedOrder = useGetNftOrdering(collectionAddress)
-  const showOnlyNftsOnSale = useGetNftShowOnlyOnSale(collectionAddress)
-  const collectionNfts = useNftsFromCollection(collectionAddress)
-  const nftFilterLoadingState = useGetNftFilterLoadingState(collectionAddress)
+  const { address: collectionAddress } = collection;
+  const [numToShow, setNumToShow] = useState(REQUEST_SIZE);
+  const { t } = useTranslation();
+  const selectedOrder = useGetNftOrdering(collectionAddress);
+  const showOnlyNftsOnSale = useGetNftShowOnlyOnSale(collectionAddress);
+  const collectionNfts = useNftsFromCollection(collectionAddress);
+  const nftFilterLoadingState = useGetNftFilterLoadingState(collectionAddress);
 
   const handleLoadMore = () => {
-    setNumToShow((prevNumToShow) => prevNumToShow + REQUEST_SIZE)
-  }
+    setNumToShow((prevNumToShow) => prevNumToShow + REQUEST_SIZE);
+  };
 
   if (nftFilterLoadingState === NftFilterLoadingState.LOADING) {
-    return <GridPlaceholder />
+    return <GridPlaceholder />;
   }
 
   const orderedNfts = collectionNfts
@@ -41,26 +41,26 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
           if (selectedOrder.field === 'currentAskPrice') {
             const currentAskPriceAsNumber = nft.marketData?.currentAskPrice
               ? parseFloat(nft.marketData?.currentAskPrice)
-              : 0
+              : 0;
             if (currentAskPriceAsNumber > 0) {
-              return parseFloat(nft.marketData.currentAskPrice)
+              return parseFloat(nft.marketData.currentAskPrice);
             }
-            return selectedOrder.direction === 'asc' ? Infinity : -Infinity
+            return selectedOrder.direction === 'asc' ? Infinity : -Infinity;
           }
           if (selectedOrder.field === 'tokenId') {
-            const tokenIdNumber = Number(nft.tokenId)
-            return Number.isFinite(tokenIdNumber) ? tokenIdNumber : 0
+            const tokenIdNumber = Number(nft.tokenId);
+            return Number.isFinite(tokenIdNumber) ? tokenIdNumber : 0;
           }
           // recently listed sorting
-          return nft.marketData ? parseInt(nft.marketData[selectedOrder.field], 10) : 0
+          return nft.marketData ? parseInt(nft.marketData[selectedOrder.field], 10) : 0;
         },
         selectedOrder.direction,
       )
-    : []
+    : [];
 
-  const filteredNfts = showOnlyNftsOnSale ? orderedNfts.filter((nft) => nft.marketData?.isTradable) : orderedNfts
+  const filteredNfts = showOnlyNftsOnSale ? orderedNfts.filter((nft) => nft.marketData?.isTradable) : orderedNfts;
 
-  const nftsToShow = filteredNfts.slice(0, numToShow)
+  const nftsToShow = filteredNfts.slice(0, numToShow);
 
   return (
     <>
@@ -77,7 +77,7 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
             alignItems="start"
           >
             {nftsToShow.map((nft) => {
-              const currentAskPriceAsNumber = nft.marketData && parseFloat(nft.marketData.currentAskPrice)
+              const currentAskPriceAsNumber = nft.marketData && parseFloat(nft.marketData.currentAskPrice);
 
               return (
                 <CollectibleLinkCard
@@ -85,7 +85,7 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
                   nft={nft}
                   currentAskPrice={currentAskPriceAsNumber > 0 ? currentAskPriceAsNumber : undefined}
                 />
-              )
+              );
             })}
           </Grid>
           <Flex mt="60px" mb="12px" justifyContent="center">
@@ -103,7 +103,7 @@ const FilteredCollectionNfts: React.FC<FilteredCollectionNftsProps> = ({ collect
         </Flex>
       )}
     </>
-  )
-}
+  );
+};
 
-export default FilteredCollectionNfts
+export default FilteredCollectionNfts;

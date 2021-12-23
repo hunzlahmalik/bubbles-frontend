@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import { Box, Flex, InjectedModalProps, Modal, Button, Spinner } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useTheme from 'hooks/useTheme'
-import useGetVotingPower from '../hooks/useGetVotingPower'
-import DetailsView from './CastVoteModal/DetailsView'
+import React, { useState } from 'react';
+import { Box, Flex, InjectedModalProps, Modal, Button, Spinner } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useTheme from 'hooks/useTheme';
+import useGetVotingPower from '../hooks/useGetVotingPower';
+import DetailsView from './CastVoteModal/DetailsView';
 
 interface VoteDetailsModalProps extends InjectedModalProps {
-  block: number
+  block: number;
 }
 
 const VoteDetailsModal: React.FC<VoteDetailsModalProps> = ({ block, onDismiss }) => {
-  const { t } = useTranslation()
-  const [modalIsOpen, setModalIsOpen] = useState(true)
+  const { t } = useTranslation();
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   const {
     isLoading,
     total,
@@ -21,13 +21,13 @@ const VoteDetailsModal: React.FC<VoteDetailsModalProps> = ({ block, onDismiss })
     poolsBalance,
     cakeBnbLpBalance,
     ifoPoolBalance,
-  } = useGetVotingPower(block, modalIsOpen)
-  const { theme } = useTheme()
+  } = useGetVotingPower(block, modalIsOpen);
+  const { theme } = useTheme();
 
   const handleDismiss = () => {
-    setModalIsOpen(false)
-    onDismiss()
-  }
+    setModalIsOpen(false);
+    onDismiss();
+  };
 
   return (
     <Modal title={t('Voting Power')} onDismiss={handleDismiss} headerBackground={theme.colors.gradients.cardHeader}>
@@ -54,7 +54,7 @@ const VoteDetailsModal: React.FC<VoteDetailsModalProps> = ({ block, onDismiss })
         )}
       </Box>
     </Modal>
-  )
-}
+  );
+};
 
-export default VoteDetailsModal
+export default VoteDetailsModal;

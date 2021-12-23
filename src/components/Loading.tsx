@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Loading = styled.div`
   border: 8px solid #f3f3f3;
@@ -26,6 +26,6 @@ const Loading = styled.div`
       transform: rotate(360deg);
     }
   }
-`
+`;
 
-export default Loading
+export default Loading;

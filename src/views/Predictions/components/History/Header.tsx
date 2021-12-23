@@ -1,5 +1,5 @@
-import React from 'react'
-import { useWeb3React } from '@web3-react/core'
+import React from 'react';
+import { useWeb3React } from '@web3-react/core';
 import {
   ArrowForwardIcon,
   Box,
@@ -10,26 +10,26 @@ import {
   Text,
   ButtonMenu,
   ButtonMenuItem,
-} from '@pancakeswap/uikit'
-import { useAppDispatch } from 'state'
-import { HistoryFilter } from 'state/types'
-import { setHistoryFilter, setHistoryPaneState } from 'state/predictions'
-import { useGetHistoryFilter, useGetIsFetchingHistory } from 'state/predictions/hooks'
-import { useTranslation } from 'contexts/Localization'
-import styled from 'styled-components'
+} from '@pancakeswap/uikit';
+import { useAppDispatch } from 'state';
+import { HistoryFilter } from 'state/types';
+import { setHistoryFilter, setHistoryPaneState } from 'state/predictions';
+import { useGetHistoryFilter, useGetIsFetchingHistory } from 'state/predictions/hooks';
+import { useTranslation } from 'contexts/Localization';
+import styled from 'styled-components';
 
 const Filter = styled.label`
   align-items: center;
   cursor: pointer;
   display: inline-flex;
   margin-right: 16px;
-`
+`;
 
 const StyledHeader = styled(Box)`
   background: ${({ theme }) => theme.colors.gradients.bubblegum};
   flex: none;
   padding: 16px;
-`
+`;
 
 const ButtonMenuContainer = styled.div`
   margin-bottom: 16px;
@@ -41,11 +41,11 @@ const ButtonMenuContainer = styled.div`
   & button {
     width: 100%;
   }
-`
+`;
 
 interface HeaderProps {
-  activeTab: HistoryTabs
-  setActiveTab: (value: HistoryTabs) => void
+  activeTab: HistoryTabs;
+  setActiveTab: (value: HistoryTabs) => void;
 }
 
 export enum HistoryTabs {
@@ -54,26 +54,26 @@ export enum HistoryTabs {
 }
 
 const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
-  const historyFilter = useGetHistoryFilter()
-  const isFetchingHistory = useGetIsFetchingHistory()
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
+  const historyFilter = useGetHistoryFilter();
+  const isFetchingHistory = useGetIsFetchingHistory();
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { account } = useWeb3React();
 
   const handleClick = () => {
-    dispatch(setHistoryPaneState(false))
-  }
+    dispatch(setHistoryPaneState(false));
+  };
 
   const handleChange = (newFilter: HistoryFilter) => async () => {
     if (newFilter !== historyFilter) {
-      dispatch(setHistoryFilter(newFilter))
+      dispatch(setHistoryFilter(newFilter));
     }
-  }
+  };
 
   const switchTab = async (tabIndex: number) => {
-    setActiveTab(tabIndex)
-    await handleChange(HistoryFilter.ALL)()
-  }
+    setActiveTab(tabIndex);
+    await handleChange(HistoryFilter.ALL)();
+  };
 
   return (
     <StyledHeader>
@@ -128,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         </>
       )}
     </StyledHeader>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -1,5 +1,5 @@
-import { LotteryTicket } from 'config/constants/types'
-import { random } from 'lodash'
+import { LotteryTicket } from 'config/constants/types';
+import { random } from 'lodash';
 
 /**
  * Generate a specific number of unique, randomised 7-digit lottery numbers between 1000000 & 1999999
@@ -14,29 +14,29 @@ const generateTicketNumbers = (
   const existingTicketNumbers =
     userCurrentTickets?.length > 0
       ? userCurrentTickets.map((ticket) => {
-          return parseInt(ticket?.number)
+          return parseInt(ticket?.number);
         })
-      : []
-  const generatedTicketNumbers = [...existingTicketNumbers]
+      : [];
+  const generatedTicketNumbers = [...existingTicketNumbers];
 
   for (let count = 0; count < numberOfTickets; count++) {
-    let randomNumber = random(minNumber, maxNumber)
+    let randomNumber = random(minNumber, maxNumber);
     while (generatedTicketNumbers.includes(randomNumber)) {
       // Catch for duplicates - generate a new number until the array doesn't include the random number generated
-      randomNumber = random(minNumber, maxNumber)
+      randomNumber = random(minNumber, maxNumber);
     }
-    generatedTicketNumbers.push(randomNumber)
+    generatedTicketNumbers.push(randomNumber);
   }
 
   // Filter out the users' existing tickets
   const ticketsToBuy =
     userCurrentTickets?.length > 0
       ? generatedTicketNumbers.filter((ticketNumber) => {
-          return !existingTicketNumbers.includes(ticketNumber)
+          return !existingTicketNumbers.includes(ticketNumber);
         })
-      : generatedTicketNumbers
+      : generatedTicketNumbers;
 
-  return ticketsToBuy
-}
+  return ticketsToBuy;
+};
 
-export default generateTicketNumbers
+export default generateTicketNumbers;

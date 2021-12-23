@@ -1,19 +1,19 @@
-import React from 'react'
-import { Box, Button, Flex, Heading, ProposalIcon } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'contexts/Localization'
-import Container from 'components/Layout/Container'
-import DesktopImage from './DesktopImage'
+import React from 'react';
+import { Box, Button, Flex, Heading, ProposalIcon } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'contexts/Localization';
+import Container from 'components/Layout/Container';
+import DesktopImage from './DesktopImage';
 
 const StyledHero = styled(Box)`
   background: ${({ theme }) => theme.colors.gradients.bubblegum};
   padding-bottom: 32px;
   padding-top: 32px;
-`
+`;
 
 const Hero = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <StyledHero>
@@ -38,7 +38,7 @@ const Hero = () => {
         </Flex>
       </Container>
     </StyledHero>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

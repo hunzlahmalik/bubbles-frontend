@@ -1,4 +1,4 @@
-import getTimePeriods from 'utils/getTimePeriods'
+import getTimePeriods from 'utils/getTimePeriods';
 
 it.each([
   [40, { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 40 }],
@@ -9,5 +9,5 @@ it.each([
   [94672800, { years: 3, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }],
   [34277461, { years: 1, months: 1, days: 1, hours: 1, minutes: 1, seconds: 1 }],
 ])('format %i seconds', (seconds, expected) => {
-  expect(getTimePeriods(seconds)).toEqual(expected)
-})
+  expect(getTimePeriods(seconds)).toEqual(expected);
+});

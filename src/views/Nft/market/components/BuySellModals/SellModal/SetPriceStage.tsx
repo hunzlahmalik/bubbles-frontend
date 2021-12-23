@@ -1,25 +1,25 @@
-import React, { useEffect, useRef } from 'react'
-import { Flex, Grid, Box, Text, Button, BinanceIcon, ErrorIcon, useTooltip } from '@pancakeswap/uikit'
-import { multiplyPriceByAmount } from 'utils/prices'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import { useTranslation } from 'contexts/Localization'
-import { NftToken } from 'state/nftMarket/types'
-import { useGetCollection } from 'state/nftMarket/hooks'
-import { Divider } from '../shared/styles'
-import { GreyedOutContainer, BnbAmountCell, RightAlignedInput, FeeAmountCell } from './styles'
+import React, { useEffect, useRef } from 'react';
+import { Flex, Grid, Box, Text, Button, BinanceIcon, ErrorIcon, useTooltip } from '@pancakeswap/uikit';
+import { multiplyPriceByAmount } from 'utils/prices';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import { useTranslation } from 'contexts/Localization';
+import { NftToken } from 'state/nftMarket/types';
+import { useGetCollection } from 'state/nftMarket/hooks';
+import { Divider } from '../shared/styles';
+import { GreyedOutContainer, BnbAmountCell, RightAlignedInput, FeeAmountCell } from './styles';
 
 interface SetPriceStageProps {
-  nftToSell: NftToken
-  variant: 'set' | 'adjust'
-  currentPrice?: string
-  lowestPrice?: number
-  price: string
-  setPrice: React.Dispatch<React.SetStateAction<string>>
-  continueToNextStage: () => void
+  nftToSell: NftToken;
+  variant: 'set' | 'adjust';
+  currentPrice?: string;
+  lowestPrice?: number;
+  price: string;
+  setPrice: React.Dispatch<React.SetStateAction<string>>;
+  continueToNextStage: () => void;
 }
 
-const MIN_PRICE = 0.005
-const MAX_PRICE = 10000
+const MIN_PRICE = 0.005;
+const MAX_PRICE = 10000;
 
 // Stage where user puts price for NFT they're about to put on sale
 // Also shown when user wants to adjust the price of already listed NFT
@@ -32,19 +32,19 @@ const SetPriceStage: React.FC<SetPriceStageProps> = ({
   setPrice,
   continueToNextStage,
 }) => {
-  const { t } = useTranslation()
-  const inputRef = useRef<HTMLInputElement>()
-  const adjustedPriceIsTheSame = variant === 'adjust' && parseFloat(currentPrice) === parseFloat(price)
-  const priceIsValid = !price || Number.isNaN(parseFloat(price)) || parseFloat(price) <= 0
+  const { t } = useTranslation();
+  const inputRef = useRef<HTMLInputElement>();
+  const adjustedPriceIsTheSame = variant === 'adjust' && parseFloat(currentPrice) === parseFloat(price);
+  const priceIsValid = !price || Number.isNaN(parseFloat(price)) || parseFloat(price) <= 0;
 
-  const { creatorFee, tradingFee } = useGetCollection(nftToSell.collectionAddress)
-  const creatorFeeAsNumber = parseFloat(creatorFee)
-  const tradingFeeAsNumber = parseFloat(tradingFee)
-  const bnbPrice = useBNBBusdPrice()
-  const priceAsFloat = parseFloat(price)
-  const priceInUsd = multiplyPriceByAmount(bnbPrice, priceAsFloat)
+  const { creatorFee, tradingFee } = useGetCollection(nftToSell.collectionAddress);
+  const creatorFeeAsNumber = parseFloat(creatorFee);
+  const tradingFeeAsNumber = parseFloat(tradingFee);
+  const bnbPrice = useBNBBusdPrice();
+  const priceAsFloat = parseFloat(price);
+  const priceInUsd = multiplyPriceByAmount(bnbPrice, priceAsFloat);
 
-  const priceIsOutOfRange = priceAsFloat > MAX_PRICE || priceAsFloat < MIN_PRICE
+  const priceIsOutOfRange = priceAsFloat > MAX_PRICE || priceAsFloat < MIN_PRICE;
 
   const { tooltip, tooltipVisible, targetRef } = useTooltip(
     <>
@@ -59,23 +59,23 @@ const SetPriceStage: React.FC<SetPriceStageProps> = ({
       <Text>{t('%percentage%% trading fee will be used to buy & burn CAKE', { percentage: tradingFee })}</Text>
     </>,
     { placement: 'auto' },
-  )
+  );
 
   useEffect(() => {
     if (inputRef && inputRef.current) {
-      inputRef.current.focus()
+      inputRef.current.focus();
     }
-  }, [inputRef])
+  }, [inputRef]);
 
   const getButtonText = () => {
     if (variant === 'adjust') {
       if (adjustedPriceIsTheSame || priceIsValid) {
-        return t('Input New Sale Price')
+        return t('Input New Sale Price');
       }
-      return t('Confirm')
+      return t('Confirm');
     }
-    return t('Enable Listing')
-  }
+    return t('Enable Listing');
+  };
   return (
     <>
       <Text fontSize="24px" bold p="16px">
@@ -167,7 +167,7 @@ const SetPriceStage: React.FC<SetPriceStageProps> = ({
         </Button>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default SetPriceStage
+export default SetPriceStage;

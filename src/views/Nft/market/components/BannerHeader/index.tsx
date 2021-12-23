@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react'
-import { Flex, Box, FlexProps } from '@pancakeswap/uikit'
-import BannerImage from './BannerImage'
+import React, { ReactNode } from 'react';
+import { Flex, Box, FlexProps } from '@pancakeswap/uikit';
+import BannerImage from './BannerImage';
 
 interface BannerHeaderProps extends FlexProps {
-  bannerImage: string
-  bannerAlt?: string
-  avatar?: ReactNode
+  bannerImage: string;
+  bannerAlt?: string;
+  avatar?: ReactNode;
 }
 
 const BannerHeader: React.FC<BannerHeaderProps> = ({ bannerImage, bannerAlt, avatar, children, ...props }) => {
@@ -21,7 +21,7 @@ const BannerHeader: React.FC<BannerHeaderProps> = ({ bannerImage, bannerAlt, ava
         </Box>
       </Box>
     </Flex>
-  )
-}
+  );
+};
 
-export default BannerHeader
+export default BannerHeader;

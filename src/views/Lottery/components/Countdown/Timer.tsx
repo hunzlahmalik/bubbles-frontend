@@ -1,12 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Heading } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Heading } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 export interface TimerProps {
-  minutes?: number
-  hours?: number
-  days?: number
+  minutes?: number;
+  hours?: number;
+  days?: number;
 }
 
 const StyledTimerFlex = styled(Flex)<{ showTooltip?: boolean }>`
@@ -14,16 +14,16 @@ const StyledTimerFlex = styled(Flex)<{ showTooltip?: boolean }>`
   div:last-of-type {
     margin-right: 0;
   }
-`
+`;
 
 const StyledTimerText = styled(Heading)`
   background: ${({ theme }) => theme.colors.gradients.gold};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-`
+`;
 
 const Wrapper: React.FC<TimerProps> = ({ minutes, hours, days }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <StyledTimerFlex alignItems="flex-end">
@@ -52,7 +52,7 @@ const Wrapper: React.FC<TimerProps> = ({ minutes, hours, days }) => {
         </>
       )}
     </StyledTimerFlex>
-  )
-}
+  );
+};
 
-export default Wrapper
+export default Wrapper;

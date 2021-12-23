@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, BoxProps, Flex, Skeleton, Text } from '@pancakeswap/uikit'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, BoxProps, Flex, Skeleton, Text } from '@pancakeswap/uikit';
 
 export interface StatBoxItemProps extends BoxProps {
-  title: string
-  stat: string
+  title: string;
+  stat: string;
 }
 
 export const StatBoxItem: React.FC<StatBoxItemProps> = ({ title, stat, ...props }) => (
@@ -20,7 +20,7 @@ export const StatBoxItem: React.FC<StatBoxItemProps> = ({ title, stat, ...props 
       </Text>
     )}
   </Box>
-)
+);
 
 const StatBox = styled(Flex)`
   align-items: center;
@@ -30,6 +30,6 @@ const StatBox = styled(Flex)`
   justify-content: space-around;
   padding: 8px;
   width: 100%;
-`
+`;
 
-export default StatBox
+export default StatBox;

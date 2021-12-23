@@ -1,26 +1,26 @@
-import { Box, BoxProps } from '@pancakeswap/uikit'
-import React, { FC } from 'react'
-import { NftToken } from 'state/nftMarket/types'
-import styled from 'styled-components'
-import { RoundedImage } from '../Collection/IndividualNFTPage/shared/styles'
+import { Box, BoxProps } from '@pancakeswap/uikit';
+import React, { FC } from 'react';
+import { NftToken } from 'state/nftMarket/types';
+import styled from 'styled-components';
+import { RoundedImage } from '../Collection/IndividualNFTPage/shared/styles';
 
 const StyledAspectRatio = styled(Box)`
   position: absolute;
   inset: 0;
-`
+`;
 
 export const AspectRatio = ({ ratio, children, ...props }) => (
   <Box width="100%" height={0} pb={`${100 / ratio}%`} position="relative" {...props}>
     <StyledAspectRatio>{children}</StyledAspectRatio>
   </Box>
-)
+);
 
 const NFTMedia: FC<
   {
-    nft: NftToken
-    as?: any
-    width: number
-    height: number
+    nft: NftToken;
+    as?: any;
+    width: number;
+    height: number;
   } & Omit<BoxProps, 'width' | 'height' | 'as'>
 > = ({ width, height, nft, borderRadius = 'default', as, ...props }) => {
   if (nft.image.webm || nft.image.mp4) {
@@ -31,7 +31,7 @@ const NFTMedia: FC<
           <source src={nft.image.mp4} type="video/mp4" />
         </Box>
       </AspectRatio>
-    )
+    );
   }
 
   return (
@@ -43,7 +43,7 @@ const NFTMedia: FC<
       as={as}
       {...props}
     />
-  )
-}
+  );
+};
 
-export default NFTMedia
+export default NFTMedia;

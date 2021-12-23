@@ -1,26 +1,26 @@
-import React from 'react'
-import styled, { keyframes, css } from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import { LinkExternal, Text } from '@pancakeswap/uikit'
-import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
-import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
-import { getAddress } from 'utils/addressHelpers'
-import { getBscScanLink } from 'utils'
-import { CommunityTag, CoreTag, DualTag } from 'components/Tags'
+import React from 'react';
+import styled, { keyframes, css } from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import { LinkExternal, Text } from '@pancakeswap/uikit';
+import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard';
+import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts';
+import { getAddress } from 'utils/addressHelpers';
+import { getBscScanLink } from 'utils';
+import { CommunityTag, CoreTag, DualTag } from 'components/Tags';
 
-import HarvestAction from './HarvestAction'
-import StakedAction from './StakedAction'
-import Apr, { AprProps } from '../Apr'
-import Multiplier, { MultiplierProps } from '../Multiplier'
-import Liquidity, { LiquidityProps } from '../Liquidity'
+import HarvestAction from './HarvestAction';
+import StakedAction from './StakedAction';
+import Apr, { AprProps } from '../Apr';
+import Multiplier, { MultiplierProps } from '../Multiplier';
+import Liquidity, { LiquidityProps } from '../Liquidity';
 
 export interface ActionPanelProps {
-  apr: AprProps
-  multiplier: MultiplierProps
-  liquidity: LiquidityProps
-  details: FarmWithStakedValue
-  userDataReady: boolean
-  expanded: boolean
+  apr: AprProps;
+  multiplier: MultiplierProps;
+  liquidity: LiquidityProps;
+  details: FarmWithStakedValue;
+  userDataReady: boolean;
+  expanded: boolean;
 }
 
 const expandAnimation = keyframes`
@@ -30,7 +30,7 @@ const expandAnimation = keyframes`
   to {
     max-height: 500px;
   }
-`
+`;
 
 const collapseAnimation = keyframes`
   from {
@@ -39,7 +39,7 @@ const collapseAnimation = keyframes`
   to {
     max-height: 0px;
   }
-`
+`;
 
 const Container = styled.div<{ expanded }>`
   animation: ${({ expanded }) =>
@@ -61,11 +61,11 @@ const Container = styled.div<{ expanded }>`
     flex-direction: row;
     padding: 16px 32px;
   }
-`
+`;
 
 const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
-`
+`;
 
 const StakeContainer = styled.div`
   color: ${({ theme }) => theme.colors.text};
@@ -76,7 +76,7 @@ const StakeContainer = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     justify-content: flex-start;
   }
-`
+`;
 
 const TagsContainer = styled.div`
   display: flex;
@@ -97,7 +97,7 @@ const TagsContainer = styled.div`
       width: 14px;
     }
   }
-`
+`;
 
 const ActionContainer = styled.div`
   display: flex;
@@ -109,11 +109,11 @@ const ActionContainer = styled.div`
     flex-grow: 1;
     flex-basis: 0;
   }
-`
+`;
 
 const InfoContainer = styled.div`
   min-width: 200px;
-`
+`;
 
 const ValueContainer = styled.div`
   display: block;
@@ -121,14 +121,14 @@ const ValueContainer = styled.div`
   ${({ theme }) => theme.mediaQueries.lg} {
     display: none;
   }
-`
+`;
 
 const ValueWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 4px 0px;
-`
+`;
 
 const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   details,
@@ -138,19 +138,19 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   userDataReady,
   expanded,
 }) => {
-  const farm = details
+  const farm = details;
 
-  const { t } = useTranslation()
-  const isActive = farm.multiplier !== '0X'
-  const { quoteToken, token, dual } = farm
-  const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
+  const { t } = useTranslation();
+  const isActive = farm.multiplier !== '0X';
+  const { quoteToken, token, dual } = farm;
+  const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '');
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress: quoteToken.address,
     tokenAddress: token.address,
-  })
-  const lpAddress = getAddress(farm.lpAddresses)
-  const bsc = getBscScanLink(lpAddress, 'address')
-  const info = `/info/pool/${lpAddress}`
+  });
+  const lpAddress = getAddress(farm.lpAddresses);
+  const bsc = getBscScanLink(lpAddress, 'address');
+  const info = `/info/pool/${lpAddress}`;
 
   return (
     <Container expanded={expanded}>
@@ -188,7 +188,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         <StakedAction {...farm} userDataReady={userDataReady} lpLabel={lpLabel} displayApr={apr.value} />
       </ActionContainer>
     </Container>
-  )
-}
+  );
+};
 
-export default ActionPanel
+export default ActionPanel;

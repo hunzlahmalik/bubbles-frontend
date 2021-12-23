@@ -1,16 +1,16 @@
-import { ethers } from 'ethers'
-import { Campaign, TranslatableText } from 'config/constants/types'
-import ifosList from 'config/constants/ifo'
-import { campaignMap } from 'config/constants/campaigns'
-import { Achievement } from 'state/types'
-import { multicallv2 } from 'utils/multicall'
-import { getPointCenterIfoAddress } from 'utils/addressHelpers'
-import pointCenterIfoABI from 'config/abi/pointCenterIfo.json'
+import { ethers } from 'ethers';
+import { Campaign, TranslatableText } from 'config/constants/types';
+import ifosList from 'config/constants/ifo';
+import { campaignMap } from 'config/constants/campaigns';
+import { Achievement } from 'state/types';
+import { multicallv2 } from 'utils/multicall';
+import { getPointCenterIfoAddress } from 'utils/addressHelpers';
+import pointCenterIfoABI from 'config/abi/pointCenterIfo.json';
 
 interface IfoMapResponse {
-  thresholdToClaim: string
-  campaignId: string
-  numberPoints: ethers.BigNumber
+  thresholdToClaim: string;
+  campaignId: string;
+  numberPoints: ethers.BigNumber;
 }
 
 export const getAchievementTitle = (campaign: Campaign): TranslatableText => {
@@ -21,11 +21,11 @@ export const getAchievementTitle = (campaign: Campaign): TranslatableText => {
         data: {
           title: campaign.title as string,
         },
-      }
+      };
     default:
-      return campaign.title
+      return campaign.title;
   }
-}
+};
 
 export const getAchievementDescription = (campaign: Campaign): TranslatableText => {
   switch (campaign.type) {
@@ -35,17 +35,17 @@ export const getAchievementDescription = (campaign: Campaign): TranslatableText 
         data: {
           title: campaign.title as string,
         },
-      }
+      };
     default:
-      return campaign.description
+      return campaign.description;
   }
-}
+};
 
 /**
  * Checks if a wallet is eligible to claim points from valid IFO's
  */
 export const getClaimableIfoData = async (account: string): Promise<Achievement[]> => {
-  const ifoCampaigns = ifosList.filter((ifoItem) => ifoItem.campaignId !== undefined)
+  const ifoCampaigns = ifosList.filter((ifoItem) => ifoItem.campaignId !== undefined);
 
   // Returns the claim status of every IFO with a campaign ID
   const claimStatusCalls = ifoCampaigns.map(({ address }) => {
@@ -53,40 +53,40 @@ export const getClaimableIfoData = async (account: string): Promise<Achievement[
       address: getPointCenterIfoAddress(),
       name: 'checkClaimStatus',
       params: [account, address],
-    }
-  })
+    };
+  });
 
   const claimStatuses = (await multicallv2(pointCenterIfoABI, claimStatusCalls, { requireSuccess: false })) as
     | [boolean][]
-    | null
+    | null;
 
   // Get IFO data for all IFO's that are eligible to claim
   const claimableIfoData = (await multicallv2(
     pointCenterIfoABI,
     claimStatuses.reduce((accum, claimStatusArr, index) => {
       if (claimStatusArr === null) {
-        return accum
+        return accum;
       }
 
-      const [claimStatus] = claimStatusArr
+      const [claimStatus] = claimStatusArr;
 
       if (claimStatus === true) {
-        return [...accum, { address: getPointCenterIfoAddress(), name: 'ifos', params: [ifoCampaigns[index].address] }]
+        return [...accum, { address: getPointCenterIfoAddress(), name: 'ifos', params: [ifoCampaigns[index].address] }];
       }
 
-      return accum
+      return accum;
     }, []),
-  )) as IfoMapResponse[]
+  )) as IfoMapResponse[];
 
   // Transform response to an Achievement
   return claimableIfoData.reduce((accum, claimableIfoDataItem) => {
-    const claimableCampaignId = claimableIfoDataItem.campaignId.toString()
+    const claimableCampaignId = claimableIfoDataItem.campaignId.toString();
     if (!campaignMap.has(claimableCampaignId)) {
-      return accum
+      return accum;
     }
 
-    const campaignMeta = campaignMap.get(claimableCampaignId)
-    const { address } = ifoCampaigns.find((ifoCampaign) => ifoCampaign.campaignId === claimableCampaignId)
+    const campaignMeta = campaignMap.get(claimableCampaignId);
+    const { address } = ifoCampaigns.find((ifoCampaign) => ifoCampaign.campaignId === claimableCampaignId);
 
     return [
       ...accum,
@@ -99,6 +99,6 @@ export const getClaimableIfoData = async (account: string): Promise<Achievement[
         badge: campaignMeta.badge,
         points: claimableIfoDataItem.numberPoints.toNumber(),
       },
-    ]
-  }, [])
-}
+    ];
+  }, []);
+};

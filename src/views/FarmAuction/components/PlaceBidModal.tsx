@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
-import { ethers } from 'ethers'
-import { Modal, Text, Flex, BalanceInput, Box, Button, PancakeRoundIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useWeb3React } from '@web3-react/core'
-import { formatNumber, getBalanceAmount, getBalanceNumber } from 'utils/formatBalance'
-import { ethersToBigNumber } from 'utils/bigNumber'
-import useTheme from 'hooks/useTheme'
-import useTokenBalance, { FetchStatus } from 'hooks/useTokenBalance'
-import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useCake, useFarmAuctionContract } from 'hooks/useContract'
-import { DEFAULT_TOKEN_DECIMAL } from 'config'
-import useToast from 'hooks/useToast'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import ApproveConfirmButtons, { ButtonArrangement } from 'components/ApproveConfirmButtons'
-import { ConnectedBidder } from 'config/constants/types'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import tokens from 'config/constants/tokens'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
+import { ethers } from 'ethers';
+import { Modal, Text, Flex, BalanceInput, Box, Button, PancakeRoundIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useWeb3React } from '@web3-react/core';
+import { formatNumber, getBalanceAmount, getBalanceNumber } from 'utils/formatBalance';
+import { ethersToBigNumber } from 'utils/bigNumber';
+import useTheme from 'hooks/useTheme';
+import useTokenBalance, { FetchStatus } from 'hooks/useTokenBalance';
+import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction';
+import { useCake, useFarmAuctionContract } from 'hooks/useContract';
+import { DEFAULT_TOKEN_DECIMAL } from 'config';
+import useToast from 'hooks/useToast';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import ApproveConfirmButtons, { ButtonArrangement } from 'components/ApproveConfirmButtons';
+import { ConnectedBidder } from 'config/constants/types';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import tokens from 'config/constants/tokens';
 
 const StyledModal = styled(Modal)`
   min-width: 280px;
@@ -27,24 +27,24 @@ const StyledModal = styled(Modal)`
   & > div:nth-child(2) {
     padding: 0;
   }
-`
+`;
 
 const ExistingInfo = styled(Box)`
   padding: 24px;
   background-color: ${({ theme }) => theme.colors.dropdown};
-`
+`;
 
 const InnerContent = styled(Box)`
   padding: 24px;
-`
+`;
 
 interface PlaceBidModalProps {
-  onDismiss?: () => void
+  onDismiss?: () => void;
   // undefined initialBidAmount is passed only if auction is not loaded
   // in this case modal will not be possible to open
-  initialBidAmount?: number
-  connectedBidder: ConnectedBidder
-  refreshBidders: () => void
+  initialBidAmount?: number;
+  connectedBidder: ConnectedBidder;
+  refreshBidders: () => void;
 }
 
 const PlaceBidModal: React.FC<PlaceBidModalProps> = ({
@@ -53,93 +53,93 @@ const PlaceBidModal: React.FC<PlaceBidModalProps> = ({
   connectedBidder,
   refreshBidders,
 }) => {
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const { callWithGasPrice } = useCallWithGasPrice()
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const { callWithGasPrice } = useCallWithGasPrice();
 
-  const [bid, setBid] = useState('')
-  const [isMultipleOfTen, setIsMultipleOfTen] = useState(false)
-  const [isMoreThanInitialBidAmount, setIsMoreThanInitialBidAmount] = useState(false)
-  const [userNotEnoughCake, setUserNotEnoughCake] = useState(false)
-  const [errorText, setErrorText] = useState(null)
+  const [bid, setBid] = useState('');
+  const [isMultipleOfTen, setIsMultipleOfTen] = useState(false);
+  const [isMoreThanInitialBidAmount, setIsMoreThanInitialBidAmount] = useState(false);
+  const [userNotEnoughCake, setUserNotEnoughCake] = useState(false);
+  const [errorText, setErrorText] = useState(null);
 
-  const { balance: userCake, fetchStatus } = useTokenBalance(tokens.cake.address)
-  const userCakeBalance = getBalanceAmount(userCake)
+  const { balance: userCake, fetchStatus } = useTokenBalance(tokens.cake.address);
+  const userCakeBalance = getBalanceAmount(userCake);
 
-  const cakePriceBusd = usePriceCakeBusd()
-  const farmAuctionContract = useFarmAuctionContract()
-  const cakeContract = useCake()
+  const cakePriceBusd = usePriceCakeBusd();
+  const farmAuctionContract = useFarmAuctionContract();
+  const cakeContract = useCake();
 
-  const { toastSuccess } = useToast()
+  const { toastSuccess } = useToast();
 
-  const { bidderData } = connectedBidder
-  const { amount, position } = bidderData
-  const isFirstBid = amount.isZero()
-  const isInvalidFirstBid = isFirstBid && !isMoreThanInitialBidAmount
+  const { bidderData } = connectedBidder;
+  const { amount, position } = bidderData;
+  const isFirstBid = amount.isZero();
+  const isInvalidFirstBid = isFirstBid && !isMoreThanInitialBidAmount;
 
   useEffect(() => {
-    setIsMoreThanInitialBidAmount(parseFloat(bid) >= initialBidAmount)
-    setIsMultipleOfTen(parseFloat(bid) % 10 === 0 && parseFloat(bid) !== 0)
+    setIsMoreThanInitialBidAmount(parseFloat(bid) >= initialBidAmount);
+    setIsMultipleOfTen(parseFloat(bid) % 10 === 0 && parseFloat(bid) !== 0);
     if (fetchStatus === FetchStatus.SUCCESS && userCakeBalance.lt(bid)) {
-      setUserNotEnoughCake(true)
+      setUserNotEnoughCake(true);
     } else {
-      setUserNotEnoughCake(false)
+      setUserNotEnoughCake(false);
     }
-  }, [bid, initialBidAmount, fetchStatus, userCakeBalance])
+  }, [bid, initialBidAmount, fetchStatus, userCakeBalance]);
 
   useEffect(() => {
     if (userNotEnoughCake) {
-      setErrorText(t('Insufficient CAKE balance'))
+      setErrorText(t('Insufficient CAKE balance'));
     } else if (!isMoreThanInitialBidAmount && isFirstBid) {
-      setErrorText(t('First bid must be %initialBidAmount% CAKE or more.', { initialBidAmount }))
+      setErrorText(t('First bid must be %initialBidAmount% CAKE or more.', { initialBidAmount }));
     } else if (!isMultipleOfTen) {
-      setErrorText(t('Bid must be a multiple of 10'))
+      setErrorText(t('Bid must be a multiple of 10'));
     } else {
-      setErrorText(null)
+      setErrorText(null);
     }
-  }, [isMultipleOfTen, isMoreThanInitialBidAmount, userNotEnoughCake, initialBidAmount, t, isFirstBid])
+  }, [isMultipleOfTen, isMoreThanInitialBidAmount, userNotEnoughCake, initialBidAmount, t, isFirstBid]);
 
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
       onRequiresApproval: async () => {
         try {
-          const response = await cakeContract.allowance(account, farmAuctionContract.address)
-          const currentAllowance = ethersToBigNumber(response)
-          return currentAllowance.gt(0)
+          const response = await cakeContract.allowance(account, farmAuctionContract.address);
+          const currentAllowance = ethersToBigNumber(response);
+          return currentAllowance.gt(0);
         } catch (error) {
-          return false
+          return false;
         }
       },
       onApprove: () => {
-        return callWithGasPrice(cakeContract, 'approve', [farmAuctionContract.address, ethers.constants.MaxUint256])
+        return callWithGasPrice(cakeContract, 'approve', [farmAuctionContract.address, ethers.constants.MaxUint256]);
       },
       onApproveSuccess: async ({ receipt }) => {
         toastSuccess(
           t('Contract approved - you can now place your bid!'),
           <ToastDescriptionWithTx txHash={receipt.transactionHash} />,
-        )
+        );
       },
       onConfirm: () => {
-        const bidAmount = new BigNumber(bid).times(DEFAULT_TOKEN_DECIMAL).toString()
-        return callWithGasPrice(farmAuctionContract, 'bid', [bidAmount])
+        const bidAmount = new BigNumber(bid).times(DEFAULT_TOKEN_DECIMAL).toString();
+        return callWithGasPrice(farmAuctionContract, 'bid', [bidAmount]);
       },
       onSuccess: async ({ receipt }) => {
-        refreshBidders()
-        onDismiss()
-        toastSuccess(t('Bid placed!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />)
+        refreshBidders();
+        onDismiss();
+        toastSuccess(t('Bid placed!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />);
       },
-    })
+    });
 
   const handleInputChange = (input: string) => {
-    setBid(input)
-  }
+    setBid(input);
+  };
 
   const setPercentageValue = (percentage: number) => {
-    const rounding = percentage === 1 ? BigNumber.ROUND_FLOOR : BigNumber.ROUND_CEIL
-    const valueToSet = getBalanceAmount(userCake.times(percentage)).div(10).integerValue(rounding).times(10)
-    setBid(valueToSet.toString())
-  }
+    const rounding = percentage === 1 ? BigNumber.ROUND_FLOOR : BigNumber.ROUND_CEIL;
+    const valueToSet = getBalanceAmount(userCake.times(percentage)).div(10).integerValue(rounding).times(10);
+    setBid(valueToSet.toString());
+  };
   return (
     <StyledModal title={t('Place a Bid')} onDismiss={onDismiss} headerBackground={theme.colors.gradients.cardHeader}>
       <ExistingInfo>
@@ -256,7 +256,7 @@ const PlaceBidModal: React.FC<PlaceBidModalProps> = ({
         </Text>
       </InnerContent>
     </StyledModal>
-  )
-}
+  );
+};
 
-export default PlaceBidModal
+export default PlaceBidModal;

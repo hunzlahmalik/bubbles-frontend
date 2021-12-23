@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
-import { Text, Link } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useENS from '../../../hooks/ENS/useENS'
-import useActiveWeb3React from '../../../hooks/useActiveWeb3React'
-import { AutoColumn } from '../../../components/Layout/Column'
-import { RowBetween } from '../../../components/Layout/Row'
-import { getBscScanLink } from '../../../utils'
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
+import { Text, Link } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useENS from '../../../hooks/ENS/useENS';
+import useActiveWeb3React from '../../../hooks/useActiveWeb3React';
+import { AutoColumn } from '../../../components/Layout/Column';
+import { RowBetween } from '../../../components/Layout/Row';
+import { getBscScanLink } from '../../../utils';
 
 const InputPanel = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const InputPanel = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
   z-index: 1;
   width: 100%;
-`
+`;
 
 const ContainerRow = styled.div<{ error: boolean }>`
   display: flex;
@@ -27,12 +27,12 @@ const ContainerRow = styled.div<{ error: boolean }>`
   transition: border-color 300ms ${({ error }) => (error ? 'step-end' : 'step-start')},
     color 500ms ${({ error }) => (error ? 'step-end' : 'step-start')};
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
-`
+`;
 
 const InputContainer = styled.div`
   flex: 1;
   padding: 1rem;
-`
+`;
 
 const Input = styled.input<{ error?: boolean }>`
   font-size: 1.25rem;
@@ -64,35 +64,35 @@ const Input = styled.input<{ error?: boolean }>`
   ::placeholder {
     color: ${({ theme }) => theme.colors.textDisabled};
   }
-`
+`;
 
 export default function AddressInputPanel({
   id,
   value,
   onChange,
 }: {
-  id?: string
+  id?: string;
   // the typed string value
-  value: string
+  value: string;
   // triggers whenever the typed value changes
-  onChange: (value: string) => void
+  onChange: (value: string) => void;
 }) {
-  const { chainId } = useActiveWeb3React()
+  const { chainId } = useActiveWeb3React();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { address, loading, name } = useENS(value)
+  const { address, loading, name } = useENS(value);
 
   const handleInput = useCallback(
     (event) => {
-      const input = event.target.value
-      const withoutSpaces = input.replace(/\s+/g, '')
-      onChange(withoutSpaces)
+      const input = event.target.value;
+      const withoutSpaces = input.replace(/\s+/g, '');
+      onChange(withoutSpaces);
     },
     [onChange],
-  )
+  );
 
-  const error = Boolean(value.length > 0 && !loading && !address)
+  const error = Boolean(value.length > 0 && !loading && !address);
 
   return (
     <InputPanel id={id}>
@@ -124,5 +124,5 @@ export default function AddressInputPanel({
         </InputContainer>
       </ContainerRow>
     </InputPanel>
-  )
+  );
 }

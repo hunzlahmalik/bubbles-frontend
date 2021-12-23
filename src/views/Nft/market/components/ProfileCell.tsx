@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Flex, BunnyPlaceholderIcon, Skeleton, Text } from '@pancakeswap/uikit'
-import truncateHash from 'utils/truncateHash'
-import { useGetProfileAvatar } from 'state/profile/hooks'
-import { ProfileAvatarFetchStatus } from 'state/types'
-import { Link } from 'react-router-dom'
-import { nftsBaseUrl } from '../constants'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Flex, BunnyPlaceholderIcon, Skeleton, Text } from '@pancakeswap/uikit';
+import truncateHash from 'utils/truncateHash';
+import { useGetProfileAvatar } from 'state/profile/hooks';
+import { ProfileAvatarFetchStatus } from 'state/types';
+import { Link } from 'react-router-dom';
+import { nftsBaseUrl } from '../constants';
 
 const Avatar = styled.img`
   margin-right: 4px;
@@ -16,7 +16,7 @@ const Avatar = styled.img`
   ${({ theme }) => theme.mediaQueries.md} {
     margin-right: 12px;
   }
-`
+`;
 
 const StyledFlex = styled(Flex)`
   align-items: center;
@@ -25,18 +25,18 @@ const StyledFlex = styled(Flex)`
   &:hover {
     opacity: 0.5;
   }
-`
+`;
 
 const ProfileCell: React.FC<{ accountAddress: string }> = ({ accountAddress }) => {
-  const { username, nft: profileNft, usernameFetchStatus, avatarFetchStatus } = useGetProfileAvatar(accountAddress)
-  const profileName = username || '-'
+  const { username, nft: profileNft, usernameFetchStatus, avatarFetchStatus } = useGetProfileAvatar(accountAddress);
+  const profileName = username || '-';
 
-  let sellerProfilePicComponent = <Skeleton width="32px" height="32px" mr={['4px', null, '12px']} />
+  let sellerProfilePicComponent = <Skeleton width="32px" height="32px" mr={['4px', null, '12px']} />;
   if (avatarFetchStatus === ProfileAvatarFetchStatus.FETCHED) {
     if (profileNft?.image?.thumbnail) {
-      sellerProfilePicComponent = <Avatar src={profileNft?.image?.thumbnail} />
+      sellerProfilePicComponent = <Avatar src={profileNft?.image?.thumbnail} />;
     } else {
-      sellerProfilePicComponent = <BunnyPlaceholderIcon width="32px" height="32px" mr={['4px', null, '12px']} />
+      sellerProfilePicComponent = <BunnyPlaceholderIcon width="32px" height="32px" mr={['4px', null, '12px']} />;
     }
   }
 
@@ -54,7 +54,7 @@ const ProfileCell: React.FC<{ accountAddress: string }> = ({ accountAddress }) =
         </Box>
       </StyledFlex>
     </Link>
-  )
-}
+  );
+};
 
-export default ProfileCell
+export default ProfileCell;

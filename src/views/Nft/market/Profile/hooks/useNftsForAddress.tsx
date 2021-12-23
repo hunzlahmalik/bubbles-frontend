@@ -1,18 +1,18 @@
-import { useEffect, useMemo, useState } from 'react'
-import isEmpty from 'lodash/isEmpty'
-import { useGetCollections } from 'state/nftMarket/hooks'
-import { NftLocation, NftToken } from 'state/nftMarket/types'
-import { Profile } from 'state/types'
-import { getCompleteAccountNftData } from 'state/nftMarket/helpers'
+import { useEffect, useMemo, useState } from 'react';
+import isEmpty from 'lodash/isEmpty';
+import { useGetCollections } from 'state/nftMarket/hooks';
+import { NftLocation, NftToken } from 'state/nftMarket/types';
+import { Profile } from 'state/types';
+import { getCompleteAccountNftData } from 'state/nftMarket/helpers';
 
 const useNftsForAddress = (account: string, profile: Profile, isProfileFetching: boolean) => {
-  const [combinedNfts, setCombinedNfts] = useState<NftToken[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const collections = useGetCollections()
+  const [combinedNfts, setCombinedNfts] = useState<NftToken[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const collections = useGetCollections();
 
-  const hasProfileNft = profile?.tokenId
-  const profileNftTokenId = profile?.tokenId?.toString()
-  const profileNftCollectionAddress = profile?.collectionAddress
+  const hasProfileNft = profile?.tokenId;
+  const profileNftTokenId = profile?.tokenId?.toString();
+  const profileNftCollectionAddress = profile?.collectionAddress;
 
   const profileNftWithCollectionAddress = useMemo(() => {
     if (hasProfileNft) {
@@ -20,25 +20,25 @@ const useNftsForAddress = (account: string, profile: Profile, isProfileFetching:
         tokenId: profileNftTokenId,
         collectionAddress: profileNftCollectionAddress,
         nftLocation: NftLocation.PROFILE,
-      }
+      };
     }
-    return null
-  }, [profileNftTokenId, profileNftCollectionAddress, hasProfileNft])
+    return null;
+  }, [profileNftTokenId, profileNftCollectionAddress, hasProfileNft]);
 
   useEffect(() => {
     const getNfts = async () => {
-      const completeNftData = await getCompleteAccountNftData(account, collections, profileNftWithCollectionAddress)
-      setCombinedNfts(completeNftData)
-      setIsLoading(false)
-    }
+      const completeNftData = await getCompleteAccountNftData(account, collections, profileNftWithCollectionAddress);
+      setCombinedNfts(completeNftData);
+      setIsLoading(false);
+    };
 
     if (!isProfileFetching && !isEmpty(collections)) {
-      setIsLoading(true)
-      getNfts()
+      setIsLoading(true);
+      getNfts();
     }
-  }, [account, collections, isProfileFetching, profileNftWithCollectionAddress])
+  }, [account, collections, isProfileFetching, profileNftWithCollectionAddress]);
 
-  return { nfts: combinedNfts, isLoading }
-}
+  return { nfts: combinedNfts, isLoading };
+};
 
-export default useNftsForAddress
+export default useNftsForAddress;

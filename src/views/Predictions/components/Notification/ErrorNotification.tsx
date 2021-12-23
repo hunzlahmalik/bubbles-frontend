@@ -1,17 +1,17 @@
-import React from 'react'
-import { Button, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useAppDispatch } from 'state'
-import { setHistoryPaneState } from 'state/predictions'
-import Notification from './Notification'
+import React from 'react';
+import { Button, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useAppDispatch } from 'state';
+import { setHistoryPaneState } from 'state/predictions';
+import Notification from './Notification';
 
 const ErrorNotification = () => {
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const handleOpenHistory = () => {
-    dispatch(setHistoryPaneState(true))
-  }
+    dispatch(setHistoryPaneState(true));
+  };
   return (
     <Notification title={t('Error')}>
       <Text as="p" mb="24px">
@@ -21,7 +21,7 @@ const ErrorNotification = () => {
         {t('Show History')}
       </Button>
     </Notification>
-  )
-}
+  );
+};
 
-export default ErrorNotification
+export default ErrorNotification;

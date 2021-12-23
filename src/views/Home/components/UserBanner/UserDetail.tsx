@@ -1,11 +1,11 @@
-import React from 'react'
-import { NoProfileAvatarIcon, Flex, Heading, Skeleton, Text, Box } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import styled from 'styled-components'
-import { useProfile } from 'state/profile/hooks'
-import ProfileAvatarWithTeam from 'components/ProfileAvatarWithTeam'
-import { useTranslation } from 'contexts/Localization'
-import truncateHash from 'utils/truncateHash'
+import React from 'react';
+import { NoProfileAvatarIcon, Flex, Heading, Skeleton, Text, Box } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import styled from 'styled-components';
+import { useProfile } from 'state/profile/hooks';
+import ProfileAvatarWithTeam from 'components/ProfileAvatarWithTeam';
+import { useTranslation } from 'contexts/Localization';
+import truncateHash from 'utils/truncateHash';
 
 const Desktop = styled(Flex)`
   align-items: center;
@@ -13,13 +13,13 @@ const Desktop = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     display: flex;
   }
-`
+`;
 
 const Mobile = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     display: none;
   }
-`
+`;
 
 const Sticker = styled(Flex)`
   height: 92px;
@@ -28,28 +28,28 @@ const Sticker = styled(Flex)`
   border: 3px solid ${({ theme }) => theme.colors.invertedContrast};
   border-radius: ${({ theme }) => theme.radii.circle};
   box-shadow: ${({ theme }) => theme.card.boxShadow};
-`
+`;
 
 const StyledNoProfileAvatarIcon = styled(NoProfileAvatarIcon)`
   height: 100%;
   width: 100%;
-`
+`;
 
 const UserDetail = () => {
-  const { profile, isLoading } = useProfile()
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const truncatedAddress = truncateHash(account)
+  const { profile, isLoading } = useProfile();
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const truncatedAddress = truncateHash(account);
 
   const getDesktopHeading = () => {
     if (profile) {
-      return <Heading scale="xl">{t('Hi, %userName%!', { userName: profile.username })}</Heading>
+      return <Heading scale="xl">{t('Hi, %userName%!', { userName: profile.username })}</Heading>;
     }
     if (isLoading && !profile) {
-      return <Skeleton width={200} height={40} my="4px" />
+      return <Skeleton width={200} height={40} my="4px" />;
     }
-    return <></>
-  }
+    return <></>;
+  };
 
   const getMobileHeading = () => {
     if (profile) {
@@ -57,13 +57,13 @@ const UserDetail = () => {
         <Heading mb="18px" textAlign="center">
           {t('Hi, %userName%!', { userName: profile.username })}
         </Heading>
-      )
+      );
     }
     if (isLoading && !profile) {
-      return <Skeleton width={120} height={20} mt="2px" mb="18px" />
+      return <Skeleton width={120} height={20} mt="2px" mb="18px" />;
     }
-    return <></>
-  }
+    return <></>;
+  };
 
   return (
     <>
@@ -82,7 +82,7 @@ const UserDetail = () => {
       </Desktop>
       <Mobile>{getMobileHeading()}</Mobile>
     </>
-  )
-}
+  );
+};
 
-export default UserDetail
+export default UserDetail;

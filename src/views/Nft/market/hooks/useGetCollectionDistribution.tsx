@@ -1,54 +1,54 @@
-import { useEffect, useState } from 'react'
-import { getCollectionDistributionApi } from 'state/nftMarket/helpers'
-import { ApiCollectionDistribution, ApiCollectionDistributionPB } from 'state/nftMarket/types'
-import { pancakeBunniesAddress } from '../constants'
+import { useEffect, useState } from 'react';
+import { getCollectionDistributionApi } from 'state/nftMarket/helpers';
+import { ApiCollectionDistribution, ApiCollectionDistributionPB } from 'state/nftMarket/types';
+import { pancakeBunniesAddress } from '../constants';
 
 interface State {
-  isFetching: boolean
-  data: ApiCollectionDistribution['data']
+  isFetching: boolean;
+  data: ApiCollectionDistribution['data'];
 }
 
 const useGetCollectionDistribution = (collectionAddress: string) => {
-  const [state, setState] = useState<State>({ isFetching: false, data: null })
+  const [state, setState] = useState<State>({ isFetching: false, data: null });
 
   useEffect(() => {
     const fetchTokens = async () => {
-      setState((prevState) => ({ ...prevState, isFetching: true }))
-      const apiResponse = await getCollectionDistributionApi<ApiCollectionDistribution>(collectionAddress)
+      setState((prevState) => ({ ...prevState, isFetching: true }));
+      const apiResponse = await getCollectionDistributionApi<ApiCollectionDistribution>(collectionAddress);
       setState({
         isFetching: false,
         data: apiResponse.data,
-      })
-    }
+      });
+    };
 
-    fetchTokens()
-  }, [collectionAddress, setState])
+    fetchTokens();
+  }, [collectionAddress, setState]);
 
-  return state
-}
+  return state;
+};
 
 interface StatePB {
-  isFetching: boolean
-  data: ApiCollectionDistributionPB['data']
+  isFetching: boolean;
+  data: ApiCollectionDistributionPB['data'];
 }
 
 export const useGetCollectionDistributionPB = () => {
-  const [state, setState] = useState<StatePB>({ isFetching: false, data: null })
+  const [state, setState] = useState<StatePB>({ isFetching: false, data: null });
 
   useEffect(() => {
     const fetchTokens = async () => {
-      setState((prevState) => ({ ...prevState, isFetching: true }))
-      const apiResponse = await getCollectionDistributionApi<ApiCollectionDistributionPB>(pancakeBunniesAddress)
+      setState((prevState) => ({ ...prevState, isFetching: true }));
+      const apiResponse = await getCollectionDistributionApi<ApiCollectionDistributionPB>(pancakeBunniesAddress);
       setState({
         isFetching: false,
         data: apiResponse.data,
-      })
-    }
+      });
+    };
 
-    fetchTokens()
-  }, [setState])
+    fetchTokens();
+  }, [setState]);
 
-  return state
-}
+  return state;
+};
 
-export default useGetCollectionDistribution
+export default useGetCollectionDistribution;

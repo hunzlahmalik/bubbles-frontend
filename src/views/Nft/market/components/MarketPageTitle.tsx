@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react'
-import { Box, Grid, GridProps, Heading } from '@pancakeswap/uikit'
+import React, { ReactNode } from 'react';
+import { Box, Grid, GridProps, Heading } from '@pancakeswap/uikit';
 
 interface MarketPageTitleProps extends GridProps {
-  title: string
-  description?: ReactNode
+  title: string;
+  description?: ReactNode;
 }
 
 const MarketPageTitle: React.FC<MarketPageTitleProps> = ({ title, description, children, ...props }) => (
@@ -16,6 +16,6 @@ const MarketPageTitle: React.FC<MarketPageTitleProps> = ({ title, description, c
     </Box>
     <Box>{children}</Box>
   </Grid>
-)
+);
 
-export default MarketPageTitle
+export default MarketPageTitle;

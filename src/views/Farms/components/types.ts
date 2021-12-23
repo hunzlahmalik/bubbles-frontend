@@ -1,31 +1,31 @@
 export type TableProps = {
-  data?: TableDataTypes[]
-  selectedFilters?: string
-  sortBy?: string
-  sortDir?: string
-  onSort?: (value: string) => void
-}
+  data?: TableDataTypes[];
+  selectedFilters?: string;
+  sortBy?: string;
+  sortDir?: string;
+  onSort?: (value: string) => void;
+};
 
 export type ColumnsDefTypes = {
-  id: number
-  label: string
-  name: string
-  sortable: boolean
-}
+  id: number;
+  label: string;
+  name: string;
+  sortable: boolean;
+};
 
 export type ScrollBarProps = {
-  ref: string
-  width: number
-}
+  ref: string;
+  width: number;
+};
 
 export type TableDataTypes = {
-  POOL: string
-  APR: string
-  EARNED: string
-  STAKED: string
-  DETAILS: string
-  LINKS: string
-}
+  POOL: string;
+  APR: string;
+  EARNED: string;
+  STAKED: string;
+  DETAILS: string;
+  LINKS: string;
+};
 
 export const MobileColumnSchema: ColumnsDefTypes[] = [
   {
@@ -52,7 +52,7 @@ export const MobileColumnSchema: ColumnsDefTypes[] = [
     sortable: true,
     label: '',
   },
-]
+];
 
 export const DesktopColumnSchema: ColumnsDefTypes[] = [
   {
@@ -91,4 +91,4 @@ export const DesktopColumnSchema: ColumnsDefTypes[] = [
     sortable: true,
     label: '',
   },
-]
+];

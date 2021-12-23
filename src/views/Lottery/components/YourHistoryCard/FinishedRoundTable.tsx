@@ -1,20 +1,20 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Box, Flex, Button } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LotteryStatus } from 'config/constants/types'
-import { useGetUserLotteriesGraphData } from 'state/lottery/hooks'
-import FinishedRoundRow from './FinishedRoundRow'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Box, Flex, Button } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LotteryStatus } from 'config/constants/types';
+import { useGetUserLotteriesGraphData } from 'state/lottery/hooks';
+import FinishedRoundRow from './FinishedRoundRow';
 
 const Grid = styled(Box)`
   display: grid;
   grid-template-columns: repeat(3, 1fr) auto;
-`
+`;
 
 interface FinishedRoundTableProps {
-  handleHistoryRowClick: (string) => void
-  handleShowMoreClick: () => void
-  numUserRoundsRequested: number
+  handleHistoryRowClick: (string) => void;
+  handleShowMoreClick: () => void;
+  numUserRoundsRequested: number;
 }
 
 const FinishedRoundTable: React.FC<FinishedRoundTableProps> = ({
@@ -22,16 +22,16 @@ const FinishedRoundTable: React.FC<FinishedRoundTableProps> = ({
   numUserRoundsRequested,
   handleHistoryRowClick,
 }) => {
-  const { t } = useTranslation()
-  const userLotteryData = useGetUserLotteriesGraphData()
+  const { t } = useTranslation();
+  const userLotteryData = useGetUserLotteriesGraphData();
 
   const filteredForClaimable = userLotteryData?.rounds.filter((round) => {
-    return round.status.toLowerCase() === LotteryStatus.CLAIMABLE
-  })
+    return round.status.toLowerCase() === LotteryStatus.CLAIMABLE;
+  });
 
   const sortedByRoundId = filteredForClaimable?.sort((roundA, roundB) => {
-    return parseInt(roundB.lotteryId, 10) - parseInt(roundA.lotteryId, 10)
-  })
+    return parseInt(roundB.lotteryId, 10) - parseInt(roundA.lotteryId, 10);
+  });
 
   return (
     <>
@@ -68,7 +68,7 @@ const FinishedRoundTable: React.FC<FinishedRoundTableProps> = ({
         )}
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default FinishedRoundTable
+export default FinishedRoundTable;

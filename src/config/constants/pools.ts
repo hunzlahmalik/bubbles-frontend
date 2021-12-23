@@ -1,8 +1,8 @@
-import { VaultKey } from 'state/types'
-import tokens, { serializeTokens } from './tokens'
-import { SerializedPoolConfig, PoolCategory } from './types'
+import { VaultKey } from 'state/types';
+import tokens, { serializeTokens } from './tokens';
+import { SerializedPoolConfig, PoolCategory } from './types';
 
-const serializedTokens = serializeTokens()
+const serializedTokens = serializeTokens();
 
 export const vaultPoolConfig = {
   [VaultKey.CakeVault]: {
@@ -25,7 +25,7 @@ export const vaultPoolConfig = {
       secondarySrc: `/images/tokens/${tokens.cake.address}.svg`,
     },
   },
-} as const
+} as const;
 
 const pools: SerializedPoolConfig[] = [
   {
@@ -3288,6 +3288,6 @@ const pools: SerializedPoolConfig[] = [
     sortOrder: 999,
     isFinished: true,
   },
-]
+];
 
-export default pools
+export default pools;

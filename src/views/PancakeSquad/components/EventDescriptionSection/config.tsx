@@ -1,11 +1,11 @@
-import React from 'react'
-import { Text } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Text } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
+import { Link } from 'react-router-dom';
 
 type EventDescriptionType = {
-  t: ContextApi['t']
-}
+  t: ContextApi['t'];
+};
 
 const eventDescriptionConfigBuilder = ({ t }: EventDescriptionType) => ({
   headingText: t('Fair, Random, Rare'),
@@ -48,6 +48,6 @@ const eventDescriptionConfigBuilder = ({ t }: EventDescriptionType) => ({
     { src: '/images/pancakeSquad/moonBunny/glasses.png', alt: 'glasses' },
     { src: '/images/pancakeSquad/moonBunny/pancake.png', alt: 'pancake' },
   ],
-})
+});
 
-export default eventDescriptionConfigBuilder
+export default eventDescriptionConfigBuilder;

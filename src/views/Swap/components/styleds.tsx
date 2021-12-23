@@ -1,12 +1,12 @@
-import { ErrorIcon, Text } from '@pancakeswap/uikit'
-import { AutoColumn } from 'components/Layout/Column'
-import React from 'react'
-import styled, { css } from 'styled-components'
+import { ErrorIcon, Text } from '@pancakeswap/uikit';
+import { AutoColumn } from 'components/Layout/Column';
+import React from 'react';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   position: relative;
   padding: 1rem;
-`
+`;
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   padding: 2px;
@@ -20,7 +20,7 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
           }
         `
       : null}
-`
+`;
 
 export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`
   color: ${({ theme, severity }) =>
@@ -31,7 +31,7 @@ export const ErrorText = styled(Text)<{ severity?: 0 | 1 | 2 | 3 | 4 }>`
       : severity === 1
       ? theme.colors.text
       : theme.colors.success};
-`
+`;
 
 export const StyledBalanceMaxMini = styled.button`
   height: 22px;
@@ -57,11 +57,11 @@ export const StyledBalanceMaxMini = styled.button`
     background-color: ${({ theme }) => theme.colors.dropdown};
     outline: none;
   }
-`
+`;
 
 export const TruncatedText = styled(Text).attrs({ ellipsis: true })`
   width: 220px;
-`
+`;
 
 const SwapCallbackErrorInner = styled.div`
   background-color: ${({ theme }) => `${theme.colors.failure}33`};
@@ -79,7 +79,7 @@ const SwapCallbackErrorInner = styled.div`
     margin: 0;
     font-weight: 500;
   }
-`
+`;
 
 const SwapCallbackErrorInnerAlertTriangle = styled.div`
   background-color: ${({ theme }) => `${theme.colors.failure}33`};
@@ -90,7 +90,7 @@ const SwapCallbackErrorInnerAlertTriangle = styled.div`
   border-radius: 12px;
   min-width: 48px;
   height: 48px;
-`
+`;
 
 export function SwapCallbackError({ error }: { error: string }) {
   return (
@@ -100,7 +100,7 @@ export function SwapCallbackError({ error }: { error: string }) {
       </SwapCallbackErrorInnerAlertTriangle>
       <p>{error}</p>
     </SwapCallbackErrorInner>
-  )
+  );
 }
 
 export const SwapShowAcceptChanges = styled(AutoColumn)`
@@ -108,4 +108,4 @@ export const SwapShowAcceptChanges = styled(AutoColumn)`
   padding: 0.5rem;
   border-radius: 12px;
   margin-top: 8px;
-`
+`;

@@ -1,19 +1,19 @@
-import React from 'react'
-import { Flex, Box, Card, CardBody, Text, Button, BinanceIcon, Skeleton, useModal } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { multiplyPriceByAmount } from 'utils/prices'
-import { NftToken } from 'state/nftMarket/types'
-import NFTMedia from 'views/Nft/market/components/NFTMedia'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import BuyModal from '../../../components/BuySellModals/BuyModal'
-import SellModal from '../../../components/BuySellModals/SellModal'
-import { nftsBaseUrl } from '../../../constants'
-import { Container, CollectionLink } from '../shared/styles'
+import React from 'react';
+import { Flex, Box, Card, CardBody, Text, Button, BinanceIcon, Skeleton, useModal } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { multiplyPriceByAmount } from 'utils/prices';
+import { NftToken } from 'state/nftMarket/types';
+import NFTMedia from 'views/Nft/market/components/NFTMedia';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import BuyModal from '../../../components/BuySellModals/BuyModal';
+import SellModal from '../../../components/BuySellModals/SellModal';
+import { nftsBaseUrl } from '../../../constants';
+import { Container, CollectionLink } from '../shared/styles';
 
 interface MainPancakeBunnyCardProps {
-  cheapestNft: NftToken
-  cheapestNftFromOtherSellers?: NftToken
-  nothingForSaleBunny?: NftToken
+  cheapestNft: NftToken;
+  cheapestNftFromOtherSellers?: NftToken;
+  nothingForSaleBunny?: NftToken;
 }
 
 const MainPancakeBunnyCard: React.FC<MainPancakeBunnyCardProps> = ({
@@ -21,17 +21,17 @@ const MainPancakeBunnyCard: React.FC<MainPancakeBunnyCardProps> = ({
   cheapestNftFromOtherSellers,
   nothingForSaleBunny,
 }) => {
-  const { t } = useTranslation()
-  const bnbBusdPrice = useBNBBusdPrice()
+  const { t } = useTranslation();
+  const bnbBusdPrice = useBNBBusdPrice();
 
-  const nftToDisplay = cheapestNftFromOtherSellers || cheapestNft || nothingForSaleBunny
+  const nftToDisplay = cheapestNftFromOtherSellers || cheapestNft || nothingForSaleBunny;
 
-  const onlyOwnNftsOnSale = !cheapestNftFromOtherSellers
-  const hasListings = cheapestNftFromOtherSellers || cheapestNft
+  const onlyOwnNftsOnSale = !cheapestNftFromOtherSellers;
+  const hasListings = cheapestNftFromOtherSellers || cheapestNft;
 
-  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, parseFloat(nftToDisplay.marketData?.currentAskPrice))
-  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nftToDisplay} />)
-  const [onPresentAdjustPriceModal] = useModal(<SellModal variant="edit" nftToSell={cheapestNft} />)
+  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, parseFloat(nftToDisplay.marketData?.currentAskPrice));
+  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nftToDisplay} />);
+  const [onPresentAdjustPriceModal] = useModal(<SellModal variant="edit" nftToSell={cheapestNft} />);
 
   const actionButton = onlyOwnNftsOnSale ? (
     <Button
@@ -53,7 +53,7 @@ const MainPancakeBunnyCard: React.FC<MainPancakeBunnyCardProps> = ({
     >
       {t('Buy')}
     </Button>
-  )
+  );
   return (
     <Card mb="40px">
       <CardBody>
@@ -97,7 +97,7 @@ const MainPancakeBunnyCard: React.FC<MainPancakeBunnyCardProps> = ({
         </Container>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default MainPancakeBunnyCard
+export default MainPancakeBunnyCard;

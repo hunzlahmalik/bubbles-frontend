@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Flex, Box } from '@pancakeswap/uikit'
-import { Auction, AuctionStatus } from 'config/constants/types'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Flex, Box } from '@pancakeswap/uikit';
+import { Auction, AuctionStatus } from 'config/constants/types';
+import { useTranslation } from 'contexts/Localization';
 
 const ScheduleInner = styled(Flex)`
   flex-direction: column;
@@ -10,21 +10,21 @@ const ScheduleInner = styled(Flex)`
   border-radius: ${({ theme }) => theme.radii.default};
   background-color: ${({ theme }) => theme.colors.background};
   border: 1px ${({ theme }) => theme.colors.cardBorder} solid;
-`
+`;
 
 interface ScheduleProps {
-  auction: Auction
-  showForClosedAuction?: boolean
+  auction: Auction;
+  showForClosedAuction?: boolean;
 }
 
 const AuctionSchedule: React.FC<ScheduleProps> = ({ auction }) => {
-  const { startBlock, endBlock, auctionDuration, startDate, endDate, status } = auction
+  const { startBlock, endBlock, auctionDuration, startDate, endDate, status } = auction;
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
+  } = useTranslation();
 
-  const noLiveOrPendingAuction = status === AuctionStatus.ToBeAnnounced || status === AuctionStatus.Closed
+  const noLiveOrPendingAuction = status === AuctionStatus.ToBeAnnounced || status === AuctionStatus.Closed;
 
   return (
     <>
@@ -88,7 +88,7 @@ const AuctionSchedule: React.FC<ScheduleProps> = ({ auction }) => {
         </Flex>
       </ScheduleInner>
     </>
-  )
-}
+  );
+};
 
-export default AuctionSchedule
+export default AuctionSchedule;

@@ -1,11 +1,11 @@
-import React from 'react'
-import { Heading } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import PageHeader from 'components/PageHeader'
-import Crumbs from './Crumbs'
+import React from 'react';
+import { Heading } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import PageHeader from 'components/PageHeader';
+import Crumbs from './Crumbs';
 
 const Hero = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <PageHeader>
@@ -14,7 +14,7 @@ const Hero = () => {
         {t('Leaderboard')}
       </Heading>
     </PageHeader>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

@@ -1,4 +1,4 @@
-import { formatAmount, getFirstThreeNonZeroDecimals } from 'views/Info/utils/formatInfoNumbers'
+import { formatAmount, getFirstThreeNonZeroDecimals } from 'views/Info/utils/formatInfoNumbers';
 
 describe('info/utils/formatInfoNumbers', () => {
   it.each`
@@ -10,9 +10,9 @@ describe('info/utils/formatInfoNumbers', () => {
     ${0.00020005} | ${'0.00020'}
     ${0.0002}     | ${'0.00020'}
   `('getFirstThreeNonZeroDecimals returns $expected for $value', ({ value, expected }) => {
-    const actual = getFirstThreeNonZeroDecimals(value)
-    expect(actual).toBe(expected)
-  })
+    const actual = getFirstThreeNonZeroDecimals(value);
+    expect(actual).toBe(expected);
+  });
 
   it.each`
     amount         | notation      | displayThreshold | tokenPrecision | isInteger | expected
@@ -46,9 +46,9 @@ describe('info/utils/formatInfoNumbers', () => {
   `(
     'formatAmount returns $expected for $amount with $notation notation',
     ({ amount, notation, displayThreshold, tokenPrecision, isInteger, expected }) => {
-      const options = { notation, displayThreshold, tokenPrecision, isInteger }
-      const actual = formatAmount(amount, options)
-      expect(actual).toBe(expected)
+      const options = { notation, displayThreshold, tokenPrecision, isInteger };
+      const actual = formatAmount(amount, options);
+      expect(actual).toBe(expected);
     },
-  )
-})
+  );
+});

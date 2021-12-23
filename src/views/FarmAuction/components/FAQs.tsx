@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Heading, Card, CardHeader, CardBody, Flex, Link, Box } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import FoldableText from 'components/FoldableSection/FoldableText'
-import { FORM_ADDRESS } from '../helpers'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Heading, Card, CardHeader, CardBody, Flex, Link, Box } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import FoldableText from 'components/FoldableSection/FoldableText';
+import { FORM_ADDRESS } from '../helpers';
 
 const StyledCard = styled(Card)`
   flex: 1;
   height: fit-content;
-`
+`;
 
 const InlineLink = styled(Link)`
   display: inline;
-`
+`;
 
 const List = styled.ul`
   list-style-position: outside;
@@ -26,14 +26,14 @@ const List = styled.ul`
   li::marker {
     font-size: 12px;
   }
-`
+`;
 
 const FaqLi = styled.li`
   color: ${({ theme }) => theme.colors.textSubtle};
-`
+`;
 
 const FAQs = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Flex flexDirection="column">
@@ -105,7 +105,7 @@ const FAQs = () => {
         </StyledCard>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default FAQs
+export default FAQs;

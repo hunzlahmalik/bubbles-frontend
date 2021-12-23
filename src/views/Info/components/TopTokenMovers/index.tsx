@@ -1,13 +1,13 @@
-import React, { useMemo, useRef, useEffect } from 'react'
-import styled from 'styled-components'
-import { Text, Flex, Box, Card } from '@pancakeswap/uikit'
-import { Link } from 'react-router-dom'
-import { useAllTokenData } from 'state/info/hooks'
-import { TokenData } from 'state/info/types'
-import { CurrencyLogo } from 'views/Info/components/CurrencyLogo'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import Percent from 'views/Info/components/Percent'
-import { useTranslation } from 'contexts/Localization'
+import React, { useMemo, useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import { Text, Flex, Box, Card } from '@pancakeswap/uikit';
+import { Link } from 'react-router-dom';
+import { useAllTokenData } from 'state/info/hooks';
+import { TokenData } from 'state/info/types';
+import { CurrencyLogo } from 'views/Info/components/CurrencyLogo';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import Percent from 'views/Info/components/Percent';
+import { useTranslation } from 'contexts/Localization';
 
 const CardWrapper = styled(Link)`
   display: inline-block;
@@ -17,13 +17,13 @@ const CardWrapper = styled(Link)`
     cursor: pointer;
     opacity: 0.6;
   }
-`
+`;
 
 const TopMoverCard = styled(Box)`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: ${({ theme }) => theme.radii.card};
   padding: 16px;
-`
+`;
 
 export const ScrollableRow = styled.div`
   width: 100%;
@@ -33,7 +33,7 @@ export const ScrollableRow = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 const DataCard = ({ tokenData }: { tokenData: TokenData }) => {
   return (
@@ -56,47 +56,47 @@ const DataCard = ({ tokenData }: { tokenData: TokenData }) => {
         </Flex>
       </TopMoverCard>
     </CardWrapper>
-  )
-}
+  );
+};
 
 const TopTokenMovers: React.FC = () => {
-  const allTokens = useAllTokenData()
-  const { t } = useTranslation()
+  const allTokens = useAllTokenData();
+  const { t } = useTranslation();
 
   const topPriceIncrease = useMemo(() => {
     return Object.values(allTokens)
       .sort(({ data: a }, { data: b }) => {
         // eslint-disable-next-line no-nested-ternary
-        return a && b ? (Math.abs(a?.priceUSDChange) > Math.abs(b?.priceUSDChange) ? -1 : 1) : -1
+        return a && b ? (Math.abs(a?.priceUSDChange) > Math.abs(b?.priceUSDChange) ? -1 : 1) : -1;
       })
-      .slice(0, Math.min(20, Object.values(allTokens).length))
-  }, [allTokens])
+      .slice(0, Math.min(20, Object.values(allTokens).length));
+  }, [allTokens]);
 
-  const increaseRef = useRef<HTMLDivElement>(null)
-  const moveLeftRef = useRef<boolean>(true)
+  const increaseRef = useRef<HTMLDivElement>(null);
+  const moveLeftRef = useRef<boolean>(true);
 
   useEffect(() => {
     const scrollInterval = setInterval(() => {
       if (increaseRef.current) {
         if (increaseRef.current.scrollLeft === increaseRef.current.scrollWidth - increaseRef.current.clientWidth) {
-          moveLeftRef.current = false
+          moveLeftRef.current = false;
         } else if (increaseRef.current.scrollLeft === 0) {
-          moveLeftRef.current = true
+          moveLeftRef.current = true;
         }
         increaseRef.current.scrollTo(
           moveLeftRef.current ? increaseRef.current.scrollLeft + 1 : increaseRef.current.scrollLeft - 1,
           0,
-        )
+        );
       }
-    }, 30)
+    }, 30);
 
     return () => {
-      clearInterval(scrollInterval)
-    }
-  }, [])
+      clearInterval(scrollInterval);
+    };
+  }, []);
 
   if (topPriceIncrease.length === 0 || !topPriceIncrease.some((entry) => entry.data)) {
-    return null
+    return null;
   }
 
   return (
@@ -110,7 +110,7 @@ const TopTokenMovers: React.FC = () => {
         )}
       </ScrollableRow>
     </Card>
-  )
-}
+  );
+};
 
-export default TopTokenMovers
+export default TopTokenMovers;

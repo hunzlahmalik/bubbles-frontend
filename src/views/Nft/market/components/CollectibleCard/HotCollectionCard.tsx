@@ -1,14 +1,14 @@
-import { Card, CardBody, Flex, Heading, Image, ProfileAvatar } from '@pancakeswap/uikit'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled, { css } from 'styled-components'
+import { Card, CardBody, Flex, Heading, Image, ProfileAvatar } from '@pancakeswap/uikit';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 interface HotCollectionCardProps {
-  bgSrc: string
-  avatarSrc?: string
-  collectionName: string
-  url?: string
-  disabled?: boolean
+  bgSrc: string;
+  avatarSrc?: string;
+  collectionName: string;
+  url?: string;
+  disabled?: boolean;
 }
 
 export const CollectionAvatar = styled(ProfileAvatar)`
@@ -16,7 +16,7 @@ export const CollectionAvatar = styled(ProfileAvatar)`
   position: absolute;
   top: -32px;
   border: 4px white solid;
-`
+`;
 
 const StyledHotCollectionCard = styled(Card)<{ disabled?: boolean }>`
   border-radius: 8px;
@@ -39,13 +39,13 @@ const StyledHotCollectionCard = styled(Card)<{ disabled?: boolean }>`
             }
           `}
   }
-`
+`;
 
 const StyledImage = styled(Image)`
   img {
     border-radius: 4px;
   }
-`
+`;
 
 const HotCollectionCard: React.FC<HotCollectionCardProps> = ({
   bgSrc,
@@ -73,13 +73,13 @@ const HotCollectionCard: React.FC<HotCollectionCardProps> = ({
         {children}
       </Flex>
     </CardBody>
-  )
+  );
 
   return (
     <StyledHotCollectionCard disabled={disabled}>
       {url ? <Link to={url}>{renderBody()}</Link> : <div style={{ cursor: 'default' }}>{renderBody()}</div>}
     </StyledHotCollectionCard>
-  )
-}
+  );
+};
 
-export default HotCollectionCard
+export default HotCollectionCard;

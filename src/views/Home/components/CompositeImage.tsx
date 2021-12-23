@@ -1,6 +1,6 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import { Box } from '@pancakeswap/uikit'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+import { Box } from '@pancakeswap/uikit';
 
 const floatingAnim = (x: string, y: string) => keyframes`
   from {
@@ -12,7 +12,7 @@ const floatingAnim = (x: string, y: string) => keyframes`
   to {
     transform: translate(0, 0px);
   }
-`
+`;
 
 const Wrapper = styled(Box)<{ maxHeight: string }>`
   position: relative;
@@ -37,12 +37,12 @@ const Wrapper = styled(Box)<{ maxHeight: string }>`
     animation: ${floatingAnim('4px', '12px')} 3s ease-in-out infinite;
     animation-delay: 0s;
   }
-`
+`;
 
 const DummyImg = styled.img<{ maxHeight: string }>`
   max-height: ${({ maxHeight }) => maxHeight};
   visibility: hidden;
-`
+`;
 
 const ImageWrapper = styled(Box)`
   height: 100%;
@@ -54,35 +54,35 @@ const ImageWrapper = styled(Box)`
     max-height: 100%;
     width: auto;
   }
-`
+`;
 
 enum Resolution {
   MD = '1.5x',
   LG = '2x',
 }
 interface ImageAttributes {
-  src: string
-  alt: string
+  src: string;
+  alt: string;
 }
 
 export interface CompositeImageProps {
-  path: string
-  attributes: ImageAttributes[]
+  path: string;
+  attributes: ImageAttributes[];
 }
 
 interface ComponentProps extends CompositeImageProps {
-  animate?: boolean
-  maxHeight?: string
+  animate?: boolean;
+  maxHeight?: string;
 }
 
 export const getImageUrl = (base: string, imageSrc: string, resolution?: Resolution, extension = '.png'): string =>
-  `${base}${imageSrc}${resolution ? `@${resolution}${extension}` : extension}`
+  `${base}${imageSrc}${resolution ? `@${resolution}${extension}` : extension}`;
 
 export const getSrcSet = (base: string, imageSrc: string, extension = '.png') => {
   return `${getImageUrl(base, imageSrc, undefined, extension)} 512w,
   ${getImageUrl(base, imageSrc, Resolution.MD, extension)} 768w,
-  ${getImageUrl(base, imageSrc, Resolution.LG, extension)} 1024w,`
-}
+  ${getImageUrl(base, imageSrc, Resolution.LG, extension)} 1024w,`;
+};
 
 const CompositeImage: React.FC<ComponentProps> = ({ path, attributes, maxHeight = '512px' }) => {
   return (
@@ -102,7 +102,7 @@ const CompositeImage: React.FC<ComponentProps> = ({ path, attributes, maxHeight 
         </ImageWrapper>
       ))}
     </Wrapper>
-  )
-}
+  );
+};
 
-export default CompositeImage
+export default CompositeImage;

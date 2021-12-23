@@ -1,16 +1,16 @@
-import { useEffect } from 'react'
-import { getNftSaleAddress } from 'utils/addressHelpers'
-import { getPancakeSquadContract } from 'utils/contractHelpers'
-import { multicallv2 } from 'utils/multicall'
-import { BigNumber } from 'ethers'
-import nftSaleAbi from 'config/abi/nftSale.json'
+import { useEffect } from 'react';
+import { getNftSaleAddress } from 'utils/addressHelpers';
+import { getPancakeSquadContract } from 'utils/contractHelpers';
+import { multicallv2 } from 'utils/multicall';
+import { BigNumber } from 'ethers';
+import nftSaleAbi from 'config/abi/nftSale.json';
 
 const useEventInfos = ({ refreshCounter, setCallback }) => {
   useEffect(() => {
     const fetchEventInfos = async () => {
       try {
-        const nftSaleAddress = getNftSaleAddress()
-        const pancakeSquadContract = getPancakeSquadContract()
+        const nftSaleAddress = getNftSaleAddress();
+        const pancakeSquadContract = getPancakeSquadContract();
 
         const calls = [
           'maxSupply',
@@ -23,7 +23,7 @@ const useEventInfos = ({ refreshCounter, setCallback }) => {
         ].map((method) => ({
           address: nftSaleAddress,
           name: method,
-        }))
+        }));
 
         const [
           [currentMaxSupply],
@@ -33,9 +33,9 @@ const useEventInfos = ({ refreshCounter, setCallback }) => {
           [currentTotalTicketsDistributed],
           [currentSaleStatus],
           [currentStartTimestamp],
-        ] = await multicallv2(nftSaleAbi, calls)
+        ] = await multicallv2(nftSaleAbi, calls);
 
-        const currentTotalSupplyMinted = await pancakeSquadContract.totalSupply()
+        const currentTotalSupplyMinted = await pancakeSquadContract.totalSupply();
 
         setCallback({
           maxSupply: currentMaxSupply.toNumber(),
@@ -46,16 +46,16 @@ const useEventInfos = ({ refreshCounter, setCallback }) => {
           saleStatus: currentSaleStatus,
           startTimestamp: Number(currentStartTimestamp.toString().padEnd(13, '0')),
           totalSupplyMinted: currentTotalSupplyMinted.toNumber(),
-        })
+        });
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    };
 
     if (nftSaleAbi.length > 0) {
-      fetchEventInfos()
+      fetchEventInfos();
     }
-  }, [refreshCounter, setCallback])
-}
+  }, [refreshCounter, setCallback]);
+};
 
-export default useEventInfos
+export default useEventInfos;

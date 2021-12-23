@@ -1,10 +1,10 @@
-import React from 'react'
-import { Text } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
+import React from 'react';
+import { Text } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
 
 type FAQsType = {
-  t: ContextApi['t']
-}
+  t: ContextApi['t'];
+};
 
 const config = ({ t }: FAQsType) => [
   {
@@ -58,5 +58,5 @@ const config = ({ t }: FAQsType) => [
       ),
     ],
   },
-]
-export default config
+];
+export default config;

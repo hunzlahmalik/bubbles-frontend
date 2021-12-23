@@ -1,33 +1,33 @@
-import { BinanceIcon, Box, Button, Card, CardBody, Flex, Skeleton, Text, useModal } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import React from 'react'
-import { NftToken } from 'state/nftMarket/types'
-import { multiplyPriceByAmount } from 'utils/prices'
-import NFTMedia from 'views/Nft/market/components/NFTMedia'
-import EditProfileModal from 'views/Nft/market/Profile/components/EditProfileModal'
-import BuyModal from '../../../components/BuySellModals/BuyModal'
-import SellModal from '../../../components/BuySellModals/SellModal'
-import { nftsBaseUrl } from '../../../constants'
-import { CollectionLink, Container } from '../shared/styles'
+import { BinanceIcon, Box, Button, Card, CardBody, Flex, Skeleton, Text, useModal } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import React from 'react';
+import { NftToken } from 'state/nftMarket/types';
+import { multiplyPriceByAmount } from 'utils/prices';
+import NFTMedia from 'views/Nft/market/components/NFTMedia';
+import EditProfileModal from 'views/Nft/market/Profile/components/EditProfileModal';
+import BuyModal from '../../../components/BuySellModals/BuyModal';
+import SellModal from '../../../components/BuySellModals/SellModal';
+import { nftsBaseUrl } from '../../../constants';
+import { CollectionLink, Container } from '../shared/styles';
 
 interface MainNFTCardProps {
-  nft: NftToken
-  isOwnNft: boolean
-  nftIsProfilePic: boolean
+  nft: NftToken;
+  isOwnNft: boolean;
+  nftIsProfilePic: boolean;
 }
 
 const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePic }) => {
-  const { t } = useTranslation()
-  const bnbBusdPrice = useBNBBusdPrice()
+  const { t } = useTranslation();
+  const bnbBusdPrice = useBNBBusdPrice();
 
-  const currentAskPriceAsNumber = nft.marketData?.currentAskPrice ? parseFloat(nft.marketData.currentAskPrice) : 0
-  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, currentAskPriceAsNumber)
-  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nft} />)
+  const currentAskPriceAsNumber = nft.marketData?.currentAskPrice ? parseFloat(nft.marketData.currentAskPrice) : 0;
+  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, currentAskPriceAsNumber);
+  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nft} />);
   const [onPresentSellModal] = useModal(
     <SellModal variant={nft.marketData?.isTradable ? 'edit' : 'sell'} nftToSell={nft} />,
-  )
-  const [onEditProfileModal] = useModal(<EditProfileModal />, false)
+  );
+  const [onEditProfileModal] = useModal(<EditProfileModal />, false);
 
   const ownerButtons = (
     <Flex flexDirection={['column', 'column', 'row']}>
@@ -53,7 +53,7 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
         </Button>
       )}
     </Flex>
-  )
+  );
 
   return (
     <Card mb="40px">
@@ -117,7 +117,7 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
         </Container>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default MainNFTCard
+export default MainNFTCard;

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { useCountUp } from 'react-countup'
+import React, { useEffect, useRef } from 'react';
+import { useCountUp } from 'react-countup';
 import {
   Card,
   CardBody,
@@ -9,27 +9,27 @@ import {
   Text,
   TooltipText,
   useTooltip,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { NodeRound, NodeLedger, BetPosition } from 'state/types'
-import { formatBigNumberToFixed } from 'utils/formatBalance'
-import { useGetLastOraclePrice, useGetBufferSeconds } from 'state/predictions/hooks'
-import RoundProgress from 'components/RoundProgress'
-import { formatUsdv2, getHasRoundFailed, getPriceDifference } from '../../helpers'
-import PositionTag from '../PositionTag'
-import { RoundResultBox, LockPriceRow, PrizePoolRow } from '../RoundResult'
-import MultiplierArrow from './MultiplierArrow'
-import CardHeader from './CardHeader'
-import CanceledRoundCard from './CanceledRoundCard'
-import CalculatingCard from './CalculatingCard'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { NodeRound, NodeLedger, BetPosition } from 'state/types';
+import { formatBigNumberToFixed } from 'utils/formatBalance';
+import { useGetLastOraclePrice, useGetBufferSeconds } from 'state/predictions/hooks';
+import RoundProgress from 'components/RoundProgress';
+import { formatUsdv2, getHasRoundFailed, getPriceDifference } from '../../helpers';
+import PositionTag from '../PositionTag';
+import { RoundResultBox, LockPriceRow, PrizePoolRow } from '../RoundResult';
+import MultiplierArrow from './MultiplierArrow';
+import CardHeader from './CardHeader';
+import CanceledRoundCard from './CanceledRoundCard';
+import CalculatingCard from './CalculatingCard';
 
 interface LiveRoundCardProps {
-  round: NodeRound
-  betAmount?: NodeLedger['amount']
-  hasEnteredUp: boolean
-  hasEnteredDown: boolean
-  bullMultiplier: string
-  bearMultiplier: string
+  round: NodeRound;
+  betAmount?: NodeLedger['amount'];
+  hasEnteredUp: boolean;
+  hasEnteredDown: boolean;
+  bullMultiplier: string;
+  bearMultiplier: string;
 }
 
 const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
@@ -40,42 +40,42 @@ const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
   bullMultiplier,
   bearMultiplier,
 }) => {
-  const { t } = useTranslation()
-  const { lockPrice, totalAmount, lockTimestamp, closeTimestamp } = round
-  const price = useGetLastOraclePrice()
-  const bufferSeconds = useGetBufferSeconds()
+  const { t } = useTranslation();
+  const { lockPrice, totalAmount, lockTimestamp, closeTimestamp } = round;
+  const price = useGetLastOraclePrice();
+  const bufferSeconds = useGetBufferSeconds();
 
-  const isBull = lockPrice && price.gt(lockPrice)
-  const priceColor = isBull ? 'success' : 'failure'
+  const isBull = lockPrice && price.gt(lockPrice);
+  const priceColor = isBull ? 'success' : 'failure';
 
-  const priceDifference = getPriceDifference(price, lockPrice)
-  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8))
-  const hasRoundFailed = getHasRoundFailed(round, bufferSeconds)
+  const priceDifference = getPriceDifference(price, lockPrice);
+  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8));
+  const hasRoundFailed = getHasRoundFailed(round, bufferSeconds);
 
-  const now = Date.now()
+  const now = Date.now();
 
   const { countUp, update } = useCountUp({
     start: 0,
     end: priceAsNumber,
     duration: 1,
     decimals: 3,
-  })
+  });
   const { targetRef, tooltip, tooltipVisible } = useTooltip(t('Last price from Chainlink Oracle'), {
     placement: 'bottom',
-  })
+  });
 
-  const updateRef = useRef(update)
+  const updateRef = useRef(update);
 
   useEffect(() => {
-    updateRef.current(priceAsNumber)
-  }, [priceAsNumber, updateRef])
+    updateRef.current(priceAsNumber);
+  }, [priceAsNumber, updateRef]);
 
   if (hasRoundFailed) {
-    return <CanceledRoundCard round={round} />
+    return <CanceledRoundCard round={round} />;
   }
 
   if (now > closeTimestamp * 1000) {
-    return <CalculatingCard round={round} hasEnteredDown={hasEnteredDown} hasEnteredUp={hasEnteredUp} />
+    return <CalculatingCard round={round} hasEnteredDown={hasEnteredDown} hasEnteredUp={hasEnteredUp} />;
   }
 
   return (
@@ -121,7 +121,7 @@ const LiveRoundCard: React.FC<LiveRoundCardProps> = ({
       </CardBody>
       {tooltipVisible && tooltip}
     </Card>
-  )
-}
+  );
+};
 
-export default LiveRoundCard
+export default LiveRoundCard;

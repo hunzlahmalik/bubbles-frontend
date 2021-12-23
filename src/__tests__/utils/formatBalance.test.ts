@@ -1,5 +1,5 @@
-import { BigNumber, FixedNumber } from 'ethers'
-import { formatBigNumber, formatBigNumberToFixed, formatFixedNumber } from 'utils/formatBalance'
+import { BigNumber, FixedNumber } from 'ethers';
+import { formatBigNumber, formatBigNumberToFixed, formatFixedNumber } from 'utils/formatBalance';
 
 describe('formatBigNumber', () => {
   it.each([
@@ -35,10 +35,10 @@ describe('formatBigNumber', () => {
     ['0', 1, 18, '0.0'],
     ['0', 2, 18, '0.0'],
   ])('correctly formats %s (%d, %d) correctly to %s', (value, displayDecimals, decimals, expected) => {
-    const ethersBn = BigNumber.from(value)
-    expect(formatBigNumber(ethersBn, displayDecimals, decimals)).toBe(expected)
-  })
-})
+    const ethersBn = BigNumber.from(value);
+    expect(formatBigNumber(ethersBn, displayDecimals, decimals)).toBe(expected);
+  });
+});
 
 describe('formatBigNumberToFixed', () => {
   it.each([
@@ -48,10 +48,10 @@ describe('formatBigNumberToFixed', () => {
     ['1020100000000000000', 6, 18, '1.020100'],
     ['1000000000000000000', 0, 18, '1'],
   ])('correctly formats %s (%d, %d) correctly to %s', (value, displayDecimals, decimals, expected) => {
-    const ethersBn = BigNumber.from(value)
-    expect(formatBigNumberToFixed(ethersBn, displayDecimals, decimals)).toBe(expected)
-  })
-})
+    const ethersBn = BigNumber.from(value);
+    expect(formatBigNumberToFixed(ethersBn, displayDecimals, decimals)).toBe(expected);
+  });
+});
 
 describe('formatFixedNumber', () => {
   it.each([
@@ -64,7 +64,7 @@ describe('formatFixedNumber', () => {
     ['97634105261', 1, 9, '97.6'],
     ['97634105261', 0, 9, '97.0'],
   ])('correctly formats %s (%d, %d) correctly to %s', (value, displayDecimals, decimals, expected) => {
-    const ethersFn = FixedNumber.from(value)
-    expect(formatFixedNumber(ethersFn, displayDecimals, decimals)).toBe(expected)
-  })
-})
+    const ethersFn = FixedNumber.from(value);
+    expect(formatFixedNumber(ethersFn, displayDecimals, decimals)).toBe(expected);
+  });
+});

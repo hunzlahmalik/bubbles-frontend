@@ -1,4 +1,4 @@
-import { SalesSectionProps } from '.'
+import { SalesSectionProps } from '.';
 
 export const swapSectionData: SalesSectionProps = {
   headingText: 'Trade anything. No registration, no hassle.',
@@ -22,7 +22,7 @@ export const swapSectionData: SalesSectionProps = {
       { src: 'CAKE', alt: 'CAKE token' },
     ],
   },
-}
+};
 
 export const earnSectionData: SalesSectionProps = {
   headingText: 'Earn passive income with crypto.',
@@ -46,7 +46,7 @@ export const earnSectionData: SalesSectionProps = {
       { src: 'folder', alt: 'Folder with cake token' },
     ],
   },
-}
+};
 
 export const cakeSectionData: SalesSectionProps = {
   headingText: 'CAKE makes our world go round.',
@@ -73,4 +73,4 @@ export const cakeSectionData: SalesSectionProps = {
       { src: 'top-left', alt: 'Small 3d pancake' },
     ],
   },
-}
+};

@@ -1,10 +1,10 @@
-import React from 'react'
-import { NoProfileAvatarIcon } from '@pancakeswap/uikit'
-import { Profile } from 'state/types'
-import styled from 'styled-components'
+import React from 'react';
+import { NoProfileAvatarIcon } from '@pancakeswap/uikit';
+import { Profile } from 'state/types';
+import styled from 'styled-components';
 
 export interface ProfileAvatarProps {
-  profile: Profile
+  profile: Profile;
 }
 
 const TeamAvatar = styled.img`
@@ -22,7 +22,7 @@ const TeamAvatar = styled.img`
   ${({ theme }) => theme.mediaQueries.sm} {
     border-width: 2px;
   }
-`
+`;
 
 const AvatarWrapper = styled.div<{ bg: string }>`
   background: url('${({ bg }) => bg}');
@@ -36,12 +36,12 @@ const AvatarWrapper = styled.div<{ bg: string }>`
   & > img {
     border-radius: 50%;
   }
-`
+`;
 // TODO: replace with no profile avatar icon
 const AvatarInactive = styled(NoProfileAvatarIcon)`
   width: 100%;
   height: 100%;
-`
+`;
 
 const ProfileAvatarWithTeam: React.FC<ProfileAvatarProps> = ({ profile }) => {
   return (
@@ -49,7 +49,7 @@ const ProfileAvatarWithTeam: React.FC<ProfileAvatarProps> = ({ profile }) => {
       {!profile.isActive && <AvatarInactive />}
       <TeamAvatar src={`/images/teams/${profile.team.images.alt}`} alt={profile.team.name} />
     </AvatarWrapper>
-  )
-}
+  );
+};
 
-export default ProfileAvatarWithTeam
+export default ProfileAvatarWithTeam;

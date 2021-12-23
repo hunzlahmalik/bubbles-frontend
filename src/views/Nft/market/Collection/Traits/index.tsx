@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
-import Container from 'components/Layout/Container'
-import { useAppDispatch } from 'state'
-import { useGetCollection } from 'state/nftMarket/hooks'
-import { fetchCollection } from 'state/nftMarket/reducer'
-import Header from '../Header'
-import PancakeBunniesTraits from './PancakeBunniesTraits'
-import { pancakeBunniesAddress } from '../../constants'
-import CollectionTraits from './CollectionTraits'
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router';
+import Container from 'components/Layout/Container';
+import { useAppDispatch } from 'state';
+import { useGetCollection } from 'state/nftMarket/hooks';
+import { fetchCollection } from 'state/nftMarket/reducer';
+import Header from '../Header';
+import PancakeBunniesTraits from './PancakeBunniesTraits';
+import { pancakeBunniesAddress } from '../../constants';
+import CollectionTraits from './CollectionTraits';
 
 const Traits = () => {
-  const { collectionAddress } = useParams<{ collectionAddress: string }>()
-  const dispatch = useAppDispatch()
-  const collection = useGetCollection(collectionAddress)
+  const { collectionAddress } = useParams<{ collectionAddress: string }>();
+  const dispatch = useAppDispatch();
+  const collection = useGetCollection(collectionAddress);
 
   useEffect(() => {
     if (collectionAddress) {
-      dispatch(fetchCollection(collectionAddress))
+      dispatch(fetchCollection(collectionAddress));
     }
-  }, [collectionAddress, dispatch])
+  }, [collectionAddress, dispatch]);
 
   return (
     <>
@@ -31,7 +31,7 @@ const Traits = () => {
         )}
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Traits
+export default Traits;

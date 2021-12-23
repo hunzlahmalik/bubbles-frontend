@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   CardBody,
   Heading,
@@ -12,13 +12,13 @@ import {
   CardRibbon,
   useMatchBreakpoints,
   BunnyPlaceholderIcon,
-} from '@pancakeswap/uikit'
-import { LotteryRound } from 'state/types'
-import { useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks'
-import { LotteryStatus } from 'config/constants/types'
-import { useTranslation } from 'contexts/Localization'
-import WinningNumbers from '../WinningNumbers'
-import ViewTicketsModal from '../ViewTicketsModal'
+} from '@pancakeswap/uikit';
+import { LotteryRound } from 'state/types';
+import { useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks';
+import { LotteryStatus } from 'config/constants/types';
+import { useTranslation } from 'contexts/Localization';
+import WinningNumbers from '../WinningNumbers';
+import ViewTicketsModal from '../ViewTicketsModal';
 
 const StyledCardBody = styled(CardBody)`
   position: relative;
@@ -26,7 +26,7 @@ const StyledCardBody = styled(CardBody)`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 const Grid = styled.div`
   display: grid;
   grid-template-columns: auto;
@@ -36,7 +36,7 @@ const Grid = styled.div`
     grid-row-gap: 36px;
     grid-template-columns: auto 1fr;
   }
-`
+`;
 
 const StyledCardRibbon = styled(CardRibbon)`
   right: -20px;
@@ -46,37 +46,37 @@ const StyledCardRibbon = styled(CardRibbon)`
     right: -10px;
     top: -10px;
   }
-`
+`;
 
 const PreviousRoundCardBody: React.FC<{ lotteryNodeData: LotteryRound; lotteryId: string }> = ({
   lotteryNodeData,
   lotteryId,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const {
     currentLotteryId,
     currentRound: { status },
-  } = useLottery()
-  const userLotteryData = useGetUserLotteriesGraphData()
-  const userDataForRound = userLotteryData.rounds.find((userLotteryRound) => userLotteryRound.lotteryId === lotteryId)
-  const { isLg, isXl, isXxl } = useMatchBreakpoints()
-  const isLargerScreen = isLg || isXl || isXxl
+  } = useLottery();
+  const userLotteryData = useGetUserLotteriesGraphData();
+  const userDataForRound = userLotteryData.rounds.find((userLotteryRound) => userLotteryRound.lotteryId === lotteryId);
+  const { isLg, isXl, isXxl } = useMatchBreakpoints();
+  const isLargerScreen = isLg || isXl || isXxl;
 
-  const currentLotteryIdAsInt = parseInt(currentLotteryId)
+  const currentLotteryIdAsInt = parseInt(currentLotteryId);
   const mostRecentFinishedRoundId =
-    status === LotteryStatus.CLAIMABLE ? currentLotteryIdAsInt : currentLotteryIdAsInt - 1
-  const isLatestRound = mostRecentFinishedRoundId.toString() === lotteryId
+    status === LotteryStatus.CLAIMABLE ? currentLotteryIdAsInt : currentLotteryIdAsInt - 1;
+  const isLatestRound = mostRecentFinishedRoundId.toString() === lotteryId;
 
   const [onPresentViewTicketsModal] = useModal(
     <ViewTicketsModal roundId={lotteryId} roundStatus={lotteryNodeData?.status} />,
-  )
+  );
 
-  const totalTicketNumber = userDataForRound ? userDataForRound.totalTickets : 0
+  const totalTicketNumber = userDataForRound ? userDataForRound.totalTickets : 0;
   const ticketRoundText =
     totalTicketNumber > 1
       ? t('You had %amount% tickets this round', { amount: totalTicketNumber })
-      : t('You had %amount% ticket this round', { amount: totalTicketNumber })
-  const [youHadText, ticketsThisRoundText] = ticketRoundText.split(totalTicketNumber.toString())
+      : t('You had %amount% ticket this round', { amount: totalTicketNumber });
+  const [youHadText, ticketsThisRoundText] = ticketRoundText.split(totalTicketNumber.toString());
 
   return (
     <StyledCardBody>
@@ -143,7 +143,7 @@ const PreviousRoundCardBody: React.FC<{ lotteryNodeData: LotteryRound; lotteryId
         )}
       </Grid>
     </StyledCardBody>
-  )
-}
+  );
+};
 
-export default PreviousRoundCardBody
+export default PreviousRoundCardBody;

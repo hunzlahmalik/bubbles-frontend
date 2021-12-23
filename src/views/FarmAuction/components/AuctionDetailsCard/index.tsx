@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   Text,
   Heading,
@@ -13,27 +13,27 @@ import {
   Button,
   CheckmarkCircleIcon,
   useModal,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { Auction, AuctionStatus, ConnectedBidder } from 'config/constants/types'
-import { getBalanceNumber } from 'utils/formatBalance'
-import PlaceBidModal from '../PlaceBidModal'
-import AuctionSchedule from './AuctionSchedule'
-import CannotBidMessage from './CannotBidMessage'
-import AuctionFooter from './AuctionFooter'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { Auction, AuctionStatus, ConnectedBidder } from 'config/constants/types';
+import { getBalanceNumber } from 'utils/formatBalance';
+import PlaceBidModal from '../PlaceBidModal';
+import AuctionSchedule from './AuctionSchedule';
+import CannotBidMessage from './CannotBidMessage';
+import AuctionFooter from './AuctionFooter';
 
 const AuctionDetailsCard = styled(Card)`
   flex: 1;
-`
+`;
 
 interface AuctionDetailsProps {
-  auction: Auction
-  connectedBidder: ConnectedBidder
-  refreshBidders: () => void
+  auction: Auction;
+  connectedBidder: ConnectedBidder;
+  refreshBidders: () => void;
 }
 
 const AuctionDetails: React.FC<AuctionDetailsProps> = ({ auction, connectedBidder, refreshBidders }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [onPresentPlaceBid] = useModal(
     <PlaceBidModal
@@ -41,7 +41,7 @@ const AuctionDetails: React.FC<AuctionDetailsProps> = ({ auction, connectedBidde
       refreshBidders={refreshBidders}
       initialBidAmount={auction?.initialBidAmount}
     />,
-  )
+  );
 
   if (!auction) {
     return (
@@ -55,17 +55,17 @@ const AuctionDetails: React.FC<AuctionDetailsProps> = ({ auction, connectedBidde
           </Flex>
         </CardBody>
       </AuctionDetailsCard>
-    )
+    );
   }
 
   const getBidSection = () => {
-    const notConnectedOrNotWhitelisted = !connectedBidder || (connectedBidder && !connectedBidder.isWhitelisted)
-    const whitelistedAndReadyToBid = !notConnectedOrNotWhitelisted && connectedBidder.bidderData
+    const notConnectedOrNotWhitelisted = !connectedBidder || (connectedBidder && !connectedBidder.isWhitelisted);
+    const whitelistedAndReadyToBid = !notConnectedOrNotWhitelisted && connectedBidder.bidderData;
     if (notConnectedOrNotWhitelisted || auction.status !== AuctionStatus.Open) {
-      return <CannotBidMessage />
+      return <CannotBidMessage />;
     }
     if (whitelistedAndReadyToBid) {
-      const { amount, position } = connectedBidder.bidderData
+      const { amount, position } = connectedBidder.bidderData;
       return (
         <>
           <Tag outline variant="success" startIcon={<CheckmarkCircleIcon />}>
@@ -90,7 +90,7 @@ const AuctionDetails: React.FC<AuctionDetailsProps> = ({ auction, connectedBidde
             {t('If your bid is unsuccessful, you’ll be able to reclaim your CAKE after the auction.')}
           </Text>
         </>
-      )
+      );
     }
     return (
       <>
@@ -104,10 +104,10 @@ const AuctionDetails: React.FC<AuctionDetailsProps> = ({ auction, connectedBidde
           <Skeleton width="42px" height="24px" />
         </Flex>
       </>
-    )
-  }
+    );
+  };
 
-  const cardTitle = auction.status === AuctionStatus.Closed ? t('Next Auction') : t('Current Auction')
+  const cardTitle = auction.status === AuctionStatus.Closed ? t('Next Auction') : t('Current Auction');
 
   return (
     <AuctionDetailsCard mb={['24px', null, null, '0']}>
@@ -122,7 +122,7 @@ const AuctionDetails: React.FC<AuctionDetailsProps> = ({ auction, connectedBidde
       </CardBody>
       <AuctionFooter auction={auction} />
     </AuctionDetailsCard>
-  )
-}
+  );
+};
 
-export default AuctionDetails
+export default AuctionDetails;

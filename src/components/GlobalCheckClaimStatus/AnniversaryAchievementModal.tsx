@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { AutoRenewIcon, Box, Button, Flex, InjectedModalProps, Modal, Text } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import confetti from 'canvas-confetti'
-import { useTranslation } from 'contexts/Localization'
-import { useAnniversaryAchievementContract } from 'hooks/useContract'
-import { delay } from 'lodash'
+import React, { useEffect, useState } from 'react';
+import { AutoRenewIcon, Box, Button, Flex, InjectedModalProps, Modal, Text } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import confetti from 'canvas-confetti';
+import { useTranslation } from 'contexts/Localization';
+import { useAnniversaryAchievementContract } from 'hooks/useContract';
+import { delay } from 'lodash';
 
 const AnniversaryImage = styled.img`
   border-radius: 50%;
@@ -12,7 +12,7 @@ const AnniversaryImage = styled.img`
   margin-bottom: 24px;
   margin-right: 8px;
   width: 128px;
-`
+`;
 
 const showConfetti = () => {
   confetti({
@@ -24,26 +24,26 @@ const showConfetti = () => {
       x: 0.5,
       y: 0.3,
     },
-  })
-}
+  });
+};
 
 const AnniversaryAchievementModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
-  const { t } = useTranslation()
-  const [isLoading, setIsLoading] = useState(false)
-  const { claimAnniversaryPoints } = useAnniversaryAchievementContract()
+  const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
+  const { claimAnniversaryPoints } = useAnniversaryAchievementContract();
 
   const handleClick = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      await claimAnniversaryPoints()
+      await claimAnniversaryPoints();
     } finally {
-      onDismiss()
+      onDismiss();
     }
-  }
+  };
 
   useEffect(() => {
-    delay(showConfetti, 100)
-  }, [])
+    delay(showConfetti, 100);
+  }, []);
 
   return (
     <Modal title={t('Congratulations!')} onDismiss={onDismiss}>
@@ -63,7 +63,7 @@ const AnniversaryAchievementModal: React.FC<InjectedModalProps> = ({ onDismiss }
         </Button>
       </Flex>
     </Modal>
-  )
-}
+  );
+};
 
-export default AnniversaryAchievementModal
+export default AnniversaryAchievementModal;

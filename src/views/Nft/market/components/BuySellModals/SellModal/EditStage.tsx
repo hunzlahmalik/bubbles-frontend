@@ -1,16 +1,16 @@
-import React from 'react'
-import { Flex, Grid, Text, Button, Link, LinkExternal, BinanceIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { nftsBaseUrl, pancakeBunniesAddress } from 'views/Nft/market/constants'
-import { NftToken } from 'state/nftMarket/types'
-import { getBscScanLinkForNft } from 'utils'
-import { Divider, HorizontalDivider, RoundedImage } from '../shared/styles'
+import React from 'react';
+import { Flex, Grid, Text, Button, Link, LinkExternal, BinanceIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { nftsBaseUrl, pancakeBunniesAddress } from 'views/Nft/market/constants';
+import { NftToken } from 'state/nftMarket/types';
+import { getBscScanLinkForNft } from 'utils';
+import { Divider, HorizontalDivider, RoundedImage } from '../shared/styles';
 
 interface EditStageProps {
-  nftToSell: NftToken
-  lowestPrice: number
-  continueToAdjustPriceStage: () => void
-  continueToRemoveFromMarketStage: () => void
+  nftToSell: NftToken;
+  lowestPrice: number;
+  continueToAdjustPriceStage: () => void;
+  continueToRemoveFromMarketStage: () => void;
 }
 
 // Initial stage when user wants to edit already listed NFT (i.e. adjust price or remove from sale)
@@ -20,11 +20,11 @@ const EditStage: React.FC<EditStageProps> = ({
   continueToAdjustPriceStage,
   continueToRemoveFromMarketStage,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const itemPageUrlId =
     nftToSell.collectionAddress.toLowerCase() === pancakeBunniesAddress.toLowerCase()
       ? nftToSell.attributes[0].value
-      : nftToSell.tokenId
+      : nftToSell.tokenId;
 
   return (
     <>
@@ -93,7 +93,7 @@ const EditStage: React.FC<EditStageProps> = ({
         </Button>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default EditStage
+export default EditStage;

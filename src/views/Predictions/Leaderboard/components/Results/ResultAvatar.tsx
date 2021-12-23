@@ -1,15 +1,15 @@
-import React from 'react'
-import { Box, Flex, FlexProps, Link, ProfileAvatar, SubMenu, SubMenuItem, useModal, Text } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { getBscScanLink } from 'utils'
-import { PredictionUser } from 'state/types'
-import { useGetProfileAvatar } from 'state/profile/hooks'
-import truncateHash from 'utils/truncateHash'
-import { useTranslation } from 'contexts/Localization'
-import WalletStatsModal from '../WalletStatsModal'
+import React from 'react';
+import { Box, Flex, FlexProps, Link, ProfileAvatar, SubMenu, SubMenuItem, useModal, Text } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { getBscScanLink } from 'utils';
+import { PredictionUser } from 'state/types';
+import { useGetProfileAvatar } from 'state/profile/hooks';
+import truncateHash from 'utils/truncateHash';
+import { useTranslation } from 'contexts/Localization';
+import WalletStatsModal from '../WalletStatsModal';
 
 interface ResultAvatarProps extends FlexProps {
-  user: PredictionUser
+  user: PredictionUser;
 }
 
 const AvatarWrapper = styled(Box)`
@@ -21,7 +21,7 @@ const AvatarWrapper = styled(Box)`
     margin-left: 0;
     margin-right: 8px;
   }
-`
+`;
 
 const UsernameWrapper = styled(Box)`
   order: 1;
@@ -29,12 +29,12 @@ const UsernameWrapper = styled(Box)`
   ${({ theme }) => theme.mediaQueries.lg} {
     order: 2;
   }
-`
+`;
 
 const ResultAvatar: React.FC<ResultAvatarProps> = ({ user, ...props }) => {
-  const { t } = useTranslation()
-  const profileAvatar = useGetProfileAvatar(user.id)
-  const [onPresentWalletStatsModal] = useModal(<WalletStatsModal account={user.id} />)
+  const { t } = useTranslation();
+  const profileAvatar = useGetProfileAvatar(user.id);
+  const [onPresentWalletStatsModal] = useModal(<WalletStatsModal account={user.id} />);
 
   return (
     <SubMenu
@@ -60,7 +60,7 @@ const ResultAvatar: React.FC<ResultAvatarProps> = ({ user, ...props }) => {
         {t('View on BscScan')}
       </SubMenuItem>
     </SubMenu>
-  )
-}
+  );
+};
 
-export default ResultAvatar
+export default ResultAvatar;

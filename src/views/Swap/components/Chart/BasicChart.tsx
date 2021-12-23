@@ -1,12 +1,12 @@
-import { Box, ButtonMenu, ButtonMenuItem, Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import React, { useState } from 'react'
-import { useFetchPairPrices } from 'state/swap/hooks'
-import { PairDataTimeWindowEnum } from 'state/swap/types'
-import NoChartAvailable from './NoChartAvailable'
-import SwapLineChart from './SwapLineChart'
-import TokenDisplay from './TokenDisplay'
-import { getTimeWindowChange } from './utils'
+import { Box, ButtonMenu, ButtonMenuItem, Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import React, { useState } from 'react';
+import { useFetchPairPrices } from 'state/swap/hooks';
+import { PairDataTimeWindowEnum } from 'state/swap/types';
+import NoChartAvailable from './NoChartAvailable';
+import SwapLineChart from './SwapLineChart';
+import TokenDisplay from './TokenDisplay';
+import { getTimeWindowChange } from './utils';
 
 const BasicChart = ({
   token0Address,
@@ -17,31 +17,31 @@ const BasicChart = ({
   isMobile,
   currentSwapPrice,
 }) => {
-  const [timeWindow, setTimeWindow] = useState<PairDataTimeWindowEnum>(0)
+  const [timeWindow, setTimeWindow] = useState<PairDataTimeWindowEnum>(0);
 
   const { pairPrices = [], pairId } = useFetchPairPrices({
     token0Address,
     token1Address,
     timeWindow,
     currentSwapPrice,
-  })
-  const [hoverValue, setHoverValue] = useState<number | undefined>()
-  const [hoverDate, setHoverDate] = useState<string | undefined>()
-  const valueToDisplay = hoverValue || pairPrices[pairPrices.length - 1]?.value
-  const { changePercentage, changeValue } = getTimeWindowChange(pairPrices)
-  const isChangePositive = changeValue >= 0
-  const chartHeight = isChartExpanded ? 'calc(100% - 120px)' : '310px'
+  });
+  const [hoverValue, setHoverValue] = useState<number | undefined>();
+  const [hoverDate, setHoverDate] = useState<string | undefined>();
+  const valueToDisplay = hoverValue || pairPrices[pairPrices.length - 1]?.value;
+  const { changePercentage, changeValue } = getTimeWindowChange(pairPrices);
+  const isChangePositive = changeValue >= 0;
+  const chartHeight = isChartExpanded ? 'calc(100% - 120px)' : '310px';
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
+  } = useTranslation();
   const currentDate = new Date().toLocaleString(locale, {
     year: 'numeric',
     month: 'short',
     day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
-  })
+  });
 
   // Sometimes we might receive array full of zeros for obscure tokens while trying to derive data
   // In that case chart is not useful to users
@@ -50,7 +50,7 @@ const BasicChart = ({
     pairPrices.length > 0 &&
     pairPrices.every(
       (price) => !price.value || price.value === 0 || price.value === Infinity || Number.isNaN(price.value),
-    )
+    );
 
   if (isBadData) {
     return (
@@ -60,7 +60,7 @@ const BasicChart = ({
         pairAddress={pairId}
         isMobile={isMobile}
       />
-    )
+    );
   }
 
   return (
@@ -104,7 +104,7 @@ const BasicChart = ({
         />
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default BasicChart
+export default BasicChart;

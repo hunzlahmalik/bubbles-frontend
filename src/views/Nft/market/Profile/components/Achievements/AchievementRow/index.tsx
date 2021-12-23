@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { AutoRenewIcon, Button, Flex } from '@pancakeswap/uikit'
-import { Achievement } from 'state/types'
-import useToast from 'hooks/useToast'
-import { useTranslation } from 'contexts/Localization'
-import { usePointCenterIfoContract } from 'hooks/useContract'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import AchievementTitle from 'views/Nft/market/Profile/components/Achievements/AchievementTitle'
-import AchievementAvatar from 'views/Nft/market/Profile/components/Achievements/AchievementAvatar'
-import AchievementDescription from 'views/Nft/market/Profile/components/Achievements/AchievementDescription'
-import { logError } from 'utils/sentry'
-import PointsLabel from './PointsLabel'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { AutoRenewIcon, Button, Flex } from '@pancakeswap/uikit';
+import { Achievement } from 'state/types';
+import useToast from 'hooks/useToast';
+import { useTranslation } from 'contexts/Localization';
+import { usePointCenterIfoContract } from 'hooks/useContract';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import AchievementTitle from 'views/Nft/market/Profile/components/Achievements/AchievementTitle';
+import AchievementAvatar from 'views/Nft/market/Profile/components/Achievements/AchievementAvatar';
+import AchievementDescription from 'views/Nft/market/Profile/components/Achievements/AchievementDescription';
+import { logError } from 'utils/sentry';
+import PointsLabel from './PointsLabel';
 
 interface AchievementRowProps {
-  achievement: Achievement
-  onCollectSuccess?: (achievement: Achievement) => void
+  achievement: Achievement;
+  onCollectSuccess?: (achievement: Achievement) => void;
 }
 
 const ActionColumn = styled.div`
@@ -29,17 +29,17 @@ const ActionColumn = styled.div`
       width: 100%;
     }
   }
-`
+`;
 
 const StyledAchievementRow = styled(Flex)`
   border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
   padding-bottom: 16px;
   padding-top: 16px;
-`
+`;
 
 const Details = styled.div`
   flex: 1;
-`
+`;
 
 const Body = styled(Flex)`
   flex-direction: column;
@@ -50,33 +50,33 @@ const Body = styled(Flex)`
     align-items: center;
     flex-direction: row;
   }
-`
+`;
 
 const AchievementRow: React.FC<AchievementRowProps> = ({ achievement, onCollectSuccess }) => {
-  const [isCollecting, setIsCollecting] = useState(false)
-  const { t } = useTranslation()
-  const pointCenterContract = usePointCenterIfoContract()
-  const { toastError, toastSuccess } = useToast()
-  const { callWithGasPrice } = useCallWithGasPrice()
+  const [isCollecting, setIsCollecting] = useState(false);
+  const { t } = useTranslation();
+  const pointCenterContract = usePointCenterIfoContract();
+  const { toastError, toastSuccess } = useToast();
+  const { callWithGasPrice } = useCallWithGasPrice();
 
   const handleCollectPoints = async () => {
     try {
-      const tx = await callWithGasPrice(pointCenterContract, 'getPoints', [achievement.address])
-      setIsCollecting(true)
-      const receipt = await tx.wait()
+      const tx = await callWithGasPrice(pointCenterContract, 'getPoints', [achievement.address]);
+      setIsCollecting(true);
+      const receipt = await tx.wait();
       if (receipt.status) {
-        onCollectSuccess(achievement)
-        toastSuccess(t('Points Collected!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />)
+        onCollectSuccess(achievement);
+        toastSuccess(t('Points Collected!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />);
       } else {
-        toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
+        toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
       }
     } catch (error) {
-      logError(error)
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
+      logError(error);
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
     } finally {
-      setIsCollecting(false)
+      setIsCollecting(false);
     }
-  }
+  };
 
   return (
     <StyledAchievementRow>
@@ -100,7 +100,7 @@ const AchievementRow: React.FC<AchievementRowProps> = ({ achievement, onCollectS
         </ActionColumn>
       </Body>
     </StyledAchievementRow>
-  )
-}
+  );
+};
 
-export default AchievementRow
+export default AchievementRow;

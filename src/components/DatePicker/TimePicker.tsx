@@ -1,9 +1,9 @@
-import React from 'react'
-import { useTranslation } from 'contexts/Localization'
-import DatePicker, { DatePickerProps } from './DatePicker'
+import React from 'react';
+import { useTranslation } from 'contexts/Localization';
+import DatePicker, { DatePickerProps } from './DatePicker';
 
 const TimePicker: React.FC<DatePickerProps> = (props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <DatePicker
@@ -14,7 +14,7 @@ const TimePicker: React.FC<DatePickerProps> = (props) => {
       dateFormat="ppp"
       {...props}
     />
-  )
-}
+  );
+};
 
-export default TimePicker
+export default TimePicker;

@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
-import BigNumber from 'bignumber.js'
-import { ethers } from 'ethers'
-import { parseUnits } from 'ethers/lib/utils'
+import React, { useMemo, useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
+import BigNumber from 'bignumber.js';
+import { ethers } from 'ethers';
+import { parseUnits } from 'ethers/lib/utils';
 import {
   Modal,
   ModalBody,
@@ -15,33 +15,33 @@ import {
   TooltipText,
   Box,
   Link,
-} from '@pancakeswap/uikit'
-import { PoolIds, Ifo } from 'config/constants/types'
-import { WalletIfoData, PublicIfoData } from 'views/Ifos/types'
-import { useTranslation } from 'contexts/Localization'
-import { formatNumber, getBalanceAmount } from 'utils/formatBalance'
-import ApproveConfirmButtons from 'components/ApproveConfirmButtons'
-import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { DEFAULT_TOKEN_DECIMAL } from 'config'
-import { useERC20 } from 'hooks/useContract'
-import tokens from 'config/constants/tokens'
+} from '@pancakeswap/uikit';
+import { PoolIds, Ifo } from 'config/constants/types';
+import { WalletIfoData, PublicIfoData } from 'views/Ifos/types';
+import { useTranslation } from 'contexts/Localization';
+import { formatNumber, getBalanceAmount } from 'utils/formatBalance';
+import ApproveConfirmButtons from 'components/ApproveConfirmButtons';
+import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { DEFAULT_TOKEN_DECIMAL } from 'config';
+import { useERC20 } from 'hooks/useContract';
+import tokens from 'config/constants/tokens';
 
 interface Props {
-  poolId: PoolIds
-  ifo: Ifo
-  publicIfoData: PublicIfoData
-  walletIfoData: WalletIfoData
-  userCurrencyBalance: BigNumber
-  creditLeft: BigNumber
-  onSuccess: (amount: BigNumber, txHash: string) => void
-  onDismiss?: () => void
+  poolId: PoolIds;
+  ifo: Ifo;
+  publicIfoData: PublicIfoData;
+  walletIfoData: WalletIfoData;
+  userCurrencyBalance: BigNumber;
+  creditLeft: BigNumber;
+  onSuccess: (amount: BigNumber, txHash: string) => void;
+  onDismiss?: () => void;
 }
 
-const multiplierValues = [0.1, 0.25, 0.5, 0.75, 1]
+const multiplierValues = [0.1, 0.25, 0.5, 0.75, 1];
 
 // Default value for transaction setting, tweak based on BSC network congestion.
-const gasPrice = parseUnits('10', 'gwei').toString()
+const gasPrice = parseUnits('10', 'gwei').toString();
 
 const ContributeModal: React.FC<Props> = ({
   poolId,
@@ -53,36 +53,36 @@ const ContributeModal: React.FC<Props> = ({
   onDismiss,
   onSuccess,
 }) => {
-  const publicPoolCharacteristics = publicIfoData[poolId]
-  const userPoolCharacteristics = walletIfoData[poolId]
+  const publicPoolCharacteristics = publicIfoData[poolId];
+  const userPoolCharacteristics = walletIfoData[poolId];
 
-  const { currency } = ifo
-  const { limitPerUserInLP } = publicPoolCharacteristics
-  const { amountTokenCommittedInLP } = userPoolCharacteristics
-  const { contract } = walletIfoData
-  const [value, setValue] = useState('')
-  const { account } = useWeb3React()
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const raisingTokenContract = useERC20(currency.address)
-  const { t } = useTranslation()
-  const valueWithTokenDecimals = new BigNumber(value).times(DEFAULT_TOKEN_DECIMAL)
-  const label = currency === tokens.cake ? t('Max. CAKE entry') : t('Max. token entry')
+  const { currency } = ifo;
+  const { limitPerUserInLP } = publicPoolCharacteristics;
+  const { amountTokenCommittedInLP } = userPoolCharacteristics;
+  const { contract } = walletIfoData;
+  const [value, setValue] = useState('');
+  const { account } = useWeb3React();
+  const { callWithGasPrice } = useCallWithGasPrice();
+  const raisingTokenContract = useERC20(currency.address);
+  const { t } = useTranslation();
+  const valueWithTokenDecimals = new BigNumber(value).times(DEFAULT_TOKEN_DECIMAL);
+  const label = currency === tokens.cake ? t('Max. CAKE entry') : t('Max. token entry');
 
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
       onRequiresApproval: async () => {
         try {
-          const response = await raisingTokenContract.allowance(account, contract.address)
-          const currentAllowance = new BigNumber(response.toString())
-          return currentAllowance.gt(0)
+          const response = await raisingTokenContract.allowance(account, contract.address);
+          const currentAllowance = new BigNumber(response.toString());
+          return currentAllowance.gt(0);
         } catch (error) {
-          return false
+          return false;
         }
       },
       onApprove: () => {
         return callWithGasPrice(raisingTokenContract, 'approve', [contract.address, ethers.constants.MaxUint256], {
           gasPrice,
-        })
+        });
       },
       onConfirm: () => {
         return callWithGasPrice(
@@ -92,33 +92,33 @@ const ContributeModal: React.FC<Props> = ({
           {
             gasPrice,
           },
-        )
+        );
       },
       onSuccess: async ({ receipt }) => {
-        await onSuccess(valueWithTokenDecimals, receipt.transactionHash)
-        onDismiss()
+        await onSuccess(valueWithTokenDecimals, receipt.transactionHash);
+        onDismiss();
       },
-    })
+    });
 
   // in v3 max token entry is based on ifo credit and hard cap limit per user minus amount already committed
   const maximumTokenEntry = useMemo(() => {
     if (!creditLeft) {
-      return limitPerUserInLP.minus(amountTokenCommittedInLP)
+      return limitPerUserInLP.minus(amountTokenCommittedInLP);
     }
     if (limitPerUserInLP.isGreaterThan(0)) {
       if (limitPerUserInLP.isGreaterThan(0)) {
         return limitPerUserInLP.minus(amountTokenCommittedInLP).isLessThanOrEqualTo(creditLeft)
           ? limitPerUserInLP.minus(amountTokenCommittedInLP)
-          : creditLeft
+          : creditLeft;
       }
     }
-    return creditLeft
-  }, [creditLeft, limitPerUserInLP, amountTokenCommittedInLP])
+    return creditLeft;
+  }, [creditLeft, limitPerUserInLP, amountTokenCommittedInLP]);
 
   // include user balance for input
   const maximumTokenCommittable = useMemo(() => {
-    return maximumTokenEntry.isLessThanOrEqualTo(userCurrencyBalance) ? maximumTokenEntry : userCurrencyBalance
-  }, [maximumTokenEntry, userCurrencyBalance])
+    return maximumTokenEntry.isLessThanOrEqualTo(userCurrencyBalance) ? maximumTokenEntry : userCurrencyBalance;
+  }, [maximumTokenEntry, userCurrencyBalance]);
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     poolId === PoolIds.poolBasic
@@ -129,10 +129,11 @@ const ContributeModal: React.FC<Props> = ({
           'For the unlimited sale, Max CAKE entry is capped by your average CAKE balance in the IFO CAKE pool. To increase the max entry, Stake more CAKE into the IFO CAKE pool',
         ),
     {},
-  )
+  );
 
   const isWarning =
-    valueWithTokenDecimals.isGreaterThan(userCurrencyBalance) || valueWithTokenDecimals.isGreaterThan(maximumTokenEntry)
+    valueWithTokenDecimals.isGreaterThan(userCurrencyBalance) ||
+    valueWithTokenDecimals.isGreaterThan(maximumTokenEntry);
 
   return (
     <Modal title={t('Contribute %symbol%', { symbol: currency.symbol })} onDismiss={onDismiss}>
@@ -169,7 +170,7 @@ const ContributeModal: React.FC<Props> = ({
             onBlur={() => {
               if (isWarning) {
                 // auto adjust to max value
-                setValue(getBalanceAmount(maximumTokenCommittable).toString())
+                setValue(getBalanceAmount(maximumTokenCommittable).toString());
               }
             }}
             mb="8px"
@@ -230,7 +231,7 @@ const ContributeModal: React.FC<Props> = ({
         </Box>
       </ModalBody>
     </Modal>
-  )
-}
+  );
+};
 
-export default ContributeModal
+export default ContributeModal;

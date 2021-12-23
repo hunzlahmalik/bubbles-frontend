@@ -1,9 +1,9 @@
-import React from 'react'
-import { Text, Flex, HelpIcon, useTooltip } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import { Text, Flex, HelpIcon, useTooltip } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 const CannotBidMessage: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { tooltip, targetRef, tooltipVisible } = useTooltip(
     <>
       <Text mb="16px">{t('Only whitelisted project wallets can bid in the auction to create Community Farms.')}</Text>
@@ -15,7 +15,7 @@ const CannotBidMessage: React.FC = () => {
       </Text>
     </>,
     { placement: 'bottom' },
-  )
+  );
   return (
     <Flex justifyContent="center" alignItems="center">
       <Text color="textSubtle" small mr="8px">
@@ -26,7 +26,7 @@ const CannotBidMessage: React.FC = () => {
       </span>
       {tooltipVisible && tooltip}
     </Flex>
-  )
-}
+  );
+};
 
-export default CannotBidMessage
+export default CannotBidMessage;

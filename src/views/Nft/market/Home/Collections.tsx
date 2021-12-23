@@ -1,22 +1,22 @@
-import React from 'react'
-import orderBy from 'lodash/orderBy'
-import { Button, ChevronRightIcon, Flex, Grid, Heading, Text } from '@pancakeswap/uikit'
-import { Link } from 'react-router-dom'
-import { useGetCollections } from 'state/nftMarket/hooks'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
-import { useTranslation } from 'contexts/Localization'
-import { HotCollectionCard } from '../components/CollectibleCard'
-import { BNBAmountLabel } from '../components/CollectibleCard/styles'
+import React from 'react';
+import orderBy from 'lodash/orderBy';
+import { Button, ChevronRightIcon, Flex, Grid, Heading, Text } from '@pancakeswap/uikit';
+import { Link } from 'react-router-dom';
+import { useGetCollections } from 'state/nftMarket/hooks';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
+import { useTranslation } from 'contexts/Localization';
+import { HotCollectionCard } from '../components/CollectibleCard';
+import { BNBAmountLabel } from '../components/CollectibleCard/styles';
 
 const Collections = () => {
-  const { t } = useTranslation()
-  const collections = useGetCollections()
+  const { t } = useTranslation();
+  const collections = useGetCollections();
 
   const orderedCollections = orderBy(
     collections,
     (collection) => (collection.totalVolumeBNB ? parseFloat(collection.totalVolumeBNB) : 0),
     'desc',
-  )
+  );
 
   return (
     <>
@@ -51,11 +51,11 @@ const Collections = () => {
                 <BNBAmountLabel amount={collection.totalVolumeBNB ? parseFloat(collection.totalVolumeBNB) : 0} />
               </Flex>
             </HotCollectionCard>
-          )
+          );
         })}
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default Collections
+export default Collections;

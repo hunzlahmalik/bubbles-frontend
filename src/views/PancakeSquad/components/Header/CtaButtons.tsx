@@ -1,37 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
-import { BigNumber } from 'ethers'
-import { Flex } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
-import { DefaultTheme } from 'styled-components'
-import { SaleStatusEnum, UserStatusEnum } from '../../types'
-import BuyTicketsButtons from '../Buttons/BuyTickets'
-import MintButton from '../Buttons/Mint'
-import EndEventButtons from '../Buttons/EndEvent'
-import ActivateProfileButton from '../Buttons/ActivateProfile'
-import { getCurrentButton } from './utils'
-import { ButtonsEnum } from './types'
+import React from 'react';
+import { BigNumber } from 'ethers';
+import { Flex } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
+import { DefaultTheme } from 'styled-components';
+import { SaleStatusEnum, UserStatusEnum } from '../../types';
+import BuyTicketsButtons from '../Buttons/BuyTickets';
+import MintButton from '../Buttons/Mint';
+import EndEventButtons from '../Buttons/EndEvent';
+import ActivateProfileButton from '../Buttons/ActivateProfile';
+import { getCurrentButton } from './utils';
+import { ButtonsEnum } from './types';
 
 export type CtaButtonsProps = {
-  t: ContextApi['t']
-  account: string
-  saleStatus: SaleStatusEnum
-  userStatus: UserStatusEnum
-  theme: DefaultTheme
-  canClaimForGen0: boolean
-  maxPerAddress: number
-  maxPerTransaction: number
-  numberTicketsOfUser: number
-  numberTicketsForGen0: number
-  numberTicketsUsedForGen0: number
-  maxSupply: number
-  totalSupplyMinted: number
-  numberTokensOfUser: number
-  startTimestamp: number
-  cakeBalance: BigNumber
-  pricePerTicket: BigNumber
-  ticketsOfUser: BigNumber[]
-}
+  t: ContextApi['t'];
+  account: string;
+  saleStatus: SaleStatusEnum;
+  userStatus: UserStatusEnum;
+  theme: DefaultTheme;
+  canClaimForGen0: boolean;
+  maxPerAddress: number;
+  maxPerTransaction: number;
+  numberTicketsOfUser: number;
+  numberTicketsForGen0: number;
+  numberTicketsUsedForGen0: number;
+  maxSupply: number;
+  totalSupplyMinted: number;
+  numberTokensOfUser: number;
+  startTimestamp: number;
+  cakeBalance: BigNumber;
+  pricePerTicket: BigNumber;
+  ticketsOfUser: BigNumber[];
+};
 
 const CtaButtons: React.FC<CtaButtonsProps> = ({
   t,
@@ -53,7 +53,7 @@ const CtaButtons: React.FC<CtaButtonsProps> = ({
   pricePerTicket,
   ticketsOfUser,
 }) => {
-  const buttonType = getCurrentButton({ numberTicketsOfUser, saleStatus, userStatus })
+  const buttonType = getCurrentButton({ numberTicketsOfUser, saleStatus, userStatus });
   return (
     <>
       <Flex>
@@ -99,7 +99,7 @@ const CtaButtons: React.FC<CtaButtonsProps> = ({
         )}
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default CtaButtons
+export default CtaButtons;

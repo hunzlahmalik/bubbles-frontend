@@ -1,9 +1,9 @@
-import React, { ImgHTMLAttributes } from 'react'
-import styled from 'styled-components'
-import { BunnyPlaceholderIcon } from '@pancakeswap/uikit'
+import React, { ImgHTMLAttributes } from 'react';
+import styled from 'styled-components';
+import { BunnyPlaceholderIcon } from '@pancakeswap/uikit';
 
 interface AchievementAvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
-  badge?: string
+  badge?: string;
 }
 
 const NoBadgePlaceholder = styled(BunnyPlaceholderIcon)`
@@ -14,7 +14,7 @@ const NoBadgePlaceholder = styled(BunnyPlaceholderIcon)`
     height: 64px;
     width: 64px;
   }
-`
+`;
 
 const StyledAchievementAvatar = styled.img`
   height: 48px;
@@ -24,14 +24,14 @@ const StyledAchievementAvatar = styled.img`
     height: 64px;
     width: 64px;
   }
-`
+`;
 
 const AchievementAvatar: React.FC<AchievementAvatarProps> = ({ badge, ...props }) => {
   if (!badge) {
-    return <NoBadgePlaceholder />
+    return <NoBadgePlaceholder />;
   }
 
-  return <StyledAchievementAvatar src={`/images/achievements/${badge}`} alt="achievement badge" {...props} />
-}
+  return <StyledAchievementAvatar src={`/images/achievements/${badge}`} alt="achievement badge" {...props} />;
+};
 
-export default AchievementAvatar
+export default AchievementAvatar;

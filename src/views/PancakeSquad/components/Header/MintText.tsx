@@ -1,23 +1,23 @@
-import { Flex, lightColors, Text } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
-import React from 'react'
-import { SaleStatusEnum, UserStatusEnum } from '../../types'
+import { Flex, lightColors, Text } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
+import React from 'react';
+import { SaleStatusEnum, UserStatusEnum } from '../../types';
 
 type PreEventProps = {
-  t: ContextApi['t']
-  saleStatus: SaleStatusEnum
-  userStatus: UserStatusEnum
-  numberTicketsOfUser: number
-  numberTokensOfUser: number
-}
+  t: ContextApi['t'];
+  saleStatus: SaleStatusEnum;
+  userStatus: UserStatusEnum;
+  numberTicketsOfUser: number;
+  numberTokensOfUser: number;
+};
 
 const MintText: React.FC<PreEventProps> = ({ t, saleStatus, userStatus, numberTicketsOfUser, numberTokensOfUser }) => {
-  const isUserUnconnected = userStatus === UserStatusEnum.UNCONNECTED
+  const isUserUnconnected = userStatus === UserStatusEnum.UNCONNECTED;
   const displayMintText =
     ((userStatus === UserStatusEnum.PROFILE_ACTIVE_GEN0 || numberTicketsOfUser > 0) &&
       saleStatus === SaleStatusEnum.Presale) ||
-    saleStatus >= SaleStatusEnum.Sale
-  const hasNoTicketOrToken = numberTicketsOfUser === 0 && numberTokensOfUser === 0
+    saleStatus >= SaleStatusEnum.Sale;
+  const hasNoTicketOrToken = numberTicketsOfUser === 0 && numberTokensOfUser === 0;
   return displayMintText ? (
     <Flex flexDirection="column" mb="24px">
       <Flex>
@@ -36,7 +36,7 @@ const MintText: React.FC<PreEventProps> = ({ t, saleStatus, userStatus, numberTi
         </Text>
       )}
     </Flex>
-  ) : null
-}
+  ) : null;
+};
 
-export default MintText
+export default MintText;

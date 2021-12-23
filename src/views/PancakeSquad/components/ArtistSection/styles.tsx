@@ -1,5 +1,5 @@
-import { Flex, Link } from '@pancakeswap/uikit'
-import styled from 'styled-components'
+import { Flex, Link } from '@pancakeswap/uikit';
+import styled from 'styled-components';
 
 export const StyledArtistSectionContainer = styled(Flex)<{ $isDark: boolean }>`
   position: relative;
@@ -7,7 +7,7 @@ export const StyledArtistSectionContainer = styled(Flex)<{ $isDark: boolean }>`
     $isDark
       ? `linear-gradient(90deg, #313D5C 0%, #3D2A54 100%);`
       : `linear-gradient(90deg, #faf9fa 0%, #d7caec 100%);`};
-`
+`;
 
 export const StyledArtistBioContainer = styled(Flex)`
   position: relative;
@@ -30,11 +30,11 @@ export const StyledArtistBioContainer = styled(Flex)`
       transform: none;
     }
   }
-`
+`;
 
 export const StyledSocialButton = styled(Link)`
   width: 100%;
   ${({ theme }) => theme.mediaQueries.md} {
     width: fit-content;
   }
-`
+`;

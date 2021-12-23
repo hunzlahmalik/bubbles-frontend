@@ -1,25 +1,25 @@
-import React, { useRef, RefObject, useCallback, useState, useMemo } from 'react'
-import { Token } from '@pancakeswap/sdk'
-import { Text, Button, CloseIcon, IconButton, LinkExternal, Input, Link } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import Row, { RowBetween, RowFixed } from 'components/Layout/Row'
-import { useToken } from 'hooks/Tokens'
-import { useRemoveUserAddedToken } from 'state/user/hooks'
-import useUserAddedTokens from 'state/user/hooks/useUserAddedTokens'
-import { CurrencyLogo } from 'components/Logo'
-import { getBscScanLink, isAddress } from 'utils'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useTranslation } from 'contexts/Localization'
-import Column, { AutoColumn } from '../Layout/Column'
-import ImportRow from './ImportRow'
-import { CurrencyModalView } from './types'
+import React, { useRef, RefObject, useCallback, useState, useMemo } from 'react';
+import { Token } from '@pancakeswap/sdk';
+import { Text, Button, CloseIcon, IconButton, LinkExternal, Input, Link } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import Row, { RowBetween, RowFixed } from 'components/Layout/Row';
+import { useToken } from 'hooks/Tokens';
+import { useRemoveUserAddedToken } from 'state/user/hooks';
+import useUserAddedTokens from 'state/user/hooks/useUserAddedTokens';
+import { CurrencyLogo } from 'components/Logo';
+import { getBscScanLink, isAddress } from 'utils';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { useTranslation } from 'contexts/Localization';
+import Column, { AutoColumn } from '../Layout/Column';
+import ImportRow from './ImportRow';
+import { CurrencyModalView } from './types';
 
 const Wrapper = styled.div`
   width: 100%;
   height: calc(100% - 60px);
   position: relative;
   padding-bottom: 60px;
-`
+`;
 
 const Footer = styled.div`
   position: absolute;
@@ -28,43 +28,43 @@ const Footer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 export default function ManageTokens({
   setModalView,
   setImportToken,
 }: {
-  setModalView: (view: CurrencyModalView) => void
-  setImportToken: (token: Token) => void
+  setModalView: (view: CurrencyModalView) => void;
+  setImportToken: (token: Token) => void;
 }) {
-  const { chainId } = useActiveWeb3React()
+  const { chainId } = useActiveWeb3React();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   // manage focus on modal show
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>();
   const handleInput = useCallback((event) => {
-    const input = event.target.value
-    const checksummedInput = isAddress(input)
-    setSearchQuery(checksummedInput || input)
-  }, [])
+    const input = event.target.value;
+    const checksummedInput = isAddress(input);
+    setSearchQuery(checksummedInput || input);
+  }, []);
 
   // if they input an address, use it
-  const searchToken = useToken(searchQuery)
+  const searchToken = useToken(searchQuery);
 
   // all tokens for local list
-  const userAddedTokens: Token[] = useUserAddedTokens()
-  const removeToken = useRemoveUserAddedToken()
+  const userAddedTokens: Token[] = useUserAddedTokens();
+  const removeToken = useRemoveUserAddedToken();
 
   const handleRemoveAll = useCallback(() => {
     if (chainId && userAddedTokens) {
       userAddedTokens.map((token) => {
-        return removeToken(chainId, token.address)
-      })
+        return removeToken(chainId, token.address);
+      });
     }
-  }, [removeToken, userAddedTokens, chainId])
+  }, [removeToken, userAddedTokens, chainId]);
 
   const tokenList = useMemo(() => {
     return (
@@ -85,10 +85,10 @@ export default function ManageTokens({
           </RowFixed>
         </RowBetween>
       ))
-    )
-  }, [userAddedTokens, chainId, removeToken])
+    );
+  }, [userAddedTokens, chainId, removeToken]);
 
-  const isAddressValid = searchQuery === '' || isAddress(searchQuery)
+  const isAddressValid = searchQuery === '' || isAddress(searchQuery);
 
   return (
     <Wrapper>
@@ -129,5 +129,5 @@ export default function ManageTokens({
         </Footer>
       </Column>
     </Wrapper>
-  )
+  );
 }

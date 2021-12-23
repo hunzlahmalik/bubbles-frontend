@@ -1,4 +1,4 @@
-import { InjectedModalProps } from '@pancakeswap/uikit'
+import { InjectedModalProps } from '@pancakeswap/uikit';
 
 export enum ConfirmVoteView {
   MAIN = 'main',
@@ -6,11 +6,11 @@ export enum ConfirmVoteView {
 }
 
 export interface CastVoteModalProps extends InjectedModalProps {
-  onSuccess: () => Promise<void>
-  proposalId: string
+  onSuccess: () => Promise<void>;
+  proposalId: string;
   vote: {
-    label: string
-    value: number
-  }
-  block?: number
+    label: string;
+    value: number;
+  };
+  block?: number;
 }

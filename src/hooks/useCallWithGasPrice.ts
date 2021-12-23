@@ -1,8 +1,8 @@
-import { useCallback } from 'react'
-import ethers, { Contract, CallOverrides } from 'ethers'
-import { useGasPrice } from 'state/user/hooks'
-import { get } from 'lodash'
-import * as Sentry from '@sentry/react'
+import { useCallback } from 'react';
+import ethers, { Contract, CallOverrides } from 'ethers';
+import { useGasPrice } from 'state/user/hooks';
+import { get } from 'lodash';
+import * as Sentry from '@sentry/react';
 
 /**
  * Perform a contract call with a gas price returned from useGasPrice
@@ -13,7 +13,7 @@ import * as Sentry from '@sentry/react'
  * @returns https://docs.ethers.io/v5/api/providers/types/#providers-TransactionReceipt
  */
 export function useCallWithGasPrice() {
-  const gasPrice = useGasPrice()
+  const gasPrice = useGasPrice();
 
   const callWithGasPrice = useCallback(
     async (
@@ -31,14 +31,14 @@ export function useCallWithGasPrice() {
           methodArgs,
           overrides,
         },
-      })
-      const contractMethod = get(contract, methodName)
-      const hasManualGasPriceOverride = overrides?.gasPrice
+      });
+      const contractMethod = get(contract, methodName);
+      const hasManualGasPriceOverride = overrides?.gasPrice;
 
       const tx = await contractMethod(
         ...methodArgs,
         hasManualGasPriceOverride ? { ...overrides } : { ...overrides, gasPrice },
-      )
+      );
       if (tx) {
         Sentry.addBreadcrumb({
           type: 'Transaction',
@@ -49,13 +49,13 @@ export function useCallWithGasPrice() {
             gasLimit: tx.gasLimit?.toString(),
             nonce: tx.nonce,
           },
-        })
+        });
       }
 
-      return tx
+      return tx;
     },
     [gasPrice],
-  )
+  );
 
-  return { callWithGasPrice }
+  return { callWithGasPrice };
 }

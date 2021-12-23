@@ -1,17 +1,17 @@
-import React from 'react'
-import { Text, Flex, TooltipText, useTooltip, Skeleton, Heading } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { getCakeVaultEarnings } from 'views/Pools/helpers'
-import { useTranslation } from 'contexts/Localization'
-import Balance from 'components/Balance'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { DeserializedPool } from 'state/types'
+import React from 'react';
+import { Text, Flex, TooltipText, useTooltip, Skeleton, Heading } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { getCakeVaultEarnings } from 'views/Pools/helpers';
+import { useTranslation } from 'contexts/Localization';
+import Balance from 'components/Balance';
+import { useVaultPoolByKey } from 'state/pools/hooks';
+import { DeserializedPool } from 'state/types';
 
-import { ActionContainer, ActionTitles, ActionContent } from './styles'
-import UnstakingFeeCountdownRow from '../../CakeVaultCard/UnstakingFeeCountdownRow'
+import { ActionContainer, ActionTitles, ActionContent } from './styles';
+import UnstakingFeeCountdownRow from '../../CakeVaultCard/UnstakingFeeCountdownRow';
 
 interface AutoHarvestActionProps extends DeserializedPool {
-  userDataLoaded: boolean
+  userDataLoaded: boolean;
 }
 
 const AutoHarvestAction: React.FunctionComponent<AutoHarvestActionProps> = ({
@@ -19,36 +19,36 @@ const AutoHarvestAction: React.FunctionComponent<AutoHarvestActionProps> = ({
   earningTokenPrice,
   vaultKey,
 }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
 
   const {
     userData: { cakeAtLastUserAction, userShares },
     pricePerFullShare,
     fees: { performanceFee },
-  } = useVaultPoolByKey(vaultKey)
+  } = useVaultPoolByKey(vaultKey);
   const { hasAutoEarnings, autoCakeToDisplay, autoUsdToDisplay } = getCakeVaultEarnings(
     account,
     cakeAtLastUserAction,
     userShares,
     pricePerFullShare,
     earningTokenPrice,
-  )
+  );
 
-  const earningTokenBalance = autoCakeToDisplay
-  const earningTokenDollarBalance = autoUsdToDisplay
-  const hasEarnings = hasAutoEarnings
+  const earningTokenBalance = autoCakeToDisplay;
+  const earningTokenDollarBalance = autoUsdToDisplay;
+  const hasEarnings = hasAutoEarnings;
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t('Subtracted automatically from each yield harvest and burned.'),
     { placement: 'bottom-start' },
-  )
+  );
 
   const actionTitle = (
     <Text fontSize="12px" bold color="secondary" as="span" textTransform="uppercase">
       {t('Recent CAKE profit')}
     </Text>
-  )
+  );
 
   if (!account) {
     return (
@@ -58,7 +58,7 @@ const AutoHarvestAction: React.FunctionComponent<AutoHarvestActionProps> = ({
           <Heading>0</Heading>
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   if (!userDataLoaded) {
@@ -69,7 +69,7 @@ const AutoHarvestAction: React.FunctionComponent<AutoHarvestActionProps> = ({
           <Skeleton width={180} height="32px" marginTop={14} />
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   return (
@@ -119,7 +119,7 @@ const AutoHarvestAction: React.FunctionComponent<AutoHarvestActionProps> = ({
         </Flex>
       </ActionContent>
     </ActionContainer>
-  )
-}
+  );
+};
 
-export default AutoHarvestAction
+export default AutoHarvestAction;

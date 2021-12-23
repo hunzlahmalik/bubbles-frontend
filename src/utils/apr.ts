@@ -1,6 +1,6 @@
-import BigNumber from 'bignumber.js'
-import { BLOCKS_PER_YEAR, CAKE_PER_YEAR } from 'config'
-import lpAprs from 'config/constants/lpAprs.json'
+import BigNumber from 'bignumber.js';
+import { BLOCKS_PER_YEAR, CAKE_PER_YEAR } from 'config';
+import lpAprs from 'config/constants/lpAprs.json';
 
 /**
  * Get the APR value in %
@@ -16,11 +16,11 @@ export const getPoolApr = (
   totalStaked: number,
   tokenPerBlock: number,
 ): number => {
-  const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerBlock).times(BLOCKS_PER_YEAR)
-  const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(totalStaked)
-  const apr = totalRewardPricePerYear.div(totalStakingTokenInPool).times(100)
-  return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber()
-}
+  const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerBlock).times(BLOCKS_PER_YEAR);
+  const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(totalStaked);
+  const apr = totalRewardPricePerYear.div(totalStakingTokenInPool).times(100);
+  return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber();
+};
 
 /**
  * Get farm APR value in %
@@ -36,14 +36,14 @@ export const getFarmApr = (
   poolLiquidityUsd: BigNumber,
   farmAddress: string,
 ): { cakeRewardsApr: number; lpRewardsApr: number } => {
-  const yearlyCakeRewardAllocation = poolWeight ? poolWeight.times(CAKE_PER_YEAR) : new BigNumber(NaN)
-  const cakeRewardsApr = yearlyCakeRewardAllocation.times(cakePriceUsd).div(poolLiquidityUsd).times(100)
-  let cakeRewardsAprAsNumber = null
+  const yearlyCakeRewardAllocation = poolWeight ? poolWeight.times(CAKE_PER_YEAR) : new BigNumber(NaN);
+  const cakeRewardsApr = yearlyCakeRewardAllocation.times(cakePriceUsd).div(poolLiquidityUsd).times(100);
+  let cakeRewardsAprAsNumber = null;
   if (!cakeRewardsApr.isNaN() && cakeRewardsApr.isFinite()) {
-    cakeRewardsAprAsNumber = cakeRewardsApr.toNumber()
+    cakeRewardsAprAsNumber = cakeRewardsApr.toNumber();
   }
-  const lpRewardsApr = lpAprs[farmAddress?.toLocaleLowerCase()] ?? 0
-  return { cakeRewardsApr: cakeRewardsAprAsNumber, lpRewardsApr }
-}
+  const lpRewardsApr = lpAprs[farmAddress?.toLocaleLowerCase()] ?? 0;
+  return { cakeRewardsApr: cakeRewardsAprAsNumber, lpRewardsApr };
+};
 
-export default null
+export default null;

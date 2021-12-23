@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
-import { Box, Flex, Text } from '@pancakeswap/uikit'
-import { useAppDispatch } from 'state'
-import { fetchCollection } from 'state/nftMarket/reducer'
-import { useGetCollection } from 'state/nftMarket/hooks'
-import { useTranslation } from 'contexts/Localization'
-import Select, { OptionProps } from 'components/Select/Select'
-import Container from 'components/Layout/Container'
-import { pancakeBunniesAddress } from '../../constants'
-import PancakeBunniesCollectionNfts from './PancakeBunniesCollectionNfts'
-import Header from '../Header'
-import CollectionWrapper from './CollectionWrapper'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { Box, Flex, Text } from '@pancakeswap/uikit';
+import { useAppDispatch } from 'state';
+import { fetchCollection } from 'state/nftMarket/reducer';
+import { useGetCollection } from 'state/nftMarket/hooks';
+import { useTranslation } from 'contexts/Localization';
+import Select, { OptionProps } from 'components/Select/Select';
+import Container from 'components/Layout/Container';
+import { pancakeBunniesAddress } from '../../constants';
+import PancakeBunniesCollectionNfts from './PancakeBunniesCollectionNfts';
+import Header from '../Header';
+import CollectionWrapper from './CollectionWrapper';
 
 const Items = () => {
-  const { collectionAddress } = useParams<{ collectionAddress: string }>()
-  const [sortBy, setSortBy] = useState('updatedAt')
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const collection = useGetCollection(collectionAddress)
-  const isPBCollection = collectionAddress.toLowerCase() === pancakeBunniesAddress.toLowerCase()
+  const { collectionAddress } = useParams<{ collectionAddress: string }>();
+  const [sortBy, setSortBy] = useState('updatedAt');
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const collection = useGetCollection(collectionAddress);
+  const isPBCollection = collectionAddress.toLowerCase() === pancakeBunniesAddress.toLowerCase();
 
-  const { address } = collection || {}
+  const { address } = collection || {};
 
   const sortByItems = [
     { label: t('Recently listed'), value: 'updatedAt' },
     { label: t('Lowest price'), value: 'currentAskPrice' },
-  ]
+  ];
 
   const handleChange = (newOption: OptionProps) => {
-    setSortBy(newOption.value)
-  }
+    setSortBy(newOption.value);
+  };
 
   useEffect(() => {
     if (address) {
-      dispatch(fetchCollection(address))
+      dispatch(fetchCollection(address));
     }
-  }, [address, dispatch])
+  }, [address, dispatch]);
 
   return (
     <>
@@ -56,7 +56,7 @@ const Items = () => {
         <CollectionWrapper collection={collection} />
       )}
     </>
-  )
-}
+  );
+};
 
-export default Items
+export default Items;

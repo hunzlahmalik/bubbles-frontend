@@ -1,34 +1,34 @@
-import React from 'react'
-import { Box, Button, Grid, Flex, useMatchBreakpoints, AutoRenewIcon } from '@pancakeswap/uikit'
-import { useAppDispatch } from 'state'
+import React from 'react';
+import { Box, Button, Grid, Flex, useMatchBreakpoints, AutoRenewIcon } from '@pancakeswap/uikit';
+import { useAppDispatch } from 'state';
 import {
   useGetLeaderboardHasMoreResults,
   useGetLeaderboardLoadingState,
   useGetLeaderboardResults,
   useGetLeaderboardSkip,
-} from 'state/predictions/hooks'
-import { LeaderboardLoadingState } from 'state/types'
-import { filterNextPageLeaderboard } from 'state/predictions'
-import { LEADERBOARD_RESULTS_PER_PAGE } from 'state/predictions/helpers'
-import { useTranslation } from 'contexts/Localization'
-import Container from 'components/Layout/Container'
-import DesktopResults from './DesktopResults'
-import MobileResults from './MobileResults'
-import RankingCard from './RankingCard'
+} from 'state/predictions/hooks';
+import { LeaderboardLoadingState } from 'state/types';
+import { filterNextPageLeaderboard } from 'state/predictions';
+import { LEADERBOARD_RESULTS_PER_PAGE } from 'state/predictions/helpers';
+import { useTranslation } from 'contexts/Localization';
+import Container from 'components/Layout/Container';
+import DesktopResults from './DesktopResults';
+import MobileResults from './MobileResults';
+import RankingCard from './RankingCard';
 
 const Results = () => {
-  const { isDesktop } = useMatchBreakpoints()
-  const { t } = useTranslation()
-  const [first, second, third, ...rest] = useGetLeaderboardResults()
-  const leaderboardLoadingState = useGetLeaderboardLoadingState()
-  const isLoading = leaderboardLoadingState === LeaderboardLoadingState.LOADING
-  const currentSkip = useGetLeaderboardSkip()
-  const hasMoreResults = useGetLeaderboardHasMoreResults()
-  const dispatch = useAppDispatch()
+  const { isDesktop } = useMatchBreakpoints();
+  const { t } = useTranslation();
+  const [first, second, third, ...rest] = useGetLeaderboardResults();
+  const leaderboardLoadingState = useGetLeaderboardLoadingState();
+  const isLoading = leaderboardLoadingState === LeaderboardLoadingState.LOADING;
+  const currentSkip = useGetLeaderboardSkip();
+  const hasMoreResults = useGetLeaderboardHasMoreResults();
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(filterNextPageLeaderboard(currentSkip + LEADERBOARD_RESULTS_PER_PAGE))
-  }
+    dispatch(filterNextPageLeaderboard(currentSkip + LEADERBOARD_RESULTS_PER_PAGE));
+  };
 
   return (
     <Box>
@@ -56,7 +56,7 @@ const Results = () => {
         )}
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default Results
+export default Results;

@@ -1,17 +1,17 @@
-import React from 'react'
-import { Box, Button, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useAppDispatch } from 'state'
-import { setHistoryPaneState } from 'state/predictions'
-import Notification from './Notification'
+import React from 'react';
+import { Box, Button, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useAppDispatch } from 'state';
+import { setHistoryPaneState } from 'state/predictions';
+import Notification from './Notification';
 
 const PauseNotification = () => {
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const handleOpenHistory = () => {
-    dispatch(setHistoryPaneState(true))
-  }
+    dispatch(setHistoryPaneState(true));
+  };
 
   return (
     <Notification title={t('Markets Paused')}>
@@ -26,7 +26,7 @@ const PauseNotification = () => {
         {t('Show History')}
       </Button>
     </Notification>
-  )
-}
+  );
+};
 
-export default PauseNotification
+export default PauseNotification;

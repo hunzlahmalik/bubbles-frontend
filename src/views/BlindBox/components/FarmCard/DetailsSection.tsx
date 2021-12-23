@@ -1,24 +1,24 @@
-import React from 'react'
-import { useTranslation } from 'contexts/Localization'
-import styled from 'styled-components'
-import { Text, Flex, LinkExternal, Skeleton } from '@pancakeswap/uikit'
+import React from 'react';
+import { useTranslation } from 'contexts/Localization';
+import styled from 'styled-components';
+import { Text, Flex, LinkExternal, Skeleton } from '@pancakeswap/uikit';
 
 export interface ExpandableSectionProps {
-  bscScanAddress?: string
-  infoAddress?: string
-  removed?: boolean
-  totalValueFormatted?: string
-  lpLabel?: string
-  addLiquidityUrl?: string
+  bscScanAddress?: string;
+  infoAddress?: string;
+  removed?: boolean;
+  totalValueFormatted?: string;
+  lpLabel?: string;
+  addLiquidityUrl?: string;
 }
 
 const Wrapper = styled.div`
   margin-top: 24px;
-`
+`;
 
 const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
-`
+`;
 
 const DetailsSection: React.FC<ExpandableSectionProps> = ({
   bscScanAddress,
@@ -28,7 +28,7 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
   lpLabel,
   addLiquidityUrl,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -42,7 +42,7 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
       <StyledLinkExternal href={bscScanAddress}>{t('View Contract')}</StyledLinkExternal>
       <StyledLinkExternal href={infoAddress}>{t('See Pair Info')}</StyledLinkExternal>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default DetailsSection
+export default DetailsSection;

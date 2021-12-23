@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   ModalContainer,
   ModalBody,
@@ -11,37 +11,37 @@ import {
   ModalTitle,
   Heading,
   Box,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import styled from 'styled-components'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import styled from 'styled-components';
 
 interface RiskDisclaimerProps extends InjectedModalProps {
-  onSuccess: () => void
+  onSuccess: () => void;
 }
 
 const GradientModalHeader = styled(ModalHeader)`
   background: ${({ theme }) => theme.colors.gradients.bubblegum};
   padding-bottom: 24px;
   padding-top: 24px;
-`
+`;
 
 const RiskDisclaimer: React.FC<RiskDisclaimerProps> = ({ onSuccess, onDismiss }) => {
-  const [acknowledgeRisk, setAcknowledgeRisk] = useState(false)
-  const [acknowledgeBeta, setAcknowledgeBeta] = useState(false)
-  const { t } = useTranslation()
+  const [acknowledgeRisk, setAcknowledgeRisk] = useState(false);
+  const [acknowledgeBeta, setAcknowledgeBeta] = useState(false);
+  const { t } = useTranslation();
 
   const handleSetAcknowledgeRisk = () => {
-    setAcknowledgeRisk(!acknowledgeRisk)
-  }
+    setAcknowledgeRisk(!acknowledgeRisk);
+  };
 
   const handleSetAcknowledgeBeta = () => {
-    setAcknowledgeBeta(!acknowledgeBeta)
-  }
+    setAcknowledgeBeta(!acknowledgeBeta);
+  };
 
   const handleConfirm = () => {
-    onSuccess()
-    onDismiss()
-  }
+    onSuccess();
+    onDismiss();
+  };
 
   return (
     <ModalContainer title={t('Welcome!')} minWidth="320px" id="predictions-risk-disclaimer">
@@ -101,7 +101,7 @@ const RiskDisclaimer: React.FC<RiskDisclaimerProps> = ({ onSuccess, onDismiss })
         </Button>
       </ModalBody>
     </ModalContainer>
-  )
-}
+  );
+};
 
-export default RiskDisclaimer
+export default RiskDisclaimer;

@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useAchievementsForAddress, useProfileForAddress } from 'state/profile/hooks'
-import { Box } from '@pancakeswap/uikit'
-import Page from 'components/Layout/Page'
-import { Route, useParams } from 'react-router'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
-import MarketPageHeader from '../components/MarketPageHeader'
-import ProfileHeader from './components/ProfileHeader'
-import TabMenu from './components/TabMenu'
-import Achievements from './components/Achievements'
-import ActivityHistory from './components/ActivityHistory'
-import SubMenu from './components/SubMenu'
-import useNftsForAddress from './hooks/useNftsForAddress'
-import UnconnectedProfileNfts from './components/UnconnectedProfileNfts'
+import React from 'react';
+import styled from 'styled-components';
+import { useAchievementsForAddress, useProfileForAddress } from 'state/profile/hooks';
+import { Box } from '@pancakeswap/uikit';
+import Page from 'components/Layout/Page';
+import { Route, useParams } from 'react-router';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
+import MarketPageHeader from '../components/MarketPageHeader';
+import ProfileHeader from './components/ProfileHeader';
+import TabMenu from './components/TabMenu';
+import Achievements from './components/Achievements';
+import ActivityHistory from './components/ActivityHistory';
+import SubMenu from './components/SubMenu';
+import useNftsForAddress from './hooks/useNftsForAddress';
+import UnconnectedProfileNfts from './components/UnconnectedProfileNfts';
 
 const TabMenuWrapper = styled(Box)`
   position: absolute;
@@ -24,14 +24,14 @@ const TabMenuWrapper = styled(Box)`
     left: auto;
     transform: none;
   }
-`
+`;
 
 const UnconnectedProfile = () => {
-  const { accountAddress } = useParams<{ accountAddress: string }>()
-  const { profile: profileHookState, isFetching: isProfileFetching } = useProfileForAddress(accountAddress)
-  const { profile } = profileHookState || {}
-  const { achievements, isFetching: isAchievementFetching } = useAchievementsForAddress(accountAddress)
-  const { nfts, isLoading: isNftLoading } = useNftsForAddress(accountAddress, profile, isProfileFetching)
+  const { accountAddress } = useParams<{ accountAddress: string }>();
+  const { profile: profileHookState, isFetching: isProfileFetching } = useProfileForAddress(accountAddress);
+  const { profile } = profileHookState || {};
+  const { achievements, isFetching: isAchievementFetching } = useAchievementsForAddress(accountAddress);
+  const { nfts, isLoading: isNftLoading } = useNftsForAddress(accountAddress, profile, isProfileFetching);
 
   return (
     <>
@@ -63,7 +63,7 @@ const UnconnectedProfile = () => {
         </Route>
       </Page>
     </>
-  )
-}
+  );
+};
 
-export default UnconnectedProfile
+export default UnconnectedProfile;

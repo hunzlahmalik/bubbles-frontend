@@ -1,19 +1,19 @@
-import BigNumber from 'bignumber.js'
-import { useState, useCallback } from 'react'
-import { BSC_BLOCK_TIME } from 'config'
-import ifoV2Abi from 'config/abi/ifoV2.json'
-import tokens from 'config/constants/tokens'
-import { Ifo, IfoStatus } from 'config/constants/types'
-import { ethers } from 'ethers'
-import { useLpTokenPrice, usePriceCakeBusd } from 'state/farms/hooks'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { multicallv2 } from 'utils/multicall'
-import { PublicIfoData } from '../../types'
-import { getStatus } from '../helpers'
+import BigNumber from 'bignumber.js';
+import { useState, useCallback } from 'react';
+import { BSC_BLOCK_TIME } from 'config';
+import ifoV2Abi from 'config/abi/ifoV2.json';
+import tokens from 'config/constants/tokens';
+import { Ifo, IfoStatus } from 'config/constants/types';
+import { ethers } from 'ethers';
+import { useLpTokenPrice, usePriceCakeBusd } from 'state/farms/hooks';
+import { BIG_ZERO } from 'utils/bigNumber';
+import { multicallv2 } from 'utils/multicall';
+import { PublicIfoData } from '../../types';
+import { getStatus } from '../helpers';
 
 // https://github.com/pancakeswap/pancake-contracts/blob/master/projects/ifo/contracts/IFOV2.sol#L431
 // 1,000,000,000 / 100
-const TAX_PRECISION = ethers.FixedNumber.from(10000000000)
+const TAX_PRECISION = ethers.FixedNumber.from(10000000000);
 
 const formatPool = (pool) => ({
   raisingAmountPool: pool ? new BigNumber(pool[0].toString()) : BIG_ZERO,
@@ -22,16 +22,16 @@ const formatPool = (pool) => ({
   hasTax: pool ? pool[3] : false,
   totalAmountPool: pool ? new BigNumber(pool[4].toString()) : BIG_ZERO,
   sumTaxesOverflow: pool ? new BigNumber(pool[5].toString()) : BIG_ZERO,
-})
+});
 
 /**
  * Gets all public data of an IFO
  */
 const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
-  const { address, releaseBlockNumber } = ifo
-  const cakePriceUsd = usePriceCakeBusd()
-  const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
-  const currencyPriceInUSD = ifo.currency === tokens.cake ? cakePriceUsd : lpTokenPriceInUsd
+  const { address, releaseBlockNumber } = ifo;
+  const cakePriceUsd = usePriceCakeBusd();
+  const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol);
+  const currencyPriceInUSD = ifo.currency === tokens.cake ? cakePriceUsd : lpTokenPriceInUsd;
 
   const [state, setState] = useState({
     isInitialized: false,
@@ -60,7 +60,7 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
     startBlockNum: 0,
     endBlockNum: 0,
     numberPoints: 0,
-  })
+  });
 
   const fetchIfoData = useCallback(
     async (currentBlock: number) => {
@@ -97,24 +97,24 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
             address,
             name: 'thresholdPoints',
           },
-        ])
+        ]);
 
-      const poolBasicFormatted = formatPool(poolBasic)
-      const poolUnlimitedFormatted = formatPool(poolUnlimited)
+      const poolBasicFormatted = formatPool(poolBasic);
+      const poolUnlimitedFormatted = formatPool(poolUnlimited);
 
-      const startBlockNum = startBlock ? startBlock[0].toNumber() : 0
-      const endBlockNum = endBlock ? endBlock[0].toNumber() : 0
-      const taxRateNum = taxRate ? ethers.FixedNumber.from(taxRate[0]).divUnsafe(TAX_PRECISION).toUnsafeFloat() : 0
+      const startBlockNum = startBlock ? startBlock[0].toNumber() : 0;
+      const endBlockNum = endBlock ? endBlock[0].toNumber() : 0;
+      const taxRateNum = taxRate ? ethers.FixedNumber.from(taxRate[0]).divUnsafe(TAX_PRECISION).toUnsafeFloat() : 0;
 
-      const status = getStatus(currentBlock, startBlockNum, endBlockNum)
-      const totalBlocks = endBlockNum - startBlockNum
-      const blocksRemaining = endBlockNum - currentBlock
+      const status = getStatus(currentBlock, startBlockNum, endBlockNum);
+      const totalBlocks = endBlockNum - startBlockNum;
+      const blocksRemaining = endBlockNum - currentBlock;
 
       // Calculate the total progress until finished or until start
       const progress =
         currentBlock > startBlockNum
           ? ((currentBlock - startBlockNum) / totalBlocks) * 100
-          : ((currentBlock - releaseBlockNumber) / (startBlockNum - releaseBlockNumber)) * 100
+          : ((currentBlock - releaseBlockNumber) / (startBlockNum - releaseBlockNumber)) * 100;
 
       setState((prev) => ({
         ...prev,
@@ -130,12 +130,12 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
         endBlockNum,
         thresholdPoints: thresholdPoints && thresholdPoints[0],
         numberPoints: numberPoints ? numberPoints[0].toNumber() : 0,
-      }))
+      }));
     },
     [releaseBlockNumber, address],
-  )
+  );
 
-  return { ...state, currencyPriceInUSD, fetchIfoData }
-}
+  return { ...state, currencyPriceInUSD, fetchIfoData };
+};
 
-export default useGetPublicIfoData
+export default useGetPublicIfoData;

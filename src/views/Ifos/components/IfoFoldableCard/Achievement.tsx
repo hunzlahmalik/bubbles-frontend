@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   Flex,
   Image,
@@ -12,15 +12,15 @@ import {
   TwitterIcon,
   Link,
   TelegramIcon,
-} from '@pancakeswap/uikit'
-import tokens from 'config/constants/tokens'
-import { useTranslation } from 'contexts/Localization'
-import { PublicIfoData } from 'views/Ifos/types'
-import { Ifo } from 'config/constants/types'
-import { BIG_TEN } from 'utils/bigNumber'
-import { getBscScanLink } from 'utils'
-import { formatBigNumber } from 'utils/formatBalance'
-import { FlexGap } from 'components/Layout/Flex'
+} from '@pancakeswap/uikit';
+import tokens from 'config/constants/tokens';
+import { useTranslation } from 'contexts/Localization';
+import { PublicIfoData } from 'views/Ifos/types';
+import { Ifo } from 'config/constants/types';
+import { BIG_TEN } from 'utils/bigNumber';
+import { getBscScanLink } from 'utils';
+import { formatBigNumber } from 'utils/formatBalance';
+import { FlexGap } from 'components/Layout/Flex';
 
 const SmartContractIcon: React.FC<SvgProps> = (props) => {
   return (
@@ -32,14 +32,14 @@ const SmartContractIcon: React.FC<SvgProps> = (props) => {
         d="M5.287 4a2 2 0 012-2h13a2 2 0 012 2v15c0 1.66-1.34 3-3 3h-14c-1.66 0-3-1.34-3-3v-2c0-.55.45-1 1-1h2V4zm0 16h11v-2h-12v1c0 .55.45 1 1 1zm14 0c.55 0 1-.45 1-1V4h-13v12h10c.55 0 1 .45 1 1v2c0 .55.45 1 1 1z"
       />
     </Svg>
-  )
-}
+  );
+};
 
-const FIXED_MIN_DOLLAR_FOR_ACHIEVEMENT = BIG_TEN
+const FIXED_MIN_DOLLAR_FOR_ACHIEVEMENT = BIG_TEN;
 
 interface Props {
-  ifo: Ifo
-  publicIfoData: PublicIfoData
+  ifo: Ifo;
+  publicIfoData: PublicIfoData;
 }
 
 const Container = styled(Flex)`
@@ -51,25 +51,25 @@ const Container = styled(Flex)`
     flex-direction: row;
     align-items: initial;
   }
-`
+`;
 
 const AchievementFlex = styled(Flex)<{ isFinished: boolean }>`
   ${({ isFinished }) => (isFinished ? 'filter: grayscale(100%)' : '')};
   text-align: left;
-`
+`;
 
 const InlinePrize = styled(Flex)`
   display: inline-flex;
   vertical-align: top;
-`
+`;
 
 const IfoAchievement: React.FC<Props> = ({ ifo, publicIfoData }) => {
-  const { t } = useTranslation()
-  const tokenName = ifo.token.symbol?.toLowerCase()
-  const campaignTitle = ifo.name
+  const { t } = useTranslation();
+  const tokenName = ifo.token.symbol?.toLowerCase();
+  const campaignTitle = ifo.name;
   const minLpForAchievement = publicIfoData.thresholdPoints
     ? formatBigNumber(publicIfoData.thresholdPoints, 3)
-    : FIXED_MIN_DOLLAR_FOR_ACHIEVEMENT.div(publicIfoData.currencyPriceInUSD).toNumber().toFixed(3)
+    : FIXED_MIN_DOLLAR_FOR_ACHIEVEMENT.div(publicIfoData.currencyPriceInUSD).toNumber().toFixed(3);
 
   return (
     <Container p="16px" pb="32px">
@@ -128,7 +128,7 @@ const IfoAchievement: React.FC<Props> = ({ ifo, publicIfoData }) => {
         </Flex>
       )}
     </Container>
-  )
-}
+  );
+};
 
-export default IfoAchievement
+export default IfoAchievement;

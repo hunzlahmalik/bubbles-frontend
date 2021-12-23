@@ -1,13 +1,13 @@
-import React, { useCallback, useMemo } from 'react'
-import { currencyEquals, Trade } from '@pancakeswap/sdk'
-import { InjectedModalProps } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React, { useCallback, useMemo } from 'react';
+import { currencyEquals, Trade } from '@pancakeswap/sdk';
+import { InjectedModalProps } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 import TransactionConfirmationModal, {
   ConfirmationModalContent,
   TransactionErrorContent,
-} from 'components/TransactionConfirmationModal'
-import SwapModalFooter from './SwapModalFooter'
-import SwapModalHeader from './SwapModalHeader'
+} from 'components/TransactionConfirmationModal';
+import SwapModalFooter from './SwapModalFooter';
+import SwapModalHeader from './SwapModalHeader';
 
 /**
  * Returns true if the trade requires a confirmation of details before we can submit it
@@ -21,19 +21,19 @@ function tradeMeaningfullyDiffers(tradeA: Trade, tradeB: Trade): boolean {
     !tradeA.inputAmount.equalTo(tradeB.inputAmount) ||
     !currencyEquals(tradeA.outputAmount.currency, tradeB.outputAmount.currency) ||
     !tradeA.outputAmount.equalTo(tradeB.outputAmount)
-  )
+  );
 }
 interface ConfirmSwapModalProps {
-  trade?: Trade
-  originalTrade?: Trade
-  attemptingTxn: boolean
-  txHash?: string
-  recipient: string | null
-  allowedSlippage: number
-  onAcceptChanges: () => void
-  onConfirm: () => void
-  swapErrorMessage?: string
-  customOnDismiss?: () => void
+  trade?: Trade;
+  originalTrade?: Trade;
+  attemptingTxn: boolean;
+  txHash?: string;
+  recipient: string | null;
+  allowedSlippage: number;
+  onAcceptChanges: () => void;
+  onConfirm: () => void;
+  swapErrorMessage?: string;
+  customOnDismiss?: () => void;
 }
 
 const ConfirmSwapModal: React.FC<InjectedModalProps & ConfirmSwapModalProps> = ({
@@ -52,9 +52,9 @@ const ConfirmSwapModal: React.FC<InjectedModalProps & ConfirmSwapModalProps> = (
   const showAcceptChanges = useMemo(
     () => Boolean(trade && originalTrade && tradeMeaningfullyDiffers(trade, originalTrade)),
     [originalTrade, trade],
-  )
+  );
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const modalHeader = useCallback(() => {
     return trade ? (
@@ -65,8 +65,8 @@ const ConfirmSwapModal: React.FC<InjectedModalProps & ConfirmSwapModalProps> = (
         showAcceptChanges={showAcceptChanges}
         onAcceptChanges={onAcceptChanges}
       />
-    ) : null
-  }, [allowedSlippage, onAcceptChanges, recipient, showAcceptChanges, trade])
+    ) : null;
+  }, [allowedSlippage, onAcceptChanges, recipient, showAcceptChanges, trade]);
 
   const modalBottom = useCallback(() => {
     return trade ? (
@@ -77,8 +77,8 @@ const ConfirmSwapModal: React.FC<InjectedModalProps & ConfirmSwapModalProps> = (
         swapErrorMessage={swapErrorMessage}
         allowedSlippage={allowedSlippage}
       />
-    ) : null
-  }, [allowedSlippage, onConfirm, showAcceptChanges, swapErrorMessage, trade])
+    ) : null;
+  }, [allowedSlippage, onConfirm, showAcceptChanges, swapErrorMessage, trade]);
 
   // text to show while loading
   const pendingText = t('Swapping %amountA% %symbolA% for %amountB% %symbolB%', {
@@ -86,7 +86,7 @@ const ConfirmSwapModal: React.FC<InjectedModalProps & ConfirmSwapModalProps> = (
     symbolA: trade?.inputAmount?.currency?.symbol ?? '',
     amountB: trade?.outputAmount?.toSignificant(6) ?? '',
     symbolB: trade?.outputAmount?.currency?.symbol ?? '',
-  })
+  });
 
   const confirmationContent = useCallback(
     () =>
@@ -96,7 +96,7 @@ const ConfirmSwapModal: React.FC<InjectedModalProps & ConfirmSwapModalProps> = (
         <ConfirmationModalContent topContent={modalHeader} bottomContent={modalBottom} />
       ),
     [onDismiss, modalBottom, modalHeader, swapErrorMessage],
-  )
+  );
 
   return (
     <TransactionConfirmationModal
@@ -109,7 +109,7 @@ const ConfirmSwapModal: React.FC<InjectedModalProps & ConfirmSwapModalProps> = (
       pendingText={pendingText}
       currencyToAdd={trade?.outputAmount.currency}
     />
-  )
-}
+  );
+};
 
-export default ConfirmSwapModal
+export default ConfirmSwapModal;

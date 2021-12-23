@@ -1,20 +1,20 @@
-import React, { useMemo, useState } from 'react'
-import styled from 'styled-components'
-import { Trade, TradeType } from '@pancakeswap/sdk'
-import { Button, Text, AutoRenewIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { Field } from 'state/swap/actions'
+import React, { useMemo, useState } from 'react';
+import styled from 'styled-components';
+import { Trade, TradeType } from '@pancakeswap/sdk';
+import { Button, Text, AutoRenewIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { Field } from 'state/swap/actions';
 import {
   computeSlippageAdjustedAmounts,
   computeTradePriceBreakdown,
   formatExecutionPrice,
   warningSeverity,
-} from 'utils/prices'
-import { AutoColumn } from 'components/Layout/Column'
-import QuestionHelper from 'components/QuestionHelper'
-import { AutoRow, RowBetween, RowFixed } from 'components/Layout/Row'
-import FormattedPriceImpact from './FormattedPriceImpact'
-import { StyledBalanceMaxMini, SwapCallbackError } from './styleds'
+} from 'utils/prices';
+import { AutoColumn } from 'components/Layout/Column';
+import QuestionHelper from 'components/QuestionHelper';
+import { AutoRow, RowBetween, RowFixed } from 'components/Layout/Row';
+import FormattedPriceImpact from './FormattedPriceImpact';
+import { StyledBalanceMaxMini, SwapCallbackError } from './styleds';
 
 const SwapModalFooterContainer = styled(AutoColumn)`
   margin-top: 24px;
@@ -22,7 +22,7 @@ const SwapModalFooterContainer = styled(AutoColumn)`
   border-radius: ${({ theme }) => theme.radii.default};
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   background-color: ${({ theme }) => theme.colors.background};
-`
+`;
 
 export default function SwapModalFooter({
   trade,
@@ -31,20 +31,20 @@ export default function SwapModalFooter({
   swapErrorMessage,
   disabledConfirm,
 }: {
-  trade: Trade
-  allowedSlippage: number
-  onConfirm: () => void
-  swapErrorMessage: string | undefined
-  disabledConfirm: boolean
+  trade: Trade;
+  allowedSlippage: number;
+  onConfirm: () => void;
+  swapErrorMessage: string | undefined;
+  disabledConfirm: boolean;
 }) {
-  const { t } = useTranslation()
-  const [showInverted, setShowInverted] = useState<boolean>(false)
+  const { t } = useTranslation();
+  const [showInverted, setShowInverted] = useState<boolean>(false);
   const slippageAdjustedAmounts = useMemo(
     () => computeSlippageAdjustedAmounts(trade, allowedSlippage),
     [allowedSlippage, trade],
-  )
-  const { priceImpactWithoutFee, realizedLPFee } = useMemo(() => computeTradePriceBreakdown(trade), [trade])
-  const severity = warningSeverity(priceImpactWithoutFee)
+  );
+  const { priceImpactWithoutFee, realizedLPFee } = useMemo(() => computeTradePriceBreakdown(trade), [trade]);
+  const severity = warningSeverity(priceImpactWithoutFee);
 
   return (
     <>
@@ -139,5 +139,5 @@ export default function SwapModalFooter({
         {swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
       </AutoRow>
     </>
-  )
+  );
 }

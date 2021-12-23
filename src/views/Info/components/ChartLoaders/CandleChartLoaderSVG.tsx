@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const CandleChartLoaderSVG: React.FC<SvgProps> = (props) => {
   return (
@@ -155,7 +155,7 @@ const CandleChartLoaderSVG: React.FC<SvgProps> = (props) => {
         />
       </rect>
     </Svg>
-  )
-}
+  );
+};
 
-export default CandleChartLoaderSVG
+export default CandleChartLoaderSVG;

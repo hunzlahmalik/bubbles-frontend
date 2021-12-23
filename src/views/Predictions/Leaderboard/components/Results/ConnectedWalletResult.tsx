@@ -1,31 +1,31 @@
-import React, { useEffect } from 'react'
-import { Card, Heading, Table, Th, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useWeb3React } from '@web3-react/core'
-import Container from 'components/Layout/Container'
-import { useAppDispatch } from 'state'
-import { fetchProfileAvatar } from 'state/profile'
-import { fetchAddressResult } from 'state/predictions'
-import { useGetOrFetchLeaderboardAddressResult } from 'state/predictions/hooks'
-import DesktopRow from './DesktopRow'
-import MobileRow from './MobileRow'
+import React, { useEffect } from 'react';
+import { Card, Heading, Table, Th, useMatchBreakpoints } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useWeb3React } from '@web3-react/core';
+import Container from 'components/Layout/Container';
+import { useAppDispatch } from 'state';
+import { fetchProfileAvatar } from 'state/profile';
+import { fetchAddressResult } from 'state/predictions';
+import { useGetOrFetchLeaderboardAddressResult } from 'state/predictions/hooks';
+import DesktopRow from './DesktopRow';
+import MobileRow from './MobileRow';
 
 const ConnectedWalletResult = () => {
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const accountResult = useGetOrFetchLeaderboardAddressResult(account)
-  const { isDesktop } = useMatchBreakpoints()
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const accountResult = useGetOrFetchLeaderboardAddressResult(account);
+  const { isDesktop } = useMatchBreakpoints();
 
   useEffect(() => {
     if (account) {
-      dispatch(fetchProfileAvatar(account))
-      dispatch(fetchAddressResult(account))
+      dispatch(fetchProfileAvatar(account));
+      dispatch(fetchAddressResult(account));
     }
-  }, [account, dispatch])
+  }, [account, dispatch]);
 
   if (!account || !accountResult) {
-    return null
+    return null;
   }
 
   return (
@@ -57,7 +57,7 @@ const ConnectedWalletResult = () => {
         </Card>
       )}
     </Container>
-  )
-}
+  );
+};
 
-export default ConnectedWalletResult
+export default ConnectedWalletResult;

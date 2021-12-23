@@ -1,5 +1,5 @@
-import { BetPosition } from 'state/types'
-import { formatBnb, formatUsd, getMultiplier, getPayout } from 'views/Predictions/components/History/helpers'
+import { BetPosition } from 'state/types';
+import { formatBnb, formatUsd, getMultiplier, getPayout } from 'views/Predictions/components/History/helpers';
 
 describe('formatUsd', () => {
   it.each([
@@ -8,13 +8,13 @@ describe('formatUsd', () => {
     [689.889, '$689.889'],
     [10.8829, '$10.883'],
   ])('format %i USD correctly with 3 decimals', (value, expected) => {
-    expect(formatUsd(value)).toEqual(expected)
-  })
+    expect(formatUsd(value)).toEqual(expected);
+  });
 
   it('returns 0 if USD is undefined', () => {
-    expect(formatUsd(undefined)).toEqual('$0.000')
-  })
-})
+    expect(formatUsd(undefined)).toEqual('$0.000');
+  });
+});
 
 describe('formatBnb', () => {
   it.each([
@@ -23,13 +23,13 @@ describe('formatBnb', () => {
     [689.889, '689.889'],
     [10.8829, '10.883'],
   ])('format %i BNB correctly with 3 decimals', (value, expected) => {
-    expect(formatBnb(value)).toEqual(expected)
-  })
+    expect(formatBnb(value)).toEqual(expected);
+  });
 
   it('returns 0 if BNB is undefined', () => {
-    expect(formatBnb(undefined)).toEqual('0')
-  })
-})
+    expect(formatBnb(undefined)).toEqual('0');
+  });
+});
 
 describe('getMultiplier', () => {
   it.each([
@@ -38,9 +38,9 @@ describe('getMultiplier', () => {
     [0, 2500, 0],
     [10, 0, 0],
   ])('correctly calculates multiplier', (value, value2, expected) => {
-    expect(getMultiplier(value, value2)).toEqual(expected)
-  })
-})
+    expect(getMultiplier(value, value2)).toEqual(expected);
+  });
+});
 
 describe('getPayout', () => {
   const bet1Bull = {
@@ -77,7 +77,7 @@ describe('getPayout', () => {
       lockAt: 0,
       lockBlock: 1,
     },
-  }
+  };
 
   const bet1Bear = {
     id: 'bet1',
@@ -113,7 +113,7 @@ describe('getPayout', () => {
       lockAt: 0,
       lockBlock: 1,
     },
-  }
+  };
 
   const bet2Bull = {
     id: 'bet2',
@@ -148,7 +148,7 @@ describe('getPayout', () => {
       lockAt: 0,
       lockBlock: 1,
     },
-  }
+  };
 
   const bet2Bear = {
     id: 'bet2',
@@ -183,7 +183,7 @@ describe('getPayout', () => {
       lockAt: 0,
       lockBlock: 1,
     },
-  }
+  };
 
   it.each([
     [bet1Bull, 750],
@@ -191,8 +191,8 @@ describe('getPayout', () => {
     [bet2Bull, 1238.4],
     [bet2Bear, 1548],
   ])('correctly calculates payout', (value, expected) => {
-    expect(getPayout(value)).toEqual(expected)
-  })
+    expect(getPayout(value)).toEqual(expected);
+  });
 
   it.each([
     [bet1Bull, 0.97, 727.5],
@@ -200,6 +200,6 @@ describe('getPayout', () => {
     [bet2Bull, 0.97, 1201.248],
     [bet2Bear, 0.97, 1501.56],
   ])('correctly calculates payout including reward rate', (value, rewardRate, expected) => {
-    expect(getPayout(value, rewardRate)).toEqual(expected)
-  })
-})
+    expect(getPayout(value, rewardRate)).toEqual(expected);
+  });
+});

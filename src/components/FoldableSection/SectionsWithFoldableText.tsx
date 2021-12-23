@@ -1,10 +1,10 @@
-import React from 'react'
-import { Text, Heading, Card, CardHeader, CardBody, Box, BoxProps } from '@pancakeswap/uikit'
-import FoldableText from './FoldableText'
+import React from 'react';
+import { Text, Heading, Card, CardHeader, CardBody, Box, BoxProps } from '@pancakeswap/uikit';
+import FoldableText from './FoldableText';
 
 interface Props extends BoxProps {
-  header: string
-  config: { title: string; description: string[] }[]
+  header: string;
+  config: { title: string; description: string[] }[];
 }
 
 const SectionsWithFoldableText: React.FC<Props> = ({ header, config, ...props }) => {
@@ -24,14 +24,14 @@ const SectionsWithFoldableText: React.FC<Props> = ({ header, config, ...props })
                   <Text key={desc} color="textSubtle" as="p">
                     {desc}
                   </Text>
-                )
+                );
               })}
             </FoldableText>
           ))}
         </CardBody>
       </Card>
     </Box>
-  )
-}
+  );
+};
 
-export default SectionsWithFoldableText
+export default SectionsWithFoldableText;

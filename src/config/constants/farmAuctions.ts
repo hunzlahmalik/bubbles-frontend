@@ -1,6 +1,6 @@
-import getLpAddress from 'utils/getLpAddress'
-import tokens from './tokens'
-import { FarmAuctionBidderConfig } from './types'
+import getLpAddress from 'utils/getLpAddress';
+import tokens from './tokens';
+import { FarmAuctionBidderConfig } from './types';
 
 export const whitelistedBidders: FarmAuctionBidderConfig[] = [
   {
@@ -510,7 +510,7 @@ export const whitelistedBidders: FarmAuctionBidderConfig[] = [
 ].map((bidderConfig) => ({
   ...bidderConfig,
   lpAddress: getLpAddress(bidderConfig.tokenAddress, bidderConfig.quoteToken),
-}))
+}));
 
 const UNKNOWN_BIDDER: FarmAuctionBidderConfig = {
   account: '',
@@ -518,12 +518,12 @@ const UNKNOWN_BIDDER: FarmAuctionBidderConfig = {
   quoteToken: tokens.wbnb,
   farmName: 'Unknown',
   tokenName: 'Unknown',
-}
+};
 
 export const getBidderInfo = (account: string): FarmAuctionBidderConfig => {
-  const matchingBidder = whitelistedBidders.find((bidder) => bidder.account.toLowerCase() === account.toLowerCase())
+  const matchingBidder = whitelistedBidders.find((bidder) => bidder.account.toLowerCase() === account.toLowerCase());
   if (matchingBidder) {
-    return matchingBidder
+    return matchingBidder;
   }
-  return { ...UNKNOWN_BIDDER, account }
-}
+  return { ...UNKNOWN_BIDDER, account };
+};

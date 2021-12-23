@@ -1,9 +1,9 @@
-import { getInterestBreakdown, getRoi, getPrincipalForInterest, getApy } from 'utils/compoundApyHelpers'
+import { getInterestBreakdown, getRoi, getPrincipalForInterest, getApy } from 'utils/compoundApyHelpers';
 
-const TWICE_PER_DAY = 2
-const FIVE_THOUSAND_TIMES_PER_DAY = 5000
-const ONCE_PER_7_DAYS = 0.142857142
-const ONCE_PER_30_DAYS = 0.033333333
+const TWICE_PER_DAY = 2;
+const FIVE_THOUSAND_TIMES_PER_DAY = 5000;
+const ONCE_PER_7_DAYS = 0.142857142;
+const ONCE_PER_30_DAYS = 0.033333333;
 
 it.each([
   [
@@ -49,9 +49,9 @@ it.each([
   ({ principalInUSD, apr, earningTokenPrice, compoundFrequency, performanceFee }, expected) => {
     expect(getInterestBreakdown({ principalInUSD, apr, earningTokenPrice, compoundFrequency, performanceFee })).toEqual(
       expected,
-    )
+    );
   },
-)
+);
 
 it.each([
   [{ amountEarned: 10, amountInvested: 1000 }, 1],
@@ -60,8 +60,8 @@ it.each([
   [{ amountEarned: 100.67, amountInvested: 100 }, 100.66999999999999],
   [{ amountEarned: 8572.84, amountInvested: 20000 }, 42.864200000000004],
 ])('calculate roi % with values %o', ({ amountEarned, amountInvested }, expected) => {
-  expect(getRoi({ amountEarned, amountInvested })).toEqual(expected)
-})
+  expect(getRoi({ amountEarned, amountInvested })).toEqual(expected);
+});
 
 it.each`
   apr      | compoundFrequency  | performanceFee | days   | expectedApy
@@ -76,12 +76,12 @@ it.each`
 `(
   'getApy returns $expectedApy for apr=$apr, compoundFrequency=$compoundFrequency, days=$days, performanceFee=$performanceFee',
   ({ apr, compoundFrequency, performanceFee, days, expectedApy }) => {
-    const DIFFERENCE_THRESHOLD_IN_PERCENTS = 0.0001 // 0.01% error is OK
-    const apy = getApy(apr, compoundFrequency, days, performanceFee)
-    const difference = Math.abs(apy - expectedApy)
-    expect(difference).toBeLessThanOrEqual(DIFFERENCE_THRESHOLD_IN_PERCENTS)
+    const DIFFERENCE_THRESHOLD_IN_PERCENTS = 0.0001; // 0.01% error is OK
+    const apy = getApy(apr, compoundFrequency, days, performanceFee);
+    const difference = Math.abs(apy - expectedApy);
+    expect(difference).toBeLessThanOrEqual(DIFFERENCE_THRESHOLD_IN_PERCENTS);
   },
-)
+);
 
 it.each`
   principalInUSD | apr      | earningTokenPrice | compoundFrequency   | performanceFee
@@ -100,7 +100,7 @@ it.each`
 `(
   'reverse calculations match for p=$principalInUSD, apr=$apr, earningTokenPrice=$earningTokenPrice, compoundFrequency=$compoundFrequency, performanceFee=$performanceFee',
   ({ principalInUSD, apr, earningTokenPrice, compoundFrequency, performanceFee }) => {
-    const DIFFERENCE_THRESHOLD_IN_PERCENTS = 0.00099 // 0.099%
+    const DIFFERENCE_THRESHOLD_IN_PERCENTS = 0.00099; // 0.099%
     // 1. Calculate interests for given parameters
     const interestBreakdown = getInterestBreakdown({
       principalInUSD,
@@ -108,15 +108,15 @@ it.each`
       earningTokenPrice,
       compoundFrequency,
       performanceFee,
-    })
-    const interestBreakdownAsUSD = interestBreakdown.map((interest) => interest * earningTokenPrice)
+    });
+    const interestBreakdownAsUSD = interestBreakdown.map((interest) => interest * earningTokenPrice);
     // 2. Calculate principal for same parameters and check if it matches the above
     interestBreakdownAsUSD.forEach((interest: number, index: number) => {
-      const principalBreakdown = getPrincipalForInterest(interest, apr, compoundFrequency, performanceFee)
-      const principalForInvestment = principalBreakdown[index]
-      const difference = Math.abs(principalForInvestment - principalInUSD)
-      const differenceAsPercentage = (difference * 1) / principalInUSD
-      expect(differenceAsPercentage).toBeLessThanOrEqual(DIFFERENCE_THRESHOLD_IN_PERCENTS)
-    })
+      const principalBreakdown = getPrincipalForInterest(interest, apr, compoundFrequency, performanceFee);
+      const principalForInvestment = principalBreakdown[index];
+      const difference = Math.abs(principalForInvestment - principalInUSD);
+      const differenceAsPercentage = (difference * 1) / principalInUSD;
+      expect(differenceAsPercentage).toBeLessThanOrEqual(DIFFERENCE_THRESHOLD_IN_PERCENTS);
+    });
   },
-)
+);

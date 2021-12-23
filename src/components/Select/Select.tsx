@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react'
-import styled, { css } from 'styled-components'
-import { ArrowDropDownIcon, Box, BoxProps, Text } from '@pancakeswap/uikit'
+import React, { useState, useRef, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import { ArrowDropDownIcon, Box, BoxProps, Text } from '@pancakeswap/uikit';
 
 const DropDownHeader = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ const DropDownHeader = styled.div`
   border-radius: 16px;
   background: ${({ theme }) => theme.colors.input};
   transition: border-radius 0.15s;
-`
+`;
 
 const DropDownListContainer = styled.div`
   min-width: 136px;
@@ -32,7 +32,7 @@ const DropDownListContainer = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     min-width: 168px;
   }
-`
+`;
 
 const DropDownContainer = styled(Box)<{ isOpen: boolean }>`
   cursor: pointer;
@@ -75,14 +75,14 @@ const DropDownContainer = styled(Box)<{ isOpen: boolean }>`
     top: 50%;
     transform: translateY(-50%);
   }
-`
+`;
 
 const DropDownList = styled.ul`
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   z-index: ${({ theme }) => theme.zIndices.dropdown};
-`
+`;
 
 const ListItem = styled.li`
   list-style: none;
@@ -90,17 +90,17 @@ const ListItem = styled.li`
   &:hover {
     background: ${({ theme }) => theme.colors.inputSecondary};
   }
-`
+`;
 
 export interface SelectProps extends BoxProps {
-  options: OptionProps[]
-  onOptionChange?: (option: OptionProps) => void
-  defaultOptionIndex?: number
+  options: OptionProps[];
+  onOptionChange?: (option: OptionProps) => void;
+  defaultOptionIndex?: number;
 }
 
 export interface OptionProps {
-  label: string
-  value: any
+  label: string;
+  value: any;
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -109,34 +109,34 @@ const Select: React.FunctionComponent<SelectProps> = ({
   defaultOptionIndex = 0,
   ...props
 }) => {
-  const dropdownRef = useRef(null)
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState(defaultOptionIndex)
+  const dropdownRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(defaultOptionIndex);
 
   const toggling = (event: React.MouseEvent<HTMLDivElement>) => {
-    setIsOpen(!isOpen)
-    event.stopPropagation()
-  }
+    setIsOpen(!isOpen);
+    event.stopPropagation();
+  };
 
   const onOptionClicked = (selectedIndex: number) => () => {
-    setSelectedOptionIndex(selectedIndex)
-    setIsOpen(false)
+    setSelectedOptionIndex(selectedIndex);
+    setIsOpen(false);
 
     if (onOptionChange) {
-      onOptionChange(options[selectedIndex])
+      onOptionChange(options[selectedIndex]);
     }
-  }
+  };
 
   useEffect(() => {
     const handleClickOutside = () => {
-      setIsOpen(false)
-    }
+      setIsOpen(false);
+    };
 
-    document.addEventListener('click', handleClickOutside)
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <DropDownContainer isOpen={isOpen} {...props}>
@@ -156,7 +156,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
         </DropDownList>
       </DropDownListContainer>
     </DropDownContainer>
-  )
-}
+  );
+};
 
-export default Select
+export default Select;

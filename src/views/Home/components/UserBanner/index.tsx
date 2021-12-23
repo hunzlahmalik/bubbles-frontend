@@ -1,8 +1,8 @@
-import React from 'react'
-import { Box, Flex } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import HarvestCard from './HarvestCard'
-import UserDetail from './UserDetail'
+import React from 'react';
+import { Box, Flex } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import HarvestCard from './HarvestCard';
+import UserDetail from './UserDetail';
 
 const StyledCard = styled(Box)`
   border-bottom: 1px ${({ theme }) => theme.colors.secondary} solid;
@@ -13,7 +13,7 @@ const StyledCard = styled(Box)`
     theme.isDark
       ? 'linear-gradient(360deg, rgba(49, 61, 92, 0.9) 0%, rgba(61, 42, 84, 0.9) 100%)'
       : 'linear-gradient(180deg, rgba(202, 194, 236, 0.9) 0%,  rgba(204, 220, 239, 0.9) 51.04%, rgba(206, 236, 243, 0.9) 100%)'};
-`
+`;
 
 const UserBanner = () => {
   return (
@@ -27,7 +27,7 @@ const UserBanner = () => {
         </Flex>
       </Flex>
     </StyledCard>
-  )
-}
+  );
+};
 
-export default UserBanner
+export default UserBanner;

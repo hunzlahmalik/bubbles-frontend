@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const BarChartLoaderSVG: React.FC<SvgProps> = (props) => {
   return (
@@ -177,7 +177,7 @@ const BarChartLoaderSVG: React.FC<SvgProps> = (props) => {
         <animate attributeName="y" dur="0.9s" values="85%; 10%; 85%" keyTimes="0; 0.55; 1" repeatCount="indefinite" />
       </rect>
     </Svg>
-  )
-}
+  );
+};
 
-export default BarChartLoaderSVG
+export default BarChartLoaderSVG;

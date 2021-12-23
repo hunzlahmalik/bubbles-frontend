@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState } from 'react'
-import { RouteComponentProps, Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import {
   Text,
   Flex,
@@ -16,19 +16,19 @@ import {
   ButtonMenuItem,
   HelpIcon,
   useTooltip,
-} from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import Page from 'components/Layout/Page'
-import { getBscScanLink } from 'utils'
-import { CurrencyLogo, DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import Percent from 'views/Info/components/Percent'
-import SaveIcon from 'views/Info/components/SaveIcon'
-import { usePoolDatas, usePoolChartData, usePoolTransactions } from 'state/info/hooks'
-import TransactionTable from 'views/Info/components/InfoTables/TransactionsTable'
-import { useWatchlistPools } from 'state/user/hooks'
-import { useTranslation } from 'contexts/Localization'
-import ChartCard from 'views/Info/components/InfoCharts/ChartCard'
+} from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import Page from 'components/Layout/Page';
+import { getBscScanLink } from 'utils';
+import { CurrencyLogo, DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import Percent from 'views/Info/components/Percent';
+import SaveIcon from 'views/Info/components/SaveIcon';
+import { usePoolDatas, usePoolChartData, usePoolTransactions } from 'state/info/hooks';
+import TransactionTable from 'views/Info/components/InfoTables/TransactionsTable';
+import { useWatchlistPools } from 'state/user/hooks';
+import { useTranslation } from 'contexts/Localization';
+import ChartCard from 'views/Info/components/InfoCharts/ChartCard';
 
 const ContentLayout = styled.div`
   display: grid;
@@ -39,7 +39,7 @@ const ContentLayout = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
-`
+`;
 
 const TokenButton = styled(Flex)`
   padding: 8px 0px;
@@ -48,7 +48,7 @@ const TokenButton = styled(Flex)`
     cursor: pointer;
     opacity: 0.6;
   }
-`
+`;
 
 const LockedTokensContainer = styled(Flex)`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
@@ -59,34 +59,34 @@ const LockedTokensContainer = styled(Flex)`
   margin-top: 8px;
   border-radius: 16px;
   max-width: 280px;
-`
+`;
 
 const PoolPage: React.FC<RouteComponentProps<{ address: string }>> = ({
   match: {
     params: { address: routeAddress },
   },
 }) => {
-  const { isXs, isSm } = useMatchBreakpoints()
-  const { t } = useTranslation()
-  const [showWeeklyData, setShowWeeklyData] = useState(0)
+  const { isXs, isSm } = useMatchBreakpoints();
+  const { t } = useTranslation();
+  const [showWeeklyData, setShowWeeklyData] = useState(0);
   const { tooltip, tooltipVisible, targetRef } = useTooltip(
     t(`Based on last 7 days' performance. Does not account for impermanent loss`),
     {},
-  )
+  );
 
   // Needed to scroll up if user comes to this page by clicking on entry in the table
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   // In case somebody pastes checksummed address into url (since GraphQL expects lowercase address)
-  const address = routeAddress.toLowerCase()
+  const address = routeAddress.toLowerCase();
 
-  const poolData = usePoolDatas([address])[0]
-  const chartData = usePoolChartData(address)
-  const transactions = usePoolTransactions(address)
+  const poolData = usePoolDatas([address])[0];
+  const chartData = usePoolChartData(address);
+  const transactions = usePoolTransactions(address);
 
-  const [watchlistPools, addPoolToWatchlist] = useWatchlistPools()
+  const [watchlistPools, addPoolToWatchlist] = useWatchlistPools();
 
   return (
     <Page symbol={poolData ? `${poolData?.token0.symbol} / ${poolData?.token1.symbol}` : null}>
@@ -270,7 +270,7 @@ const PoolPage: React.FC<RouteComponentProps<{ address: string }>> = ({
         </Flex>
       )}
     </Page>
-  )
-}
+  );
+};
 
-export default PoolPage
+export default PoolPage;

@@ -1,6 +1,6 @@
-import { Spinner, Text } from '@pancakeswap/uikit'
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import { Spinner, Text } from '@pancakeswap/uikit';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const countdownAnimation = keyframes`
   from {
@@ -9,7 +9,7 @@ const countdownAnimation = keyframes`
   to {
     stroke-dashoffset: 113px;
   }
-`
+`;
 
 const CountdownContainer = styled.div`
   position: relative;
@@ -36,16 +36,16 @@ const CountdownContainer = styled.div`
       animation: ${countdownAnimation} 10s linear infinite forwards;
     }
   }
-`
+`;
 
 interface CountdownCircleProps {
-  secondsRemaining: number
-  isUpdating: boolean
+  secondsRemaining: number;
+  isUpdating: boolean;
 }
 
 const CountdownCircle: React.FC<CountdownCircleProps> = ({ secondsRemaining, isUpdating }) => {
   if (secondsRemaining < 1 || isUpdating) {
-    return <Spinner size={42} />
+    return <Spinner size={42} />;
   }
   return (
     <CountdownContainer>
@@ -56,7 +56,7 @@ const CountdownCircle: React.FC<CountdownCircleProps> = ({ secondsRemaining, isU
         <circle r="18" cx="20" cy="20" />
       </svg>
     </CountdownContainer>
-  )
-}
+  );
+};
 
-export default CountdownCircle
+export default CountdownCircle;

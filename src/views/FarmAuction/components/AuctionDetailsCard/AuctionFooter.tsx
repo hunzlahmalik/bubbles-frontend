@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Text, Flex, Box, CardFooter, ExpandableLabel } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { Auction, AuctionStatus } from 'config/constants/types'
-import WhitelistedBiddersButton from '../WhitelistedBiddersButton'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Text, Flex, Box, CardFooter, ExpandableLabel } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { Auction, AuctionStatus } from 'config/constants/types';
+import WhitelistedBiddersButton from '../WhitelistedBiddersButton';
 
 const FooterInner = styled(Box)`
   background-color: ${({ theme }) => theme.colors.dropdown};
-`
+`;
 
 const AuctionFooter: React.FC<{ auction: Auction }> = ({ auction }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const { t } = useTranslation()
-  const { topLeaderboard, status } = auction
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useTranslation();
+  const { topLeaderboard, status } = auction;
 
-  const isLiveOrPendingAuction = status === AuctionStatus.Pending || status === AuctionStatus.Open
+  const isLiveOrPendingAuction = status === AuctionStatus.Pending || status === AuctionStatus.Open;
 
   return (
     <CardFooter p="0">
@@ -46,7 +46,7 @@ const AuctionFooter: React.FC<{ auction: Auction }> = ({ auction }) => {
         </ExpandableLabel>
       </Flex>
     </CardFooter>
-  )
-}
+  );
+};
 
-export default AuctionFooter
+export default AuctionFooter;

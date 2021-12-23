@@ -1,18 +1,18 @@
-import React from 'react'
-import { Flex, Grid, Text, Button, Link, BinanceIcon, LinkExternal, useModal } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { nftsBaseUrl, pancakeBunniesAddress } from 'views/Nft/market/constants'
-import { NftToken } from 'state/nftMarket/types'
-import { getBscScanLinkForNft } from 'utils'
-import EditProfileModal from 'views/Nft/market/Profile/components/EditProfileModal'
-import { useProfile } from 'state/profile/hooks'
-import { Divider, HorizontalDivider, RoundedImage } from '../shared/styles'
+import React from 'react';
+import { Flex, Grid, Text, Button, Link, BinanceIcon, LinkExternal, useModal } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { nftsBaseUrl, pancakeBunniesAddress } from 'views/Nft/market/constants';
+import { NftToken } from 'state/nftMarket/types';
+import { getBscScanLinkForNft } from 'utils';
+import EditProfileModal from 'views/Nft/market/Profile/components/EditProfileModal';
+import { useProfile } from 'state/profile/hooks';
+import { Divider, HorizontalDivider, RoundedImage } from '../shared/styles';
 
 interface SellStageProps {
-  nftToSell: NftToken
-  lowestPrice: number
-  continueToNextStage: () => void
-  continueToTransferStage: () => void
+  nftToSell: NftToken;
+  lowestPrice: number;
+  continueToNextStage: () => void;
+  continueToTransferStage: () => void;
 }
 
 // Initial stage when user wants to put their NFT for sale or transfer to another wallet
@@ -22,14 +22,14 @@ const SellStage: React.FC<SellStageProps> = ({
   continueToNextStage,
   continueToTransferStage,
 }) => {
-  const { t } = useTranslation()
-  const { hasProfile } = useProfile()
+  const { t } = useTranslation();
+  const { hasProfile } = useProfile();
   const itemPageUrlId =
     nftToSell.collectionAddress.toLowerCase() === pancakeBunniesAddress.toLowerCase()
       ? nftToSell.attributes[0].value
-      : nftToSell.tokenId
+      : nftToSell.tokenId;
 
-  const [onEditProfileModal] = useModal(<EditProfileModal />, false)
+  const [onEditProfileModal] = useModal(<EditProfileModal />, false);
 
   return (
     <>
@@ -100,7 +100,7 @@ const SellStage: React.FC<SellStageProps> = ({
         )}
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default SellStage
+export default SellStage;

@@ -1,31 +1,31 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Link, Skeleton, Text, TimerIcon } from '@pancakeswap/uikit'
-import { getBscScanLink } from 'utils'
-import { DeserializedPool } from 'state/types'
-import { useBlock } from 'state/block/hooks'
-import Balance from 'components/Balance'
-import { useTranslation } from 'contexts/Localization'
-import { getPoolBlockInfo } from 'views/Pools/helpers'
-import BaseCell, { CellContent } from './BaseCell'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Link, Skeleton, Text, TimerIcon } from '@pancakeswap/uikit';
+import { getBscScanLink } from 'utils';
+import { DeserializedPool } from 'state/types';
+import { useBlock } from 'state/block/hooks';
+import Balance from 'components/Balance';
+import { useTranslation } from 'contexts/Localization';
+import { getPoolBlockInfo } from 'views/Pools/helpers';
+import BaseCell, { CellContent } from './BaseCell';
 
 interface FinishCellProps {
-  pool: DeserializedPool
+  pool: DeserializedPool;
 }
 
 const StyledCell = styled(BaseCell)`
   flex: 2 0 100px;
-`
+`;
 
 const EndsInCell: React.FC<FinishCellProps> = ({ pool }) => {
-  const { sousId, totalStaked, startBlock, endBlock, isFinished } = pool
-  const { currentBlock } = useBlock()
-  const { t } = useTranslation()
+  const { sousId, totalStaked, startBlock, endBlock, isFinished } = pool;
+  const { currentBlock } = useBlock();
+  const { t } = useTranslation();
 
   const { shouldShowBlockCountdown, blocksUntilStart, blocksRemaining, hasPoolStarted, blocksToDisplay } =
-    getPoolBlockInfo(pool, currentBlock)
+    getPoolBlockInfo(pool, currentBlock);
 
-  const isCakePool = sousId === 0
+  const isCakePool = sousId === 0;
 
   const renderBlocks = shouldShowBlockCountdown ? (
     <Flex alignItems="center">
@@ -47,14 +47,14 @@ const EndsInCell: React.FC<FinishCellProps> = ({ pool }) => {
     </Flex>
   ) : (
     <Text>-</Text>
-  )
+  );
 
   // A bit hacky way to determine if public data is loading relying on totalStaked
   // Opted to go for this since we don't really need a separate publicDataLoaded flag
   // anywhere else
-  const isLoadingBlockData = !currentBlock || (!blocksRemaining && !blocksUntilStart)
-  const isLoadingPublicData = hasPoolStarted ? !totalStaked.gt(0) || isLoadingBlockData : isLoadingBlockData
-  const showLoading = isLoadingPublicData && !isCakePool && !isFinished
+  const isLoadingBlockData = !currentBlock || (!blocksRemaining && !blocksUntilStart);
+  const isLoadingPublicData = hasPoolStarted ? !totalStaked.gt(0) || isLoadingBlockData : isLoadingBlockData;
+  const showLoading = isLoadingPublicData && !isCakePool && !isFinished;
   return (
     <StyledCell role="cell">
       <CellContent>
@@ -64,7 +64,7 @@ const EndsInCell: React.FC<FinishCellProps> = ({ pool }) => {
         {showLoading ? <Skeleton width="80px" height="16px" /> : renderBlocks}
       </CellContent>
     </StyledCell>
-  )
-}
+  );
+};
 
-export default EndsInCell
+export default EndsInCell;

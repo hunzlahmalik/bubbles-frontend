@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { Box, CopyIcon, Flex, FlexProps, IconButton } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
+import React, { useState } from 'react';
+import { Box, CopyIcon, Flex, FlexProps, IconButton } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
 
 interface CopyAddressProps extends FlexProps {
-  account: string
+  account: string;
 }
 
 const Wrapper = styled(Flex)`
@@ -12,7 +12,7 @@ const Wrapper = styled(Flex)`
   background-color: ${({ theme }) => theme.colors.dropdown};
   border-radius: 16px;
   position: relative;
-`
+`;
 
 const Address = styled.div`
   flex: 1;
@@ -48,7 +48,7 @@ const Address = styled.div`
     top: 0;
     width: 40px;
   }
-`
+`;
 
 const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
   display: ${({ isTooltipDisplayed }) => (isTooltipDisplayed ? 'inline-block' : 'none')};
@@ -62,31 +62,31 @@ const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
   border-radius: 16px;
   opacity: 0.7;
   width: 100px;
-`
+`;
 
 const CopyAddress: React.FC<CopyAddressProps> = ({ account, ...props }) => {
-  const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false)
-  const { t } = useTranslation()
+  const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false);
+  const { t } = useTranslation();
 
   const copyAddress = () => {
     if (navigator.clipboard && navigator.permissions) {
-      navigator.clipboard.writeText(account).then(() => displayTooltip())
+      navigator.clipboard.writeText(account).then(() => displayTooltip());
     } else if (document.queryCommandSupported('copy')) {
-      const ele = document.createElement('textarea')
-      ele.value = account
-      document.body.appendChild(ele)
-      ele.select()
-      document.execCommand('copy')
-      document.body.removeChild(ele)
-      displayTooltip()
+      const ele = document.createElement('textarea');
+      ele.value = account;
+      document.body.appendChild(ele);
+      ele.select();
+      document.execCommand('copy');
+      document.body.removeChild(ele);
+      displayTooltip();
     }
-  }
+  };
 
   function displayTooltip() {
-    setIsTooltipDisplayed(true)
+    setIsTooltipDisplayed(true);
     setTimeout(() => {
-      setIsTooltipDisplayed(false)
-    }, 1000)
+      setIsTooltipDisplayed(false);
+    }, 1000);
   }
 
   return (
@@ -101,7 +101,7 @@ const CopyAddress: React.FC<CopyAddressProps> = ({ account, ...props }) => {
       </Wrapper>
       <Tooltip isTooltipDisplayed={isTooltipDisplayed}>{t('Copied')}</Tooltip>
     </Box>
-  )
-}
+  );
+};
 
-export default CopyAddress
+export default CopyAddress;

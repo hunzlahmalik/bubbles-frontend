@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { ChevronDownIcon, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { ChevronDownIcon, useMatchBreakpoints } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 interface DetailsProps {
-  actionPanelToggled: boolean
+  actionPanelToggled: boolean;
 }
 
 const Container = styled.div`
@@ -17,23 +17,23 @@ const Container = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     padding-right: 0px;
   }
-`
+`;
 
 const ArrowIcon = styled(ChevronDownIcon)<{ toggled: boolean }>`
   transform: ${({ toggled }) => (toggled ? 'rotate(180deg)' : 'rotate(0)')};
   height: 20px;
-`
+`;
 
 const Details: React.FC<DetailsProps> = ({ actionPanelToggled }) => {
-  const { t } = useTranslation()
-  const { isDesktop } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isDesktop } = useMatchBreakpoints();
 
   return (
     <Container>
       {!isDesktop && t('Details')}
       <ArrowIcon color="primary" toggled={actionPanelToggled} />
     </Container>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

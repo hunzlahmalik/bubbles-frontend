@@ -1,26 +1,26 @@
-import React, { useEffect, Dispatch, SetStateAction } from 'react'
-import { ResponsiveContainer, XAxis, YAxis, Tooltip, AreaChart, Area } from 'recharts'
-import useTheme from 'hooks/useTheme'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import { LineChartLoader } from 'views/Info/components/ChartLoaders'
-import { useTranslation } from 'contexts/Localization'
+import React, { useEffect, Dispatch, SetStateAction } from 'react';
+import { ResponsiveContainer, XAxis, YAxis, Tooltip, AreaChart, Area } from 'recharts';
+import useTheme from 'hooks/useTheme';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import { LineChartLoader } from 'views/Info/components/ChartLoaders';
+import { useTranslation } from 'contexts/Localization';
 
 export type LineChartProps = {
-  data: any[]
-  setHoverValue: Dispatch<SetStateAction<number | undefined>> // used for value on hover
-  setHoverDate: Dispatch<SetStateAction<string | undefined>> // used for label of value
-} & React.HTMLAttributes<HTMLDivElement>
+  data: any[];
+  setHoverValue: Dispatch<SetStateAction<number | undefined>>; // used for value on hover
+  setHoverDate: Dispatch<SetStateAction<string | undefined>>; // used for label of value
+} & React.HTMLAttributes<HTMLDivElement>;
 
 // Calls setHoverValue and setHoverDate when part of chart is hovered
 // Note: this NEEDs to be wrapped inside component and useEffect, if you plug it as is it will create big render problems (try and see console)
 const HoverUpdater = ({ locale, payload, setHoverValue, setHoverDate }) => {
   useEffect(() => {
-    setHoverValue(payload.value)
-    setHoverDate(payload.time.toLocaleString(locale, { year: 'numeric', day: 'numeric', month: 'short' }))
-  }, [locale, payload.value, payload.time, setHoverValue, setHoverDate])
+    setHoverValue(payload.value);
+    setHoverDate(payload.time.toLocaleString(locale, { year: 'numeric', day: 'numeric', month: 'short' }));
+  }, [locale, payload.value, payload.time, setHoverValue, setHoverDate]);
 
-  return null
-}
+  return null;
+};
 
 /**
  * Note: remember that it needs to be mounted inside the container with fixed height
@@ -28,10 +28,10 @@ const HoverUpdater = ({ locale, payload, setHoverValue, setHoverDate }) => {
 const LineChart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
   const {
     currentLanguage: { locale },
-  } = useTranslation()
-  const { theme } = useTheme()
+  } = useTranslation();
+  const { theme } = useTheme();
   if (!data || data.length === 0) {
-    return <LineChartLoader />
+    return <LineChartLoader />;
   }
   return (
     <ResponsiveContainer>
@@ -46,8 +46,8 @@ const LineChart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
           bottom: 5,
         }}
         onMouseLeave={() => {
-          if (setHoverDate) setHoverDate(undefined)
-          if (setHoverValue) setHoverValue(undefined)
+          if (setHoverDate) setHoverDate(undefined);
+          if (setHoverValue) setHoverValue(undefined);
         }}
       >
         <defs>
@@ -89,7 +89,7 @@ const LineChart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
         <Area dataKey="value" type="monotone" stroke={theme.colors.secondary} fill="url(#gradient)" strokeWidth={2} />
       </AreaChart>
     </ResponsiveContainer>
-  )
-}
+  );
+};
 
-export default LineChart
+export default LineChart;

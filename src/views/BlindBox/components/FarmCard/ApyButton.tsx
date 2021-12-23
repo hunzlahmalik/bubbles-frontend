@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
-import { Flex, IconButton, useModal, CalculateIcon } from '@pancakeswap/uikit'
-import RoiCalculatorModal from 'components/RoiCalculatorModal'
-import { useTranslation } from 'contexts/Localization'
-import { useFarmUser, useLpTokenPrice } from 'state/farms/hooks'
+import React from 'react';
+import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
+import { Flex, IconButton, useModal, CalculateIcon } from '@pancakeswap/uikit';
+import RoiCalculatorModal from 'components/RoiCalculatorModal';
+import { useTranslation } from 'contexts/Localization';
+import { useFarmUser, useLpTokenPrice } from 'state/farms/hooks';
 
 const ApyLabelContainer = styled(Flex)`
   cursor: pointer;
@@ -12,18 +12,18 @@ const ApyLabelContainer = styled(Flex)`
   &:hover {
     opacity: 0.5;
   }
-`
+`;
 
 export interface ApyButtonProps {
-  variant: 'text' | 'text-and-button'
-  pid: number
-  lpSymbol: string
-  lpLabel?: string
-  multiplier: string
-  cakePrice?: BigNumber
-  apr?: number
-  displayApr?: string
-  addLiquidityUrl?: string
+  variant: 'text' | 'text-and-button';
+  pid: number;
+  lpSymbol: string;
+  lpLabel?: string;
+  multiplier: string;
+  cakePrice?: BigNumber;
+  apr?: number;
+  displayApr?: string;
+  addLiquidityUrl?: string;
 }
 
 const ApyButton: React.FC<ApyButtonProps> = ({
@@ -37,9 +37,9 @@ const ApyButton: React.FC<ApyButtonProps> = ({
   displayApr,
   addLiquidityUrl,
 }) => {
-  const { t } = useTranslation()
-  const lpPrice = useLpTokenPrice(lpSymbol)
-  const { tokenBalance, stakedBalance } = useFarmUser(pid)
+  const { t } = useTranslation();
+  const lpPrice = useLpTokenPrice(lpSymbol);
+  const { tokenBalance, stakedBalance } = useFarmUser(pid);
   const [onPresentApyModal] = useModal(
     <RoiCalculatorModal
       linkLabel={t('Get %symbol%', { symbol: lpLabel })}
@@ -53,12 +53,12 @@ const ApyButton: React.FC<ApyButtonProps> = ({
       linkHref={addLiquidityUrl}
       isFarm
     />,
-  )
+  );
 
   const handleClickButton = (event): void => {
-    event.stopPropagation()
-    onPresentApyModal()
-  }
+    event.stopPropagation();
+    onPresentApyModal();
+  };
 
   return (
     <ApyLabelContainer alignItems="center" onClick={handleClickButton}>
@@ -69,7 +69,7 @@ const ApyButton: React.FC<ApyButtonProps> = ({
         </IconButton>
       )}
     </ApyLabelContainer>
-  )
-}
+  );
+};
 
-export default ApyButton
+export default ApyButton;

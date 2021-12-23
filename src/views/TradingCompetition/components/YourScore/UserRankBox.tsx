@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Text, FlexProps } from '@pancakeswap/uikit'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Text, FlexProps } from '@pancakeswap/uikit';
 
 interface UserRankProps extends FlexProps {
-  title?: string
-  footer?: string
+  title?: string;
+  footer?: string;
 }
 
 const Wrapper = styled(Flex)`
@@ -24,7 +24,7 @@ const Wrapper = styled(Flex)`
     padding-left: 24px;
     padding-right: 24px;
   }
-`
+`;
 
 const UserRank: React.FC<UserRankProps> = ({ title = '', footer, children, ...props }) => {
   return (
@@ -37,7 +37,7 @@ const UserRank: React.FC<UserRankProps> = ({ title = '', footer, children, ...pr
         {footer}
       </Text>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default UserRank
+export default UserRank;

@@ -1,18 +1,18 @@
-import BigNumber from 'bignumber.js'
-import React, { useCallback, useMemo, useState } from 'react'
-import styled from 'styled-components'
-import { Flex, Text, Button, Modal, LinkExternal, CalculateIcon, IconButton, Skeleton } from '@pancakeswap/uikit'
-import { ModalActions, ModalInput } from 'components/Modal'
-import RoiCalculatorModal from 'components/RoiCalculatorModal'
-import { useTranslation } from 'contexts/Localization'
-import { getFullDisplayBalance, formatNumber } from 'utils/formatBalance'
-import useToast from 'hooks/useToast'
-import { getInterestBreakdown } from 'utils/compoundApyHelpers'
-import { logError } from 'utils/sentry'
+import BigNumber from 'bignumber.js';
+import React, { useCallback, useMemo, useState } from 'react';
+import styled from 'styled-components';
+import { Flex, Text, Button, Modal, LinkExternal, CalculateIcon, IconButton, Skeleton } from '@pancakeswap/uikit';
+import { ModalActions, ModalInput } from 'components/Modal';
+import RoiCalculatorModal from 'components/RoiCalculatorModal';
+import { useTranslation } from 'contexts/Localization';
+import { getFullDisplayBalance, formatNumber } from 'utils/formatBalance';
+import useToast from 'hooks/useToast';
+import { getInterestBreakdown } from 'utils/compoundApyHelpers';
+import { logError } from 'utils/sentry';
 
 const AnnualRoiContainer = styled(Flex)`
   cursor: pointer;
-`
+`;
 
 const AnnualRoiDisplay = styled(Text)`
   width: 72px;
@@ -20,21 +20,21 @@ const AnnualRoiDisplay = styled(Text)`
   overflow: hidden;
   text-align: right;
   text-overflow: ellipsis;
-`
+`;
 
 interface DepositModalProps {
-  max: BigNumber
-  stakedBalance: BigNumber
-  multiplier?: string
-  lpPrice: BigNumber
-  lpLabel?: string
-  onConfirm: (amount: string) => void
-  onDismiss?: () => void
-  tokenName?: string
-  apr?: number
-  displayApr?: string
-  addLiquidityUrl?: string
-  cakePrice?: BigNumber
+  max: BigNumber;
+  stakedBalance: BigNumber;
+  multiplier?: string;
+  lpPrice: BigNumber;
+  lpLabel?: string;
+  onConfirm: (amount: string) => void;
+  onDismiss?: () => void;
+  tokenName?: string;
+  apr?: number;
+  displayApr?: string;
+  addLiquidityUrl?: string;
+  cakePrice?: BigNumber;
 }
 
 const DepositModal: React.FC<DepositModalProps> = ({
@@ -51,45 +51,45 @@ const DepositModal: React.FC<DepositModalProps> = ({
   addLiquidityUrl,
   cakePrice,
 }) => {
-  const [val, setVal] = useState('')
-  const { toastSuccess, toastError } = useToast()
-  const [pendingTx, setPendingTx] = useState(false)
-  const [showRoiCalculator, setShowRoiCalculator] = useState(false)
-  const { t } = useTranslation()
+  const [val, setVal] = useState('');
+  const { toastSuccess, toastError } = useToast();
+  const [pendingTx, setPendingTx] = useState(false);
+  const [showRoiCalculator, setShowRoiCalculator] = useState(false);
+  const { t } = useTranslation();
   const fullBalance = useMemo(() => {
-    return getFullDisplayBalance(max)
-  }, [max])
+    return getFullDisplayBalance(max);
+  }, [max]);
 
-  const lpTokensToStake = new BigNumber(val)
-  const fullBalanceNumber = new BigNumber(fullBalance)
+  const lpTokensToStake = new BigNumber(val);
+  const fullBalanceNumber = new BigNumber(fullBalance);
 
-  const usdToStake = lpTokensToStake.times(lpPrice)
+  const usdToStake = lpTokensToStake.times(lpPrice);
 
   const interestBreakdown = getInterestBreakdown({
     principalInUSD: !lpTokensToStake.isNaN() ? usdToStake.toNumber() : 0,
     apr,
     earningTokenPrice: cakePrice.toNumber(),
-  })
+  });
 
-  const annualRoi = cakePrice.times(interestBreakdown[3])
+  const annualRoi = cakePrice.times(interestBreakdown[3]);
   const formattedAnnualRoi = formatNumber(
     annualRoi.toNumber(),
     annualRoi.gt(10000) ? 0 : 2,
     annualRoi.gt(10000) ? 0 : 2,
-  )
+  );
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
-        setVal(e.currentTarget.value.replace(/,/g, '.'))
+        setVal(e.currentTarget.value.replace(/,/g, '.'));
       }
     },
     [setVal],
-  )
+  );
 
   const handleSelectMax = useCallback(() => {
-    setVal(fullBalance)
-  }, [fullBalance, setVal])
+    setVal(fullBalance);
+  }, [fullBalance, setVal]);
 
   if (showRoiCalculator) {
     return (
@@ -107,7 +107,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
         initialValue={val}
         onBack={() => setShowRoiCalculator(false)}
       />
-    )
+    );
   }
 
   return (
@@ -129,7 +129,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
           <AnnualRoiContainer
             alignItems="center"
             onClick={() => {
-              setShowRoiCalculator(true)
+              setShowRoiCalculator(true);
             }}
           >
             <AnnualRoiDisplay>${formattedAnnualRoi}</AnnualRoiDisplay>
@@ -151,19 +151,19 @@ const DepositModal: React.FC<DepositModalProps> = ({
             pendingTx || !lpTokensToStake.isFinite() || lpTokensToStake.eq(0) || lpTokensToStake.gt(fullBalanceNumber)
           }
           onClick={async () => {
-            setPendingTx(true)
+            setPendingTx(true);
             try {
-              await onConfirm(val)
-              toastSuccess(t('Staked!'), t('Your funds have been staked in the farm'))
-              onDismiss()
+              await onConfirm(val);
+              toastSuccess(t('Staked!'), t('Your funds have been staked in the farm'));
+              onDismiss();
             } catch (e) {
-              logError(e)
+              logError(e);
               toastError(
                 t('Error'),
                 t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-              )
+              );
             } finally {
-              setPendingTx(false)
+              setPendingTx(false);
             }
           }}
         >
@@ -174,7 +174,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
         {t('Get %symbol%', { symbol: tokenName })}
       </LinkExternal>
     </Modal>
-  )
-}
+  );
+};
 
-export default DepositModal
+export default DepositModal;

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledDatePickerPortal = styled.div`
   .react-datepicker-wrapper,
@@ -103,10 +103,10 @@ const StyledDatePickerPortal = styled.div`
     height: auto;
     padding: 8px;
   }
-`
+`;
 
 const DatePickerPortal = () => {
-  return <StyledDatePickerPortal id="reactDatePicker" />
-}
+  return <StyledDatePickerPortal id="reactDatePicker" />;
+};
 
-export default DatePickerPortal
+export default DatePickerPortal;

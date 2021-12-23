@@ -1,33 +1,33 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useWeb3React } from '@web3-react/core'
-import { Box, Flex, Heading, Text, Button, Link, OpenNewIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { getRoundResult, Result } from 'state/predictions/helpers'
-import { REWARD_RATE } from 'state/predictions/config'
-import { getBscScanLink } from 'utils'
-import { multiplyPriceByAmount } from 'utils/prices'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import { useGetCurrentEpoch } from 'state/predictions/hooks'
-import { Bet, BetPosition } from 'state/types'
-import { formatBnb, getMultiplier, getNetPayout } from '../helpers'
-import PnlChart from './PnlChart'
-import SummaryRow from './SummaryRow'
+import React from 'react';
+import styled from 'styled-components';
+import { useWeb3React } from '@web3-react/core';
+import { Box, Flex, Heading, Text, Button, Link, OpenNewIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { getRoundResult, Result } from 'state/predictions/helpers';
+import { REWARD_RATE } from 'state/predictions/config';
+import { getBscScanLink } from 'utils';
+import { multiplyPriceByAmount } from 'utils/prices';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import { useGetCurrentEpoch } from 'state/predictions/hooks';
+import { Bet, BetPosition } from 'state/types';
+import { formatBnb, getMultiplier, getNetPayout } from '../helpers';
+import PnlChart from './PnlChart';
+import SummaryRow from './SummaryRow';
 
 interface PnlTabProps {
-  hasBetHistory: boolean
-  bets: Bet[]
+  hasBetHistory: boolean;
+  bets: Bet[];
 }
 
 interface PnlCategory {
-  rounds: number
-  amount: number
+  rounds: number;
+  amount: number;
 }
 
 interface PnlSummary {
-  won: PnlCategory & { payout: number; bestRound: { id: string; payout: number; multiplier: number } }
-  lost: PnlCategory
-  entered: PnlCategory
+  won: PnlCategory & { payout: number; bestRound: { id: string; payout: number; multiplier: number } };
+  lost: PnlCategory;
+  entered: PnlCategory;
 }
 
 const Divider = styled.div`
@@ -35,7 +35,7 @@ const Divider = styled.div`
   height: 1px;
   margin: 24px auto;
   width: 100%;
-`
+`;
 
 const initialPnlSummary: PnlSummary = {
   won: {
@@ -56,18 +56,18 @@ const initialPnlSummary: PnlSummary = {
     rounds: 0,
     amount: 0,
   },
-}
+};
 
 const getPnlSummary = (bets: Bet[], currentEpoch: number): PnlSummary => {
   return bets.reduce((summary: PnlSummary, bet) => {
-    const roundResult = getRoundResult(bet, currentEpoch)
+    const roundResult = getRoundResult(bet, currentEpoch);
     if (roundResult === Result.WIN) {
-      const payout = getNetPayout(bet, REWARD_RATE)
-      let { bestRound } = summary.won
+      const payout = getNetPayout(bet, REWARD_RATE);
+      let { bestRound } = summary.won;
       if (payout > bestRound.payout) {
-        const { bullAmount, bearAmount, totalAmount } = bet.round
-        const multiplier = getMultiplier(totalAmount, bet.position === BetPosition.BULL ? bullAmount : bearAmount)
-        bestRound = { id: bet.round.epoch.toString(), payout, multiplier }
+        const { bullAmount, bearAmount, totalAmount } = bet.round;
+        const multiplier = getMultiplier(totalAmount, bet.position === BetPosition.BULL ? bullAmount : bearAmount);
+        bestRound = { id: bet.round.epoch.toString(), payout, multiplier };
       }
       return {
         won: {
@@ -81,7 +81,7 @@ const getPnlSummary = (bets: Bet[], currentEpoch: number): PnlSummary => {
           amount: summary.entered.amount + bet.amount,
         },
         lost: summary.lost,
-      }
+      };
     }
     if (roundResult === Result.LOSE || roundResult === Result.HOUSE) {
       return {
@@ -94,34 +94,34 @@ const getPnlSummary = (bets: Bet[], currentEpoch: number): PnlSummary => {
           amount: summary.entered.amount + bet.amount,
         },
         won: summary.won,
-      }
+      };
     }
     // Ignore Canceled and Live rounds
-    return summary
-  }, initialPnlSummary)
-}
+    return summary;
+  }, initialPnlSummary);
+};
 
 const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const currentEpoch = useGetCurrentEpoch()
-  const bnbBusdPrice = useBNBBusdPrice()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const currentEpoch = useGetCurrentEpoch();
+  const bnbBusdPrice = useBNBBusdPrice();
 
-  const summary = getPnlSummary(bets, currentEpoch)
+  const summary = getPnlSummary(bets, currentEpoch);
 
-  const netResultAmount = summary.won.payout - summary.lost.amount
-  const netResultIsPositive = netResultAmount > 0
-  const avgPositionEntered = summary.entered.amount / summary.entered.rounds
-  const avgBnbWonPerRound = netResultAmount / summary.entered.rounds
-  const avgBnbWonIsPositive = avgBnbWonPerRound > 0
+  const netResultAmount = summary.won.payout - summary.lost.amount;
+  const netResultIsPositive = netResultAmount > 0;
+  const avgPositionEntered = summary.entered.amount / summary.entered.rounds;
+  const avgBnbWonPerRound = netResultAmount / summary.entered.rounds;
+  const avgBnbWonIsPositive = avgBnbWonPerRound > 0;
 
   // Guard in case user has only lost rounds
-  const hasBestRound = summary.won.bestRound.payout !== 0
+  const hasBestRound = summary.won.bestRound.payout !== 0;
 
-  const netResultInUsd = multiplyPriceByAmount(bnbBusdPrice, netResultAmount)
-  const avgBnbWonInUsd = multiplyPriceByAmount(bnbBusdPrice, avgBnbWonPerRound)
-  const betRoundInUsd = multiplyPriceByAmount(bnbBusdPrice, summary.won.bestRound.payout)
-  const avgPositionEnteredInUsd = multiplyPriceByAmount(bnbBusdPrice, avgPositionEntered)
+  const netResultInUsd = multiplyPriceByAmount(bnbBusdPrice, netResultAmount);
+  const avgBnbWonInUsd = multiplyPriceByAmount(bnbBusdPrice, avgBnbWonPerRound);
+  const betRoundInUsd = multiplyPriceByAmount(bnbBusdPrice, summary.won.bestRound.payout);
+  const avgPositionEnteredInUsd = multiplyPriceByAmount(bnbBusdPrice, avgPositionEntered);
 
   return hasBetHistory ? (
     <Box p="16px">
@@ -205,7 +205,7 @@ const PnlTab: React.FC<PnlTabProps> = ({ hasBetHistory, bets }) => {
         )}
       </Text>
     </Box>
-  )
-}
+  );
+};
 
-export default PnlTab
+export default PnlTab;

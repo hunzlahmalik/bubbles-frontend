@@ -10,11 +10,11 @@
  * I'll leave TODO: comment here to check back later if there is update to types
  *
  */
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 
 interface SliceProps {
-  length: number
-  offset?: number
+  length: number;
+  offset?: number;
 }
 
 export const DrawAnimation = keyframes`
@@ -24,7 +24,7 @@ export const DrawAnimation = keyframes`
   to {
     stroke-dasharray: ${({ length }: SliceProps) => length} 339.292;
   }
-`
+`;
 
 export const OffsetAnimation = keyframes`
   from {
@@ -33,36 +33,36 @@ export const OffsetAnimation = keyframes`
   to {
     stroke-dashoffset: ${(props) => -props.offset};
   }
-`
+`;
 
 export const SVG = styled.svg`
   width: 128px;
   height: 128px;
   transform: rotate(-90deg);
-`
+`;
 
 const DefaultSlice = styled.circle<SliceProps>`
   fill: none;
   stroke-width: 16;
   stroke-dasharray: ${(props) => `${props.length} 339.292`};
-`
+`;
 
 export const LostSlice = styled(DefaultSlice)`
   stroke: #ed4b9e;
   animation: ${DrawAnimation} 1s ease;
-`
+`;
 
 export const WonSlice = styled(DefaultSlice)`
   stroke: #31d0aa;
   stroke-dashoffset: ${(props) => -props.offset};
   animation: ${DrawAnimation} 1s ease, ${OffsetAnimation} 1s ease;
-`
+`;
 
 export const Wrapper = styled.div`
   position: relative;
   width: 128px;
   height: 128px;
-`
+`;
 
 export const Info = styled.div`
   width: 128px;
@@ -77,4 +77,4 @@ export const Info = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;

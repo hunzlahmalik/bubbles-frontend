@@ -1,14 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowForwardIcon, Box, IconButton, Flex, Text } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { Proposal } from 'state/types'
-import { isCoreProposal } from '../../helpers'
-import TimeFrame from './TimeFrame'
-import { ProposalStateTag, ProposalTypeTag } from './tags'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowForwardIcon, Box, IconButton, Flex, Text } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { Proposal } from 'state/types';
+import { isCoreProposal } from '../../helpers';
+import TimeFrame from './TimeFrame';
+import { ProposalStateTag, ProposalTypeTag } from './tags';
 
 interface ProposalRowProps {
-  proposal: Proposal
+  proposal: Proposal;
 }
 
 const StyledProposalRow = styled(Link)`
@@ -20,10 +20,10 @@ const StyledProposalRow = styled(Link)`
   &:hover {
     background-color: ${({ theme }) => theme.colors.dropdown};
   }
-`
+`;
 
 const ProposalRow: React.FC<ProposalRowProps> = ({ proposal }) => {
-  const votingLink = `/voting/proposal/${proposal.id}`
+  const votingLink = `/voting/proposal/${proposal.id}`;
 
   return (
     <StyledProposalRow to={votingLink}>
@@ -43,7 +43,7 @@ const ProposalRow: React.FC<ProposalRowProps> = ({ proposal }) => {
         <ArrowForwardIcon width="24px" />
       </IconButton>
     </StyledProposalRow>
-  )
-}
+  );
+};
 
-export default ProposalRow
+export default ProposalRow;

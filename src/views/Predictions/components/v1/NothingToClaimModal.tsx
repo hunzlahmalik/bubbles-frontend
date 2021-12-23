@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
+import styled from 'styled-components';
 import {
   ModalContainer,
   ModalBody,
@@ -12,13 +12,13 @@ import {
   ModalCloseButton,
   Button,
   AutoRenewIcon,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { getAllV1History } from './helpers'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { getAllV1History } from './helpers';
 
 const Modal = styled(ModalContainer)`
   overflow: visible;
-`
+`;
 
 const BunnyDecoration = styled.div`
   position: absolute;
@@ -26,13 +26,13 @@ const BunnyDecoration = styled.div`
   left: 0px;
   text-align: center;
   width: 100%;
-`
+`;
 
 const CollectRoundWinningsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
-  const [isFetching, setIsFetching] = useState(false)
-  const [history, setHistory] = useState([])
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const [isFetching, setIsFetching] = useState(false);
+  const [history, setHistory] = useState([]);
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
 
   const handleClick = () => {
     const header = [
@@ -47,7 +47,7 @@ const CollectRoundWinningsModal: React.FC<InjectedModalProps> = ({ onDismiss }) 
       'Total Bets',
       'Total Amount',
       'Round Failed',
-    ].join(',')
+    ].join(',');
 
     const rows = history.reduce((accum, bet) => {
       return [
@@ -65,41 +65,41 @@ const CollectRoundWinningsModal: React.FC<InjectedModalProps> = ({ onDismiss }) 
           bet.round.totalAmount,
           bet.round.failed,
         ].join(','),
-      ]
-    }, [])
+      ];
+    }, []);
 
-    const anchor = document.createElement('a')
+    const anchor = document.createElement('a');
     const blob = new Blob([`${header}\n${rows.join('\n')}`], {
       type: 'text/csv;charset=utf-8;',
-    })
+    });
 
-    anchor.href = URL.createObjectURL(blob)
-    anchor.target = '_blank'
-    anchor.download = 'pancakeswap-prediction-v1-history.csv'
+    anchor.href = URL.createObjectURL(blob);
+    anchor.target = '_blank';
+    anchor.download = 'pancakeswap-prediction-v1-history.csv';
 
-    document.body.appendChild(anchor)
-    anchor.click()
-    document.body.removeChild(anchor)
-  }
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  };
 
   useEffect(() => {
     const fetchAllHistory = async () => {
-      setIsFetching(true)
+      setIsFetching(true);
 
       try {
-        const response = await getAllV1History({ user: account.toLowerCase() })
-        setHistory(response)
+        const response = await getAllV1History({ user: account.toLowerCase() });
+        setHistory(response);
       } catch (error) {
-        console.error('Unable to fetch history', error)
+        console.error('Unable to fetch history', error);
       } finally {
-        setIsFetching(false)
+        setIsFetching(false);
       }
-    }
+    };
 
     if (account) {
-      fetchAllHistory()
+      fetchAllHistory();
     }
-  }, [account, setHistory, setIsFetching])
+  }, [account, setHistory, setIsFetching]);
 
   return (
     <Modal minWidth="288px" position="relative" mt="124px">
@@ -128,7 +128,7 @@ const CollectRoundWinningsModal: React.FC<InjectedModalProps> = ({ onDismiss }) 
         </Button>
       </ModalBody>
     </Modal>
-  )
-}
+  );
+};
 
-export default CollectRoundWinningsModal
+export default CollectRoundWinningsModal;

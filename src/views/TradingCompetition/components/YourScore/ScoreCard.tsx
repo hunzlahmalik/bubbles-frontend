@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   Card,
   CardBody,
@@ -11,20 +11,20 @@ import {
   LaurelRightIcon,
   CheckmarkCircleIcon,
   useModal,
-} from '@pancakeswap/uikit'
-import { CLAIM, OVER } from 'config/constants/trading-competition/phases'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { useTranslation } from 'contexts/Localization'
-import UserPrizeGrid from './UserPrizeGrid'
-import ClaimModal from '../ClaimModal'
-import { YourScoreProps } from '../../types'
-import CardUserInfo from './CardUserInfo'
+} from '@pancakeswap/uikit';
+import { CLAIM, OVER } from 'config/constants/trading-competition/phases';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { useTranslation } from 'contexts/Localization';
+import UserPrizeGrid from './UserPrizeGrid';
+import ClaimModal from '../ClaimModal';
+import { YourScoreProps } from '../../types';
+import CardUserInfo from './CardUserInfo';
 
 const StyledCard = styled(Card)`
   ${({ theme }) => theme.mediaQueries.sm} {
     min-width: 380px;
   }
-`
+`;
 
 const StyledCardFooter = styled(CardFooter)`
   background: ${({ theme }) => theme.card.cardHeaderBackground.default};
@@ -37,7 +37,7 @@ const StyledCardFooter = styled(CardFooter)`
     width: auto;
     fill: ${({ theme }) => theme.colors.warning};
   }
-`
+`;
 
 const StyledButton = styled(Button)`
   svg {
@@ -46,7 +46,7 @@ const StyledButton = styled(Button)`
     width: auto;
     fill: ${({ theme }) => theme.colors.textDisabled};
   }
-`
+`;
 
 const ScoreCard: React.FC<YourScoreProps> = ({
   hasRegistered,
@@ -61,17 +61,17 @@ const ScoreCard: React.FC<YourScoreProps> = ({
   finishedAndNothingToClaim,
   onClaimSuccess,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [onPresentClaimModal] = useModal(
     <ClaimModal userTradingInformation={userTradingInformation} onClaimSuccess={onClaimSuccess} />,
     false,
-  )
-  const isClaimButtonDisabled = Boolean(isLoading || finishedAndPrizesClaimed || finishedAndNothingToClaim)
-  const { hasUserClaimed } = userTradingInformation
+  );
+  const isClaimButtonDisabled = Boolean(isLoading || finishedAndPrizesClaimed || finishedAndNothingToClaim);
+  const { hasUserClaimed } = userTradingInformation;
 
   const getClaimButtonText = () => {
     if (userCanClaimPrizes) {
-      return t('Claim prizes')
+      return t('Claim prizes');
     }
     // User has already claimed prizes
     if (hasUserClaimed) {
@@ -79,11 +79,11 @@ const ScoreCard: React.FC<YourScoreProps> = ({
         <>
           <CheckmarkCircleIcon /> {t('Prizes Claimed!')}
         </>
-      )
+      );
     }
     // User has nothing to claim
-    return t('Nothing to claim')
-  }
+    return t('Nothing to claim');
+  };
 
   return (
     <StyledCard mt="24px">
@@ -122,7 +122,7 @@ const ScoreCard: React.FC<YourScoreProps> = ({
         </StyledCardFooter>
       )}
     </StyledCard>
-  )
-}
+  );
+};
 
-export default ScoreCard
+export default ScoreCard;

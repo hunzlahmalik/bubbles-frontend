@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react'
-import { request, gql } from 'graphql-request'
-import { INFO_CLIENT } from 'config/constants/endpoints'
-import { getChangeForPeriod, getPercentChange } from 'views/Info/utils/infoDataHelpers'
-import { ProtocolData } from 'state/info/types'
-import { getDeltaTimestamps } from 'views/Info/utils/infoQueryHelpers'
-import { useBlocksFromTimestamps } from 'views/Info/hooks/useBlocksFromTimestamps'
+import { useState, useEffect } from 'react';
+import { request, gql } from 'graphql-request';
+import { INFO_CLIENT } from 'config/constants/endpoints';
+import { getChangeForPeriod, getPercentChange } from 'views/Info/utils/infoDataHelpers';
+import { ProtocolData } from 'state/info/types';
+import { getDeltaTimestamps } from 'views/Info/utils/infoQueryHelpers';
+import { useBlocksFromTimestamps } from 'views/Info/hooks/useBlocksFromTimestamps';
 
 interface PancakeFactory {
-  totalTransactions: string
-  totalVolumeUSD: string
-  totalLiquidityUSD: string
+  totalTransactions: string;
+  totalVolumeUSD: string;
+  totalLiquidityUSD: string;
 }
 
 interface OverviewResponse {
-  pancakeFactories: PancakeFactory[]
+  pancakeFactories: PancakeFactory[];
 }
 
 /**
@@ -29,14 +29,14 @@ const getOverviewData = async (block?: number): Promise<{ data?: OverviewRespons
         totalVolumeUSD
         totalLiquidityUSD
       }
-    }`
-    const data = await request<OverviewResponse>(INFO_CLIENT, query)
-    return { data, error: false }
+    }`;
+    const data = await request<OverviewResponse>(INFO_CLIENT, query);
+    return { data, error: false };
   } catch (error) {
-    console.error('Failed to fetch info overview', error)
-    return { data: null, error: true }
+    console.error('Failed to fetch info overview', error);
+    return { data: null, error: true };
   }
-}
+};
 
 const formatPancakeFactoryResponse = (rawPancakeFactory?: PancakeFactory) => {
   if (rawPancakeFactory) {
@@ -44,51 +44,51 @@ const formatPancakeFactoryResponse = (rawPancakeFactory?: PancakeFactory) => {
       totalTransactions: parseFloat(rawPancakeFactory.totalTransactions),
       totalVolumeUSD: parseFloat(rawPancakeFactory.totalVolumeUSD),
       totalLiquidityUSD: parseFloat(rawPancakeFactory.totalLiquidityUSD),
-    }
+    };
   }
-  return null
-}
+  return null;
+};
 
 interface ProtocolFetchState {
-  error: boolean
-  data?: ProtocolData
+  error: boolean;
+  data?: ProtocolData;
 }
 
 const useFetchProtocolData = (): ProtocolFetchState => {
   const [fetchState, setFetchState] = useState<ProtocolFetchState>({
     error: false,
-  })
-  const [t24, t48] = getDeltaTimestamps()
-  const { blocks, error: blockError } = useBlocksFromTimestamps([t24, t48])
-  const [block24, block48] = blocks ?? []
+  });
+  const [t24, t48] = getDeltaTimestamps();
+  const { blocks, error: blockError } = useBlocksFromTimestamps([t24, t48]);
+  const [block24, block48] = blocks ?? [];
 
   useEffect(() => {
     const fetch = async () => {
-      const { error, data } = await getOverviewData()
-      const { error: error24, data: data24 } = await getOverviewData(block24?.number ?? undefined)
-      const { error: error48, data: data48 } = await getOverviewData(block48?.number ?? undefined)
-      const anyError = error || error24 || error48
-      const overviewData = formatPancakeFactoryResponse(data?.pancakeFactories?.[0])
-      const overviewData24 = formatPancakeFactoryResponse(data24?.pancakeFactories?.[0])
-      const overviewData48 = formatPancakeFactoryResponse(data48?.pancakeFactories?.[0])
-      const allDataAvailable = overviewData && overviewData24 && overviewData48
+      const { error, data } = await getOverviewData();
+      const { error: error24, data: data24 } = await getOverviewData(block24?.number ?? undefined);
+      const { error: error48, data: data48 } = await getOverviewData(block48?.number ?? undefined);
+      const anyError = error || error24 || error48;
+      const overviewData = formatPancakeFactoryResponse(data?.pancakeFactories?.[0]);
+      const overviewData24 = formatPancakeFactoryResponse(data24?.pancakeFactories?.[0]);
+      const overviewData48 = formatPancakeFactoryResponse(data48?.pancakeFactories?.[0]);
+      const allDataAvailable = overviewData && overviewData24 && overviewData48;
       if (anyError || !allDataAvailable) {
         setFetchState({
           error: true,
-        })
+        });
       } else {
         const [volumeUSD, volumeUSDChange] = getChangeForPeriod(
           overviewData.totalVolumeUSD,
           overviewData24.totalVolumeUSD,
           overviewData48.totalVolumeUSD,
-        )
-        const liquidityUSDChange = getPercentChange(overviewData.totalLiquidityUSD, overviewData24.totalLiquidityUSD)
+        );
+        const liquidityUSDChange = getPercentChange(overviewData.totalLiquidityUSD, overviewData24.totalLiquidityUSD);
         // 24H transactions
         const [txCount, txCountChange] = getChangeForPeriod(
           overviewData.totalTransactions,
           overviewData24.totalTransactions,
           overviewData48.totalTransactions,
-        )
+        );
         const protocolData: ProtocolData = {
           volumeUSD,
           volumeUSDChange: typeof volumeUSDChange === 'number' ? volumeUSDChange : 0,
@@ -96,20 +96,20 @@ const useFetchProtocolData = (): ProtocolFetchState => {
           liquidityUSDChange,
           txCount,
           txCountChange,
-        }
+        };
         setFetchState({
           error: false,
           data: protocolData,
-        })
+        });
       }
-    }
-    const allBlocksAvailable = block24?.number && block48?.number
+    };
+    const allBlocksAvailable = block24?.number && block48?.number;
     if (allBlocksAvailable && !blockError && !fetchState.data) {
-      fetch()
+      fetch();
     }
-  }, [block24, block48, blockError, fetchState])
+  }, [block24, block48, blockError, fetchState]);
 
-  return fetchState
-}
+  return fetchState;
+};
 
-export default useFetchProtocolData
+export default useFetchProtocolData;

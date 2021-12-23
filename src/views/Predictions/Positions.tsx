@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import SwiperCore, { Keyboard, Mousewheel } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Box } from '@pancakeswap/uikit'
-import { useGetCurrentEpoch, useGetSortedRounds } from 'state/predictions/hooks'
-import 'swiper/swiper.min.css'
-import RoundCard from './components/RoundCard'
-import Menu from './components/Menu'
-import useSwiper from './hooks/useSwiper'
-import useOnNextRound from './hooks/useOnNextRound'
-import useOnViewChange from './hooks/useOnViewChange'
-import { PageView } from './types'
+import React from 'react';
+import styled from 'styled-components';
+import SwiperCore, { Keyboard, Mousewheel } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Box } from '@pancakeswap/uikit';
+import { useGetCurrentEpoch, useGetSortedRounds } from 'state/predictions/hooks';
+import 'swiper/swiper.min.css';
+import RoundCard from './components/RoundCard';
+import Menu from './components/Menu';
+import useSwiper from './hooks/useSwiper';
+import useOnNextRound from './hooks/useOnNextRound';
+import useOnViewChange from './hooks/useOnViewChange';
+import { PageView } from './types';
 
-SwiperCore.use([Keyboard, Mousewheel])
+SwiperCore.use([Keyboard, Mousewheel]);
 
 const StyledSwiper = styled.div`
   .swiper-wrapper {
@@ -23,17 +23,17 @@ const StyledSwiper = styled.div`
   .swiper-slide {
     width: 320px;
   }
-`
+`;
 const Positions: React.FC<{ view?: PageView }> = ({ view }) => {
-  const { setSwiper } = useSwiper()
-  const rounds = useGetSortedRounds()
-  const currentEpoch = useGetCurrentEpoch()
-  const previousEpoch = currentEpoch > 0 ? currentEpoch - 1 : currentEpoch
-  const previousRound = rounds.find((round) => round.epoch === previousEpoch)
-  const swiperIndex = rounds.indexOf(previousRound)
+  const { setSwiper } = useSwiper();
+  const rounds = useGetSortedRounds();
+  const currentEpoch = useGetCurrentEpoch();
+  const previousEpoch = currentEpoch > 0 ? currentEpoch - 1 : currentEpoch;
+  const previousRound = rounds.find((round) => round.epoch === previousEpoch);
+  const swiperIndex = rounds.indexOf(previousRound);
 
-  useOnNextRound()
-  useOnViewChange(swiperIndex, view)
+  useOnNextRound();
+  useOnViewChange(swiperIndex, view);
 
   return (
     <Box overflow="hidden">
@@ -61,7 +61,7 @@ const Positions: React.FC<{ view?: PageView }> = ({ view }) => {
         </Swiper>
       </StyledSwiper>
     </Box>
-  )
-}
+  );
+};
 
-export default Positions
+export default Positions;

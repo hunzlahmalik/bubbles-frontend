@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { Currency, Token } from '@pancakeswap/sdk'
+import React, { useCallback, useState } from 'react';
+import { Currency, Token } from '@pancakeswap/sdk';
 import {
   ModalContainer,
   ModalHeader,
@@ -10,27 +10,27 @@ import {
   InjectedModalProps,
   Heading,
   Button,
-} from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import usePrevious from 'hooks/usePreviousValue'
-import { TokenList } from '@uniswap/token-lists'
-import { useTranslation } from 'contexts/Localization'
-import CurrencySearch from './CurrencySearch'
-import ImportToken from './ImportToken'
-import Manage from './Manage'
-import ImportList from './ImportList'
-import { CurrencyModalView } from './types'
+} from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import usePrevious from 'hooks/usePreviousValue';
+import { TokenList } from '@uniswap/token-lists';
+import { useTranslation } from 'contexts/Localization';
+import CurrencySearch from './CurrencySearch';
+import ImportToken from './ImportToken';
+import Manage from './Manage';
+import ImportList from './ImportList';
+import { CurrencyModalView } from './types';
 
 const Footer = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
   text-align: center;
-`
+`;
 
 const StyledModalContainer = styled(ModalContainer)`
   max-width: 420px;
   width: 100%;
-`
+`;
 
 const StyledModalBody = styled(ModalBody)`
   padding: 24px;
@@ -40,13 +40,13 @@ const StyledModalBody = styled(ModalBody)`
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
 
 interface CurrencySearchModalProps extends InjectedModalProps {
-  selectedCurrency?: Currency | null
-  onCurrencySelect: (currency: Currency) => void
-  otherSelectedCurrency?: Currency | null
-  showCommonBases?: boolean
+  selectedCurrency?: Currency | null;
+  onCurrencySelect: (currency: Currency) => void;
+  otherSelectedCurrency?: Currency | null;
+  showCommonBases?: boolean;
 }
 
 export default function CurrencySearchModal({
@@ -56,27 +56,27 @@ export default function CurrencySearchModal({
   otherSelectedCurrency,
   showCommonBases = false,
 }: CurrencySearchModalProps) {
-  const [modalView, setModalView] = useState<CurrencyModalView>(CurrencyModalView.search)
+  const [modalView, setModalView] = useState<CurrencyModalView>(CurrencyModalView.search);
 
   const handleCurrencySelect = useCallback(
     (currency: Currency) => {
-      onDismiss()
-      onCurrencySelect(currency)
+      onDismiss();
+      onCurrencySelect(currency);
     },
     [onDismiss, onCurrencySelect],
-  )
+  );
 
   // for token import view
-  const prevView = usePrevious(modalView)
+  const prevView = usePrevious(modalView);
 
   // used for import token flow
-  const [importToken, setImportToken] = useState<Token | undefined>()
+  const [importToken, setImportToken] = useState<Token | undefined>();
 
   // used for import list
-  const [importList, setImportList] = useState<TokenList | undefined>()
-  const [listURL, setListUrl] = useState<string | undefined>()
+  const [importList, setImportList] = useState<TokenList | undefined>();
+  const [listURL, setListUrl] = useState<string | undefined>();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const config = {
     [CurrencyModalView.search]: { title: t('Select a Token'), onBack: undefined },
@@ -87,7 +87,7 @@ export default function CurrencySearchModal({
         setModalView(prevView && prevView !== CurrencyModalView.importToken ? prevView : CurrencyModalView.search),
     },
     [CurrencyModalView.importList]: { title: t('Import List'), onBack: () => setModalView(CurrencyModalView.search) },
-  }
+  };
 
   return (
     <StyledModalContainer minWidth="320px">
@@ -136,5 +136,5 @@ export default function CurrencySearchModal({
         )}
       </StyledModalBody>
     </StyledModalContainer>
-  )
+  );
 }

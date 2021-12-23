@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Modal, Button, Flex, AutoRenewIcon, Heading, Text, Image } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useTradingCompetitionContractV2 } from 'hooks/useContract'
-import useToast from 'hooks/useToast'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import { useCompetitionRewards, getRewardGroupAchievements } from '../../helpers'
-import { CompetitionProps } from '../../types'
-import NftBunnies from '../../pngs/syrup-nft.png'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Modal, Button, Flex, AutoRenewIcon, Heading, Text, Image } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useTradingCompetitionContractV2 } from 'hooks/useContract';
+import useToast from 'hooks/useToast';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import { useCompetitionRewards, getRewardGroupAchievements } from '../../helpers';
+import { CompetitionProps } from '../../types';
+import NftBunnies from '../../pngs/syrup-nft.png';
 
 const ImageWrapper = styled(Flex)`
   justify-content: center;
@@ -17,13 +17,13 @@ const ImageWrapper = styled(Flex)`
   img {
     border-radius: ${({ theme }) => theme.radii.default};
   }
-`
+`;
 
 const ClaimModal: React.FC<CompetitionProps> = ({ onDismiss, onClaimSuccess, userTradingInformation }) => {
-  const [isConfirming, setIsConfirming] = useState(false)
-  const tradingCompetitionContract = useTradingCompetitionContractV2()
-  const { toastSuccess, toastError } = useToast()
-  const { t } = useTranslation()
+  const [isConfirming, setIsConfirming] = useState(false);
+  const tradingCompetitionContract = useTradingCompetitionContractV2();
+  const { toastSuccess, toastError } = useToast();
+  const { t } = useTranslation();
 
   const {
     userRewardGroup,
@@ -33,29 +33,29 @@ const ClaimModal: React.FC<CompetitionProps> = ({ onDismiss, onClaimSuccess, use
     userSantosRewards,
     userPointReward,
     canClaimNFT,
-  } = userTradingInformation
+  } = userTradingInformation;
   const { cakeReward, lazioReward, portoReward, santosReward } = useCompetitionRewards({
     userCakeRewards,
     userLazioRewards,
     userPortoRewards,
     userSantosRewards,
-  })
-  const achievement = getRewardGroupAchievements(userRewardGroup, userPointReward)
-  const { callWithGasPrice } = useCallWithGasPrice()
+  });
+  const achievement = getRewardGroupAchievements(userRewardGroup, userPointReward);
+  const { callWithGasPrice } = useCallWithGasPrice();
 
   const handleClaimClick = async () => {
-    const tx = await callWithGasPrice(tradingCompetitionContract, 'claimReward')
-    setIsConfirming(true)
-    const receipt = await tx.wait()
+    const tx = await callWithGasPrice(tradingCompetitionContract, 'claimReward');
+    setIsConfirming(true);
+    const receipt = await tx.wait();
     if (receipt.status) {
-      toastSuccess(t('You have claimed your rewards!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />)
-      onDismiss()
-      onClaimSuccess()
+      toastSuccess(t('You have claimed your rewards!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />);
+      onDismiss();
+      onClaimSuccess();
     } else {
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
-      setIsConfirming(false)
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
+      setIsConfirming(false);
     }
-  }
+  };
 
   return (
     <Modal title={t('Collect Winnings')} onDismiss={onDismiss}>
@@ -109,7 +109,7 @@ const ClaimModal: React.FC<CompetitionProps> = ({ onDismiss, onClaimSuccess, use
         </Text>
       </Flex>
     </Modal>
-  )
-}
+  );
+};
 
-export default ClaimModal
+export default ClaimModal;

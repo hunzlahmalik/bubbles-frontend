@@ -4,4 +4,4 @@ export enum EnableStatus {
   IS_ENABLING = 'is_enabling',
 }
 
-export default EnableStatus
+export default EnableStatus;

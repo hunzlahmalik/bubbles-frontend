@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-request';
 
 const lastPairDayId = gql`
   query lastPairDayId($pairId: String) {
@@ -6,5 +6,5 @@ const lastPairDayId = gql`
       id
     }
   }
-`
-export default lastPairDayId
+`;
+export default lastPairDayId;

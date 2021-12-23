@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 // An internal link from the react-router-dom library that is correctly styled
 const StyledInternalLink = styled(Link)`
@@ -20,6 +20,6 @@ const StyledInternalLink = styled(Link)`
   :active {
     text-decoration: none;
   }
-`
+`;
 
-export default StyledInternalLink
+export default StyledInternalLink;

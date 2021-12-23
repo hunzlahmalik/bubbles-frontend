@@ -1,21 +1,21 @@
-import React from 'react'
-import { Box, Button, Flex, Link, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LandingBodyWrapper } from 'views/PancakeSquad/styles'
-import eventDescriptionConfigBuilder from './config'
+import React from 'react';
+import { Box, Button, Flex, Link, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LandingBodyWrapper } from 'views/PancakeSquad/styles';
+import eventDescriptionConfigBuilder from './config';
 import {
   StyledBodyTextElement,
   StyledBodyTextList,
   StyledBunnyAccessoriesContainer,
   StyledBunnyAccessory,
   StyledEventDescriptionSectionContainer,
-} from './styles'
+} from './styles';
 
 const EventDescriptionSection = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { headingText, subHeadingText, bodyTextHeader, bodyText, primaryButton, image, accessoriesImages } =
-    eventDescriptionConfigBuilder({ t })
+    eventDescriptionConfigBuilder({ t });
 
   return (
     <StyledEventDescriptionSectionContainer justifyContent={['flex-start', null, null, 'center']}>
@@ -74,7 +74,7 @@ const EventDescriptionSection = () => {
         </Flex>
       </LandingBodyWrapper>
     </StyledEventDescriptionSectionContainer>
-  )
-}
+  );
+};
 
-export default EventDescriptionSection
+export default EventDescriptionSection;

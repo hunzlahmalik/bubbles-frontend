@@ -1,24 +1,24 @@
-import React from 'react'
-import { useWeb3React } from '@web3-react/core'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { Flex, Text, Button, ButtonMenu, ButtonMenuItem, Message, Link } from '@pancakeswap/uikit'
-import { FetchStatus } from 'hooks/useTokenBalance'
-import { useTranslation } from 'contexts/Localization'
-import { NftToken } from 'state/nftMarket/types'
-import { getBscScanLinkForNft } from 'utils'
-import { Divider, RoundedImage } from '../shared/styles'
-import { BorderedBox, BnbAmountCell } from './styles'
-import { PaymentCurrency } from './types'
+import React from 'react';
+import { useWeb3React } from '@web3-react/core';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { Flex, Text, Button, ButtonMenu, ButtonMenuItem, Message, Link } from '@pancakeswap/uikit';
+import { FetchStatus } from 'hooks/useTokenBalance';
+import { useTranslation } from 'contexts/Localization';
+import { NftToken } from 'state/nftMarket/types';
+import { getBscScanLinkForNft } from 'utils';
+import { Divider, RoundedImage } from '../shared/styles';
+import { BorderedBox, BnbAmountCell } from './styles';
+import { PaymentCurrency } from './types';
 
 interface ReviewStageProps {
-  nftToBuy: NftToken
-  paymentCurrency: PaymentCurrency
-  setPaymentCurrency: (index: number) => void
-  nftPrice: number
-  walletBalance: number
-  walletFetchStatus: FetchStatus
-  notEnoughBnbForPurchase: boolean
-  continueToNextStage: () => void
+  nftToBuy: NftToken;
+  paymentCurrency: PaymentCurrency;
+  setPaymentCurrency: (index: number) => void;
+  nftPrice: number;
+  walletBalance: number;
+  walletFetchStatus: FetchStatus;
+  notEnoughBnbForPurchase: boolean;
+  continueToNextStage: () => void;
 }
 
 const ReviewStage: React.FC<ReviewStageProps> = ({
@@ -31,8 +31,8 @@ const ReviewStage: React.FC<ReviewStageProps> = ({
   notEnoughBnbForPurchase,
   continueToNextStage,
 }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
   return (
     <>
       <Flex px="24px" pt="24px" flexDirection="column">
@@ -132,7 +132,7 @@ const ReviewStage: React.FC<ReviewStageProps> = ({
         </Button>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default ReviewStage
+export default ReviewStage;

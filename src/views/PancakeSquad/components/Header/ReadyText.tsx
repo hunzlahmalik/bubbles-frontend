@@ -1,9 +1,9 @@
-import { CheckmarkIcon, Flex, FlexProps, Text } from '@pancakeswap/uikit'
-import React from 'react'
+import { CheckmarkIcon, Flex, FlexProps, Text } from '@pancakeswap/uikit';
+import React from 'react';
 
 type ReadyTextProps = {
-  text: string
-} & FlexProps
+  text: string;
+} & FlexProps;
 
 const ReadyText: React.FC<ReadyTextProps> = ({ text, ...props }) => {
   return (
@@ -13,7 +13,7 @@ const ReadyText: React.FC<ReadyTextProps> = ({ text, ...props }) => {
       </Text>
       <CheckmarkIcon color="success" width="17px" />
     </Flex>
-  )
-}
+  );
+};
 
-export default ReadyText
+export default ReadyText;

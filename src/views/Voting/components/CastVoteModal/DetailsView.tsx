@@ -1,17 +1,17 @@
-import React from 'react'
-import { Text, Flex } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { formatNumber } from 'utils/formatBalance'
-import { VotingBox, ModalInner } from './styles'
+import React from 'react';
+import { Text, Flex } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { formatNumber } from 'utils/formatBalance';
+import { VotingBox, ModalInner } from './styles';
 
 interface DetailsViewProps {
-  total: number
-  cakeBalance: number
-  cakeVaultBalance: number
-  cakePoolBalance: number
-  poolsBalance: number
-  cakeBnbLpBalance: number
-  ifoPoolBalance: number
+  total: number;
+  cakeBalance: number;
+  cakeVaultBalance: number;
+  cakePoolBalance: number;
+  poolsBalance: number;
+  cakeBnbLpBalance: number;
+  ifoPoolBalance: number;
 }
 
 const DetailsView: React.FC<DetailsViewProps> = ({
@@ -23,7 +23,7 @@ const DetailsView: React.FC<DetailsViewProps> = ({
   cakeBnbLpBalance,
   ifoPoolBalance,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ModalInner mb="0">
@@ -81,7 +81,7 @@ const DetailsView: React.FC<DetailsViewProps> = ({
         <Text textAlign="right">{formatNumber(cakeBnbLpBalance, 0, 3)}</Text>
       </Flex>
     </ModalInner>
-  )
-}
+  );
+};
 
-export default DetailsView
+export default DetailsView;

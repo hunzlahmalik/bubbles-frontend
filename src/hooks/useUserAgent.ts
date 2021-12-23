@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 const useUserAgent = () => {
   useEffect(() => {
-    document.documentElement.setAttribute('data-useragent', navigator.userAgent)
-  }, [])
-}
+    document.documentElement.setAttribute('data-useragent', navigator.userAgent);
+  }, []);
+};
 
-export default useUserAgent
+export default useUserAgent;

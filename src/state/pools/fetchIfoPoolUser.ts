@@ -1,7 +1,7 @@
-import BigNumber from 'bignumber.js'
-import ifoPoolAbi from 'config/abi/ifoPool.json'
-import { getIfoPoolAddress } from 'utils/addressHelpers'
-import { multicallv2 } from 'utils/multicall'
+import BigNumber from 'bignumber.js';
+import ifoPoolAbi from 'config/abi/ifoPool.json';
+import { getIfoPoolAddress } from 'utils/addressHelpers';
+import { multicallv2 } from 'utils/multicall';
 
 const fetchIfoPoolUser = async (account: string) => {
   try {
@@ -9,8 +9,8 @@ const fetchIfoPoolUser = async (account: string) => {
       address: getIfoPoolAddress(),
       name: method,
       params: [account],
-    }))
-    const [userContractResponse, creditResponse] = await multicallv2(ifoPoolAbi, calls)
+    }));
+    const [userContractResponse, creditResponse] = await multicallv2(ifoPoolAbi, calls);
 
     return {
       isLoading: false,
@@ -19,7 +19,7 @@ const fetchIfoPoolUser = async (account: string) => {
       lastUserActionTime: userContractResponse.lastUserActionTime.toString(),
       cakeAtLastUserAction: new BigNumber(userContractResponse.cakeAtLastUserAction.toString()).toJSON(),
       credit: new BigNumber(creditResponse.avgBalance.toString()).toJSON(),
-    }
+    };
   } catch (error) {
     return {
       isLoading: true,
@@ -28,8 +28,8 @@ const fetchIfoPoolUser = async (account: string) => {
       lastUserActionTime: null,
       cakeAtLastUserAction: null,
       credit: null,
-    }
+    };
   }
-}
+};
 
-export default fetchIfoPoolUser
+export default fetchIfoPoolUser;

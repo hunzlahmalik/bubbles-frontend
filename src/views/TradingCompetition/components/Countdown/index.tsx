@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Skeleton, PocketWatchIcon, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import getTimePeriods from 'utils/getTimePeriods'
-import { CompetitionSteps, LIVE } from 'config/constants/trading-competition/phases'
-import useTheme from 'hooks/useTheme'
-import { Heading2Text } from '../CompetitionHeadingText'
-import { CompetitionPhaseProps } from '../../types'
-import Timer from './Timer'
-import ProgressStepper from './ProgressStepper'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Skeleton, PocketWatchIcon, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import getTimePeriods from 'utils/getTimePeriods';
+import { CompetitionSteps, LIVE } from 'config/constants/trading-competition/phases';
+import useTheme from 'hooks/useTheme';
+import { Heading2Text } from '../CompetitionHeadingText';
+import { CompetitionPhaseProps } from '../../types';
+import Timer from './Timer';
+import ProgressStepper from './ProgressStepper';
 
 const Wrapper = styled(Flex)`
   width: fit-content;
@@ -29,7 +29,7 @@ const Wrapper = styled(Flex)`
     flex-direction: column;
     margin: -38px 0 0 36px;
   }
-`
+`;
 
 const PocketWatchWrapper = styled(Flex)`
   align-items: center;
@@ -54,7 +54,7 @@ const PocketWatchWrapper = styled(Flex)`
     margin-bottom: 16px;
     margin-right: 0;
   }
-`
+`;
 
 const StyledHeading = styled(Heading2Text)`
   font-size: 24px;
@@ -63,19 +63,19 @@ const StyledHeading = styled(Heading2Text)`
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-right: 4px;
   }
-`
+`;
 
 const Countdown: React.FC<{ currentPhase: CompetitionPhaseProps; hasCompetitionEnded: boolean }> = ({
   currentPhase,
   hasCompetitionEnded,
 }) => {
-  const { theme } = useTheme()
-  const { t } = useTranslation()
-  const finishMs = currentPhase.ends
-  const currentMs = Date.now()
-  const secondsUntilNextEvent = (finishMs - currentMs) / 1000
+  const { theme } = useTheme();
+  const { t } = useTranslation();
+  const finishMs = currentPhase.ends;
+  const currentMs = Date.now();
+  const secondsUntilNextEvent = (finishMs - currentMs) / 1000;
 
-  const { minutes, hours, days } = getTimePeriods(secondsUntilNextEvent)
+  const { minutes, hours, days } = getTimePeriods(secondsUntilNextEvent);
 
   const renderTimer = () => {
     if (hasCompetitionEnded) {
@@ -83,7 +83,7 @@ const Countdown: React.FC<{ currentPhase: CompetitionPhaseProps; hasCompetitionE
         <StyledHeading background={theme.colors.gradients.gold} $fill>
           {t('Finished')}!
         </StyledHeading>
-      )
+      );
     }
     return (
       <Timer
@@ -102,8 +102,8 @@ const Countdown: React.FC<{ currentPhase: CompetitionPhaseProps; hasCompetitionE
           </Text>
         )}
       />
-    )
-  }
+    );
+  };
 
   return (
     <Wrapper>
@@ -125,7 +125,7 @@ const Countdown: React.FC<{ currentPhase: CompetitionPhaseProps; hasCompetitionE
         )}
       </Flex>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Countdown
+export default Countdown;

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 export const SlideSvgLight: React.FC<SvgProps> = (props) => {
   return (
@@ -16,8 +16,8 @@ export const SlideSvgLight: React.FC<SvgProps> = (props) => {
         </linearGradient>
       </defs>
     </Svg>
-  )
-}
+  );
+};
 
 export const SlideSvgDark: React.FC<SvgProps> = (props) => {
   return (
@@ -34,5 +34,5 @@ export const SlideSvgDark: React.FC<SvgProps> = (props) => {
         </linearGradient>
       </defs>
     </Svg>
-  )
-}
+  );
+};

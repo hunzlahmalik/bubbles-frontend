@@ -1,14 +1,14 @@
-import React from 'react'
-import { useTranslation } from 'contexts/Localization'
-import styled from 'styled-components'
-import { Flex, Box, Text, Skeleton } from '@pancakeswap/uikit'
-import TeamPodiumIcon from './TeamPodiumIcon'
-import { PodiumBase } from '../../../svgs'
-import { TeamLeaderboardProps } from '../../../types'
-import { localiseTradingVolume } from '../../../helpers'
+import React from 'react';
+import { useTranslation } from 'contexts/Localization';
+import styled from 'styled-components';
+import { Flex, Box, Text, Skeleton } from '@pancakeswap/uikit';
+import TeamPodiumIcon from './TeamPodiumIcon';
+import { PodiumBase } from '../../../svgs';
+import { TeamLeaderboardProps } from '../../../types';
+import { localiseTradingVolume } from '../../../helpers';
 
 interface PodiumProps {
-  teamsSortedByVolume?: Array<TeamLeaderboardProps>
+  teamsSortedByVolume?: Array<TeamLeaderboardProps>;
 }
 
 const Wrapper = styled(Flex)`
@@ -21,7 +21,7 @@ const Wrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 387px;
   }
-`
+`;
 
 const Inner = styled(Flex)`
   width: 100%;
@@ -31,7 +31,7 @@ const Inner = styled(Flex)`
     height: auto;
     width: 100%;
   }
-`
+`;
 
 const LeftBox = styled(Box)`
   position: absolute;
@@ -45,14 +45,14 @@ const LeftBox = styled(Box)`
   ${({ theme }) => theme.mediaQueries.sm} {
     bottom: -32px;
   }
-`
+`;
 
 const MiddleBox = styled(Box)`
   position: absolute;
   bottom: -10px;
   left: 50%;
   transform: translate(-50%, 0);
-`
+`;
 
 const RightBox = styled(Box)`
   position: absolute;
@@ -66,14 +66,14 @@ const RightBox = styled(Box)`
   ${({ theme }) => theme.mediaQueries.sm} {
     bottom: -52px;
   }
-`
+`;
 
 const StyledVolumeFlex = styled(Flex)`
   flex-direction: column;
   flex: 1;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const StyledVolumeText = styled(Text)`
   font-size: 12px;
@@ -85,13 +85,13 @@ const StyledVolumeText = styled(Text)`
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 16px;
   }
-`
+`;
 
 const Podium: React.FC<PodiumProps> = ({ teamsSortedByVolume }) => {
-  const { t } = useTranslation()
-  const firstTeam = teamsSortedByVolume && teamsSortedByVolume[0]
-  const secondTeam = teamsSortedByVolume && teamsSortedByVolume[1]
-  const thirdTeam = teamsSortedByVolume && teamsSortedByVolume[2]
+  const { t } = useTranslation();
+  const firstTeam = teamsSortedByVolume && teamsSortedByVolume[0];
+  const secondTeam = teamsSortedByVolume && teamsSortedByVolume[1];
+  const thirdTeam = teamsSortedByVolume && teamsSortedByVolume[2];
 
   return (
     <Wrapper>
@@ -142,7 +142,7 @@ const Podium: React.FC<PodiumProps> = ({ teamsSortedByVolume }) => {
         </Flex>
       </Inner>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Podium
+export default Podium;

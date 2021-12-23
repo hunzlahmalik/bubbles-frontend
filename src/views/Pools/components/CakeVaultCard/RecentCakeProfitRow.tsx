@@ -1,32 +1,32 @@
-import React from 'react'
-import { Flex, Text } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { VaultKey } from 'state/types'
-import { getCakeVaultEarnings } from 'views/Pools/helpers'
-import RecentCakeProfitBalance from './RecentCakeProfitBalance'
+import React from 'react';
+import { Flex, Text } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { useTranslation } from 'contexts/Localization';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useVaultPoolByKey } from 'state/pools/hooks';
+import { VaultKey } from 'state/types';
+import { getCakeVaultEarnings } from 'views/Pools/helpers';
+import RecentCakeProfitBalance from './RecentCakeProfitBalance';
 
 const RecentCakeProfitCountdownRow = ({ vaultKey }: { vaultKey: VaultKey }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
   const {
     pricePerFullShare,
     userData: { cakeAtLastUserAction, userShares, lastUserActionTime },
-  } = useVaultPoolByKey(vaultKey)
-  const cakePriceBusd = usePriceCakeBusd()
+  } = useVaultPoolByKey(vaultKey);
+  const cakePriceBusd = usePriceCakeBusd();
   const { hasAutoEarnings, autoCakeToDisplay, autoUsdToDisplay } = getCakeVaultEarnings(
     account,
     cakeAtLastUserAction,
     userShares,
     pricePerFullShare,
     cakePriceBusd.toNumber(),
-  )
+  );
 
-  const lastActionInMs = lastUserActionTime && parseInt(lastUserActionTime) * 1000
-  const dateTimeLastAction = new Date(lastActionInMs)
-  const dateStringToDisplay = dateTimeLastAction.toLocaleString()
+  const lastActionInMs = lastUserActionTime && parseInt(lastUserActionTime) * 1000;
+  const dateTimeLastAction = new Date(lastActionInMs);
+  const dateStringToDisplay = dateTimeLastAction.toLocaleString();
 
   return (
     <Flex alignItems="center" justifyContent="space-between">
@@ -39,7 +39,7 @@ const RecentCakeProfitCountdownRow = ({ vaultKey }: { vaultKey: VaultKey }) => {
         />
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default RecentCakeProfitCountdownRow
+export default RecentCakeProfitCountdownRow;

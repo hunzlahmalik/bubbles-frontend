@@ -11,46 +11,46 @@ import {
   useTooltip,
   LinkExternal,
   Link,
-} from '@pancakeswap/uikit'
-import BigNumber from 'bignumber.js'
-import Balance from 'components/Balance'
-import { TokenPairImage } from 'components/TokenImage'
-import tokens from 'config/constants/tokens'
-import { useTranslation } from 'contexts/Localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import React, { useState } from 'react'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useIfoPoolVault, useIfoPoolCredit, useIfoWithApr, useIfoPooStartBlock } from 'state/pools/hooks'
-import styled from 'styled-components'
-import { getBalanceNumber, getDecimalAmount } from 'utils/formatBalance'
-import CakeVaultCard from 'views/Pools/components/CakeVaultCard'
-import ExpandedFooter from 'views/Pools/components/PoolCard/CardFooter/ExpandedFooter'
-import { IfoVaultCardAvgBalance } from 'views/Pools/components/CakeVaultCard/VaultCardActions'
-import AprRow from 'views/Pools/components/PoolCard/AprRow'
-import Staked from 'views/Pools/components/PoolsTable/ActionPanel/Stake'
-import { CompoundingPoolTag } from 'components/Tags'
-import { ActionContainer } from 'views/Pools/components/PoolsTable/ActionPanel/styles'
-import { VaultKey } from 'state/types'
-import UnstakingFeeCountdownRow from 'views/Pools/components/CakeVaultCard/UnstakingFeeCountdownRow'
-import RecentCakeProfitCountdownRow from 'views/Pools/components/CakeVaultCard/RecentCakeProfitRow'
-import { getBscScanLink } from 'utils'
+} from '@pancakeswap/uikit';
+import BigNumber from 'bignumber.js';
+import Balance from 'components/Balance';
+import { TokenPairImage } from 'components/TokenImage';
+import tokens from 'config/constants/tokens';
+import { useTranslation } from 'contexts/Localization';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import React, { useState } from 'react';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useIfoPoolVault, useIfoPoolCredit, useIfoWithApr, useIfoPooStartBlock } from 'state/pools/hooks';
+import styled from 'styled-components';
+import { getBalanceNumber, getDecimalAmount } from 'utils/formatBalance';
+import CakeVaultCard from 'views/Pools/components/CakeVaultCard';
+import ExpandedFooter from 'views/Pools/components/PoolCard/CardFooter/ExpandedFooter';
+import { IfoVaultCardAvgBalance } from 'views/Pools/components/CakeVaultCard/VaultCardActions';
+import AprRow from 'views/Pools/components/PoolCard/AprRow';
+import Staked from 'views/Pools/components/PoolsTable/ActionPanel/Stake';
+import { CompoundingPoolTag } from 'components/Tags';
+import { ActionContainer } from 'views/Pools/components/PoolsTable/ActionPanel/styles';
+import { VaultKey } from 'state/types';
+import UnstakingFeeCountdownRow from 'views/Pools/components/CakeVaultCard/UnstakingFeeCountdownRow';
+import RecentCakeProfitCountdownRow from 'views/Pools/components/CakeVaultCard/RecentCakeProfitRow';
+import { getBscScanLink } from 'utils';
 
 const StyledCardMobile = styled(Card)`
   max-width: 400px;
   width: 100%;
-`
+`;
 
 const StyledTokenContent = styled(Flex)`
   ${Text} {
     line-height: 1.2;
     white-space: nowrap;
   }
-`
+`;
 
 const StyledCardFooter = styled(Box)`
   padding: 16px;
   background-color: ${({ theme }) => theme.colors.dropdown};
-`
+`;
 
 const StyledCardBody = styled(CardBody)`
   display: grid;
@@ -61,18 +61,18 @@ const StyledCardBody = styled(CardBody)`
     margin: 0;
     background-color: ${({ theme }) => theme.colors.invertedContrast};
   }
-`
+`;
 
 const IfoPoolVaultCardMobile: React.FC = () => {
-  const { pool, userDataLoaded } = useIfoWithApr()
-  const { account } = useActiveWeb3React()
-  const { t } = useTranslation()
-  const credit = useIfoPoolCredit()
+  const { pool, userDataLoaded } = useIfoWithApr();
+  const { account } = useActiveWeb3React();
+  const { t } = useTranslation();
+  const credit = useIfoPoolCredit();
   const {
     fees: { performanceFeeAsDecimal },
-  } = useIfoPoolVault()
-  const [isExpanded, setIsExpanded] = useState(false)
-  const creditStartBlock = useIfoPooStartBlock()
+  } = useIfoPoolVault();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const creditStartBlock = useIfoPooStartBlock();
   const {
     tooltip: startBlockTooltip,
     tooltipVisible: startBlockTooltipVisible,
@@ -89,22 +89,22 @@ const IfoPoolVaultCardMobile: React.FC = () => {
       </LinkExternal>
     </>,
     { placement: 'auto' },
-  )
+  );
 
   // TODO: refactor this is use everywhere
-  const cakeAsNumberBalance = getBalanceNumber(credit)
-  const cakeAsBigNumber = getDecimalAmount(new BigNumber(cakeAsNumberBalance))
-  const cakePriceBusd = usePriceCakeBusd()
+  const cakeAsNumberBalance = getBalanceNumber(credit);
+  const cakeAsBigNumber = getDecimalAmount(new BigNumber(cakeAsNumberBalance));
+  const cakePriceBusd = usePriceCakeBusd();
   const stakedDollarValue = cakePriceBusd.gt(0)
     ? getBalanceNumber(cakeAsBigNumber.multipliedBy(cakePriceBusd), pool.stakingToken.decimals)
-    : 0
+    : 0;
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t('Any funds you stake in this pool will be automagically harvested and restaked (compounded) for you.'),
     {
       placement: 'bottom',
     },
-  )
+  );
   return (
     <StyledCardMobile isActive>
       <CardHeader p="16px">
@@ -177,18 +177,18 @@ const IfoPoolVaultCardMobile: React.FC = () => {
         </>
       )}
     </StyledCardMobile>
-  )
-}
+  );
+};
 
 const IfoPoolVaultCard = () => {
-  const { pool } = useIfoWithApr()
-  const { isMd, isXs, isSm } = useMatchBreakpoints()
-  const isSmallerThanTablet = isMd || isXs || isSm
+  const { pool } = useIfoWithApr();
+  const { isMd, isXs, isSm } = useMatchBreakpoints();
+  const isSmallerThanTablet = isMd || isXs || isSm;
   if (isSmallerThanTablet) {
-    return <IfoPoolVaultCardMobile />
+    return <IfoPoolVaultCardMobile />;
   }
 
-  return <CakeVaultCard pool={pool} showStakedOnly={false} m="auto" />
-}
+  return <CakeVaultCard pool={pool} showStakedOnly={false} m="auto" />;
+};
 
-export default IfoPoolVaultCard
+export default IfoPoolVaultCard;

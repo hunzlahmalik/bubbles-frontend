@@ -1,19 +1,19 @@
-import React from 'react'
-import { Button, AutoRenewIcon, Skeleton } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { VaultKey } from 'state/types'
-import { useVaultApprove } from '../../../hooks/useApprove'
+import React from 'react';
+import { Button, AutoRenewIcon, Skeleton } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { VaultKey } from 'state/types';
+import { useVaultApprove } from '../../../hooks/useApprove';
 
 interface ApprovalActionProps {
-  setLastUpdated: () => void
-  isLoading?: boolean
-  vaultKey: VaultKey
+  setLastUpdated: () => void;
+  isLoading?: boolean;
+  vaultKey: VaultKey;
 }
 
 const VaultApprovalAction: React.FC<ApprovalActionProps> = ({ vaultKey, isLoading = false, setLastUpdated }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { handleApprove, requestedApproval } = useVaultApprove(vaultKey, setLastUpdated)
+  const { handleApprove, requestedApproval } = useVaultApprove(vaultKey, setLastUpdated);
 
   return (
     <>
@@ -31,7 +31,7 @@ const VaultApprovalAction: React.FC<ApprovalActionProps> = ({ vaultKey, isLoadin
         </Button>
       )}
     </>
-  )
-}
+  );
+};
 
-export default VaultApprovalAction
+export default VaultApprovalAction;

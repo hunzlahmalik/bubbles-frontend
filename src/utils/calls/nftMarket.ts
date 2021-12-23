@@ -1,4 +1,4 @@
-import { ethers } from 'ethers'
+import { ethers } from 'ethers';
 
 /**
  * Buy a NFT with BNB
@@ -13,14 +13,14 @@ export const buyTokenUsingBNB = async (
   tokenId: number,
 ): Promise<string> => {
   try {
-    const tx = await contract.buyTokenUsingBNB(collectionAddress, tokenId)
-    const receipt = await tx.wait()
-    return receipt.transactionHash
+    const tx = await contract.buyTokenUsingBNB(collectionAddress, tokenId);
+    const receipt = await tx.wait();
+    return receipt.transactionHash;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};
 
 /**
  * Buy a NFT with WBNB
@@ -37,14 +37,14 @@ export const buyTokenUsingWBNB = async (
   price: ethers.BigNumber,
 ): Promise<string> => {
   try {
-    const tx = await contract.buyTokenUsingWBNB(collectionAddress, tokenId, price)
-    const receipt = await tx.wait()
-    return receipt.transactionHash
+    const tx = await contract.buyTokenUsingWBNB(collectionAddress, tokenId, price);
+    const receipt = await tx.wait();
+    return receipt.transactionHash;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};
 
 /**
  * List a NFT for sale
@@ -61,14 +61,14 @@ export const createAskOrder = async (
   askPrice: ethers.BigNumber,
 ): Promise<string> => {
   try {
-    const tx = await contract.createAskOrder(collectionAddress, tokenId, askPrice)
-    const receipt = await tx.wait()
-    return receipt.transactionHash
+    const tx = await contract.createAskOrder(collectionAddress, tokenId, askPrice);
+    const receipt = await tx.wait();
+    return receipt.transactionHash;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};
 
 /**
  * Update the price of a listed NFT
@@ -85,14 +85,14 @@ export const modifyAskOrder = async (
   newPrice: ethers.BigNumber,
 ): Promise<string> => {
   try {
-    const tx = await contract.modifyAskOrder(collectionAddress, tokenId, newPrice)
-    const receipt = await tx.wait()
-    return receipt.transactionHash
+    const tx = await contract.modifyAskOrder(collectionAddress, tokenId, newPrice);
+    const receipt = await tx.wait();
+    return receipt.transactionHash;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};
 
 /**
  * Cancel a NFT sale listing. The caller needs to be the NFT owner.
@@ -107,14 +107,14 @@ export const cancelAskOrder = async (
   tokenId: number,
 ): Promise<string> => {
   try {
-    const tx = await contract.cancelAskOrder(collectionAddress, tokenId)
-    const receipt = await tx.wait()
-    return receipt.transactionHash
+    const tx = await contract.cancelAskOrder(collectionAddress, tokenId);
+    const receipt = await tx.wait();
+    return receipt.transactionHash;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};
 
 /**
  * Get pending WBNB revenues for a user
@@ -124,13 +124,13 @@ export const cancelAskOrder = async (
  */
 export const getPendingRevenue = async (contract: ethers.Contract, userAddress: string): Promise<ethers.BigNumber> => {
   try {
-    const res = await contract.pendingRevenue(userAddress)
-    return res
+    const res = await contract.pendingRevenue(userAddress);
+    return res;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};
 
 /**
  * Claim WBNB pending revenues for a connected users
@@ -139,11 +139,11 @@ export const getPendingRevenue = async (contract: ethers.Contract, userAddress: 
  */
 export const claimPendingRevenue = async (contract: ethers.Contract): Promise<string> => {
   try {
-    const tx = await contract.claimPendingRevenue()
-    const receipt = await tx.wait()
-    return receipt.transactionHash
+    const tx = await contract.claimPendingRevenue();
+    const receipt = await tx.wait();
+    return receipt.transactionHash;
   } catch (error) {
-    console.error(error)
-    return null
+    console.error(error);
+    return null;
   }
-}
+};

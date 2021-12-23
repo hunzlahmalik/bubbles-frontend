@@ -1,4 +1,4 @@
-import React, { ReactText } from 'react'
+import React, { ReactText } from 'react';
 import {
   Text,
   Heading,
@@ -12,15 +12,15 @@ import {
   BlockIcon,
   Button,
   useModal,
-} from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import { LIVE } from 'config/constants/trading-competition/phases'
-import { YourScoreProps } from '../../types'
-import UserRankBox from './UserRankBox'
-import NextRankBox from './NextRankBox'
-import ShareImageModal from '../ShareImageModal'
-import { localiseTradingVolume } from '../../helpers'
+} from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import { LIVE } from 'config/constants/trading-competition/phases';
+import { YourScoreProps } from '../../types';
+import UserRankBox from './UserRankBox';
+import NextRankBox from './NextRankBox';
+import ShareImageModal from '../ShareImageModal';
+import { localiseTradingVolume } from '../../helpers';
 
 const TeamRankTextWrapper = styled(Flex)`
   align-items: center;
@@ -28,7 +28,7 @@ const TeamRankTextWrapper = styled(Flex)`
   svg {
     width: 24px;
   }
-`
+`;
 
 const RanksWrapper = styled(Flex)`
   width: 100%;
@@ -38,7 +38,7 @@ const RanksWrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
   }
-`
+`;
 
 const CardUserInfo: React.FC<YourScoreProps> = ({
   hasRegistered,
@@ -47,112 +47,112 @@ const CardUserInfo: React.FC<YourScoreProps> = ({
   userLeaderboardInformation,
   currentPhase,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [onPresentShareModal] = useModal(
     <ShareImageModal profile={profile} userLeaderboardInformation={userLeaderboardInformation} />,
     false,
-  )
-  const { global, team, volume, next_rank: nextRank } = userLeaderboardInformation
-  const shouldShowUserRanks = account && hasRegistered
+  );
+  const { global, team, volume, next_rank: nextRank } = userLeaderboardInformation;
+  const shouldShowUserRanks = account && hasRegistered;
 
   const getMedal = (currentRank: ReactText) => {
     if (currentRank === 1) {
       return {
         current: <MedalGoldIcon />,
         next: null,
-      }
+      };
     }
     if (currentRank <= 10) {
       return {
         current: <MedalSilverIcon />,
         next: <MedalGoldIcon />,
-      }
+      };
     }
     if (currentRank <= 100) {
       return {
         current: <MedalBronzeIcon />,
         next: <MedalSilverIcon />,
-      }
+      };
     }
     if (currentRank <= 500) {
       return {
         current: <MedalPurpleIcon />,
         next: <MedalBronzeIcon />,
-      }
+      };
     }
     if (currentRank > 500) {
       return {
         current: <MedalTealIcon />,
         next: <MedalPurpleIcon />,
-      }
+      };
     }
     return {
       current: <BlockIcon />,
       next: <MedalTealIcon />,
-    }
-  }
+    };
+  };
 
   const getNextTier = (currentRank: ReactText) => {
     if (currentRank === 1) {
       return {
         color: null,
         rank: null,
-      }
+      };
     }
     if (currentRank <= 10) {
       return {
         color: 'GOLD',
         rank: 1,
-      }
+      };
     }
     if (currentRank <= 100) {
       return {
         color: 'SILVER',
         rank: 10,
-      }
+      };
     }
     if (currentRank <= 500) {
       return {
         color: 'BRONZE',
         rank: 100,
-      }
+      };
     }
     if (currentRank > 500) {
       return {
         color: 'PURPLE',
         rank: 500,
-      }
+      };
     }
     return {
       color: '',
       rank: 500,
-    }
-  }
+    };
+  };
 
   const getHeadingText = () => {
     if (!account) {
-      return t('Check your Rank')
+      return t('Check your Rank');
     }
     if (!hasRegistered) {
-      return t('You’re not participating this time.')
+      return t('You’re not participating this time.');
     }
-    return `@${profile.username}`
-  }
+    return `@${profile.username}`;
+  };
 
   const getSubHeadingText = () => {
     if (!account) {
-      return t('Connect wallet to view')
+      return t('Connect wallet to view');
     }
     if (!hasRegistered) {
-      return t('Sorry, you needed to register during the “entry” period!')
+      return t('Sorry, you needed to register during the “entry” period!');
     }
-    return `${profile.team.name}`
-  }
+    return `${profile.team.name}`;
+  };
 
-  const headingText = getHeadingText()
-  const subHeadingText = getSubHeadingText()
-  const nextTier = userLeaderboardInformation && getNextTier(team)
-  const medal = userLeaderboardInformation && getMedal(team)
+  const headingText = getHeadingText();
+  const subHeadingText = getSubHeadingText();
+  const nextTier = userLeaderboardInformation && getNextTier(team);
+  const medal = userLeaderboardInformation && getMedal(team);
 
   return (
     <Flex flexDirection="column" alignItems="center" mt="16px">
@@ -235,7 +235,7 @@ const CardUserInfo: React.FC<YourScoreProps> = ({
         </>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default CardUserInfo
+export default CardUserInfo;

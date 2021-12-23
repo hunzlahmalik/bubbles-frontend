@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
 import {
   Text,
   Flex,
@@ -14,13 +14,13 @@ import {
   SubMenuItem,
   EllipsisIcon,
   LinkExternal,
-} from '@pancakeswap/uikit'
-import { getBscScanLink } from 'utils'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { Bidder } from 'config/constants/types'
-import WhitelistedBiddersModal from '../WhitelistedBiddersModal'
+} from '@pancakeswap/uikit';
+import { getBscScanLink } from 'utils';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { useTranslation } from 'contexts/Localization';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { Bidder } from 'config/constants/types';
+import WhitelistedBiddersModal from '../WhitelistedBiddersModal';
 
 const LeaderboardContainer = styled.div`
   display: grid;
@@ -28,7 +28,7 @@ const LeaderboardContainer = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     grid-template-columns: 3fr 5fr 5fr 1fr;
   }
-`
+`;
 
 const GridCell = styled(Flex)<{ isTopPosition: boolean }>`
   height: 65px;
@@ -36,18 +36,18 @@ const GridCell = styled(Flex)<{ isTopPosition: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
 
   ${({ theme, isTopPosition }) => isTopPosition && `background-color: ${theme.colors.warning}2D;`}
-`
+`;
 
 interface LeaderboardRowProps {
-  bidder: Bidder
-  cakePriceBusd: BigNumber
-  isMobile: boolean
+  bidder: Bidder;
+  cakePriceBusd: BigNumber;
+  isMobile: boolean;
 }
 
 const LeaderboardRow: React.FC<LeaderboardRowProps> = ({ bidder, cakePriceBusd, isMobile }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { isTopPosition, position, samePositionAsAbove, farmName, tokenName, amount, projectSite, lpAddress, account } =
-    bidder
+    bidder;
   return (
     <>
       <GridCell isTopPosition={isTopPosition} pl={['12px', '24px']}>
@@ -106,18 +106,18 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({ bidder, cakePriceBusd, 
         </SubMenu>
       </GridCell>
     </>
-  )
-}
+  );
+};
 
 const AuctionLeaderboardTable: React.FC<{ bidders: Bidder[]; noBidsText: string }> = ({ bidders, noBidsText }) => {
-  const [visibleBidders, setVisibleBidders] = useState(10)
-  const cakePriceBusd = usePriceCakeBusd()
-  const { t } = useTranslation()
+  const [visibleBidders, setVisibleBidders] = useState(10);
+  const cakePriceBusd = usePriceCakeBusd();
+  const { t } = useTranslation();
 
-  const { isMobile } = useMatchBreakpoints()
-  const [onShowWhitelistedBidders] = useModal(<WhitelistedBiddersModal />)
+  const { isMobile } = useMatchBreakpoints();
+  const [onShowWhitelistedBidders] = useModal(<WhitelistedBiddersModal />);
 
-  const totalBidders = bidders.length
+  const totalBidders = bidders.length;
 
   if (totalBidders === 0) {
     return (
@@ -125,7 +125,7 @@ const AuctionLeaderboardTable: React.FC<{ bidders: Bidder[]; noBidsText: string 
         <Text mb="8px">{noBidsText}</Text>
         <BunnyPlaceholderIcon height="64px" width="64px" />
       </Flex>
-    )
+    );
   }
 
   return (
@@ -170,9 +170,9 @@ const AuctionLeaderboardTable: React.FC<{ bidders: Bidder[]; noBidsText: string 
             onClick={() =>
               setVisibleBidders((prev) => {
                 if (totalBidders - prev > 10) {
-                  return prev + 10
+                  return prev + 10;
                 }
-                return totalBidders
+                return totalBidders;
               })
             }
           >
@@ -181,7 +181,7 @@ const AuctionLeaderboardTable: React.FC<{ bidders: Bidder[]; noBidsText: string 
         )}
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default AuctionLeaderboardTable
+export default AuctionLeaderboardTable;

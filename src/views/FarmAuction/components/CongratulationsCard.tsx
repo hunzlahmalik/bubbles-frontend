@@ -1,27 +1,27 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Heading, Card, CardHeader, CardBody, Flex } from '@pancakeswap/uikit'
-import { Auction, Bidder } from 'config/constants/types'
-import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
-import useCongratulateAuctionWinner from '../hooks/useCongratulateAuctionWinner'
-import WhitelistedBiddersButton from './WhitelistedBiddersButton'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Heading, Card, CardHeader, CardBody, Flex } from '@pancakeswap/uikit';
+import { Auction, Bidder } from 'config/constants/types';
+import { useTranslation } from 'contexts/Localization';
+import { getBalanceNumber } from 'utils/formatBalance';
+import useCongratulateAuctionWinner from '../hooks/useCongratulateAuctionWinner';
+import WhitelistedBiddersButton from './WhitelistedBiddersButton';
 
 const StyledReclaimBidCard = styled(Card)`
   margin-top: 16px;
   flex: 1;
-`
+`;
 
 const CongratulationsCard: React.FC<{ currentAuction: Auction; bidders: Bidder[] }> = ({ currentAuction, bidders }) => {
-  const { t } = useTranslation()
-  const wonAuction = useCongratulateAuctionWinner(currentAuction, bidders)
+  const { t } = useTranslation();
+  const wonAuction = useCongratulateAuctionWinner(currentAuction, bidders);
 
   if (!wonAuction) {
-    return null
+    return null;
   }
 
-  const { auction, bidderData } = wonAuction
-  const { amount, position } = bidderData
+  const { auction, bidderData } = wonAuction;
+  const { amount, position } = bidderData;
   return (
     <StyledReclaimBidCard mb={['24px', null, null, '0']}>
       <CardHeader>
@@ -51,7 +51,7 @@ const CongratulationsCard: React.FC<{ currentAuction: Auction; bidders: Bidder[]
         </Flex>
       </CardBody>
     </StyledReclaimBidCard>
-  )
-}
+  );
+};
 
-export default CongratulationsCard
+export default CongratulationsCard;

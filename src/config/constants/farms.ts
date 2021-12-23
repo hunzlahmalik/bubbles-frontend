@@ -1,7 +1,7 @@
-import { serializeTokens } from './tokens'
-import { SerializedFarmConfig } from './types'
+import { serializeTokens } from './tokens';
+import { SerializedFarmConfig } from './types';
 
-const serializedTokens = serializeTokens()
+const serializedTokens = serializeTokens();
 
 const farms: SerializedFarmConfig[] = [
   /**
@@ -4838,6 +4838,6 @@ const farms: SerializedFarmConfig[] = [
     token: serializedTokens.bake,
     quoteToken: serializedTokens.wbnb,
   },
-]
+];
 
-export default farms
+export default farms;

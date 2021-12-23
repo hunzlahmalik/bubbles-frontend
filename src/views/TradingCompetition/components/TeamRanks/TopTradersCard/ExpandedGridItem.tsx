@@ -1,9 +1,9 @@
-import React from 'react'
-import { Text, Flex, Box } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import truncateHash from 'utils/truncateHash'
-import { LeaderboardDataItem } from '../../../types'
-import { localiseTradingVolume } from '../../../helpers'
+import React from 'react';
+import { Text, Flex, Box } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import truncateHash from 'utils/truncateHash';
+import { LeaderboardDataItem } from '../../../types';
+import { localiseTradingVolume } from '../../../helpers';
 
 const Wrapper = styled.div`
   position: relative;
@@ -33,7 +33,7 @@ const Wrapper = styled.div`
     height: 44px;
     width: auto;
   }
-`
+`;
 
 const VolumeAddressWrapper = styled(Box)`
   display: grid;
@@ -53,7 +53,7 @@ const VolumeAddressWrapper = styled(Box)`
   ${({ theme }) => theme.mediaQueries.sm} {
     display: flex;
   }
-`
+`;
 
 const VolumeText = styled(Text)`
   margin-right: 8px;
@@ -71,7 +71,7 @@ const VolumeText = styled(Text)`
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-right: 0;
   }
-`
+`;
 
 const TeamImageWrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.xl} {
@@ -79,13 +79,13 @@ const TeamImageWrapper = styled(Flex)`
     right: 0;
     bottom: 0;
   }
-`
+`;
 
 const GridItem: React.FC<{ traderData?: LeaderboardDataItem; teamImages: React.ReactNode[] }> = ({
   traderData = { address: '', volume: 0, teamId: 0, rank: 0 },
   teamImages,
 }) => {
-  const { address, volume, teamId, rank } = traderData
+  const { address, volume, teamId, rank } = traderData;
 
   return (
     <Wrapper>
@@ -108,7 +108,7 @@ const GridItem: React.FC<{ traderData?: LeaderboardDataItem; teamImages: React.R
       </VolumeAddressWrapper>
       <TeamImageWrapper justifyContent="flex-end">{teamImages[teamId - 1]}</TeamImageWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default GridItem
+export default GridItem;

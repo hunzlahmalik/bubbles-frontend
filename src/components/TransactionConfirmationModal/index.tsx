@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
-import { ChainId, Currency, Token } from '@pancakeswap/sdk'
-import styled from 'styled-components'
+import React, { useCallback } from 'react';
+import { ChainId, Currency, Token } from '@pancakeswap/sdk';
+import styled from 'styled-components';
 import {
   Button,
   Text,
@@ -13,28 +13,28 @@ import {
   Spinner,
   Modal,
   InjectedModalProps,
-} from '@pancakeswap/uikit'
-import { registerToken } from 'utils/wallet'
-import { useTranslation } from 'contexts/Localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { wrappedCurrency } from 'utils/wrappedCurrency'
-import { RowFixed } from '../Layout/Row'
-import { AutoColumn, ColumnCenter } from '../Layout/Column'
-import { getBscScanLink } from '../../utils'
+} from '@pancakeswap/uikit';
+import { registerToken } from 'utils/wallet';
+import { useTranslation } from 'contexts/Localization';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { wrappedCurrency } from 'utils/wrappedCurrency';
+import { RowFixed } from '../Layout/Row';
+import { AutoColumn, ColumnCenter } from '../Layout/Column';
+import { getBscScanLink } from '../../utils';
 
 const Wrapper = styled.div`
   width: 100%;
-`
+`;
 const Section = styled(AutoColumn)`
   padding: 24px;
-`
+`;
 
 const ConfirmedIcon = styled(ColumnCenter)`
   padding: 24px 0;
-`
+`;
 
 function ConfirmationPendingContent({ pendingText }: { pendingText: string }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Wrapper>
       <ConfirmedIcon>
@@ -52,7 +52,7 @@ function ConfirmationPendingContent({ pendingText }: { pendingText: string }) {
         </Text>
       </AutoColumn>
     </Wrapper>
-  )
+  );
 }
 
 function TransactionSubmittedContent({
@@ -61,16 +61,16 @@ function TransactionSubmittedContent({
   hash,
   currencyToAdd,
 }: {
-  onDismiss: () => void
-  hash: string | undefined
-  chainId: ChainId
-  currencyToAdd?: Currency | undefined
+  onDismiss: () => void;
+  hash: string | undefined;
+  chainId: ChainId;
+  currencyToAdd?: Currency | undefined;
 }) {
-  const { library } = useActiveWeb3React()
+  const { library } = useActiveWeb3React();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId)
+  const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId);
 
   return (
     <Wrapper>
@@ -104,26 +104,26 @@ function TransactionSubmittedContent({
         </AutoColumn>
       </Section>
     </Wrapper>
-  )
+  );
 }
 
 export function ConfirmationModalContent({
   bottomContent,
   topContent,
 }: {
-  topContent: () => React.ReactNode
-  bottomContent: () => React.ReactNode
+  topContent: () => React.ReactNode;
+  bottomContent: () => React.ReactNode;
 }) {
   return (
     <Wrapper>
       <Box>{topContent()}</Box>
       <Box>{bottomContent()}</Box>
     </Wrapper>
-  )
+  );
 }
 
 export function TransactionErrorContent({ message, onDismiss }: { message: string; onDismiss: () => void }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Wrapper>
       <AutoColumn justify="center">
@@ -137,17 +137,17 @@ export function TransactionErrorContent({ message, onDismiss }: { message: strin
         <Button onClick={onDismiss}>{t('Dismiss')}</Button>
       </Flex>
     </Wrapper>
-  )
+  );
 }
 
 interface ConfirmationModalProps {
-  title: string
-  customOnDismiss?: () => void
-  hash: string | undefined
-  content: () => React.ReactNode
-  attemptingTxn: boolean
-  pendingText: string
-  currencyToAdd?: Currency | undefined
+  title: string;
+  customOnDismiss?: () => void;
+  hash: string | undefined;
+  content: () => React.ReactNode;
+  attemptingTxn: boolean;
+  pendingText: string;
+  currencyToAdd?: Currency | undefined;
 }
 
 const TransactionConfirmationModal: React.FC<InjectedModalProps & ConfirmationModalProps> = ({
@@ -160,16 +160,16 @@ const TransactionConfirmationModal: React.FC<InjectedModalProps & ConfirmationMo
   content,
   currencyToAdd,
 }) => {
-  const { chainId } = useActiveWeb3React()
+  const { chainId } = useActiveWeb3React();
 
   const handleDismiss = useCallback(() => {
     if (customOnDismiss) {
-      customOnDismiss()
+      customOnDismiss();
     }
-    onDismiss()
-  }, [customOnDismiss, onDismiss])
+    onDismiss();
+  }, [customOnDismiss, onDismiss]);
 
-  if (!chainId) return null
+  if (!chainId) return null;
 
   return (
     <Modal title={title} headerBackground="gradients.cardHeader" onDismiss={handleDismiss}>
@@ -186,7 +186,7 @@ const TransactionConfirmationModal: React.FC<InjectedModalProps & ConfirmationMo
         content()
       )}
     </Modal>
-  )
-}
+  );
+};
 
-export default TransactionConfirmationModal
+export default TransactionConfirmationModal;

@@ -1,16 +1,16 @@
-import React from 'react'
-import { Card, Table, Th } from '@pancakeswap/uikit'
-import { PredictionUser } from 'state/types'
-import Container from 'components/Layout/Container'
-import { useTranslation } from 'contexts/Localization'
-import DesktopRow from './DesktopRow'
+import React from 'react';
+import { Card, Table, Th } from '@pancakeswap/uikit';
+import { PredictionUser } from 'state/types';
+import Container from 'components/Layout/Container';
+import { useTranslation } from 'contexts/Localization';
+import DesktopRow from './DesktopRow';
 
 interface DesktopResultsProps {
-  results: PredictionUser[]
+  results: PredictionUser[];
 }
 
 const DesktopResults: React.FC<DesktopResultsProps> = ({ results }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Container mb="24px">
@@ -34,7 +34,7 @@ const DesktopResults: React.FC<DesktopResultsProps> = ({ results }) => {
         </Table>
       </Card>
     </Container>
-  )
-}
+  );
+};
 
-export default DesktopResults
+export default DesktopResults;

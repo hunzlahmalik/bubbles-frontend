@@ -1,9 +1,9 @@
-import React from 'react'
-import { Flex, Skeleton } from '@pancakeswap/uikit'
+import React from 'react';
+import { Flex, Skeleton } from '@pancakeswap/uikit';
 
 export const SkeletonCardActions = () => {
-  return <Skeleton height="48px" />
-}
+  return <Skeleton height="48px" />;
+};
 
 export const SkeletonCardTokens = () => {
   return (
@@ -17,8 +17,8 @@ export const SkeletonCardTokens = () => {
         <Skeleton width="90%" />
       </Flex>
     </div>
-  )
-}
+  );
+};
 
 export const SkeletonCardDetails = () => {
   return (
@@ -26,7 +26,7 @@ export const SkeletonCardDetails = () => {
       <Skeleton mb="8px" />
       <Skeleton />
     </div>
-  )
-}
+  );
+};
 
-export default null
+export default null;

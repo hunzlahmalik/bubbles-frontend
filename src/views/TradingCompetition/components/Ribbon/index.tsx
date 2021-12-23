@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, LaurelLeftIcon, LaurelRightIcon } from '@pancakeswap/uikit'
-import { RibbonProps } from '../../types'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, LaurelLeftIcon, LaurelRightIcon } from '@pancakeswap/uikit';
+import { RibbonProps } from '../../types';
 import {
   RibbonDownMidExpanding,
   RibbonUpMidExpanding,
@@ -9,15 +9,15 @@ import {
   RibbonUpRightSide,
   RibbonDownLeftSide,
   RibbonUpLeftSide,
-} from './RibbonStyles'
-import { Heading2Text, VisuallyHiddenHeading2Text } from '../CompetitionHeadingText'
+} from './RibbonStyles';
+import { Heading2Text, VisuallyHiddenHeading2Text } from '../CompetitionHeadingText';
 
 const Wrapper = styled(Flex)<{ ribbonDirection?: 'up' | 'down' }>`
   position: relative;
   display: inline-flex;
   align-items: ${({ ribbonDirection }) => (ribbonDirection === 'up' ? 'flex-end' : 'flex-start')};
   justify-content: center;
-`
+`;
 
 const TextWrapper = styled(Flex)`
   display: flex;
@@ -25,7 +25,7 @@ const TextWrapper = styled(Flex)`
   position: absolute;
   height: 46px;
   background-color: #7645d9;
-`
+`;
 
 const LaurelWrapper = styled.div<{ dir?: 'left' | 'right' }>`
   display: flex;
@@ -44,7 +44,7 @@ const LaurelWrapper = styled.div<{ dir?: 'left' | 'right' }>`
       fill: ${({ theme }) => theme.colors.text};
     }
   }
-`
+`;
 
 const Ribbon: React.FC<RibbonProps> = ({ children, ribbonDirection }) => {
   const RibbonDown = () => {
@@ -66,8 +66,8 @@ const Ribbon: React.FC<RibbonProps> = ({ children, ribbonDirection }) => {
         </LaurelWrapper>
         <RibbonDownRightSide width="32px" />
       </Wrapper>
-    )
-  }
+    );
+  };
 
   const RibbonUp = () => {
     return (
@@ -88,10 +88,10 @@ const Ribbon: React.FC<RibbonProps> = ({ children, ribbonDirection }) => {
         </LaurelWrapper>
         <RibbonUpRightSide width="32px" />
       </Wrapper>
-    )
-  }
+    );
+  };
 
-  return ribbonDirection === 'up' ? <RibbonUp /> : <RibbonDown />
-}
+  return ribbonDirection === 'up' ? <RibbonUp /> : <RibbonDown />;
+};
 
-export default Ribbon
+export default Ribbon;

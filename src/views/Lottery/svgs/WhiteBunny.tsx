@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const WhiteBunny: React.FC<SvgProps> = (props) => {
   return (
@@ -38,7 +38,7 @@ const WhiteBunny: React.FC<SvgProps> = (props) => {
       <ellipse cx="10.4334" cy="15.292" rx="1.33333" ry="2" fill="#08060B" />
       <ellipse cx="19.6331" cy="15.292" rx="1.33333" ry="2" fill="#08060B" />
     </Svg>
-  )
-}
+  );
+};
 
-export default WhiteBunny
+export default WhiteBunny;

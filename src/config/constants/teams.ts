@@ -1,5 +1,5 @@
-import { IPFS_GATEWAY } from '../index'
-import { Team } from './types'
+import { IPFS_GATEWAY } from '../index';
+import { Team } from './types';
 
 const teams: Team[] = [
   {
@@ -50,6 +50,6 @@ const teams: Team[] = [
     users: 0,
     points: 0,
   },
-]
+];
 
-export default teams
+export default teams;

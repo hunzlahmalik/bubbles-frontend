@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   ArrowBackIcon,
   Card,
@@ -14,34 +14,34 @@ import {
   Slider,
   Box,
   AutoRenewIcon,
-} from '@pancakeswap/uikit'
-import { ethers } from 'ethers'
-import { parseUnits } from 'ethers/lib/utils'
-import { useWeb3React } from '@web3-react/core'
-import { useGetMinBetAmount } from 'state/predictions/hooks'
-import { useTranslation } from 'contexts/Localization'
-import { usePredictionsContract } from 'hooks/useContract'
-import { useGetBnbBalance } from 'hooks/useTokenBalance'
-import useToast from 'hooks/useToast'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { BetPosition } from 'state/types'
-import { formatBigNumber, formatFixedNumber } from 'utils/formatBalance'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { logError } from 'utils/sentry'
-import PositionTag from '../PositionTag'
-import useSwiper from '../../hooks/useSwiper'
-import FlexRow from '../FlexRow'
+} from '@pancakeswap/uikit';
+import { ethers } from 'ethers';
+import { parseUnits } from 'ethers/lib/utils';
+import { useWeb3React } from '@web3-react/core';
+import { useGetMinBetAmount } from 'state/predictions/hooks';
+import { useTranslation } from 'contexts/Localization';
+import { usePredictionsContract } from 'hooks/useContract';
+import { useGetBnbBalance } from 'hooks/useTokenBalance';
+import useToast from 'hooks/useToast';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { BetPosition } from 'state/types';
+import { formatBigNumber, formatFixedNumber } from 'utils/formatBalance';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { logError } from 'utils/sentry';
+import PositionTag from '../PositionTag';
+import useSwiper from '../../hooks/useSwiper';
+import FlexRow from '../FlexRow';
 
 interface SetPositionCardProps {
-  position: BetPosition
-  togglePosition: () => void
-  epoch: number
-  onBack: () => void
-  onSuccess: (hash: string) => Promise<void>
+  position: BetPosition;
+  togglePosition: () => void;
+  epoch: number;
+  onBack: () => void;
+  onSuccess: (hash: string) => Promise<void>;
 }
 
-const dust = parseUnits('0.01', 18)
-const percentShortcuts = [10, 25, 50, 75]
+const dust = parseUnits('0.01', 18);
+const percentShortcuts = [10, 25, 50, 75];
 
 const getButtonProps = (
   value: ethers.BigNumber,
@@ -50,134 +50,134 @@ const getButtonProps = (
 ) => {
   const hasSufficientBalance = () => {
     if (value.gt(0)) {
-      return value.lte(bnbBalance)
+      return value.lte(bnbBalance);
     }
-    return bnbBalance.gt(0)
-  }
+    return bnbBalance.gt(0);
+  };
 
   if (!hasSufficientBalance()) {
-    return { key: 'Insufficient BNB balance', disabled: true }
+    return { key: 'Insufficient BNB balance', disabled: true };
   }
 
   if (value.eq(0)) {
-    return { key: 'Enter an amount', disabled: true }
+    return { key: 'Enter an amount', disabled: true };
   }
 
-  return { key: 'Confirm', disabled: value.lt(minBetAmountBalance) }
-}
+  return { key: 'Confirm', disabled: value.lt(minBetAmountBalance) };
+};
 
 const getValueAsEthersBn = (value: string) => {
-  const valueAsFloat = parseFloat(value)
-  return Number.isNaN(valueAsFloat) ? ethers.BigNumber.from(0) : parseUnits(value)
-}
+  const valueAsFloat = parseFloat(value);
+  return Number.isNaN(valueAsFloat) ? ethers.BigNumber.from(0) : parseUnits(value);
+};
 
 const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosition, epoch, onBack, onSuccess }) => {
-  const [value, setValue] = useState('')
-  const [isTxPending, setIsTxPending] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [percent, setPercent] = useState(0)
+  const [value, setValue] = useState('');
+  const [isTxPending, setIsTxPending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [percent, setPercent] = useState(0);
 
-  const { account } = useWeb3React()
-  const { swiper } = useSwiper()
-  const { balance: bnbBalance } = useGetBnbBalance()
-  const minBetAmount = useGetMinBetAmount()
-  const { t } = useTranslation()
-  const { toastError } = useToast()
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const predictionsContract = usePredictionsContract()
+  const { account } = useWeb3React();
+  const { swiper } = useSwiper();
+  const { balance: bnbBalance } = useGetBnbBalance();
+  const minBetAmount = useGetMinBetAmount();
+  const { t } = useTranslation();
+  const { toastError } = useToast();
+  const { callWithGasPrice } = useCallWithGasPrice();
+  const predictionsContract = usePredictionsContract();
 
   const maxBalance = useMemo(() => {
-    return bnbBalance.gt(dust) ? bnbBalance.sub(dust) : dust
-  }, [bnbBalance])
-  const balanceDisplay = formatBigNumber(bnbBalance)
+    return bnbBalance.gt(dust) ? bnbBalance.sub(dust) : dust;
+  }, [bnbBalance]);
+  const balanceDisplay = formatBigNumber(bnbBalance);
 
-  const valueAsBn = getValueAsEthersBn(value)
-  const showFieldWarning = account && valueAsBn.gt(0) && errorMessage !== null
+  const valueAsBn = getValueAsEthersBn(value);
+  const showFieldWarning = account && valueAsBn.gt(0) && errorMessage !== null;
 
   const handleInputChange = (input: string) => {
-    const inputAsBn = getValueAsEthersBn(input)
+    const inputAsBn = getValueAsEthersBn(input);
 
     if (inputAsBn.eq(0)) {
-      setPercent(0)
+      setPercent(0);
     } else {
-      const inputAsFn = ethers.FixedNumber.from(inputAsBn)
-      const maxValueAsFn = ethers.FixedNumber.from(maxBalance)
-      const hundredAsFn = ethers.FixedNumber.from(100)
-      const percentage = inputAsFn.divUnsafe(maxValueAsFn).mulUnsafe(hundredAsFn)
-      const percentageAsFloat = percentage.toUnsafeFloat()
+      const inputAsFn = ethers.FixedNumber.from(inputAsBn);
+      const maxValueAsFn = ethers.FixedNumber.from(maxBalance);
+      const hundredAsFn = ethers.FixedNumber.from(100);
+      const percentage = inputAsFn.divUnsafe(maxValueAsFn).mulUnsafe(hundredAsFn);
+      const percentageAsFloat = percentage.toUnsafeFloat();
 
-      setPercent(percentageAsFloat > 100 ? 100 : percentageAsFloat)
+      setPercent(percentageAsFloat > 100 ? 100 : percentageAsFloat);
     }
-    setValue(input)
-  }
+    setValue(input);
+  };
 
   const handlePercentChange = (sliderPercent: number) => {
     if (sliderPercent > 0) {
-      const maxValueAsFn = ethers.FixedNumber.from(maxBalance)
-      const hundredAsFn = ethers.FixedNumber.from(100)
-      const sliderPercentAsFn = ethers.FixedNumber.from(sliderPercent.toFixed(18)).divUnsafe(hundredAsFn)
-      const balancePercentage = maxValueAsFn.mulUnsafe(sliderPercentAsFn)
-      setValue(formatFixedNumber(balancePercentage))
+      const maxValueAsFn = ethers.FixedNumber.from(maxBalance);
+      const hundredAsFn = ethers.FixedNumber.from(100);
+      const sliderPercentAsFn = ethers.FixedNumber.from(sliderPercent.toFixed(18)).divUnsafe(hundredAsFn);
+      const balancePercentage = maxValueAsFn.mulUnsafe(sliderPercentAsFn);
+      setValue(formatFixedNumber(balancePercentage));
     } else {
-      setValue('')
+      setValue('');
     }
-    setPercent(sliderPercent)
-  }
+    setPercent(sliderPercent);
+  };
 
   // Clear value
   const handleGoBack = () => {
-    setValue('')
-    setPercent(0)
-    onBack()
-  }
+    setValue('');
+    setPercent(0);
+    onBack();
+  };
 
   // Disable the swiper events to avoid conflicts
   const handleMouseOver = () => {
-    swiper.keyboard.disable()
-    swiper.mousewheel.disable()
-    swiper.detachEvents()
-  }
+    swiper.keyboard.disable();
+    swiper.mousewheel.disable();
+    swiper.detachEvents();
+  };
 
   const handleMouseOut = () => {
-    swiper.keyboard.enable()
-    swiper.mousewheel.enable()
-    swiper.attachEvents()
-  }
+    swiper.keyboard.enable();
+    swiper.mousewheel.enable();
+    swiper.attachEvents();
+  };
 
-  const { key, disabled } = getButtonProps(valueAsBn, maxBalance, minBetAmount)
+  const { key, disabled } = getButtonProps(valueAsBn, maxBalance, minBetAmount);
 
   const handleEnterPosition = async () => {
-    const betMethod = position === BetPosition.BULL ? 'betBull' : 'betBear'
+    const betMethod = position === BetPosition.BULL ? 'betBull' : 'betBear';
 
     try {
-      const tx = await callWithGasPrice(predictionsContract, betMethod, [epoch], { value: valueAsBn.toString() })
-      setIsTxPending(true)
-      const receipt = await tx.wait()
-      onSuccess(receipt.transactionHash)
+      const tx = await callWithGasPrice(predictionsContract, betMethod, [epoch], { value: valueAsBn.toString() });
+      setIsTxPending(true);
+      const receipt = await tx.wait();
+      onSuccess(receipt.transactionHash);
     } catch (e) {
-      logError(e)
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
+      logError(e);
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
     } finally {
-      setIsTxPending(false)
+      setIsTxPending(false);
     }
-  }
+  };
 
   // Warnings
   useEffect(() => {
-    const inputAmount = getValueAsEthersBn(value)
-    const hasSufficientBalance = inputAmount.gt(0) && inputAmount.lte(maxBalance)
+    const inputAmount = getValueAsEthersBn(value);
+    const hasSufficientBalance = inputAmount.gt(0) && inputAmount.lte(maxBalance);
 
     if (!hasSufficientBalance) {
-      setErrorMessage({ key: 'Insufficient BNB balance' })
+      setErrorMessage({ key: 'Insufficient BNB balance' });
     } else if (inputAmount.gt(0) && inputAmount.lt(minBetAmount)) {
       setErrorMessage({
         key: 'A minimum amount of %num% %token% is required',
         data: { num: formatBigNumber(minBetAmount), token: 'BNB' },
-      })
+      });
     } else {
-      setErrorMessage(null)
+      setErrorMessage(null);
     }
-  }, [value, maxBalance, minBetAmount, setErrorMessage])
+  }, [value, maxBalance, minBetAmount, setErrorMessage]);
 
   return (
     <Card onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
@@ -235,8 +235,8 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
         <Flex alignItems="center" justifyContent="space-between" mb="16px">
           {percentShortcuts.map((percentShortcut) => {
             const handleClick = () => {
-              handlePercentChange(percentShortcut)
-            }
+              handlePercentChange(percentShortcut);
+            };
 
             return (
               <Button
@@ -249,7 +249,7 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
               >
                 {`${percentShortcut}%`}
               </Button>
-            )
+            );
           })}
           <Button
             scale="xs"
@@ -280,7 +280,7 @@ const SetPositionCard: React.FC<SetPositionCardProps> = ({ position, togglePosit
         </Text>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default SetPositionCard
+export default SetPositionCard;

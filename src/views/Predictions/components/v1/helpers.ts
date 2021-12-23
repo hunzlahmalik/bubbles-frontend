@@ -1,6 +1,6 @@
-import request, { gql } from 'graphql-request'
-import flatten from 'lodash/flatten'
-import { GRAPH_API_PREDICTION_V1 } from 'config/constants/endpoints'
+import request, { gql } from 'graphql-request';
+import flatten from 'lodash/flatten';
+import { GRAPH_API_PREDICTION_V1 } from 'config/constants/endpoints';
 
 export const getV1History = async (skip = 0, where = {}): Promise<Record<string, any>[]> => {
   const response = await request(
@@ -28,29 +28,29 @@ export const getV1History = async (skip = 0, where = {}): Promise<Record<string,
       }
     `,
     { skip, where },
-  )
-  return response.bets
-}
+  );
+  return response.bets;
+};
 
 export const getAllV1History = (where = {}): Promise<Record<string, any>[]> => {
   return new Promise((resolve, reject) => {
-    const bets = {}
+    const bets = {};
 
     const getHistoryChunk = async (skip: number) => {
       try {
-        const betHistory = await getV1History(skip, where)
-        bets[skip] = betHistory
+        const betHistory = await getV1History(skip, where);
+        bets[skip] = betHistory;
 
         if (betHistory.length === 0) {
-          resolve(flatten(Object.values(bets)))
+          resolve(flatten(Object.values(bets)));
         } else {
-          getHistoryChunk(skip + 1000)
+          getHistoryChunk(skip + 1000);
         }
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    }
+    };
 
-    getHistoryChunk(0)
-  })
-}
+    getHistoryChunk(0);
+  });
+};

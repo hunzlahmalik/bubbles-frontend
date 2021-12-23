@@ -1,15 +1,15 @@
-import { Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import React from 'react'
-import { StyledPriceChart } from './styles'
+import { Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import React from 'react';
+import { StyledPriceChart } from './styles';
 
 interface BnbWbnbNoticeProps {
-  isDark: boolean
-  isChartExpanded: boolean
+  isDark: boolean;
+  isChartExpanded: boolean;
 }
 
 const BnbWbnbNotice: React.FC<BnbWbnbNoticeProps> = ({ isDark, isChartExpanded }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <StyledPriceChart $isDark={isDark} $isExpanded={isChartExpanded} p="24px">
       <Flex justifyContent="center" alignItems="center" height="100%" flexDirection="column">
@@ -21,7 +21,7 @@ const BnbWbnbNotice: React.FC<BnbWbnbNoticeProps> = ({ isDark, isChartExpanded }
         </Text>
       </Flex>
     </StyledPriceChart>
-  )
-}
+  );
+};
 
-export default BnbWbnbNotice
+export default BnbWbnbNotice;

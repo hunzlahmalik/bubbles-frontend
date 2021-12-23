@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import shuffle from 'lodash/shuffle'
-import styled from 'styled-components'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore from 'swiper'
-import { ArrowBackIcon, ArrowForwardIcon, Box, IconButton, Text, Flex, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { isAddress } from 'utils'
-import { useNftsFromCollection } from 'state/nftMarket/hooks'
-import { fetchNftsFromCollections } from 'state/nftMarket/reducer'
-import { useAppDispatch } from 'state'
-import { pancakeBunniesAddress } from '../../../constants'
-import { CollectibleLinkCard } from '../../../components/CollectibleCard'
-import useAllPancakeBunnyNfts from '../../../hooks/useAllPancakeBunnyNfts'
+import React, { useState, useEffect, useMemo } from 'react';
+import shuffle from 'lodash/shuffle';
+import styled from 'styled-components';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore from 'swiper';
+import { ArrowBackIcon, ArrowForwardIcon, Box, IconButton, Text, Flex, useMatchBreakpoints } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { isAddress } from 'utils';
+import { useNftsFromCollection } from 'state/nftMarket/hooks';
+import { fetchNftsFromCollections } from 'state/nftMarket/reducer';
+import { useAppDispatch } from 'state';
+import { pancakeBunniesAddress } from '../../../constants';
+import { CollectibleLinkCard } from '../../../components/CollectibleCard';
+import useAllPancakeBunnyNfts from '../../../hooks/useAllPancakeBunnyNfts';
 
-import 'swiper/swiper-bundle.css'
+import 'swiper/swiper-bundle.css';
 
-const INITIAL_SLIDE = 4
+const INITIAL_SLIDE = 4;
 
 const SwiperCircle = styled.div<{ isActive }>`
   background-color: ${({ theme, isActive }) => (isActive ? theme.colors.secondary : theme.colors.textDisabled)};
@@ -24,7 +24,7 @@ const SwiperCircle = styled.div<{ isActive }>`
   margin-right: 8px;
   border-radius: 50%;
   cursor: pointer;
-`
+`;
 
 const StyledSwiper = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
@@ -32,12 +32,12 @@ const StyledSwiper = styled.div`
       max-height: 390px;
     }
   }
-`
+`;
 
 interface MoreFromThisCollectionProps {
-  collectionAddress: string
-  currentTokenName?: string
-  title?: string
+  collectionAddress: string;
+  currentTokenName?: string;
+  title?: string;
 }
 
 const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
@@ -45,15 +45,15 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
   currentTokenName = '',
   title = 'More from this collection',
 }) => {
-  const dispatch = useAppDispatch()
-  const { t } = useTranslation()
-  const [swiperRef, setSwiperRef] = useState<SwiperCore>(null)
-  const [activeIndex, setActiveIndex] = useState(1)
-  const { isMobile, isMd, isLg } = useMatchBreakpoints()
-  const allPancakeBunnyNfts = useAllPancakeBunnyNfts(collectionAddress)
-  const collectionNfts = useNftsFromCollection(collectionAddress)
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+  const [swiperRef, setSwiperRef] = useState<SwiperCore>(null);
+  const [activeIndex, setActiveIndex] = useState(1);
+  const { isMobile, isMd, isLg } = useMatchBreakpoints();
+  const allPancakeBunnyNfts = useAllPancakeBunnyNfts(collectionAddress);
+  const collectionNfts = useNftsFromCollection(collectionAddress);
 
-  const isPBCollection = isAddress(collectionAddress) === pancakeBunniesAddress
+  const isPBCollection = isAddress(collectionAddress) === pancakeBunniesAddress;
 
   useEffect(() => {
     if (!isPBCollection && !collectionNfts) {
@@ -63,69 +63,69 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
           page: 1,
           size: 100,
         }),
-      )
+      );
     }
-  }, [collectionNfts, collectionAddress, dispatch, isPBCollection])
+  }, [collectionNfts, collectionAddress, dispatch, isPBCollection]);
 
   let nftsToShow = useMemo(() => {
     return shuffle(
       allPancakeBunnyNfts
         ? allPancakeBunnyNfts.filter((nft) => nft.name !== currentTokenName)
         : collectionNfts?.filter((nft) => nft.name !== currentTokenName && nft.marketData?.isTradable),
-    )
-  }, [allPancakeBunnyNfts, collectionNfts, currentTokenName])
+    );
+  }, [allPancakeBunnyNfts, collectionNfts, currentTokenName]);
 
   if (!nftsToShow || nftsToShow.length === 0) {
-    return null
+    return null;
   }
 
-  let slidesPerView = 4
-  let maxPageIndex = 3
+  let slidesPerView = 4;
+  let maxPageIndex = 3;
 
   if (isMd) {
-    slidesPerView = 2
-    maxPageIndex = 6
+    slidesPerView = 2;
+    maxPageIndex = 6;
   }
 
   if (isLg) {
-    slidesPerView = 3
-    maxPageIndex = 4
+    slidesPerView = 3;
+    maxPageIndex = 4;
   }
 
   if (isPBCollection) {
     // PancakeBunnies should display 1 card per bunny id
     nftsToShow = nftsToShow.reduce((nftArray, current) => {
-      const bunnyId = current.attributes[0].value
+      const bunnyId = current.attributes[0].value;
       if (!nftArray.find((nft) => nft.attributes[0].value === bunnyId)) {
-        nftArray.push(current)
+        nftArray.push(current);
       }
-      return nftArray
-    }, [])
+      return nftArray;
+    }, []);
   }
-  nftsToShow = nftsToShow.slice(0, 12)
+  nftsToShow = nftsToShow.slice(0, 12);
 
   const nextSlide = () => {
     if (activeIndex < maxPageIndex - 1) {
-      setActiveIndex((index) => index + 1)
-      swiperRef.slideNext()
+      setActiveIndex((index) => index + 1);
+      swiperRef.slideNext();
     }
-  }
+  };
 
   const previousSlide = () => {
     if (activeIndex > 0) {
-      setActiveIndex((index) => index - 1)
-      swiperRef.slidePrev()
+      setActiveIndex((index) => index - 1);
+      swiperRef.slidePrev();
     }
-  }
+  };
 
   const goToSlide = (index: number) => {
-    setActiveIndex(index / slidesPerView)
-    swiperRef.slideTo(index)
-  }
+    setActiveIndex(index / slidesPerView);
+    swiperRef.slideTo(index);
+  };
 
   const updateActiveIndex = ({ activeIndex: newActiveIndex }) => {
-    if (newActiveIndex !== undefined) setActiveIndex(Math.ceil(newActiveIndex / slidesPerView))
-  }
+    if (newActiveIndex !== undefined) setActiveIndex(Math.ceil(newActiveIndex / slidesPerView));
+  };
 
   return (
     <Box pt="56px" mb="52px">
@@ -181,7 +181,7 @@ const MoreFromThisCollection: React.FC<MoreFromThisCollectionProps> = ({
         </StyledSwiper>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default MoreFromThisCollection
+export default MoreFromThisCollection;

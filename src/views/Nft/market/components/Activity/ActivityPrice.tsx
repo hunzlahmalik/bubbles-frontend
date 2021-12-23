@@ -1,9 +1,9 @@
-import React from 'react'
-import { Flex, BinanceIcon, Text, Skeleton } from '@pancakeswap/uikit'
-import { multiplyPriceByAmount } from 'utils/prices'
+import React from 'react';
+import { Flex, BinanceIcon, Text, Skeleton } from '@pancakeswap/uikit';
+import { multiplyPriceByAmount } from 'utils/prices';
 
 const ActivityPrice = ({ bnbBusdPrice, price }) => {
-  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, price)
+  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, price);
 
   return (
     <Flex flexDirection="column" alignItems="flex-end">
@@ -33,7 +33,7 @@ const ActivityPrice = ({ bnbBusdPrice, price }) => {
         '-'
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default ActivityPrice
+export default ActivityPrice;

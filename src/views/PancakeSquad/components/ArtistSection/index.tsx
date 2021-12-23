@@ -1,18 +1,18 @@
-import React from 'react'
-import { Box, Button, Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LandingBodyWrapper, StyledWaveContainer } from 'views/PancakeSquad/styles'
-import { useTheme } from 'styled-components'
-import artistConfigBuilder from './config'
-import { StyledArtistBioContainer, StyledArtistSectionContainer, StyledSocialButton } from './styles'
-import ArtistBottomWave from '../../assets/ArtistBottomWave'
-import TriangleBio from '../../assets/TriangleBio'
+import React from 'react';
+import { Box, Button, Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LandingBodyWrapper, StyledWaveContainer } from 'views/PancakeSquad/styles';
+import { useTheme } from 'styled-components';
+import artistConfigBuilder from './config';
+import { StyledArtistBioContainer, StyledArtistSectionContainer, StyledSocialButton } from './styles';
+import ArtistBottomWave from '../../assets/ArtistBottomWave';
+import TriangleBio from '../../assets/TriangleBio';
 
 const ArtistSection = () => {
-  const { t } = useTranslation()
-  const { isDark } = useTheme()
+  const { t } = useTranslation();
+  const { isDark } = useTheme();
 
-  const { headingText, bodyText, buttons, image } = artistConfigBuilder({ t, isDark })
+  const { headingText, bodyText, buttons, image } = artistConfigBuilder({ t, isDark });
 
   return (
     <StyledArtistSectionContainer $isDark={isDark} justifyContent={['flex-start', null, null, 'center']}>
@@ -73,7 +73,7 @@ const ArtistSection = () => {
         <ArtistBottomWave isDark={isDark} />
       </StyledWaveContainer>
     </StyledArtistSectionContainer>
-  )
-}
+  );
+};
 
-export default ArtistSection
+export default ArtistSection;

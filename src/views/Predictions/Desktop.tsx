@@ -1,22 +1,22 @@
-import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components'
-import Split from 'split-grid'
-import { ArrowDownIcon, Button, ChartIcon } from '@pancakeswap/uikit'
-import debounce from 'lodash/debounce'
-import delay from 'lodash/delay'
-import { useAppDispatch } from 'state'
-import { useGetPredictionsStatus, useIsChartPaneOpen, useIsHistoryPaneOpen } from 'state/predictions/hooks'
-import { setChartPaneState } from 'state/predictions'
-import { PredictionStatus } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
-import { TradingViewLabel } from 'components/TradingView'
-import TradingView from './components/TradingView'
-import { ErrorNotification, PauseNotification } from './components/Notification'
-import History from './History'
-import Positions from './Positions'
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import Split from 'split-grid';
+import { ArrowDownIcon, Button, ChartIcon } from '@pancakeswap/uikit';
+import debounce from 'lodash/debounce';
+import delay from 'lodash/delay';
+import { useAppDispatch } from 'state';
+import { useGetPredictionsStatus, useIsChartPaneOpen, useIsHistoryPaneOpen } from 'state/predictions/hooks';
+import { setChartPaneState } from 'state/predictions';
+import { PredictionStatus } from 'state/types';
+import { useTranslation } from 'contexts/Localization';
+import { TradingViewLabel } from 'components/TradingView';
+import TradingView from './components/TradingView';
+import { ErrorNotification, PauseNotification } from './components/Notification';
+import History from './History';
+import Positions from './Positions';
 
 // The value to set the chart when the user clicks the chart tab at the bottom
-const GRID_TEMPLATE_ROW = '1.2fr 24px .8fr'
+const GRID_TEMPLATE_ROW = '1.2fr 24px .8fr';
 
 const ExpandChartButton = styled(Button)`
   background-color: ${({ theme }) => theme.card.background};
@@ -37,7 +37,7 @@ const ExpandChartButton = styled(Button)`
   ${({ theme }) => theme.mediaQueries.lg} {
     display: inline-flex;
   }
-`
+`;
 
 const SplitWrapper = styled.div`
   display: grid;
@@ -45,19 +45,19 @@ const SplitWrapper = styled.div`
   grid-template-rows: 1fr 24px 0;
   flex: 1;
   overflow: hidden;
-`
+`;
 
 const ChartPane = styled.div`
   overflow: hidden;
   position: relative;
-`
+`;
 
 const HistoryPane = styled.div<{ isHistoryPaneOpen: boolean }>`
   flex: none;
   overflow: hidden;
   transition: width 200ms ease-in-out;
   width: ${({ isHistoryPaneOpen }) => (isHistoryPaneOpen ? '384px' : 0)};
-`
+`;
 
 const StyledDesktop = styled.div`
   display: none;
@@ -66,7 +66,7 @@ const StyledDesktop = styled.div`
     display: flex;
     height: calc(100vh - 100px);
   }
-`
+`;
 
 const PositionPane = styled.div`
   align-items: center;
@@ -79,7 +79,7 @@ const PositionPane = styled.div`
     flex: 1;
     overflow: hidden;
   }
-`
+`;
 
 const Gutter = styled.div`
   background: ${({ theme }) => theme.colors.dropdown};
@@ -98,43 +98,43 @@ const Gutter = styled.div`
     top: 10px;
     width: 64px;
   }
-`
+`;
 
 const Desktop: React.FC = () => {
-  const splitWrapperRef = useRef<HTMLDivElement>()
-  const chartRef = useRef<HTMLDivElement>()
-  const gutterRef = useRef<HTMLDivElement>()
-  const isHistoryPaneOpen = useIsHistoryPaneOpen()
-  const isChartPaneOpen = useIsChartPaneOpen()
-  const dispatch = useAppDispatch()
-  const { t } = useTranslation()
-  const status = useGetPredictionsStatus()
+  const splitWrapperRef = useRef<HTMLDivElement>();
+  const chartRef = useRef<HTMLDivElement>();
+  const gutterRef = useRef<HTMLDivElement>();
+  const isHistoryPaneOpen = useIsHistoryPaneOpen();
+  const isChartPaneOpen = useIsChartPaneOpen();
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+  const status = useGetPredictionsStatus();
 
   const toggleChartPane = () => {
-    const newChartPaneState = !isChartPaneOpen
+    const newChartPaneState = !isChartPaneOpen;
 
     if (newChartPaneState) {
-      splitWrapperRef.current.style.transition = 'grid-template-rows 150ms'
-      splitWrapperRef.current.style.gridTemplateRows = GRID_TEMPLATE_ROW
+      splitWrapperRef.current.style.transition = 'grid-template-rows 150ms';
+      splitWrapperRef.current.style.gridTemplateRows = GRID_TEMPLATE_ROW;
 
       // Purely comedic: We only want to animate if we are clicking the open chart button
       // If we keep the transition on the resizing becomes very choppy
       delay(() => {
-        splitWrapperRef.current.style.transition = ''
-      }, 150)
+        splitWrapperRef.current.style.transition = '';
+      }, 150);
     }
 
-    dispatch(setChartPaneState(newChartPaneState))
-  }
+    dispatch(setChartPaneState(newChartPaneState));
+  };
 
   useEffect(() => {
-    const threshold = 100
+    const threshold = 100;
     const handleDrag = debounce(() => {
-      const { height } = chartRef.current.getBoundingClientRect()
+      const { height } = chartRef.current.getBoundingClientRect();
 
       // If the height of the chart pane goes below the "snapOffset" threshold mark the chart pane as closed
-      dispatch(setChartPaneState(height > threshold))
-    }, 50)
+      dispatch(setChartPaneState(height > threshold));
+    }, 50);
 
     const split = Split({
       dragInterval: 1,
@@ -146,12 +146,12 @@ const Desktop: React.FC = () => {
           element: gutterRef.current,
         },
       ],
-    })
+    });
 
     return () => {
-      split.destroy()
-    }
-  }, [gutterRef, chartRef, dispatch])
+      split.destroy();
+    };
+  }, [gutterRef, chartRef, dispatch]);
 
   return (
     <>
@@ -184,7 +184,7 @@ const Desktop: React.FC = () => {
         </HistoryPane>
       </StyledDesktop>
     </>
-  )
-}
+  );
+};
 
-export default Desktop
+export default Desktop;

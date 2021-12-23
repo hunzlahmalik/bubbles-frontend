@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const RibbonDownMid: React.FC<SvgProps> = (props) => {
   return (
@@ -7,7 +7,7 @@ const RibbonDownMid: React.FC<SvgProps> = (props) => {
       <rect width="142" height="46" fill="#7645D9" />
       <rect y="46" width="142" height="2" fill="#3B2070" />
     </Svg>
-  )
-}
+  );
+};
 
-export default RibbonDownMid
+export default RibbonDownMid;

@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Skeleton, Td, useMatchBreakpoints } from '@pancakeswap/uikit'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Skeleton, Td, useMatchBreakpoints } from '@pancakeswap/uikit';
 
 const GridItem = styled(Flex)`
   align-items: center;
-`
+`;
 
 const LoadingRow: React.FC = () => {
-  const { isXs, isSm } = useMatchBreakpoints()
+  const { isXs, isSm } = useMatchBreakpoints();
 
   return (
     <tr>
@@ -41,8 +41,8 @@ const LoadingRow: React.FC = () => {
         </GridItem>
       </Td>
     </tr>
-  )
-}
+  );
+};
 
 const TableLoader: React.FC = () => (
   <>
@@ -55,6 +55,6 @@ const TableLoader: React.FC = () => (
     <LoadingRow />
     <LoadingRow />
   </>
-)
+);
 
-export default TableLoader
+export default TableLoader;

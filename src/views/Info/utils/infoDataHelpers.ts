@@ -1,4 +1,4 @@
-import { TOTAL_FEE, LP_HOLDERS_FEE, WEEKS_IN_YEAR } from 'config/constants/info'
+import { TOTAL_FEE, LP_HOLDERS_FEE, WEEKS_IN_YEAR } from 'config/constants/info';
 
 /**
  * Get increase/decrease of value compared to the previous value (e.g. 24h volume compared to 24h volume the day before )
@@ -7,13 +7,13 @@ import { TOTAL_FEE, LP_HOLDERS_FEE, WEEKS_IN_YEAR } from 'config/constants/info'
  */
 export const getAmountChange = (valueNow?: number, valueBefore?: number) => {
   if (valueNow && valueBefore) {
-    return valueNow - valueBefore
+    return valueNow - valueBefore;
   }
   if (valueNow) {
-    return valueNow
+    return valueNow;
   }
-  return 0
-}
+  return 0;
+};
 
 /**
  * Get increase/decrease of value compared to the previous value as a percentage
@@ -22,10 +22,10 @@ export const getAmountChange = (valueNow?: number, valueBefore?: number) => {
  */
 export const getPercentChange = (valueNow?: number, valueBefore?: number): number => {
   if (valueNow && valueBefore) {
-    return ((valueNow - valueBefore) / valueBefore) * 100
+    return ((valueNow - valueBefore) / valueBefore) * 100;
   }
-  return 0
-}
+  return 0;
+};
 
 /**
  * Given current value and value 1 and 2 periods (e.g. 1day + 2days, 1week - 2weeks) returns the amount change for latest period
@@ -40,24 +40,24 @@ export const getChangeForPeriod = (
   valueOnePeriodAgo?: number,
   valueTwoPeriodsAgo?: number,
 ): [number, number] => {
-  const currentPeriodAmount = getAmountChange(valueNow, valueOnePeriodAgo)
-  const previousPeriodAmount = getAmountChange(valueOnePeriodAgo, valueTwoPeriodsAgo)
-  const percentageChange = getPercentChange(currentPeriodAmount, previousPeriodAmount)
-  return [currentPeriodAmount, percentageChange]
-}
+  const currentPeriodAmount = getAmountChange(valueNow, valueOnePeriodAgo);
+  const previousPeriodAmount = getAmountChange(valueOnePeriodAgo, valueTwoPeriodsAgo);
+  const percentageChange = getPercentChange(currentPeriodAmount, previousPeriodAmount);
+  return [currentPeriodAmount, percentageChange];
+};
 
 export const getLpFeesAndApr = (volumeUSD: number, volumeUSDWeek: number, liquidityUSD: number) => {
-  const totalFees24h = volumeUSD * TOTAL_FEE
-  const totalFees7d = volumeUSDWeek * TOTAL_FEE
-  const lpFees24h = volumeUSD * LP_HOLDERS_FEE
-  const lpFees7d = volumeUSDWeek * LP_HOLDERS_FEE
+  const totalFees24h = volumeUSD * TOTAL_FEE;
+  const totalFees7d = volumeUSDWeek * TOTAL_FEE;
+  const lpFees24h = volumeUSD * LP_HOLDERS_FEE;
+  const lpFees7d = volumeUSDWeek * LP_HOLDERS_FEE;
 
-  const lpApr7d = liquidityUSD > 0 ? (volumeUSDWeek * LP_HOLDERS_FEE * WEEKS_IN_YEAR * 100) / liquidityUSD : 0
+  const lpApr7d = liquidityUSD > 0 ? (volumeUSDWeek * LP_HOLDERS_FEE * WEEKS_IN_YEAR * 100) / liquidityUSD : 0;
   return {
     totalFees24h,
     totalFees7d,
     lpFees24h,
     lpFees7d,
     lpApr7d: lpApr7d !== Infinity ? lpApr7d : 0,
-  }
-}
+  };
+};

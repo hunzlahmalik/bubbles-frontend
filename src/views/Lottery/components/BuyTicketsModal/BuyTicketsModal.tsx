@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react'
-import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
-import { ethers } from 'ethers'
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
+import { ethers } from 'ethers';
 import {
   Modal,
   Text,
@@ -13,43 +13,43 @@ import {
   Skeleton,
   Button,
   ArrowForwardIcon,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useWeb3React } from '@web3-react/core'
-import tokens from 'config/constants/tokens'
-import { getFullDisplayBalance } from 'utils/formatBalance'
-import { BIG_ZERO, ethersToBigNumber } from 'utils/bigNumber'
-import { useAppDispatch } from 'state'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useLottery } from 'state/lottery/hooks'
-import { fetchUserTicketsAndLotteries } from 'state/lottery'
-import useTheme from 'hooks/useTheme'
-import useTokenBalance, { FetchStatus } from 'hooks/useTokenBalance'
-import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useCake, useLotteryV2Contract } from 'hooks/useContract'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import useToast from 'hooks/useToast'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import ApproveConfirmButtons, { ButtonArrangement } from 'components/ApproveConfirmButtons'
-import NumTicketsToBuyButton from './NumTicketsToBuyButton'
-import EditNumbersModal from './EditNumbersModal'
-import { useTicketsReducer } from './useTicketsReducer'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useWeb3React } from '@web3-react/core';
+import tokens from 'config/constants/tokens';
+import { getFullDisplayBalance } from 'utils/formatBalance';
+import { BIG_ZERO, ethersToBigNumber } from 'utils/bigNumber';
+import { useAppDispatch } from 'state';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useLottery } from 'state/lottery/hooks';
+import { fetchUserTicketsAndLotteries } from 'state/lottery';
+import useTheme from 'hooks/useTheme';
+import useTokenBalance, { FetchStatus } from 'hooks/useTokenBalance';
+import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction';
+import { useCake, useLotteryV2Contract } from 'hooks/useContract';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import useToast from 'hooks/useToast';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import ApproveConfirmButtons, { ButtonArrangement } from 'components/ApproveConfirmButtons';
+import NumTicketsToBuyButton from './NumTicketsToBuyButton';
+import EditNumbersModal from './EditNumbersModal';
+import { useTicketsReducer } from './useTicketsReducer';
 
 const StyledModal = styled(Modal)`
   min-width: 280px;
   max-width: 320px;
-`
+`;
 
 const ShortcutButtonsWrapper = styled(Flex)<{ isVisible: boolean }>`
   justify-content: space-between;
   margin-top: 8px;
   margin-bottom: 24px;
   display: ${({ isVisible }) => (isVisible ? 'flex' : 'none')};
-`
+`;
 
 interface BuyTicketsModalProps {
-  onDismiss?: () => void
+  onDismiss?: () => void;
 }
 
 enum BuyingStage {
@@ -58,9 +58,9 @@ enum BuyingStage {
 }
 
 const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
   const {
     maxNumberTicketsPerBuyOrClaim,
     currentLotteryId,
@@ -69,28 +69,28 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
       discountDivisor,
       userTickets: { tickets: userCurrentTickets },
     },
-  } = useLottery()
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const [ticketsToBuy, setTicketsToBuy] = useState('')
-  const [discountValue, setDiscountValue] = useState('')
-  const [totalCost, setTotalCost] = useState('')
-  const [ticketCostBeforeDiscount, setTicketCostBeforeDiscount] = useState('')
-  const [buyingStage, setBuyingStage] = useState<BuyingStage>(BuyingStage.BUY)
-  const [maxPossibleTicketPurchase, setMaxPossibleTicketPurchase] = useState(BIG_ZERO)
-  const [maxTicketPurchaseExceeded, setMaxTicketPurchaseExceeded] = useState(false)
-  const [userNotEnoughCake, setUserNotEnoughCake] = useState(false)
-  const lotteryContract = useLotteryV2Contract()
-  const cakeContract = useCake()
-  const { toastSuccess } = useToast()
-  const { balance: userCake, fetchStatus } = useTokenBalance(tokens.cake.address)
+  } = useLottery();
+  const { callWithGasPrice } = useCallWithGasPrice();
+  const [ticketsToBuy, setTicketsToBuy] = useState('');
+  const [discountValue, setDiscountValue] = useState('');
+  const [totalCost, setTotalCost] = useState('');
+  const [ticketCostBeforeDiscount, setTicketCostBeforeDiscount] = useState('');
+  const [buyingStage, setBuyingStage] = useState<BuyingStage>(BuyingStage.BUY);
+  const [maxPossibleTicketPurchase, setMaxPossibleTicketPurchase] = useState(BIG_ZERO);
+  const [maxTicketPurchaseExceeded, setMaxTicketPurchaseExceeded] = useState(false);
+  const [userNotEnoughCake, setUserNotEnoughCake] = useState(false);
+  const lotteryContract = useLotteryV2Contract();
+  const cakeContract = useCake();
+  const { toastSuccess } = useToast();
+  const { balance: userCake, fetchStatus } = useTokenBalance(tokens.cake.address);
   // balance from useTokenBalance causes rerenders in effects as a new BigNumber is instantiated on each render, hence memoising it using the stringified value below.
-  const stringifiedUserCake = userCake.toJSON()
-  const memoisedUserCake = useMemo(() => new BigNumber(stringifiedUserCake), [stringifiedUserCake])
+  const stringifiedUserCake = userCake.toJSON();
+  const memoisedUserCake = useMemo(() => new BigNumber(stringifiedUserCake), [stringifiedUserCake]);
 
-  const cakePriceBusd = usePriceCakeBusd()
-  const dispatch = useAppDispatch()
-  const hasFetchedBalance = fetchStatus === FetchStatus.SUCCESS
-  const userCakeDisplayBalance = getFullDisplayBalance(userCake, 18, 3)
+  const cakePriceBusd = usePriceCakeBusd();
+  const dispatch = useAppDispatch();
+  const hasFetchedBalance = fetchStatus === FetchStatus.SUCCESS;
+  const userCakeDisplayBalance = getFullDisplayBalance(userCake, 18, 3);
 
   const TooltipComponent = () => (
     <>
@@ -103,89 +103,89 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
       <Text>{t('50 tickets: 2.45%')}</Text>
       <Text>{t('100 tickets: 4.95%')}</Text>
     </>
-  )
+  );
   const { targetRef, tooltip, tooltipVisible } = useTooltip(<TooltipComponent />, {
     placement: 'bottom-end',
     tooltipOffset: [20, 10],
-  })
+  });
 
   const limitNumberByMaxTicketsPerBuy = useCallback(
     (number: BigNumber) => {
-      return number.gt(maxNumberTicketsPerBuyOrClaim) ? maxNumberTicketsPerBuyOrClaim : number
+      return number.gt(maxNumberTicketsPerBuyOrClaim) ? maxNumberTicketsPerBuyOrClaim : number;
     },
     [maxNumberTicketsPerBuyOrClaim],
-  )
+  );
 
   const getTicketCostAfterDiscount = useCallback(
     (numberTickets: BigNumber) => {
       const totalAfterDiscount = priceTicketInCake
         .times(numberTickets)
         .times(discountDivisor.plus(1).minus(numberTickets))
-        .div(discountDivisor)
-      return totalAfterDiscount
+        .div(discountDivisor);
+      return totalAfterDiscount;
     },
     [discountDivisor, priceTicketInCake],
-  )
+  );
 
   const getMaxTicketBuyWithDiscount = useCallback(
     (numberTickets: BigNumber) => {
-      const costAfterDiscount = getTicketCostAfterDiscount(numberTickets)
-      const costBeforeDiscount = priceTicketInCake.times(numberTickets)
-      const discountAmount = costBeforeDiscount.minus(costAfterDiscount)
-      const ticketsBoughtWithDiscount = discountAmount.div(priceTicketInCake)
-      const overallTicketBuy = numberTickets.plus(ticketsBoughtWithDiscount)
-      return { overallTicketBuy, ticketsBoughtWithDiscount }
+      const costAfterDiscount = getTicketCostAfterDiscount(numberTickets);
+      const costBeforeDiscount = priceTicketInCake.times(numberTickets);
+      const discountAmount = costBeforeDiscount.minus(costAfterDiscount);
+      const ticketsBoughtWithDiscount = discountAmount.div(priceTicketInCake);
+      const overallTicketBuy = numberTickets.plus(ticketsBoughtWithDiscount);
+      return { overallTicketBuy, ticketsBoughtWithDiscount };
     },
     [getTicketCostAfterDiscount, priceTicketInCake],
-  )
+  );
 
   const validateInput = useCallback(
     (inputNumber: BigNumber) => {
-      const limitedNumberTickets = limitNumberByMaxTicketsPerBuy(inputNumber)
-      const cakeCostAfterDiscount = getTicketCostAfterDiscount(limitedNumberTickets)
+      const limitedNumberTickets = limitNumberByMaxTicketsPerBuy(inputNumber);
+      const cakeCostAfterDiscount = getTicketCostAfterDiscount(limitedNumberTickets);
 
       if (cakeCostAfterDiscount.gt(userCake)) {
-        setUserNotEnoughCake(true)
+        setUserNotEnoughCake(true);
       } else if (limitedNumberTickets.eq(maxNumberTicketsPerBuyOrClaim)) {
-        setMaxTicketPurchaseExceeded(true)
+        setMaxTicketPurchaseExceeded(true);
       } else {
-        setUserNotEnoughCake(false)
-        setMaxTicketPurchaseExceeded(false)
+        setUserNotEnoughCake(false);
+        setMaxTicketPurchaseExceeded(false);
       }
     },
     [limitNumberByMaxTicketsPerBuy, getTicketCostAfterDiscount, maxNumberTicketsPerBuyOrClaim, userCake],
-  )
+  );
 
   useEffect(() => {
     const getMaxPossiblePurchase = () => {
-      const maxBalancePurchase = memoisedUserCake.div(priceTicketInCake)
-      const limitedMaxPurchase = limitNumberByMaxTicketsPerBuy(maxBalancePurchase)
-      let maxPurchase
+      const maxBalancePurchase = memoisedUserCake.div(priceTicketInCake);
+      const limitedMaxPurchase = limitNumberByMaxTicketsPerBuy(maxBalancePurchase);
+      let maxPurchase;
 
       // If the users' max CAKE balance purchase is less than the contract limit - factor the discount logic into the max number of tickets they can purchase
       if (limitedMaxPurchase.lt(maxNumberTicketsPerBuyOrClaim)) {
         // Get max tickets purchasable with the users' balance, as well as using the discount to buy tickets
-        const { overallTicketBuy: maxPlusDiscountTickets } = getMaxTicketBuyWithDiscount(limitedMaxPurchase)
+        const { overallTicketBuy: maxPlusDiscountTickets } = getMaxTicketBuyWithDiscount(limitedMaxPurchase);
 
         // Knowing how many tickets they can buy when counting the discount - plug that total in, and see how much that total will get discounted
         const { ticketsBoughtWithDiscount: secondTicketDiscountBuy } =
-          getMaxTicketBuyWithDiscount(maxPlusDiscountTickets)
+          getMaxTicketBuyWithDiscount(maxPlusDiscountTickets);
 
         // Add the additional tickets that can be bought with the discount, to the original max purchase
-        maxPurchase = limitedMaxPurchase.plus(secondTicketDiscountBuy)
+        maxPurchase = limitedMaxPurchase.plus(secondTicketDiscountBuy);
       } else {
-        maxPurchase = limitedMaxPurchase
+        maxPurchase = limitedMaxPurchase;
       }
 
       if (hasFetchedBalance && maxPurchase.lt(1)) {
-        setUserNotEnoughCake(true)
+        setUserNotEnoughCake(true);
       } else {
-        setUserNotEnoughCake(false)
+        setUserNotEnoughCake(false);
       }
 
-      setMaxPossibleTicketPurchase(maxPurchase)
-    }
-    getMaxPossiblePurchase()
+      setMaxPossibleTicketPurchase(maxPurchase);
+    };
+    getMaxPossiblePurchase();
   }, [
     maxNumberTicketsPerBuyOrClaim,
     priceTicketInCake,
@@ -194,95 +194,95 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
     getTicketCostAfterDiscount,
     getMaxTicketBuyWithDiscount,
     hasFetchedBalance,
-  ])
+  ]);
 
   useEffect(() => {
-    const numberOfTicketsToBuy = new BigNumber(ticketsToBuy)
-    const costAfterDiscount = getTicketCostAfterDiscount(numberOfTicketsToBuy)
-    const costBeforeDiscount = priceTicketInCake.times(numberOfTicketsToBuy)
-    const discountBeingApplied = costBeforeDiscount.minus(costAfterDiscount)
-    setTicketCostBeforeDiscount(costBeforeDiscount.gt(0) ? getFullDisplayBalance(costBeforeDiscount) : '0')
-    setTotalCost(costAfterDiscount.gt(0) ? getFullDisplayBalance(costAfterDiscount) : '0')
-    setDiscountValue(discountBeingApplied.gt(0) ? getFullDisplayBalance(discountBeingApplied, 18, 5) : '0')
-  }, [ticketsToBuy, priceTicketInCake, discountDivisor, getTicketCostAfterDiscount])
+    const numberOfTicketsToBuy = new BigNumber(ticketsToBuy);
+    const costAfterDiscount = getTicketCostAfterDiscount(numberOfTicketsToBuy);
+    const costBeforeDiscount = priceTicketInCake.times(numberOfTicketsToBuy);
+    const discountBeingApplied = costBeforeDiscount.minus(costAfterDiscount);
+    setTicketCostBeforeDiscount(costBeforeDiscount.gt(0) ? getFullDisplayBalance(costBeforeDiscount) : '0');
+    setTotalCost(costAfterDiscount.gt(0) ? getFullDisplayBalance(costAfterDiscount) : '0');
+    setDiscountValue(discountBeingApplied.gt(0) ? getFullDisplayBalance(discountBeingApplied, 18, 5) : '0');
+  }, [ticketsToBuy, priceTicketInCake, discountDivisor, getTicketCostAfterDiscount]);
 
   const getNumTicketsByPercentage = (percentage: number): number => {
     const percentageOfMaxTickets = maxPossibleTicketPurchase.gt(0)
       ? maxPossibleTicketPurchase.div(new BigNumber(100)).times(new BigNumber(percentage))
-      : BIG_ZERO
-    return Math.floor(percentageOfMaxTickets.toNumber())
-  }
+      : BIG_ZERO;
+    return Math.floor(percentageOfMaxTickets.toNumber());
+  };
 
-  const tenPercentOfBalance = getNumTicketsByPercentage(10)
-  const twentyFivePercentOfBalance = getNumTicketsByPercentage(25)
-  const fiftyPercentOfBalance = getNumTicketsByPercentage(50)
-  const oneHundredPercentOfBalance = getNumTicketsByPercentage(100)
+  const tenPercentOfBalance = getNumTicketsByPercentage(10);
+  const twentyFivePercentOfBalance = getNumTicketsByPercentage(25);
+  const fiftyPercentOfBalance = getNumTicketsByPercentage(50);
+  const oneHundredPercentOfBalance = getNumTicketsByPercentage(100);
 
   const handleInputChange = (input: string) => {
     // Force input to integer
-    const inputAsInt = parseInt(input, 10)
-    const inputAsBN = new BigNumber(inputAsInt)
-    const limitedNumberTickets = limitNumberByMaxTicketsPerBuy(inputAsBN)
-    validateInput(inputAsBN)
-    setTicketsToBuy(inputAsInt ? limitedNumberTickets.toString() : '')
-  }
+    const inputAsInt = parseInt(input, 10);
+    const inputAsBN = new BigNumber(inputAsInt);
+    const limitedNumberTickets = limitNumberByMaxTicketsPerBuy(inputAsBN);
+    validateInput(inputAsBN);
+    setTicketsToBuy(inputAsInt ? limitedNumberTickets.toString() : '');
+  };
 
   const handleNumberButtonClick = (number: number) => {
-    setTicketsToBuy(number.toFixed())
-    setUserNotEnoughCake(false)
-    setMaxTicketPurchaseExceeded(false)
-  }
+    setTicketsToBuy(number.toFixed());
+    setUserNotEnoughCake(false);
+    setMaxTicketPurchaseExceeded(false);
+  };
 
   const [updateTicket, randomize, tickets, allComplete, getTicketsForPurchase] = useTicketsReducer(
     parseInt(ticketsToBuy, 10),
     userCurrentTickets,
-  )
+  );
 
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
       onRequiresApproval: async () => {
         try {
-          const response = await cakeContract.allowance(account, lotteryContract.address)
-          const currentAllowance = ethersToBigNumber(response)
-          return currentAllowance.gt(0)
+          const response = await cakeContract.allowance(account, lotteryContract.address);
+          const currentAllowance = ethersToBigNumber(response);
+          return currentAllowance.gt(0);
         } catch (error) {
-          return false
+          return false;
         }
       },
       onApprove: () => {
-        return callWithGasPrice(cakeContract, 'approve', [lotteryContract.address, ethers.constants.MaxUint256])
+        return callWithGasPrice(cakeContract, 'approve', [lotteryContract.address, ethers.constants.MaxUint256]);
       },
       onApproveSuccess: async ({ receipt }) => {
         toastSuccess(
           t('Contract enabled - you can now purchase tickets'),
           <ToastDescriptionWithTx txHash={receipt.transactionHash} />,
-        )
+        );
       },
       onConfirm: () => {
-        const ticketsForPurchase = getTicketsForPurchase()
-        return callWithGasPrice(lotteryContract, 'buyTickets', [currentLotteryId, ticketsForPurchase])
+        const ticketsForPurchase = getTicketsForPurchase();
+        return callWithGasPrice(lotteryContract, 'buyTickets', [currentLotteryId, ticketsForPurchase]);
       },
       onSuccess: async ({ receipt }) => {
-        onDismiss()
-        dispatch(fetchUserTicketsAndLotteries({ account, currentLotteryId }))
-        toastSuccess(t('Lottery tickets purchased!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />)
+        onDismiss();
+        dispatch(fetchUserTicketsAndLotteries({ account, currentLotteryId }));
+        toastSuccess(t('Lottery tickets purchased!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />);
       },
-    })
+    });
 
   const getErrorMessage = () => {
-    if (userNotEnoughCake) return t('Insufficient CAKE balance')
+    if (userNotEnoughCake) return t('Insufficient CAKE balance');
     return t('The maximum number of tickets you can buy in one transaction is %maxTickets%', {
       maxTickets: maxNumberTicketsPerBuyOrClaim.toString(),
-    })
-  }
+    });
+  };
 
   const percentageDiscount = () => {
-    const percentageAsBn = new BigNumber(discountValue).div(new BigNumber(ticketCostBeforeDiscount)).times(100)
+    const percentageAsBn = new BigNumber(discountValue).div(new BigNumber(ticketCostBeforeDiscount)).times(100);
     if (percentageAsBn.isNaN() || percentageAsBn.eq(0)) {
-      return 0
+      return 0;
     }
-    return percentageAsBn.toNumber().toFixed(2)
-  }
+    return percentageAsBn.toNumber().toFixed(2);
+  };
 
   const disableBuying =
     !isApproved ||
@@ -290,7 +290,7 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
     userNotEnoughCake ||
     !ticketsToBuy ||
     new BigNumber(ticketsToBuy).lte(0) ||
-    getTicketsForPurchase().length !== parseInt(ticketsToBuy, 10)
+    getTicketsForPurchase().length !== parseInt(ticketsToBuy, 10);
 
   if (buyingStage === BuyingStage.EDIT) {
     return (
@@ -304,7 +304,7 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
         isConfirming={isConfirming}
         onDismiss={() => setBuyingStage(BuyingStage.BUY)}
       />
-    )
+    );
   }
 
   return (
@@ -440,7 +440,7 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
                 }
                 disabled={disableBuying || isConfirming}
                 onClick={() => {
-                  setBuyingStage(BuyingStage.EDIT)
+                  setBuyingStage(BuyingStage.EDIT);
                 }}
               >
                 {t('View/Edit Numbers')}
@@ -458,7 +458,7 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
         </Text>
       </Flex>
     </StyledModal>
-  )
-}
+  );
+};
 
-export default BuyTicketsModal
+export default BuyTicketsModal;

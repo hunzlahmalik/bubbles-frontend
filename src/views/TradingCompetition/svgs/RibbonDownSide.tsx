@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const RibbonDownSide: React.FC<SvgProps> = (props) => {
   return (
@@ -27,7 +27,7 @@ const RibbonDownSide: React.FC<SvgProps> = (props) => {
         fill="#3B2070"
       />
     </Svg>
-  )
-}
+  );
+};
 
-export default RibbonDownSide
+export default RibbonDownSide;

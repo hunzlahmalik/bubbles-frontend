@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react'
-import styled from 'styled-components'
-import { Card, CardBody, Box, CardProps } from '@pancakeswap/uikit'
+import React, { ReactNode } from 'react';
+import styled from 'styled-components';
+import { Card, CardBody, Box, CardProps } from '@pancakeswap/uikit';
 
 const StyledCard = styled(Card)<{ background: string; rotation?: string }>`
   height: fit-content;
@@ -10,7 +10,7 @@ const StyledCard = styled(Card)<{ background: string; rotation?: string }>`
   ${({ theme }) => theme.mediaQueries.md} {
     ${({ rotation }) => (rotation ? `transform: rotate(${rotation});` : '')}
   }
-`
+`;
 
 const IconWrapper = styled(Box)<{ rotation?: string }>`
   position: absolute;
@@ -20,17 +20,17 @@ const IconWrapper = styled(Box)<{ rotation?: string }>`
   ${({ theme }) => theme.mediaQueries.md} {
     ${({ rotation }) => (rotation ? `transform: rotate(${rotation});` : '')}
   }
-`
+`;
 
 interface IconCardProps extends IconCardData, CardProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export interface IconCardData {
-  icon: ReactNode
-  background?: string
-  borderColor?: string
-  rotation?: string
+  icon: ReactNode;
+  background?: string;
+  borderColor?: string;
+  rotation?: string;
 }
 
 const IconCard: React.FC<IconCardProps> = ({ icon, background, borderColor, rotation, children, ...props }) => {
@@ -41,7 +41,7 @@ const IconCard: React.FC<IconCardProps> = ({ icon, background, borderColor, rota
         {children}
       </CardBody>
     </StyledCard>
-  )
-}
+  );
+};
 
-export default IconCard
+export default IconCard;

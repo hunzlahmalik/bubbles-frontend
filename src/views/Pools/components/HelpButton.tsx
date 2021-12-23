@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Button, HelpIcon, Link } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Button, HelpIcon, Link } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 const ButtonText = styled(Text)`
   display: none;
   ${({ theme }) => theme.mediaQueries.xs} {
     display: block;
   }
-`
+`;
 
 const Container = styled.div`
   margin-right: 16px;
@@ -18,16 +18,16 @@ const Container = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex: 1;
   }
-`
+`;
 
 const StyledLink = styled(Link)`
   &:hover {
     text-decoration: none;
   }
-`
+`;
 
 const HelpButton = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Container>
       <StyledLink external href="https://docs.pancakeswap.finance/products/syrup-pool/syrup-pool-faq">
@@ -39,7 +39,7 @@ const HelpButton = () => {
         </Button>
       </StyledLink>
     </Container>
-  )
-}
+  );
+};
 
-export default HelpButton
+export default HelpButton;

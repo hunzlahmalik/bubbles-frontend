@@ -1,15 +1,15 @@
-import React, { useMemo, ReactNode } from 'react'
-import ReactDOM from 'react-dom'
-import * as Sentry from '@sentry/react'
-import { Integrations } from '@sentry/tracing'
-import { isUserRejected } from 'utils/sentry'
-import useActiveWeb3React from './hooks/useActiveWeb3React'
-import { BLOCKED_ADDRESSES } from './config/constants'
-import ListsUpdater from './state/lists/updater'
-import MulticallUpdater from './state/multicall/updater'
-import TransactionUpdater from './state/transactions/updater'
-import App from './App'
-import Providers from './Providers'
+import React, { useMemo, ReactNode } from 'react';
+import ReactDOM from 'react-dom';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
+import { isUserRejected } from 'utils/sentry';
+import useActiveWeb3React from './hooks/useActiveWeb3React';
+import { BLOCKED_ADDRESSES } from './config/constants';
+import ListsUpdater from './state/lists/updater';
+import MulticallUpdater from './state/multicall/updater';
+import TransactionUpdater from './state/transactions/updater';
+import App from './App';
+import Providers from './Providers';
 
 function Updaters() {
   return (
@@ -18,16 +18,16 @@ function Updaters() {
       <TransactionUpdater />
       <MulticallUpdater />
     </>
-  )
+  );
 }
 
 function Blocklist({ children }: { children: ReactNode }) {
-  const { account } = useActiveWeb3React()
-  const blocked: boolean = useMemo(() => Boolean(account && BLOCKED_ADDRESSES.indexOf(account) !== -1), [account])
+  const { account } = useActiveWeb3React();
+  const blocked: boolean = useMemo(() => Boolean(account && BLOCKED_ADDRESSES.indexOf(account) !== -1), [account]);
   if (blocked) {
-    return <div>Blocked address</div>
+    return <div>Blocked address</div>;
   }
-  return <>{children}</>
+  return <>{children}</>;
 }
 
 Sentry.init({
@@ -44,11 +44,11 @@ Sentry.init({
   // We recommend adjusting this value in production
   tracesSampleRate: 0.1,
   beforeSend(event, hint) {
-    const error = hint?.originalException
+    const error = hint?.originalException;
     if (error && isUserRejected(error)) {
-      return null
+      return null;
     }
-    return event
+    return event;
   },
   ignoreErrors: [
     'User denied transaction signature',
@@ -56,7 +56,7 @@ Sentry.init({
     'User rejected the transaction',
     'cancelled',
   ],
-})
+});
 
 ReactDOM.render(
   <React.StrictMode>
@@ -68,4 +68,4 @@ ReactDOM.render(
     </Blocklist>
   </React.StrictMode>,
   document.getElementById('root'),
-)
+);

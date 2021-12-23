@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from 'react'
-import times from 'lodash/times'
-import orderBy from 'lodash/orderBy'
-import { Skeleton, Table, Td, Th } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { getBetHistory, transformBetResponse } from 'state/predictions/helpers'
-import { Bet } from 'state/types'
-import PositionLabel from './PositionLabel'
-import { NetWinnings } from './Results/styles'
+import React, { useEffect, useState } from 'react';
+import times from 'lodash/times';
+import orderBy from 'lodash/orderBy';
+import { Skeleton, Table, Td, Th } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { getBetHistory, transformBetResponse } from 'state/predictions/helpers';
+import { Bet } from 'state/types';
+import PositionLabel from './PositionLabel';
+import { NetWinnings } from './Results/styles';
 
 interface PreviousBetsTableProps {
-  numberOfBets?: number
-  account: string
+  numberOfBets?: number;
+  account: string;
 }
 
 const PreviousBetsTable: React.FC<PreviousBetsTableProps> = ({ numberOfBets = 5, account }) => {
-  const [isFetching, setIsFetching] = useState(false)
-  const [bets, setBets] = useState<Bet[]>([])
-  const { t } = useTranslation()
-  const orderedBets = orderBy(bets, ['round.epoch'], ['desc'])
+  const [isFetching, setIsFetching] = useState(false);
+  const [bets, setBets] = useState<Bet[]>([]);
+  const { t } = useTranslation();
+  const orderedBets = orderBy(bets, ['round.epoch'], ['desc']);
 
   useEffect(() => {
     const fetchBetHistory = async () => {
-      setIsFetching(true)
+      setIsFetching(true);
       try {
         const response = await getBetHistory(
           {
             user: account.toLowerCase(),
           },
           numberOfBets,
-        )
+        );
 
-        setBets(response.map(transformBetResponse))
+        setBets(response.map(transformBetResponse));
       } finally {
-        setIsFetching(false)
+        setIsFetching(false);
       }
-    }
+    };
 
-    fetchBetHistory()
-  }, [account, numberOfBets, setIsFetching, setBets])
+    fetchBetHistory();
+  }, [account, numberOfBets, setIsFetching, setBets]);
 
   return (
     <Table>
@@ -64,7 +64,7 @@ const PreviousBetsTable: React.FC<PreviousBetsTableProps> = ({ numberOfBets = 5,
               </tr>
             ))
           : orderedBets.map((bet) => {
-              const isWinner = bet.position === bet.round.position
+              const isWinner = bet.position === bet.round.position;
 
               return (
                 <tr key={bet.id}>
@@ -82,11 +82,11 @@ const PreviousBetsTable: React.FC<PreviousBetsTableProps> = ({ numberOfBets = 5,
                     />
                   </Td>
                 </tr>
-              )
+              );
             })}
       </tbody>
     </Table>
-  )
-}
+  );
+};
 
-export default PreviousBetsTable
+export default PreviousBetsTable;

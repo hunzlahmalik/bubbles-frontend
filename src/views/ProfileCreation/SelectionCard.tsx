@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, Radio } from '@pancakeswap/uikit'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, Radio } from '@pancakeswap/uikit';
 
 interface SelectionCardProps {
-  name: string
-  value: string | number
-  isChecked?: boolean
-  onChange: (val: any) => void
-  image: string
-  disabled?: boolean
+  name: string;
+  value: string | number;
+  isChecked?: boolean;
+  onChange: (val: any) => void;
+  image: string;
+  disabled?: boolean;
 }
 
 const Label = styled.label<{ isDisabled: boolean }>`
@@ -17,7 +17,7 @@ const Label = styled.label<{ isDisabled: boolean }>`
   justify-content: space-between;
   align-items: center;
   opacity: ${({ isDisabled }) => (isDisabled ? '0.6' : '1')};
-`
+`;
 
 const Body = styled.div`
   align-items: center;
@@ -25,11 +25,11 @@ const Body = styled.div`
   flex-grow: 1;
   height: 80px;
   padding: 8px 16px;
-`
+`;
 
 const Children = styled.div`
   margin-left: 16px;
-`
+`;
 
 const StyledBackgroundImage = styled.div<{ src: string }>`
   align-self: stretch;
@@ -39,7 +39,7 @@ const StyledBackgroundImage = styled.div<{ src: string }>`
   background-repeat: no-repeat;
   flex: none;
   width: 80px;
-`
+`;
 
 const SelectionCard: React.FC<SelectionCardProps> = ({
   name,
@@ -68,7 +68,7 @@ const SelectionCard: React.FC<SelectionCardProps> = ({
         <StyledBackgroundImage src={image} />
       </Label>
     </Card>
-  )
-}
+  );
+};
 
-export default SelectionCard
+export default SelectionCard;

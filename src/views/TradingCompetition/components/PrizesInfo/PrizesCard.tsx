@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, CardHeader, Box, Heading, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import PrizesGrid from './PrizesGrid'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, CardHeader, Box, Heading, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import PrizesGrid from './PrizesGrid';
 
 const StyledCard = styled(Card)`
   ${({ theme }) => theme.mediaQueries.md} {
     margin-right: 40px;
     flex: 1;
   }
-`
+`;
 
 const PrizesCard = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <StyledCard>
@@ -36,7 +36,7 @@ const PrizesCard = () => {
         </Text>
       </Box>
     </StyledCard>
-  )
-}
+  );
+};
 
-export default PrizesCard
+export default PrizesCard;

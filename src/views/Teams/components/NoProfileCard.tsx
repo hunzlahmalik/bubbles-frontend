@@ -1,10 +1,10 @@
-import React from 'react'
-import { Button, Card, CardBody, Flex, Heading, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Button, Card, CardBody, Flex, Heading, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { Link } from 'react-router-dom';
 
 const NoProfileCard = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Card mb="32px" isActive>
@@ -26,7 +26,7 @@ const NoProfileCard = () => {
         </Flex>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default NoProfileCard
+export default NoProfileCard;

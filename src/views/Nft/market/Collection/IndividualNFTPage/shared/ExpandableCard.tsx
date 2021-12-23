@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import styled, { keyframes, css } from 'styled-components'
-import { Grid, Text, Card, Box, ChevronUpIcon, ChevronDownIcon, IconButton } from '@pancakeswap/uikit'
-import useTheme from 'hooks/useTheme'
+import React, { useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
+import { Grid, Text, Card, Box, ChevronUpIcon, ChevronDownIcon, IconButton } from '@pancakeswap/uikit';
+import useTheme from 'hooks/useTheme';
 
 const expandAnimation = keyframes`
   from {
@@ -10,7 +10,7 @@ const expandAnimation = keyframes`
   to {
     max-height: 720px;
   }
-`
+`;
 
 const collapseAnimation = keyframes`
   from {
@@ -19,7 +19,7 @@ const collapseAnimation = keyframes`
   to {
     max-height: 0px;
   }
-`
+`;
 
 const ExpandableCardBody = styled(Box)<{ expanded: boolean }>`
   animation: ${({ expanded }) =>
@@ -30,21 +30,21 @@ const ExpandableCardBody = styled(Box)<{ expanded: boolean }>`
       : css`
           ${collapseAnimation} 300ms linear forwards
         `};
-`
+`;
 
 const FullWidthCard = styled(Card)`
   width: 100%;
-`
+`;
 
 interface ExpandableCardProps {
-  icon: React.ReactNode
-  title: string
-  content: React.ReactNode
+  icon: React.ReactNode;
+  title: string;
+  content: React.ReactNode;
 }
 
 const ExpandableCard: React.FC<ExpandableCardProps> = ({ icon, title, content }) => {
-  const [expanded, setExpanded] = useState(true)
-  const { theme } = useTheme()
+  const [expanded, setExpanded] = useState(true);
+  const { theme } = useTheme();
   return (
     <FullWidthCard>
       <Grid
@@ -58,7 +58,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ icon, title, content })
         <Text bold>{title}</Text>
         <IconButton
           onClick={() => {
-            setExpanded((prev) => !prev)
+            setExpanded((prev) => !prev);
           }}
           variant="text"
           maxWidth="32px"
@@ -72,7 +72,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ icon, title, content })
       </Grid>
       <ExpandableCardBody expanded={expanded}>{content}</ExpandableCardBody>
     </FullWidthCard>
-  )
-}
+  );
+};
 
-export default ExpandableCard
+export default ExpandableCard;

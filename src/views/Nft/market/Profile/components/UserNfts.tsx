@@ -1,64 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, useModal, Text, Flex } from '@pancakeswap/uikit'
-import { useUserNfts } from 'state/nftMarket/hooks'
-import { NftLocation, UserNftInitializationState, NftToken } from 'state/nftMarket/types'
-import { useTranslation } from 'contexts/Localization'
-import { CollectibleActionCard } from '../../components/CollectibleCard'
-import GridPlaceholder from '../../components/GridPlaceholder'
-import ProfileNftModal from '../../components/ProfileNftModal'
-import NoNftsImage from '../../components/Activity/NoNftsImage'
-import SellModal from '../../components/BuySellModals/SellModal'
+import React, { useState, useEffect } from 'react';
+import { Grid, useModal, Text, Flex } from '@pancakeswap/uikit';
+import { useUserNfts } from 'state/nftMarket/hooks';
+import { NftLocation, UserNftInitializationState, NftToken } from 'state/nftMarket/types';
+import { useTranslation } from 'contexts/Localization';
+import { CollectibleActionCard } from '../../components/CollectibleCard';
+import GridPlaceholder from '../../components/GridPlaceholder';
+import ProfileNftModal from '../../components/ProfileNftModal';
+import NoNftsImage from '../../components/Activity/NoNftsImage';
+import SellModal from '../../components/BuySellModals/SellModal';
 
 interface ProfileNftProps {
-  nft: NftToken
-  location: NftLocation
+  nft: NftToken;
+  location: NftLocation;
 }
 
 interface SellNftProps {
-  nft: NftToken
-  location: NftLocation
-  variant: 'sell' | 'edit'
+  nft: NftToken;
+  location: NftLocation;
+  variant: 'sell' | 'edit';
 }
 
 const UserNfts = () => {
-  const { nfts, userNftsInitializationState } = useUserNfts()
-  const [clickedProfileNft, setClickedProfileNft] = useState<ProfileNftProps>({ nft: null, location: null })
-  const [clickedSellNft, setClickedSellNft] = useState<SellNftProps>({ nft: null, location: null, variant: null })
-  const [onPresentProfileNftModal] = useModal(<ProfileNftModal nft={clickedProfileNft.nft} />)
-  const [onPresentSellModal] = useModal(<SellModal variant={clickedSellNft.variant} nftToSell={clickedSellNft.nft} />)
-  const { t } = useTranslation()
+  const { nfts, userNftsInitializationState } = useUserNfts();
+  const [clickedProfileNft, setClickedProfileNft] = useState<ProfileNftProps>({ nft: null, location: null });
+  const [clickedSellNft, setClickedSellNft] = useState<SellNftProps>({ nft: null, location: null, variant: null });
+  const [onPresentProfileNftModal] = useModal(<ProfileNftModal nft={clickedProfileNft.nft} />);
+  const [onPresentSellModal] = useModal(<SellModal variant={clickedSellNft.variant} nftToSell={clickedSellNft.nft} />);
+  const { t } = useTranslation();
 
   const handleCollectibleClick = (nft: NftToken, location: NftLocation) => {
     switch (location) {
       case NftLocation.PROFILE:
-        setClickedProfileNft({ nft, location })
-        break
+        setClickedProfileNft({ nft, location });
+        break;
       case NftLocation.WALLET:
-        setClickedSellNft({ nft, location, variant: 'sell' })
-        break
+        setClickedSellNft({ nft, location, variant: 'sell' });
+        break;
       case NftLocation.FORSALE:
-        setClickedSellNft({ nft, location, variant: 'edit' })
-        break
+        setClickedSellNft({ nft, location, variant: 'edit' });
+        break;
       default:
-        break
+        break;
     }
-  }
+  };
 
   useEffect(() => {
     if (clickedProfileNft.nft) {
-      onPresentProfileNftModal()
+      onPresentProfileNftModal();
     }
     // exhaustive deps disabled as the useModal dep causes re-render loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clickedProfileNft])
+  }, [clickedProfileNft]);
 
   useEffect(() => {
     if (clickedSellNft.nft) {
-      onPresentSellModal()
+      onPresentSellModal();
     }
     // exhaustive deps disabled as the useModal dep causes re-render loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clickedSellNft])
+  }, [clickedSellNft]);
 
   return (
     <>
@@ -78,7 +78,7 @@ const UserNfts = () => {
           alignItems="start"
         >
           {nfts.map((nft) => {
-            const { marketData, location } = nft
+            const { marketData, location } = nft;
 
             return (
               <CollectibleActionCard
@@ -91,7 +91,7 @@ const UserNfts = () => {
                 }
                 nftLocation={location}
               />
-            )
+            );
           })}
         </Grid>
       ) : (
@@ -99,7 +99,7 @@ const UserNfts = () => {
         <GridPlaceholder />
       )}
     </>
-  )
-}
+  );
+};
 
-export default UserNfts
+export default UserNfts;

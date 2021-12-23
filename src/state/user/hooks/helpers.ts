@@ -1,6 +1,6 @@
-import { Token } from '@pancakeswap/sdk'
-import { SerializedToken } from 'config/constants/types'
-import { parseUnits } from 'ethers/lib/utils'
+import { Token } from '@pancakeswap/sdk';
+import { SerializedToken } from 'config/constants/types';
+import { parseUnits } from 'ethers/lib/utils';
 
 export function serializeToken(token: Token): SerializedToken {
   return {
@@ -10,7 +10,7 @@ export function serializeToken(token: Token): SerializedToken {
     symbol: token.symbol,
     name: token.name,
     projectLink: token.projectLink,
-  }
+  };
 }
 
 export function deserializeToken(serializedToken: SerializedToken): Token {
@@ -21,7 +21,7 @@ export function deserializeToken(serializedToken: SerializedToken): Token {
     serializedToken.symbol,
     serializedToken.name,
     serializedToken.projectLink,
-  )
+  );
 }
 
 export enum GAS_PRICE {
@@ -36,4 +36,4 @@ export const GAS_PRICE_GWEI = {
   fast: parseUnits(GAS_PRICE.fast, 'gwei').toString(),
   instant: parseUnits(GAS_PRICE.instant, 'gwei').toString(),
   testnet: parseUnits(GAS_PRICE.testnet, 'gwei').toString(),
-}
+};

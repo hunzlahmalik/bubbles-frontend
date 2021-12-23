@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   Card,
   CardBody,
@@ -10,15 +10,15 @@ import {
   CheckmarkCircleIcon,
   useWalletModal,
   useModal,
-} from '@pancakeswap/uikit'
-import { useHistory } from 'react-router-dom'
-import useAuth from 'hooks/useAuth'
-import { useTranslation } from 'contexts/Localization'
-import { FINISHED, OVER } from 'config/constants/trading-competition/phases'
-import RegisterModal from '../RegisterModal'
-import ClaimModal from '../ClaimModal'
-import { Heading2Text } from '../CompetitionHeadingText'
-import { CompetitionProps } from '../../types'
+} from '@pancakeswap/uikit';
+import { useHistory } from 'react-router-dom';
+import useAuth from 'hooks/useAuth';
+import { useTranslation } from 'contexts/Localization';
+import { FINISHED, OVER } from 'config/constants/trading-competition/phases';
+import RegisterModal from '../RegisterModal';
+import ClaimModal from '../ClaimModal';
+import { Heading2Text } from '../CompetitionHeadingText';
+import { CompetitionProps } from '../../types';
 
 const StyledCard = styled(Card)`
   display: inline-flex;
@@ -34,7 +34,7 @@ const StyledCard = styled(Card)`
     width: auto;
     fill: ${({ theme }) => theme.colors.warning};
   }
-`
+`;
 
 const StyledButton = styled(Button)`
   margin: 16px 20px 0;
@@ -46,11 +46,11 @@ const StyledButton = styled(Button)`
     width: auto;
     fill: ${({ theme }) => theme.colors.textDisabled};
   }
-`
+`;
 
 const StyledHeadingText = styled(Heading2Text)`
   white-space: normal;
-`
+`;
 
 const BattleCta: React.FC<CompetitionProps> = ({
   userTradingInformation,
@@ -66,20 +66,20 @@ const BattleCta: React.FC<CompetitionProps> = ({
   onRegisterSuccess,
   onClaimSuccess,
 }) => {
-  const history = useHistory()
-  const { t } = useTranslation()
-  const { login, logout } = useAuth()
-  const { onPresentConnectModal } = useWalletModal(login, logout, t)
+  const history = useHistory();
+  const { t } = useTranslation();
+  const { login, logout } = useAuth();
+  const { onPresentConnectModal } = useWalletModal(login, logout, t);
   const [onPresentRegisterModal] = useModal(
     <RegisterModal profile={profile} onRegisterSuccess={onRegisterSuccess} />,
     false,
-  )
+  );
   const [onPresentClaimModal] = useModal(
     <ClaimModal userTradingInformation={userTradingInformation} onClaimSuccess={onClaimSuccess} />,
     false,
-  )
-  const { hasRegistered, hasUserClaimed } = userTradingInformation
-  const registeredAndNotStarted = hasRegistered && !isCompetitionLive && !hasCompetitionEnded
+  );
+  const { hasRegistered, hasUserClaimed } = userTradingInformation;
+  const registeredAndNotStarted = hasRegistered && !isCompetitionLive && !hasCompetitionEnded;
 
   const isButtonDisabled = Boolean(
     isLoading ||
@@ -87,48 +87,48 @@ const BattleCta: React.FC<CompetitionProps> = ({
       registeredAndNotStarted ||
       finishedAndPrizesClaimed ||
       finishedAndNothingToClaim,
-  )
+  );
 
   const getHeadingText = () => {
     // Competition live
     if (isCompetitionLive) {
-      return t('Now Live!')
+      return t('Now Live!');
     }
     // Competition finished. Rewards being calculated
     if (currentPhase.state === FINISHED) {
-      return `${t('Calculating prizes')}...`
+      return `${t('Calculating prizes')}...`;
     }
     // All competition finished states
     if (hasCompetitionEnded) {
-      return `${t('Finished')}!`
+      return `${t('Finished')}!`;
     }
     // Competition not started
-    return t('Starting Soon')
-  }
+    return t('Starting Soon');
+  };
 
   const getButtonText = () => {
     // No wallet connected
     if (!account) {
-      return t('Connect Wallet')
+      return t('Connect Wallet');
     }
     // User not registered
     if (!hasRegistered) {
-      return t('I want to Battle!')
+      return t('I want to Battle!');
     }
     // User registered and competition live
     if (isCompetitionLive) {
-      return t('Trade Now')
+      return t('Trade Now');
     }
 
     // User registered and competition finished
     if (hasCompetitionEnded) {
       // Claim period has ended
       if (currentPhase.state === OVER) {
-        return t('Claim period over')
+        return t('Claim period over');
       }
       // User has prizes to claim
       if (userCanClaimPrizes) {
-        return t('Claim prizes')
+        return t('Claim prizes');
       }
       // User has already claimed prizes
       if (hasUserClaimed) {
@@ -136,10 +136,10 @@ const BattleCta: React.FC<CompetitionProps> = ({
           <>
             <CheckmarkCircleIcon /> {t('Prizes Claimed!')}
           </>
-        )
+        );
       }
       // User has nothing to claim
-      return t('Nothing to claim')
+      return t('Nothing to claim');
     }
 
     // User registered but competition has not started
@@ -148,33 +148,33 @@ const BattleCta: React.FC<CompetitionProps> = ({
         <>
           <CheckmarkCircleIcon /> {t('Registered!')}
         </>
-      )
+      );
     }
 
     // May be useful for debugging - if somehow none of the above conditions are met
-    return 'Whoopsie'
-  }
+    return 'Whoopsie';
+  };
 
   const handleCtaClick = () => {
     // All conditions when button isn't disabled
 
     // No wallet connected
     if (!account) {
-      onPresentConnectModal()
+      onPresentConnectModal();
     }
     // Wallet connected but user not registered
     if (account && !hasRegistered) {
-      onPresentRegisterModal()
+      onPresentRegisterModal();
     }
     // Registered and competition is live
     if (hasRegistered && isCompetitionLive) {
-      history.push('/swap')
+      history.push('/swap');
     }
     // Registered and competition has finished
     if (hasRegistered && hasCompetitionEnded) {
-      onPresentClaimModal()
+      onPresentClaimModal();
     }
-  }
+  };
 
   return (
     <StyledCard>
@@ -194,7 +194,7 @@ const BattleCta: React.FC<CompetitionProps> = ({
         </Flex>
       </CardBody>
     </StyledCard>
-  )
-}
+  );
+};
 
-export default BattleCta
+export default BattleCta;

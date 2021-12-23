@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const SunburstSvg: React.FC<SvgProps> = (props) => {
   return (
@@ -39,7 +39,7 @@ const SunburstSvg: React.FC<SvgProps> = (props) => {
         </radialGradient>
       </defs>
     </Svg>
-  )
-}
+  );
+};
 
-export default SunburstSvg
+export default SunburstSvg;

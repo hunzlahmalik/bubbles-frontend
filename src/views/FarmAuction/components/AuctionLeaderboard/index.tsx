@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Text, Card, Flex, Box, Spinner } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { Auction, AuctionStatus, Bidder } from 'config/constants/types'
-import { TabToggleGroup, TabToggle } from 'components/TabToggle'
-import AuctionHistory from '../AuctionHistory'
-import AuctionProgress from './AuctionProgress'
-import AuctionRibbon from './AuctionRibbon'
-import AuctionLeaderboardTable from './AuctionLeaderboardTable'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Text, Card, Flex, Box, Spinner } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { Auction, AuctionStatus, Bidder } from 'config/constants/types';
+import { TabToggleGroup, TabToggle } from 'components/TabToggle';
+import AuctionHistory from '../AuctionHistory';
+import AuctionProgress from './AuctionProgress';
+import AuctionRibbon from './AuctionRibbon';
+import AuctionLeaderboardTable from './AuctionLeaderboardTable';
 
 const AuctionLeaderboardCard = styled(Card)`
   width: 100%;
   flex: 2;
-`
+`;
 
 interface AuctionLeaderboardProps {
-  auction: Auction
-  bidders: Bidder[]
+  auction: Auction;
+  bidders: Bidder[];
 }
 
 enum Tabs {
@@ -26,17 +26,17 @@ enum Tabs {
 
 const getMostRecentClosedAuctionId = (latestAuctionId: number, latestAuctionStatus: AuctionStatus) => {
   if (latestAuctionStatus === AuctionStatus.Closed) {
-    return latestAuctionId
+    return latestAuctionId;
   }
   if (latestAuctionId === 0) {
-    return null
+    return null;
   }
-  return latestAuctionId - 1
-}
+  return latestAuctionId - 1;
+};
 
 const CurrentAuctionCard: React.FC<AuctionLeaderboardProps> = ({ auction, bidders }) => {
-  const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState(Tabs.Latest)
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState(Tabs.Latest);
 
   if (!auction || !bidders) {
     return (
@@ -53,9 +53,9 @@ const CurrentAuctionCard: React.FC<AuctionLeaderboardProps> = ({ auction, bidder
           <Spinner />
         </Flex>
       </AuctionLeaderboardCard>
-    )
+    );
   }
-  const { id, status } = auction
+  const { id, status } = auction;
 
   return (
     <AuctionLeaderboardCard>
@@ -80,7 +80,7 @@ const CurrentAuctionCard: React.FC<AuctionLeaderboardProps> = ({ auction, bidder
         <AuctionHistory mostRecentClosedAuctionId={getMostRecentClosedAuctionId(id, status)} />
       )}
     </AuctionLeaderboardCard>
-  )
-}
+  );
+};
 
-export default CurrentAuctionCard
+export default CurrentAuctionCard;

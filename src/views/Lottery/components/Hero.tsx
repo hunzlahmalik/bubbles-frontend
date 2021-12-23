@@ -1,14 +1,14 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import { Box, Flex, Heading, Skeleton } from '@pancakeswap/uikit'
-import { LotteryStatus } from 'config/constants/types'
-import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useLottery } from 'state/lottery/hooks'
-import { getBalanceNumber } from 'utils/formatBalance'
-import Balance from 'components/Balance'
-import { TicketPurchaseCard } from '../svgs'
-import BuyTicketsButton from './BuyTicketsButton'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+import { Box, Flex, Heading, Skeleton } from '@pancakeswap/uikit';
+import { LotteryStatus } from 'config/constants/types';
+import { useTranslation } from 'contexts/Localization';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useLottery } from 'state/lottery/hooks';
+import { getBalanceNumber } from 'utils/formatBalance';
+import Balance from 'components/Balance';
+import { TicketPurchaseCard } from '../svgs';
+import BuyTicketsButton from './BuyTicketsButton';
 
 const floatingStarsLeft = keyframes`
   from {
@@ -20,7 +20,7 @@ const floatingStarsLeft = keyframes`
   to {
     transform: translate(0, -0px);
   }  
-`
+`;
 
 const floatingStarsRight = keyframes`
   from {
@@ -32,7 +32,7 @@ const floatingStarsRight = keyframes`
   to {
     transform: translate(0, -0px);
   }  
-`
+`;
 
 const floatingTicketLeft = keyframes`
   from {
@@ -44,7 +44,7 @@ const floatingTicketLeft = keyframes`
   to {
     transform: translate(0, -0px);
   }  
-`
+`;
 
 const floatingTicketRight = keyframes`
   from {
@@ -56,7 +56,7 @@ const floatingTicketRight = keyframes`
   to {
     transform: translate(0, -0px);
   }  
-`
+`;
 
 const mainTicketAnimation = keyframes`
   from {
@@ -68,17 +68,17 @@ const mainTicketAnimation = keyframes`
   to {
     transform: rotate(0deg);
   }  
-`
+`;
 
 const TicketContainer = styled(Flex)`
   animation: ${mainTicketAnimation} 3s ease-in-out infinite;
-`
+`;
 
 const PrizeTotalBalance = styled(Balance)`
   background: ${({ theme }) => theme.colors.gradients.gold};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-`
+`;
 
 const StyledBuyTicketButton = styled(BuyTicketsButton)<{ disabled: boolean }>`
   background: ${({ theme, disabled }) =>
@@ -87,7 +87,7 @@ const StyledBuyTicketButton = styled(BuyTicketsButton)<{ disabled: boolean }>`
   ${({ theme }) => theme.mediaQueries.xs} {
     width: 240px;
   }
-`
+`;
 
 const ButtonWrapper = styled.div`
   z-index: 1;
@@ -95,14 +95,14 @@ const ButtonWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(-4deg);
-`
+`;
 
 const TicketSvgWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   transform: rotate(-4deg);
-`
+`;
 
 const Decorations = styled.div`
   position: absolute;
@@ -111,7 +111,7 @@ const Decorations = styled.div`
   background: url(/images/decorations/bg-star.svg);
   background-repeat: no-repeat;
   background-position: center 0;
-`
+`;
 
 const StarsDecorations = styled(Box)`
   position: absolute;
@@ -210,19 +210,19 @@ const StarsDecorations = styled(Box)`
       top: 67%;
     }
   }
-`
+`;
 
 const Hero = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const {
     currentRound: { amountCollectedInCake, status },
     isTransitioning,
-  } = useLottery()
+  } = useLottery();
 
-  const cakePriceBusd = usePriceCakeBusd()
-  const prizeInBusd = amountCollectedInCake.times(cakePriceBusd)
-  const prizeTotal = getBalanceNumber(prizeInBusd)
-  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning
+  const cakePriceBusd = usePriceCakeBusd();
+  const prizeInBusd = amountCollectedInCake.times(cakePriceBusd);
+  const prizeTotal = getBalanceNumber(prizeInBusd);
+  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning;
 
   const getHeroHeading = () => {
     if (status === LotteryStatus.OPEN) {
@@ -237,14 +237,14 @@ const Hero = () => {
             {t('in prizes!')}
           </Heading>
         </>
-      )
+      );
     }
     return (
       <Heading mb="24px" scale="xl" color="#ffffff">
         {t('Tickets on sale soon')}
       </Heading>
-    )
-  }
+    );
+  };
 
   return (
     <Flex flexDirection="column" alignItems="center" justifyContent="center">
@@ -275,7 +275,7 @@ const Hero = () => {
         </TicketSvgWrapper>
       </TicketContainer>
     </Flex>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

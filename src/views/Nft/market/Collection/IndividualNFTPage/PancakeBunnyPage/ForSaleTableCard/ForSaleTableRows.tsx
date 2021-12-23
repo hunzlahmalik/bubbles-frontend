@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useWeb3React } from '@web3-react/core'
-import { Price } from '@pancakeswap/sdk'
-import { Button, Grid, Text, Flex, Box, BinanceIcon, useModal, Skeleton } from '@pancakeswap/uikit'
-import { formatNumber } from 'utils/formatBalance'
-import { ContextApi } from 'contexts/Localization/types'
-import { useTranslation } from 'contexts/Localization'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import { multiplyPriceByAmount } from 'utils/prices'
-import { NftToken } from 'state/nftMarket/types'
-import BuyModal from 'views/Nft/market/components/BuySellModals/BuyModal'
-import SellModal from 'views/Nft/market/components/BuySellModals/SellModal'
-import ProfileCell from 'views/Nft/market/components/ProfileCell'
-import { ButtonContainer } from '../../shared/styles'
+import React from 'react';
+import styled from 'styled-components';
+import { useWeb3React } from '@web3-react/core';
+import { Price } from '@pancakeswap/sdk';
+import { Button, Grid, Text, Flex, Box, BinanceIcon, useModal, Skeleton } from '@pancakeswap/uikit';
+import { formatNumber } from 'utils/formatBalance';
+import { ContextApi } from 'contexts/Localization/types';
+import { useTranslation } from 'contexts/Localization';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import { multiplyPriceByAmount } from 'utils/prices';
+import { NftToken } from 'state/nftMarket/types';
+import BuyModal from 'views/Nft/market/components/BuySellModals/BuyModal';
+import SellModal from 'views/Nft/market/components/BuySellModals/SellModal';
+import ProfileCell from 'views/Nft/market/components/ProfileCell';
+import { ButtonContainer } from '../../shared/styles';
 
 const OwnersTableRow = styled(Grid)`
   grid-template-columns: 2fr 2fr 1fr;
@@ -22,21 +22,21 @@ const OwnersTableRow = styled(Grid)`
     padding-bottom: 16px;
     border-bottom: ${({ theme }) => `1px solid ${theme.colors.cardBorder}`};
   }
-`
+`;
 
 interface RowProps {
-  t: ContextApi['t']
-  nft: NftToken
-  bnbBusdPrice: Price
-  account: string
+  t: ContextApi['t'];
+  nft: NftToken;
+  bnbBusdPrice: Price;
+  account: string;
 }
 
 const Row: React.FC<RowProps> = ({ t, nft, bnbBusdPrice, account }) => {
-  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, parseFloat(nft.marketData.currentAskPrice))
+  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, parseFloat(nft.marketData.currentAskPrice));
 
-  const ownNft = account ? nft.marketData.currentSeller === account.toLowerCase() : false
-  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nft} />)
-  const [onPresentAdjustPriceModal] = useModal(<SellModal variant="edit" nftToSell={nft} />)
+  const ownNft = account ? nft.marketData.currentSeller === account.toLowerCase() : false;
+  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nft} />);
+  const [onPresentAdjustPriceModal] = useModal(<SellModal variant="edit" nftToSell={nft} />);
 
   return (
     <>
@@ -70,24 +70,24 @@ const Row: React.FC<RowProps> = ({ t, nft, bnbBusdPrice, account }) => {
         )}
       </ButtonContainer>
     </>
-  )
-}
+  );
+};
 
 interface ForSaleTableRowsProps {
-  nftsForSale: NftToken[]
+  nftsForSale: NftToken[];
 }
 
 const ForSaleTableRow: React.FC<ForSaleTableRowsProps> = ({ nftsForSale }) => {
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
-  const bnbBusdPrice = useBNBBusdPrice()
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
+  const bnbBusdPrice = useBNBBusdPrice();
   return (
     <OwnersTableRow>
       {nftsForSale.map((nft) => (
         <Row key={nft.tokenId} t={t} nft={nft} bnbBusdPrice={bnbBusdPrice} account={account} />
       ))}
     </OwnersTableRow>
-  )
-}
+  );
+};
 
-export default ForSaleTableRow
+export default ForSaleTableRow;

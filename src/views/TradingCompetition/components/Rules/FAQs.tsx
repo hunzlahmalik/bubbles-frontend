@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, CardBody, CardHeader, Heading, Text, Flex } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import FoldableText from 'components/FoldableSection/FoldableText'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, CardBody, CardHeader, Heading, Text, Flex } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import FoldableText from 'components/FoldableSection/FoldableText';
 
 const Wrapper = styled(Flex)`
   margin-top: 16px;
@@ -15,16 +15,16 @@ const Wrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.xl} {
     flex: 2;
   }
-`
+`;
 
 const StyledCardbody = styled(CardBody)`
   div:first-child {
     margin-top: 0px;
   }
-`
+`;
 
 const FAQ = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -110,7 +110,7 @@ const FAQ = () => {
         </StyledCardbody>
       </Card>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default FAQ
+export default FAQ;

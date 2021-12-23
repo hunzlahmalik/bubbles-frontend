@@ -1,15 +1,15 @@
-import React from 'react'
-import { Modal, ModalBody, Text, Image, Button, Link, OpenNewIcon } from '@pancakeswap/uikit'
-import { Token } from '@pancakeswap/sdk'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import { Modal, ModalBody, Text, Image, Button, Link, OpenNewIcon } from '@pancakeswap/uikit';
+import { Token } from '@pancakeswap/sdk';
+import { useTranslation } from 'contexts/Localization';
 
 interface Props {
-  currency: Token
-  onDismiss?: () => void
+  currency: Token;
+  onDismiss?: () => void;
 }
 
 const GetTokenModal: React.FC<Partial<Props>> = ({ currency, onDismiss }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Modal title={t('%symbol% required', { symbol: currency.symbol })} onDismiss={onDismiss}>
       <ModalBody maxWidth="288px">
@@ -31,7 +31,7 @@ const GetTokenModal: React.FC<Partial<Props>> = ({ currency, onDismiss }) => {
         </Button>
       </ModalBody>
     </Modal>
-  )
-}
+  );
+};
 
-export default GetTokenModal
+export default GetTokenModal;

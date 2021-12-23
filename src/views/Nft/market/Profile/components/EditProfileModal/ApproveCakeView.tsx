@@ -1,43 +1,43 @@
-import React, { useState } from 'react'
-import { AutoRenewIcon, Button, Flex, InjectedModalProps, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useCake } from 'hooks/useContract'
-import useToast from 'hooks/useToast'
-import { useProfile } from 'state/profile/hooks'
-import { getPancakeProfileAddress } from 'utils/addressHelpers'
-import { formatBigNumber } from 'utils/formatBalance'
-import useGetProfileCosts from 'views/Nft/market/Profile/hooks/useGetProfileCosts'
-import { UseEditProfileResponse } from './reducer'
+import React, { useState } from 'react';
+import { AutoRenewIcon, Button, Flex, InjectedModalProps, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useCake } from 'hooks/useContract';
+import useToast from 'hooks/useToast';
+import { useProfile } from 'state/profile/hooks';
+import { getPancakeProfileAddress } from 'utils/addressHelpers';
+import { formatBigNumber } from 'utils/formatBalance';
+import useGetProfileCosts from 'views/Nft/market/Profile/hooks/useGetProfileCosts';
+import { UseEditProfileResponse } from './reducer';
 
 interface ApproveCakePageProps extends InjectedModalProps {
-  goToChange: UseEditProfileResponse['goToChange']
+  goToChange: UseEditProfileResponse['goToChange'];
 }
 
 const ApproveCakePage: React.FC<ApproveCakePageProps> = ({ goToChange, onDismiss }) => {
-  const [isApproving, setIsApproving] = useState(false)
-  const { profile } = useProfile()
-  const { t } = useTranslation()
+  const [isApproving, setIsApproving] = useState(false);
+  const { profile } = useProfile();
+  const { t } = useTranslation();
   const {
     costs: { numberCakeToUpdate, numberCakeToReactivate },
-  } = useGetProfileCosts()
-  const cakeContract = useCake()
-  const { toastError } = useToast()
-  const cost = profile.isActive ? numberCakeToUpdate : numberCakeToReactivate
+  } = useGetProfileCosts();
+  const cakeContract = useCake();
+  const { toastError } = useToast();
+  const cost = profile.isActive ? numberCakeToUpdate : numberCakeToReactivate;
 
   const handleApprove = async () => {
-    const tx = await cakeContract.approve(getPancakeProfileAddress(), cost.mul(2).toString())
-    setIsApproving(true)
-    const receipt = await tx.wait()
+    const tx = await cakeContract.approve(getPancakeProfileAddress(), cost.mul(2).toString());
+    setIsApproving(true);
+    const receipt = await tx.wait();
     if (receipt.status) {
-      goToChange()
+      goToChange();
     } else {
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
-      setIsApproving(false)
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
+      setIsApproving(false);
     }
-  }
+  };
 
   if (!profile) {
-    return null
+    return null;
   }
 
   return (
@@ -60,7 +60,7 @@ const ApproveCakePage: React.FC<ApproveCakePageProps> = ({ goToChange, onDismiss
         {t('Close Window')}
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default ApproveCakePage
+export default ApproveCakePage;

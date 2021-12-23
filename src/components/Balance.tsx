@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from 'react'
-import CountUp from 'react-countup'
-import { Text, TextProps } from '@pancakeswap/uikit'
+import React, { useEffect, useRef } from 'react';
+import CountUp from 'react-countup';
+import { Text, TextProps } from '@pancakeswap/uikit';
 
 interface BalanceProps extends TextProps {
-  value: number
-  decimals?: number
-  unit?: string
-  isDisabled?: boolean
-  prefix?: string
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void
+  value: number;
+  decimals?: number;
+  unit?: string;
+  isDisabled?: boolean;
+  prefix?: string;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 const Balance: React.FC<BalanceProps> = ({
@@ -21,11 +21,11 @@ const Balance: React.FC<BalanceProps> = ({
   onClick,
   ...props
 }) => {
-  const previousValue = useRef(0)
+  const previousValue = useRef(0);
 
   useEffect(() => {
-    previousValue.current = value
-  }, [value])
+    previousValue.current = value;
+  }, [value]);
 
   return (
     <Text color={isDisabled ? 'textDisabled' : color} onClick={onClick} {...props}>
@@ -39,7 +39,7 @@ const Balance: React.FC<BalanceProps> = ({
         separator=","
       />
     </Text>
-  )
-}
+  );
+};
 
-export default Balance
+export default Balance;

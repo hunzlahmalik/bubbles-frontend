@@ -1,8 +1,8 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useMemo } from 'react'
-import { RouteComponentProps, Link } from 'react-router-dom'
-import { Duration } from 'date-fns'
-import styled from 'styled-components'
+import React, { useEffect, useMemo } from 'react';
+import { RouteComponentProps, Link } from 'react-router-dom';
+import { Duration } from 'date-fns';
+import styled from 'styled-components';
 import {
   Text,
   Box,
@@ -16,15 +16,15 @@ import {
   Spinner,
   Image,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import Page from 'components/Layout/Page'
-import { getBscScanLink } from 'utils'
-import truncateHash from 'utils/truncateHash'
-import useCMCLink from 'views/Info/hooks/useCMCLink'
-import { CurrencyLogo } from 'views/Info/components/CurrencyLogo'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import Percent from 'views/Info/components/Percent'
-import SaveIcon from 'views/Info/components/SaveIcon'
+} from '@pancakeswap/uikit';
+import Page from 'components/Layout/Page';
+import { getBscScanLink } from 'utils';
+import truncateHash from 'utils/truncateHash';
+import useCMCLink from 'views/Info/hooks/useCMCLink';
+import { CurrencyLogo } from 'views/Info/components/CurrencyLogo';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import Percent from 'views/Info/components/Percent';
+import SaveIcon from 'views/Info/components/SaveIcon';
 import {
   usePoolDatas,
   useTokenData,
@@ -32,13 +32,13 @@ import {
   useTokenChartData,
   useTokenPriceData,
   useTokenTransactions,
-} from 'state/info/hooks'
-import PoolTable from 'views/Info/components/InfoTables/PoolsTable'
-import TransactionTable from 'views/Info/components/InfoTables/TransactionsTable'
-import { useWatchlistTokens } from 'state/user/hooks'
-import { ONE_HOUR_SECONDS } from 'config/constants/info'
-import { useTranslation } from 'contexts/Localization'
-import ChartCard from 'views/Info/components/InfoCharts/ChartCard'
+} from 'state/info/hooks';
+import PoolTable from 'views/Info/components/InfoTables/PoolsTable';
+import TransactionTable from 'views/Info/components/InfoTables/TransactionsTable';
+import { useWatchlistTokens } from 'state/user/hooks';
+import { ONE_HOUR_SECONDS } from 'config/constants/info';
+import { useTranslation } from 'contexts/Localization';
+import ChartCard from 'views/Info/components/InfoCharts/ChartCard';
 
 const ContentLayout = styled.div`
   margin-top: 16px;
@@ -49,7 +49,7 @@ const ContentLayout = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
-`
+`;
 
 const StyledCMCLink = styled(UIKitLink)`
   width: 24px;
@@ -59,35 +59,35 @@ const StyledCMCLink = styled(UIKitLink)`
   & :hover {
     opacity: 0.8;
   }
-`
-const DEFAULT_TIME_WINDOW: Duration = { weeks: 1 }
+`;
+const DEFAULT_TIME_WINDOW: Duration = { weeks: 1 };
 
 const TokenPage: React.FC<RouteComponentProps<{ address: string }>> = ({
   match: {
     params: { address: routeAddress },
   },
 }) => {
-  const { isXs, isSm } = useMatchBreakpoints()
-  const { t } = useTranslation()
+  const { isXs, isSm } = useMatchBreakpoints();
+  const { t } = useTranslation();
 
   // Needed to scroll up if user comes to this page by clicking on entry in the table
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   // In case somebody pastes checksummed address into url (since GraphQL expects lowercase address)
-  const address = routeAddress.toLowerCase()
+  const address = routeAddress.toLowerCase();
 
-  const cmcLink = useCMCLink(address)
+  const cmcLink = useCMCLink(address);
 
-  const tokenData = useTokenData(address)
-  const poolsForToken = usePoolsForToken(address)
-  const poolDatas = usePoolDatas(poolsForToken ?? [])
-  const transactions = useTokenTransactions(address)
-  const chartData = useTokenChartData(address)
+  const tokenData = useTokenData(address);
+  const poolsForToken = usePoolsForToken(address);
+  const poolDatas = usePoolDatas(poolsForToken ?? []);
+  const transactions = useTokenTransactions(address);
+  const chartData = useTokenChartData(address);
 
   // pricing data
-  const priceData = useTokenPriceData(address, ONE_HOUR_SECONDS, DEFAULT_TIME_WINDOW)
+  const priceData = useTokenPriceData(address, ONE_HOUR_SECONDS, DEFAULT_TIME_WINDOW);
   const adjustedPriceData = useMemo(() => {
     // Include latest available price
     if (priceData && tokenData && priceData.length > 0) {
@@ -100,12 +100,12 @@ const TokenPage: React.FC<RouteComponentProps<{ address: string }>> = ({
           high: tokenData?.priceUSD,
           low: priceData[priceData.length - 1].close,
         },
-      ]
+      ];
     }
-    return undefined
-  }, [priceData, tokenData])
+    return undefined;
+  }, [priceData, tokenData]);
 
-  const [watchlistTokens, addWatchlistToken] = useWatchlistTokens()
+  const [watchlistTokens, addWatchlistToken] = useWatchlistTokens();
 
   return (
     <Page symbol={tokenData?.symbol}>
@@ -249,7 +249,7 @@ const TokenPage: React.FC<RouteComponentProps<{ address: string }>> = ({
         </Flex>
       )}
     </Page>
-  )
-}
+  );
+};
 
-export default TokenPage
+export default TokenPage;

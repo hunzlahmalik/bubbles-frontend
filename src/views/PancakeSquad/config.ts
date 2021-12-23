@@ -1,12 +1,12 @@
-import { ContextApi } from 'contexts/Localization/types'
-import { SaleStatusEnum } from './types'
-import { getAltText, getEventStepStatus, getEventText } from './utils'
+import { ContextApi } from 'contexts/Localization/types';
+import { SaleStatusEnum } from './types';
+import { getAltText, getEventStepStatus, getEventText } from './utils';
 
 type nftSaleType = {
-  t: ContextApi['t']
-  saleStatus?: SaleStatusEnum
-  startTimestamp?: number
-}
+  t: ContextApi['t'];
+  saleStatus?: SaleStatusEnum;
+  startTimestamp?: number;
+};
 
 const nftSaleConfigBuilder = ({ t, saleStatus, startTimestamp }: nftSaleType) =>
   saleStatus !== undefined
@@ -57,6 +57,6 @@ const nftSaleConfigBuilder = ({ t, saleStatus, startTimestamp }: nftSaleType) =>
           ),
         },
       ]
-    : []
+    : [];
 
-export default nftSaleConfigBuilder
+export default nftSaleConfigBuilder;

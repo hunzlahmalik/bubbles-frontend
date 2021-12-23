@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex } from '@pancakeswap/uikit'
-import PrizesText from './PrizesText'
-import PrizesCard from './PrizesCard'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex } from '@pancakeswap/uikit';
+import PrizesText from './PrizesText';
+import PrizesCard from './PrizesCard';
 
 const Wrapper = styled(Flex)`
   flex-direction: column-reverse;
@@ -12,7 +12,7 @@ const Wrapper = styled(Flex)`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 const PrizesInfo = () => {
   return (
@@ -20,7 +20,7 @@ const PrizesInfo = () => {
       <PrizesCard />
       <PrizesText />
     </Wrapper>
-  )
-}
+  );
+};
 
-export default PrizesInfo
+export default PrizesInfo;

@@ -1,10 +1,10 @@
-import { Currency, CurrencyAmount, Fraction, Percent } from '@pancakeswap/sdk'
-import React from 'react'
-import { Button, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { RowBetween, RowFixed } from '../../components/Layout/Row'
-import { CurrencyLogo } from '../../components/Logo'
-import { Field } from '../../state/mint/actions'
+import { Currency, CurrencyAmount, Fraction, Percent } from '@pancakeswap/sdk';
+import React from 'react';
+import { Button, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { RowBetween, RowFixed } from '../../components/Layout/Row';
+import { CurrencyLogo } from '../../components/Logo';
+import { Field } from '../../state/mint/actions';
 
 function ConfirmAddModalBottom({
   noLiquidity,
@@ -14,14 +14,14 @@ function ConfirmAddModalBottom({
   poolTokenPercentage,
   onAdd,
 }: {
-  noLiquidity?: boolean
-  price?: Fraction
-  currencies: { [field in Field]?: Currency }
-  parsedAmounts: { [field in Field]?: CurrencyAmount }
-  poolTokenPercentage?: Percent
-  onAdd: () => void
+  noLiquidity?: boolean;
+  price?: Fraction;
+  currencies: { [field in Field]?: Currency };
+  parsedAmounts: { [field in Field]?: CurrencyAmount };
+  poolTokenPercentage?: Percent;
+  onAdd: () => void;
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <RowBetween>
@@ -61,7 +61,7 @@ function ConfirmAddModalBottom({
         {noLiquidity ? t('Create Pool & Supply') : t('Confirm Supply')}
       </Button>
     </>
-  )
+  );
 }
 
-export default ConfirmAddModalBottom
+export default ConfirmAddModalBottom;

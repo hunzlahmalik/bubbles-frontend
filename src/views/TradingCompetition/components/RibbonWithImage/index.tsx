@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex } from '@pancakeswap/uikit'
-import { RibbonProps } from '../../types'
-import Ribbon from '../Ribbon'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex } from '@pancakeswap/uikit';
+import { RibbonProps } from '../../types';
+import Ribbon from '../Ribbon';
 
 const Wrapper = styled(Flex)<{ marginBottom?: string }>`
   position: relative;
   margin-bottom: ${({ marginBottom }) => marginBottom};
-`
+`;
 
 const Spacer = styled.div`
   height: 54px;
@@ -15,14 +15,14 @@ const Spacer = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     height: 116px;
   }
-`
+`;
 
 const AbsoluteImageWrapper = styled.div`
   z-index: 2;
   position: absolute;
   /* When the absolute image wrapper is used - offset the image slightly to overlap the ribbon */
   bottom: -8px;
-`
+`;
 
 const RibbonWrapper = styled(Flex)<{ ribbonDirection?: string }>`
   position: absolute;
@@ -31,7 +31,7 @@ const RibbonWrapper = styled(Flex)<{ ribbonDirection?: string }>`
   left: 50%;
   bottom: ${({ ribbonDirection }) => (ribbonDirection === 'down' ? '-54px' : '-50px')};
   transform: translate(-50%, 0);
-`
+`;
 
 const RibbonWithImage: React.FC<RibbonProps> = ({
   imageComponent,
@@ -41,15 +41,15 @@ const RibbonWithImage: React.FC<RibbonProps> = ({
 }) => {
   const marginBottom = () => {
     if (isCardHeader) {
-      return '36px'
+      return '36px';
     }
 
     if (ribbonDirection === 'down') {
-      return '66px'
+      return '66px';
     }
 
-    return '50px'
-  }
+    return '50px';
+  };
 
   return (
     <Wrapper alignItems="center" justifyContent="center" marginBottom={marginBottom()}>
@@ -65,7 +65,7 @@ const RibbonWithImage: React.FC<RibbonProps> = ({
         <Ribbon ribbonDirection={ribbonDirection}>{children}</Ribbon>
       </RibbonWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default RibbonWithImage
+export default RibbonWithImage;

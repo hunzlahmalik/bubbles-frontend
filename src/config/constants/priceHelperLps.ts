@@ -1,5 +1,5 @@
-import tokens from './tokens'
-import { SerializedFarmConfig } from './types'
+import tokens from './tokens';
+import { SerializedFarmConfig } from './types';
 
 const priceHelperLps: SerializedFarmConfig[] = [
   /**
@@ -19,6 +19,6 @@ const priceHelperLps: SerializedFarmConfig[] = [
     token: tokens.qsd,
     quoteToken: tokens.wbnb,
   },
-]
+];
 
-export default priceHelperLps
+export default priceHelperLps;

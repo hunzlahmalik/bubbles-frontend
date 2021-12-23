@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement } from 'react';
 import {
   Card,
   BinanceIcon,
@@ -11,20 +11,20 @@ import {
   Text,
   WalletFilledIcon,
   Skeleton,
-} from '@pancakeswap/uikit'
-import { Price } from '@pancakeswap/sdk'
-import { useTranslation } from 'contexts/Localization'
-import { multiplyPriceByAmount } from 'utils/prices'
-import styled from 'styled-components'
+} from '@pancakeswap/uikit';
+import { Price } from '@pancakeswap/sdk';
+import { useTranslation } from 'contexts/Localization';
+import { multiplyPriceByAmount } from 'utils/prices';
+import styled from 'styled-components';
 
 export const Footer: React.FC<BoxProps> = ({ children, ...props }) => (
   <Box borderTop={[null, null, null, '1px solid']} borderColor="cardBorder" pt="8px" {...props}>
     {children}
   </Box>
-)
+);
 
 interface BNBAmountLabelProps extends FlexProps {
-  amount: number
+  amount: number;
 }
 
 export const BNBAmountLabel: React.FC<BNBAmountLabelProps> = ({ amount, ...props }) => (
@@ -37,15 +37,15 @@ export const BNBAmountLabel: React.FC<BNBAmountLabelProps> = ({ amount, ...props
       })}
     </Text>
   </Flex>
-)
+);
 
 interface CostLabelProps extends FlexProps {
-  cost: number
-  bnbBusdPrice: Price
+  cost: number;
+  bnbBusdPrice: Price;
 }
 
 export const CostLabel: React.FC<CostLabelProps> = ({ cost, bnbBusdPrice, ...props }) => {
-  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, cost)
+  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, cost);
 
   return (
     <Flex alignItems="center" {...props}>
@@ -57,11 +57,11 @@ export const CostLabel: React.FC<CostLabelProps> = ({ cost, bnbBusdPrice, ...pro
       )}
       <BNBAmountLabel amount={cost} />
     </Flex>
-  )
-}
+  );
+};
 
 interface MetaRowProps extends FlexProps {
-  title: string
+  title: string;
 }
 
 export const MetaRow: React.FC<MetaRowProps> = ({ title, children, ...props }) => (
@@ -71,11 +71,11 @@ export const MetaRow: React.FC<MetaRowProps> = ({ title, children, ...props }) =
     </Text>
     <Box>{children}</Box>
   </Flex>
-)
+);
 
 export interface NftTagProps extends FlexProps {
-  icon?: ReactElement
-  color?: string
+  icon?: ReactElement;
+  color?: string;
 }
 
 export const NftTag: React.FC<NftTagProps> = ({ icon, color = 'text', children, ...props }) => (
@@ -85,37 +85,37 @@ export const NftTag: React.FC<NftTagProps> = ({ icon, color = 'text', children, 
       {children}
     </Text>
   </Flex>
-)
+);
 
 export const ProfileNftTag: React.FC<NftTagProps> = (props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <NftTag icon={<CameraIcon mr="4px" width="16px" color="textSubtle" />} color="textSubtle" {...props}>
       {t('Profile')}
     </NftTag>
-  )
-}
+  );
+};
 
 export const WalletNftTag: React.FC<NftTagProps> = (props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <NftTag icon={<WalletFilledIcon mr="4px" width="16px" color="secondary" />} color="secondary" {...props}>
       {t('Wallet')}
     </NftTag>
-  )
-}
+  );
+};
 
 export const SellingNftTag: React.FC<NftTagProps> = (props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <NftTag icon={<SellIcon mr="4px" width="16px" color="failure" />} color="failure" {...props}>
       {t('Selling')}
     </NftTag>
-  )
-}
+  );
+};
 
 export const StyledCollectibleCard = styled(Card)`
   border-radius: 8px;
@@ -132,18 +132,18 @@ export const StyledCollectibleCard = styled(Card)`
       opacity: 0.6;
     }
   }
-`
+`;
 interface LowestPriceMetaRowProps {
-  lowestPrice: number
-  isFetching: boolean
-  bnbBusdPrice: Price
+  lowestPrice: number;
+  isFetching: boolean;
+  bnbBusdPrice: Price;
 }
 
 export const LowestPriceMetaRow = ({ lowestPrice, isFetching, bnbBusdPrice }: LowestPriceMetaRowProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (!isFetching && !lowestPrice) {
-    return null
+    return null;
   }
 
   return (
@@ -154,5 +154,5 @@ export const LowestPriceMetaRow = ({ lowestPrice, isFetching, bnbBusdPrice }: Lo
         <CostLabel cost={lowestPrice} bnbBusdPrice={bnbBusdPrice} />
       )}
     </MetaRow>
-  )
-}
+  );
+};

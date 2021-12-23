@@ -1,4 +1,4 @@
-import { ContextApi } from 'contexts/Localization/types'
+import { ContextApi } from 'contexts/Localization/types';
 
 const config = (t: ContextApi['t']) => {
   return [
@@ -40,7 +40,7 @@ const config = (t: ContextApi['t']) => {
         ),
       ],
     },
-  ]
-}
+  ];
+};
 
-export default config
+export default config;

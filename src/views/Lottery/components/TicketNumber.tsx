@@ -1,10 +1,10 @@
-import React from 'react'
-import { LotteryTicket } from 'config/constants/types'
-import { Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import styled from 'styled-components'
-import _uniqueId from 'lodash/uniqueId'
-import { parseRetrievedNumber } from '../helpers'
+import React from 'react';
+import { LotteryTicket } from 'config/constants/types';
+import { Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import styled from 'styled-components';
+import _uniqueId from 'lodash/uniqueId';
+import { parseRetrievedNumber } from '../helpers';
 
 const StyledNumberWrapper = styled(Flex)`
   position: relative;
@@ -13,7 +13,7 @@ const StyledNumberWrapper = styled(Flex)`
   border-radius: ${({ theme }) => theme.radii.default};
   background: ${({ theme }) => theme.colors.background};
   justify-content: space-between;
-`
+`;
 
 const RewardHighlighter = styled.div<{ numberMatches: number }>`
   z-index: 1;
@@ -24,18 +24,18 @@ const RewardHighlighter = styled.div<{ numberMatches: number }>`
   left: 0;
   position: absolute;
   border: 2px ${({ theme }) => theme.colors.primary} solid;
-`
+`;
 
 interface TicketNumberProps extends LotteryTicket {
-  localId?: number
-  rewardBracket?: number
+  localId?: number;
+  rewardBracket?: number;
 }
 
 const TicketNumber: React.FC<TicketNumberProps> = ({ localId, id, number, rewardBracket }) => {
-  const { t } = useTranslation()
-  const reversedNumber = parseRetrievedNumber(number)
-  const numberAsArray = reversedNumber.split('')
-  const numberMatches = rewardBracket + 1
+  const { t } = useTranslation();
+  const reversedNumber = parseRetrievedNumber(number);
+  const numberAsArray = reversedNumber.split('');
+  const numberMatches = rewardBracket + 1;
 
   return (
     <Flex flexDirection="column" mb="12px">
@@ -58,7 +58,7 @@ const TicketNumber: React.FC<TicketNumberProps> = ({ localId, id, number, reward
         ))}
       </StyledNumberWrapper>
     </Flex>
-  )
-}
+  );
+};
 
-export default TicketNumber
+export default TicketNumber;

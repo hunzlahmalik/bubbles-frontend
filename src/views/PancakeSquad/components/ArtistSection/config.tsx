@@ -1,11 +1,11 @@
-import React from 'react'
-import { InstagramIcon, TwitterIcon } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
+import React from 'react';
+import { InstagramIcon, TwitterIcon } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
 
 type ArtistConfigType = {
-  t: ContextApi['t']
-  isDark: boolean
-}
+  t: ContextApi['t'];
+  isDark: boolean;
+};
 
 const artistConfigBuilder = ({ t, isDark }: ArtistConfigType) => ({
   headingText: t('Meet the Artist'),
@@ -36,6 +36,6 @@ const artistConfigBuilder = ({ t, isDark }: ArtistConfigType) => ({
     },
   ],
   image: { src: `/images/pancakeSquad/artist${isDark ? '-dark' : ''}.png`, alt: 'Chef Cecy bio' },
-})
+});
 
-export default artistConfigBuilder
+export default artistConfigBuilder;

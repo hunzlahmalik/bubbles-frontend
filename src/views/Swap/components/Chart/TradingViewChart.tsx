@@ -1,30 +1,30 @@
-import { Currency } from '@pancakeswap/sdk'
-import { Box, BunnyPlaceholderIcon, Flex, Text } from '@pancakeswap/uikit'
-import TradingView, { TradingViewLabel, useTradingViewEvent } from 'components/TradingView'
-import { useTranslation } from 'contexts/Localization'
-import useDebounce from 'hooks/useDebounce'
-import React, { useCallback, useMemo, useState } from 'react'
-import styled from 'styled-components'
-import { BarChartLoader } from 'views/Info/components/ChartLoaders'
-import TokenDisplay from './TokenDisplay'
+import { Currency } from '@pancakeswap/sdk';
+import { Box, BunnyPlaceholderIcon, Flex, Text } from '@pancakeswap/uikit';
+import TradingView, { TradingViewLabel, useTradingViewEvent } from 'components/TradingView';
+import { useTranslation } from 'contexts/Localization';
+import useDebounce from 'hooks/useDebounce';
+import React, { useCallback, useMemo, useState } from 'react';
+import styled from 'styled-components';
+import { BarChartLoader } from 'views/Info/components/ChartLoaders';
+import TokenDisplay from './TokenDisplay';
 
 interface TradingViewChartProps {
-  isChartExpanded: boolean
-  inputCurrency: Currency
-  outputCurrency: Currency
-  token0Address: string
-  isMobile: boolean
-  isDark: boolean
+  isChartExpanded: boolean;
+  inputCurrency: Currency;
+  outputCurrency: Currency;
+  token0Address: string;
+  isMobile: boolean;
+  isDark: boolean;
   currentSwapPrice: {
-    [key: string]: number
-  }
+    [key: string]: number;
+  };
 }
 
 const TradingViewWrapper = styled.div<{ $show: boolean }>`
   opacity: ${({ $show }) => ($show ? 1 : 0)};
   transition: opacity 0.2s ease-in;
   height: 100%;
-`
+`;
 
 const LoadingWrapper = styled.div<{ $isDark: boolean }>`
   position: absolute;
@@ -35,12 +35,12 @@ const LoadingWrapper = styled.div<{ $isDark: boolean }>`
   ${({ theme }) => theme.mediaQueries.md} {
     background: ${({ $isDark }) => ($isDark ? '#2E2E42' : '#F4FCFF')};
   }
-`
+`;
 
-const bnbToWBNBSymbol = (sym: string) => (sym === 'BNB' ? 'WBNB' : sym)
+const bnbToWBNBSymbol = (sym: string) => (sym === 'BNB' ? 'WBNB' : sym);
 
-const ID = 'TV_SWAP_CHART'
-const SYMBOL_PREFIX = 'PANCAKESWAP:'
+const ID = 'TV_SWAP_CHART';
+const SYMBOL_PREFIX = 'PANCAKESWAP:';
 
 const TradingViewChart = ({
   isChartExpanded,
@@ -51,41 +51,41 @@ const TradingViewChart = ({
   isDark,
   currentSwapPrice,
 }: TradingViewChartProps) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const { t } = useTranslation()
-  const token0Price = currentSwapPrice?.[token0Address]
+  const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
+  const token0Price = currentSwapPrice?.[token0Address];
 
-  const [hasNoData, setHasNoData] = useState(false)
+  const [hasNoData, setHasNoData] = useState(false);
 
   const symbol = useMemo(() => {
     if (!(inputCurrency?.symbol && outputCurrency?.symbol)) {
-      return null
+      return null;
     }
 
-    const input = bnbToWBNBSymbol(inputCurrency.symbol)
-    const output = bnbToWBNBSymbol(outputCurrency.symbol)
-    return `${input}${output}`
-  }, [inputCurrency?.symbol, outputCurrency?.symbol])
+    const input = bnbToWBNBSymbol(inputCurrency.symbol);
+    const output = bnbToWBNBSymbol(outputCurrency.symbol);
+    return `${input}${output}`;
+  }, [inputCurrency?.symbol, outputCurrency?.symbol]);
 
   const onNoDataEvent = useCallback(() => {
-    console.debug('No data from TV widget')
-    setHasNoData(true)
-  }, [])
+    console.debug('No data from TV widget');
+    setHasNoData(true);
+  }, []);
 
   const onLoadedEvent = useCallback(() => {
-    setIsLoading(false)
-  }, [])
+    setIsLoading(false);
+  }, []);
 
   useTradingViewEvent({
     id: ID,
     onNoDataEvent,
     onLoadedEvent,
-  })
+  });
 
   // debounce the loading to wait for no data event from TV widget.
   // we cover the loading spinner over TV, let TV try to load data from pairs
   // if there's no no-data event coming between the debounce time, we assume the chart is loaded
-  const debouncedLoading = useDebounce(isLoading, 800)
+  const debouncedLoading = useDebounce(isLoading, 800);
 
   return (
     <>
@@ -128,7 +128,7 @@ const TradingViewChart = ({
         </Flex>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default TradingViewChart
+export default TradingViewChart;

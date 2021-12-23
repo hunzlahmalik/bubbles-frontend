@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Td = styled.td`
   padding: 4px 0;
@@ -6,11 +6,11 @@ export const Td = styled.td`
   ${({ theme }) => theme.mediaQueries.sm} {
     padding: 8px;
   }
-`
+`;
 
 export const BoldTd = styled(Td)`
   font-weight: 600;
-`
+`;
 
 export const StyledPrizeTable = styled.table`
   width: 100%;
@@ -34,6 +34,6 @@ export const StyledPrizeTable = styled.table`
       padding: 16px;
     }
   }
-`
+`;
 
-export default StyledPrizeTable
+export default StyledPrizeTable;

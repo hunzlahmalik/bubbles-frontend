@@ -1,18 +1,18 @@
-import React from 'react'
-import BigNumber from 'bignumber.js'
-import { Flex, Skeleton, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import Balance from 'components/Balance'
-import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
+import React from 'react';
+import BigNumber from 'bignumber.js';
+import { Flex, Skeleton, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import Balance from 'components/Balance';
+import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance';
 
 interface RewardBracketDetailProps {
-  cakeAmount: BigNumber
-  rewardBracket?: number
-  numberWinners?: string
-  isBurn?: boolean
-  isHistoricRound?: boolean
-  isLoading?: boolean
+  cakeAmount: BigNumber;
+  rewardBracket?: number;
+  numberWinners?: string;
+  isBurn?: boolean;
+  isHistoricRound?: boolean;
+  isLoading?: boolean;
 }
 
 const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
@@ -23,19 +23,19 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
   isBurn,
   isLoading,
 }) => {
-  const { t } = useTranslation()
-  const cakePriceBusd = usePriceCakeBusd()
+  const { t } = useTranslation();
+  const cakePriceBusd = usePriceCakeBusd();
 
   const getRewardText = () => {
-    const numberMatch = rewardBracket + 1
+    const numberMatch = rewardBracket + 1;
     if (isBurn) {
-      return t('Burn')
+      return t('Burn');
     }
     if (rewardBracket === 5) {
-      return t('Match all %numberMatch%', { numberMatch })
+      return t('Match all %numberMatch%', { numberMatch });
     }
-    return t('Match first %numberMatch%', { numberMatch })
-  }
+    return t('Match first %numberMatch%', { numberMatch });
+  };
 
   return (
     <Flex flexDirection="column">
@@ -79,7 +79,7 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
         )}
       </>
     </Flex>
-  )
-}
+  );
+};
 
-export default RewardBracketDetail
+export default RewardBracketDetail;

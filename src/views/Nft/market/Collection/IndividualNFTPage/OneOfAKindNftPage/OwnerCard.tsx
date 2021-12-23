@@ -1,17 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Card, Grid, SellIcon, Text, useModal, Box, BinanceIcon, Skeleton, Button } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useTheme from 'hooks/useTheme'
-import { NftToken } from 'state/nftMarket/types'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import { formatNumber } from 'utils/formatBalance'
-import { multiplyPriceByAmount } from 'utils/prices'
-import useNftOwner from 'views/Nft/market/hooks/useNftOwner'
-import BuyModal from '../../../components/BuySellModals/BuyModal'
-import SellModal from '../../../components/BuySellModals/SellModal'
-import ProfileCell from '../../../components/ProfileCell'
-import { ButtonContainer, TableHeading } from '../shared/styles'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Card, Grid, SellIcon, Text, useModal, Box, BinanceIcon, Skeleton, Button } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useTheme from 'hooks/useTheme';
+import { NftToken } from 'state/nftMarket/types';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import { formatNumber } from 'utils/formatBalance';
+import { multiplyPriceByAmount } from 'utils/prices';
+import useNftOwner from 'views/Nft/market/hooks/useNftOwner';
+import BuyModal from '../../../components/BuySellModals/BuyModal';
+import SellModal from '../../../components/BuySellModals/SellModal';
+import ProfileCell from '../../../components/ProfileCell';
+import { ButtonContainer, TableHeading } from '../shared/styles';
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -19,7 +19,7 @@ const StyledCard = styled(Card)`
     display: flex;
     flex-direction: column;
   }
-`
+`;
 
 const OwnerRow = styled(Grid)`
   grid-template-columns: 2fr 2fr 1fr;
@@ -27,27 +27,27 @@ const OwnerRow = styled(Grid)`
   margin-top: 16px;
   margin-bottom: 8px;
   align-items: center;
-`
+`;
 
 interface OwnerCardProps {
-  nft: NftToken
-  isOwnNft: boolean
-  nftIsProfilePic: boolean
+  nft: NftToken;
+  isOwnNft: boolean;
+  nftIsProfilePic: boolean;
 }
 
 const OwnerCard: React.FC<OwnerCardProps> = ({ nft, isOwnNft, nftIsProfilePic }) => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const bnbBusdPrice = useBNBBusdPrice()
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const bnbBusdPrice = useBNBBusdPrice();
 
-  const { owner, isLoadingOwner } = useNftOwner(nft)
+  const { owner, isLoadingOwner } = useNftOwner(nft);
 
-  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, parseFloat(nft.marketData?.currentAskPrice))
+  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, parseFloat(nft.marketData?.currentAskPrice));
 
-  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nft} />)
+  const [onPresentBuyModal] = useModal(<BuyModal nftToBuy={nft} />);
   const [onPresentAdjustPriceModal] = useModal(
     <SellModal variant={nft.marketData?.isTradable ? 'edit' : 'sell'} nftToSell={nft} />,
-  )
+  );
 
   return (
     <StyledCard>
@@ -134,7 +134,7 @@ const OwnerCard: React.FC<OwnerCardProps> = ({ nft, isOwnNft, nftIsProfilePic })
         </Flex>
       )}
     </StyledCard>
-  )
-}
+  );
+};
 
-export default OwnerCard
+export default OwnerCard;

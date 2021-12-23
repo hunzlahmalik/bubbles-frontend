@@ -1,27 +1,27 @@
-import React from 'react'
-import { Text, Flex, useTooltip, TooltipText } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { VaultKey } from 'state/types'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { secondsToDay } from 'utils/timeHelper'
-import { getHasWithdrawFee } from '../../hooks/useWithdrawalFeeTimer'
-import UnstakingFeeCountdownRow from './UnstakingFeeCountdownRow'
+import React from 'react';
+import { Text, Flex, useTooltip, TooltipText } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { VaultKey } from 'state/types';
+import { useVaultPoolByKey } from 'state/pools/hooks';
+import { secondsToDay } from 'utils/timeHelper';
+import { getHasWithdrawFee } from '../../hooks/useWithdrawalFeeTimer';
+import UnstakingFeeCountdownRow from './UnstakingFeeCountdownRow';
 
 interface FeeSummaryProps {
-  stakingTokenSymbol: string
-  stakeAmount: string
-  vaultKey: VaultKey
+  stakingTokenSymbol: string;
+  stakeAmount: string;
+  vaultKey: VaultKey;
 }
 
 const FeeSummary: React.FC<FeeSummaryProps> = ({ stakingTokenSymbol, stakeAmount, vaultKey }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const {
     fees: { withdrawalFee, withdrawalFeePeriod },
     userData: { lastDepositedTime },
-  } = useVaultPoolByKey(vaultKey)
-  const feeAsDecimal = withdrawalFee / 100
-  const feeInCake = (parseFloat(stakeAmount) * (feeAsDecimal / 100)).toFixed(4)
-  const withdrawalDayPeriod = withdrawalFeePeriod ? secondsToDay(withdrawalFeePeriod) : '-'
+  } = useVaultPoolByKey(vaultKey);
+  const feeAsDecimal = withdrawalFee / 100;
+  const feeInCake = (parseFloat(stakeAmount) * (feeAsDecimal / 100)).toFixed(4);
+  const withdrawalDayPeriod = withdrawalFeePeriod ? secondsToDay(withdrawalFeePeriod) : '-';
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <>
       <Text bold mb="4px">
@@ -37,9 +37,9 @@ const FeeSummary: React.FC<FeeSummaryProps> = ({ stakingTokenSymbol, stakeAmount
       </Text>
     </>,
     { placement: 'top-start' },
-  )
+  );
 
-  const hasFeeToPay = lastDepositedTime && getHasWithdrawFee(parseInt(lastDepositedTime, 10), withdrawalFeePeriod)
+  const hasFeeToPay = lastDepositedTime && getHasWithdrawFee(parseInt(lastDepositedTime, 10), withdrawalFeePeriod);
 
   return (
     <>
@@ -54,7 +54,7 @@ const FeeSummary: React.FC<FeeSummaryProps> = ({ stakingTokenSymbol, stakeAmount
       </Flex>
       <UnstakingFeeCountdownRow vaultKey={vaultKey} />
     </>
-  )
-}
+  );
+};
 
-export default FeeSummary
+export default FeeSummary;

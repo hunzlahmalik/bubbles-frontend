@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const PageButtons = styled.div`
   width: 100%;
@@ -7,7 +7,7 @@ export const PageButtons = styled.div`
   justify-content: center;
   margin-top: 16px;
   margin-bottom: 16px;
-`
+`;
 
 export const Arrow = styled.div`
   color: ${({ theme }) => theme.colors.primary};
@@ -15,4 +15,4 @@ export const Arrow = styled.div`
   :hover {
     cursor: pointer;
   }
-`
+`;

@@ -1,16 +1,16 @@
 // Set of helper functions to facilitate wallet setup
 
-import { BASE_BSC_SCAN_URL, BASE_URL } from 'config'
-import { nodes } from './getRpcUrl'
+import { BASE_BSC_SCAN_URL, BASE_URL } from 'config';
+import { nodes } from './getRpcUrl';
 
 /**
  * Prompt the user to add BSC as a network on Metamask, or switch to BSC if the wallet is on a different network
  * @returns {boolean} true if the setup succeeded, false otherwise
  */
 export const setupNetwork = async () => {
-  const provider = window.ethereum
+  const provider = window.ethereum;
   if (provider) {
-    const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
+    const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10);
     try {
       await provider.request({
         method: 'wallet_addEthereumChain',
@@ -27,17 +27,17 @@ export const setupNetwork = async () => {
             blockExplorerUrls: [`${BASE_BSC_SCAN_URL}/`],
           },
         ],
-      })
-      return true
+      });
+      return true;
     } catch (error) {
-      console.error('Failed to setup the network in Metamask:', error)
-      return false
+      console.error('Failed to setup the network in Metamask:', error);
+      return false;
     }
   } else {
-    console.error("Can't setup the BSC network on metamask because window.ethereum is undefined")
-    return false
+    console.error("Can't setup the BSC network on metamask because window.ethereum is undefined");
+    return false;
   }
-}
+};
 
 /**
  * Prompt the user to add a custom token to metamask
@@ -58,7 +58,7 @@ export const registerToken = async (tokenAddress: string, tokenSymbol: string, t
         image: `${BASE_URL}/images/tokens/${tokenAddress}.png`,
       },
     },
-  })
+  });
 
-  return tokenAdded
-}
+  return tokenAdded;
+};

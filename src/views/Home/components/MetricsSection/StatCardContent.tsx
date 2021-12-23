@@ -1,16 +1,16 @@
-import React from 'react'
-import { Heading, Flex, Text, useMatchBreakpoints } from '@pancakeswap/uikit'
+import React from 'react';
+import { Heading, Flex, Text, useMatchBreakpoints } from '@pancakeswap/uikit';
 
 const StatCardContent: React.FC<{ headingText: string; bodyText: string; highlightColor: string }> = ({
   headingText,
   bodyText,
   highlightColor,
 }) => {
-  const { isMobile, isTablet } = useMatchBreakpoints()
-  const isSmallerScreen = isMobile || isTablet
-  const split = headingText.split(' ')
-  const lastWord = split.pop()
-  const remainingWords = split.slice(0, split.length).join(' ')
+  const { isMobile, isTablet } = useMatchBreakpoints();
+  const isSmallerScreen = isMobile || isTablet;
+  const split = headingText.split(' ');
+  const lastWord = split.pop();
+  const remainingWords = split.slice(0, split.length).join(' ');
 
   return (
     <Flex
@@ -31,7 +31,7 @@ const StatCardContent: React.FC<{ headingText: string; bodyText: string; highlig
       </Heading>
       <Text color="textSubtle">{bodyText}</Text>
     </Flex>
-  )
-}
+  );
+};
 
-export default StatCardContent
+export default StatCardContent;

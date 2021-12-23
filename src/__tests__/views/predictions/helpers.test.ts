@@ -1,5 +1,5 @@
-import { BigNumber } from 'ethers'
-import { formatRoundTime, padTime, formatBnbv2, formatUsdv2 } from 'views/Predictions/helpers'
+import { BigNumber } from 'ethers';
+import { formatRoundTime, padTime, formatBnbv2, formatUsdv2 } from 'views/Predictions/helpers';
 
 describe('padTime', () => {
   it.each([
@@ -8,9 +8,9 @@ describe('padTime', () => {
     [299, '299'],
     [0.3, '0.3'],
   ])('correctly pads %i', (value, expected) => {
-    expect(padTime(value)).toEqual(expected)
-  })
-})
+    expect(padTime(value)).toEqual(expected);
+  });
+});
 
 describe('formatRoundTime', () => {
   it.each([
@@ -18,9 +18,9 @@ describe('formatRoundTime', () => {
     [70, '01:10'],
     [4501, '01:15:01'],
   ])('given seconds (%i) returns correctly formatted time', (value, expected) => {
-    expect(formatRoundTime(value)).toEqual(expected)
-  })
-})
+    expect(formatRoundTime(value)).toEqual(expected);
+  });
+});
 
 describe('formatUsdv2', () => {
   it.each`
@@ -49,8 +49,8 @@ describe('formatUsdv2', () => {
     'should format $priceDifference to $expectedPriceDifferenceFormatted',
     ({ priceDifference, expectedPriceDifferenceFormatted }) =>
       expect(formatUsdv2(BigNumber.from(priceDifference))).toEqual(expectedPriceDifferenceFormatted),
-  )
-})
+  );
+});
 
 describe('formatBnbv2', () => {
   it.each`
@@ -78,5 +78,5 @@ describe('formatBnbv2', () => {
     'should format $priceDifference to $expectedPriceDifferenceFormatted',
     ({ priceDifference, expectedPriceDifferenceFormatted }) =>
       expect(formatBnbv2(BigNumber.from(priceDifference))).toEqual(expectedPriceDifferenceFormatted),
-  )
-})
+  );
+});

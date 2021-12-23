@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
+import styled from 'styled-components';
 import {
   CardHeader,
   Card,
@@ -12,23 +12,23 @@ import {
   Heading,
   Skeleton,
   Box,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LotteryStatus } from 'config/constants/types'
-import { useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks'
-import { fetchLottery } from 'state/lottery/helpers'
-import { LotteryRound } from 'state/types'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import FinishedRoundTable from './FinishedRoundTable'
-import { WhiteBunny } from '../../svgs'
-import BuyTicketsButton from '../BuyTicketsButton'
-import PreviousRoundCardBody from '../PreviousRoundCard/Body'
-import { processLotteryResponse, getDrawnDate } from '../../helpers'
-import PreviousRoundCardFooter from '../PreviousRoundCard/Footer'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LotteryStatus } from 'config/constants/types';
+import { useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks';
+import { fetchLottery } from 'state/lottery/helpers';
+import { LotteryRound } from 'state/types';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import FinishedRoundTable from './FinishedRoundTable';
+import { WhiteBunny } from '../../svgs';
+import BuyTicketsButton from '../BuyTicketsButton';
+import PreviousRoundCardBody from '../PreviousRoundCard/Body';
+import { processLotteryResponse, getDrawnDate } from '../../helpers';
+import PreviousRoundCardFooter from '../PreviousRoundCard/Footer';
 
 interface YourHistoryCardProps {
-  handleShowMoreClick: () => void
-  numUserRoundsRequested: number
+  handleShowMoreClick: () => void;
+  numUserRoundsRequested: number;
 }
 
 const StyledCard = styled(Card)`
@@ -37,7 +37,7 @@ const StyledCard = styled(Card)`
   ${({ theme }) => theme.mediaQueries.md} {
     width: 756px;
   }
-`
+`;
 
 const StyledCardBody = styled(CardBody)`
   display: flex;
@@ -45,38 +45,38 @@ const StyledCardBody = styled(CardBody)`
   align-items: center;
   justify-content: center;
   min-height: 240px;
-`
+`;
 
 const YourHistoryCard: React.FC<YourHistoryCardProps> = ({ handleShowMoreClick, numUserRoundsRequested }) => {
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
-  const { account } = useWeb3React()
-  const [shouldShowRoundDetail, setShouldShowRoundDetail] = useState(false)
-  const [selectedLotteryNodeData, setSelectedLotteryNodeData] = useState<LotteryRound>(null)
-  const [selectedLotteryId, setSelectedLotteryId] = useState<string>(null)
+  } = useTranslation();
+  const { account } = useWeb3React();
+  const [shouldShowRoundDetail, setShouldShowRoundDetail] = useState(false);
+  const [selectedLotteryNodeData, setSelectedLotteryNodeData] = useState<LotteryRound>(null);
+  const [selectedLotteryId, setSelectedLotteryId] = useState<string>(null);
 
   const {
     isTransitioning,
     currentRound: { status },
-  } = useLottery()
-  const userLotteryData = useGetUserLotteriesGraphData()
-  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning
+  } = useLottery();
+  const userLotteryData = useGetUserLotteriesGraphData();
+  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning;
 
   const handleHistoryRowClick = async (lotteryId: string) => {
-    setShouldShowRoundDetail(true)
-    setSelectedLotteryId(lotteryId)
-    const lotteryData = await fetchLottery(lotteryId)
-    const processedLotteryData = processLotteryResponse(lotteryData)
-    setSelectedLotteryNodeData(processedLotteryData)
-  }
+    setShouldShowRoundDetail(true);
+    setSelectedLotteryId(lotteryId);
+    const lotteryData = await fetchLottery(lotteryId);
+    const processedLotteryData = processLotteryResponse(lotteryData);
+    setSelectedLotteryNodeData(processedLotteryData);
+  };
 
   const clearState = () => {
-    setShouldShowRoundDetail(false)
-    setSelectedLotteryNodeData(null)
-    setSelectedLotteryId(null)
-  }
+    setShouldShowRoundDetail(false);
+    setSelectedLotteryNodeData(null);
+    setSelectedLotteryId(null);
+  };
 
   const getHeader = () => {
     if (shouldShowRoundDetail) {
@@ -96,20 +96,20 @@ const YourHistoryCard: React.FC<YourHistoryCardProps> = ({ handleShowMoreClick, 
             )}
           </Flex>
         </Flex>
-      )
+      );
     }
 
-    return <Heading scale="md">{t('Rounds')}</Heading>
-  }
+    return <Heading scale="md">{t('Rounds')}</Heading>;
+  };
 
   const getBody = () => {
     if (shouldShowRoundDetail) {
-      return <PreviousRoundCardBody lotteryNodeData={selectedLotteryNodeData} lotteryId={selectedLotteryId} />
+      return <PreviousRoundCardBody lotteryNodeData={selectedLotteryNodeData} lotteryId={selectedLotteryId} />;
     }
 
     const claimableRounds = userLotteryData?.rounds.filter((round) => {
-      return round.status.toLowerCase() === LotteryStatus.CLAIMABLE
-    })
+      return round.status.toLowerCase() === LotteryStatus.CLAIMABLE;
+    });
 
     if (!account) {
       return (
@@ -119,7 +119,7 @@ const YourHistoryCard: React.FC<YourHistoryCardProps> = ({ handleShowMoreClick, 
           </Text>
           <ConnectWalletButton />
         </StyledCardBody>
-      )
+      );
     }
     if (claimableRounds.length === 0) {
       return (
@@ -134,7 +134,7 @@ const YourHistoryCard: React.FC<YourHistoryCardProps> = ({ handleShowMoreClick, 
             <BuyTicketsButton disabled={ticketBuyIsDisabled} width="100%" />
           </Box>
         </StyledCardBody>
-      )
+      );
     }
     return (
       <FinishedRoundTable
@@ -142,12 +142,12 @@ const YourHistoryCard: React.FC<YourHistoryCardProps> = ({ handleShowMoreClick, 
         handleShowMoreClick={handleShowMoreClick}
         numUserRoundsRequested={numUserRoundsRequested}
       />
-    )
-  }
+    );
+  };
 
   const getFooter = () => {
     if (selectedLotteryNodeData) {
-      return <PreviousRoundCardFooter lotteryNodeData={selectedLotteryNodeData} lotteryId={selectedLotteryId} />
+      return <PreviousRoundCardFooter lotteryNodeData={selectedLotteryNodeData} lotteryId={selectedLotteryId} />;
     }
     return (
       <CardFooter>
@@ -157,8 +157,8 @@ const YourHistoryCard: React.FC<YourHistoryCardProps> = ({ handleShowMoreClick, 
           </Text>
         </Flex>
       </CardFooter>
-    )
-  }
+    );
+  };
 
   return (
     <StyledCard>
@@ -166,7 +166,7 @@ const YourHistoryCard: React.FC<YourHistoryCardProps> = ({ handleShowMoreClick, 
       {getBody()}
       {getFooter()}
     </StyledCard>
-  )
-}
+  );
+};
 
-export default YourHistoryCard
+export default YourHistoryCard;

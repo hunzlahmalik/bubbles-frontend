@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Layout = styled.div`
   align-items: start;
@@ -9,6 +9,6 @@ const Layout = styled.div`
   ${({ theme }) => theme.mediaQueries.lg} {
     grid-template-columns: 1fr 332px;
   }
-`
+`;
 
-export default Layout
+export default Layout;

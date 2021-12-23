@@ -1,24 +1,24 @@
-import React, { useMemo, useState } from 'react'
-import BigNumber from 'bignumber.js'
-import { useWeb3React } from '@web3-react/core'
-import styled from 'styled-components'
-import { Modal, Text, Flex, Button, HelpIcon, AutoRenewIcon, useTooltip } from '@pancakeswap/uikit'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { useCakeVaultContract } from 'hooks/useContract'
-import useTheme from 'hooks/useTheme'
-import useToast from 'hooks/useToast'
-import { useTranslation } from 'contexts/Localization'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import Balance from 'components/Balance'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useCakeVault } from 'state/pools/hooks'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { logError } from 'utils/sentry'
+import React, { useMemo, useState } from 'react';
+import BigNumber from 'bignumber.js';
+import { useWeb3React } from '@web3-react/core';
+import styled from 'styled-components';
+import { Modal, Text, Flex, Button, HelpIcon, AutoRenewIcon, useTooltip } from '@pancakeswap/uikit';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { useCakeVaultContract } from 'hooks/useContract';
+import useTheme from 'hooks/useTheme';
+import useToast from 'hooks/useToast';
+import { useTranslation } from 'contexts/Localization';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import Balance from 'components/Balance';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useCakeVault } from 'state/pools/hooks';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { logError } from 'utils/sentry';
 
 interface BountyModalProps {
-  onDismiss?: () => void
-  TooltipComponent: React.ElementType
+  onDismiss?: () => void;
+  TooltipComponent: React.ElementType;
 }
 
 const Divider = styled.div`
@@ -26,60 +26,60 @@ const Divider = styled.div`
   height: 1px;
   margin: 16px auto;
   width: 100%;
-`
+`;
 
 const BountyModal: React.FC<BountyModalProps> = ({ onDismiss, TooltipComponent }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const { theme } = useTheme()
-  const { toastError, toastSuccess } = useToast()
-  const cakeVaultContract = useCakeVaultContract()
-  const [pendingTx, setPendingTx] = useState(false)
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const { theme } = useTheme();
+  const { toastError, toastSuccess } = useToast();
+  const cakeVaultContract = useCakeVaultContract();
+  const [pendingTx, setPendingTx] = useState(false);
   const {
     estimatedCakeBountyReward,
     totalPendingCakeHarvest,
     fees: { callFee },
-  } = useCakeVault()
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const cakePriceBusd = usePriceCakeBusd()
-  const callFeeAsDecimal = callFee / 100
-  const totalYieldToDisplay = getBalanceNumber(totalPendingCakeHarvest, 18)
+  } = useCakeVault();
+  const { callWithGasPrice } = useCallWithGasPrice();
+  const cakePriceBusd = usePriceCakeBusd();
+  const callFeeAsDecimal = callFee / 100;
+  const totalYieldToDisplay = getBalanceNumber(totalPendingCakeHarvest, 18);
 
   const estimatedDollarBountyReward = useMemo(() => {
-    return new BigNumber(estimatedCakeBountyReward).multipliedBy(cakePriceBusd)
-  }, [cakePriceBusd, estimatedCakeBountyReward])
+    return new BigNumber(estimatedCakeBountyReward).multipliedBy(cakePriceBusd);
+  }, [cakePriceBusd, estimatedCakeBountyReward]);
 
-  const hasFetchedDollarBounty = estimatedDollarBountyReward.gte(0)
-  const hasFetchedCakeBounty = estimatedCakeBountyReward ? estimatedCakeBountyReward.gte(0) : false
-  const dollarBountyToDisplay = hasFetchedDollarBounty ? getBalanceNumber(estimatedDollarBountyReward, 18) : 0
-  const cakeBountyToDisplay = hasFetchedCakeBounty ? getBalanceNumber(estimatedCakeBountyReward, 18) : 0
+  const hasFetchedDollarBounty = estimatedDollarBountyReward.gte(0);
+  const hasFetchedCakeBounty = estimatedCakeBountyReward ? estimatedCakeBountyReward.gte(0) : false;
+  const dollarBountyToDisplay = hasFetchedDollarBounty ? getBalanceNumber(estimatedDollarBountyReward, 18) : 0;
+  const cakeBountyToDisplay = hasFetchedCakeBounty ? getBalanceNumber(estimatedCakeBountyReward, 18) : 0;
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(<TooltipComponent fee={callFee} />, {
     placement: 'bottom',
     tooltipPadding: { right: 15 },
-  })
+  });
 
   const handleConfirmClick = async () => {
-    setPendingTx(true)
+    setPendingTx(true);
     try {
-      const tx = await callWithGasPrice(cakeVaultContract, 'harvest', undefined, { gasLimit: 300000 })
-      const receipt = await tx.wait()
+      const tx = await callWithGasPrice(cakeVaultContract, 'harvest', undefined, { gasLimit: 300000 });
+      const receipt = await tx.wait();
       if (receipt.status) {
         toastSuccess(
           t('Bounty collected!'),
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
             {t('CAKE bounty has been sent to your wallet.')}
           </ToastDescriptionWithTx>,
-        )
-        setPendingTx(false)
-        onDismiss()
+        );
+        setPendingTx(false);
+        onDismiss();
       }
     } catch (error) {
-      logError(error)
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
-      setPendingTx(false)
+      logError(error);
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
+      setPendingTx(false);
     }
-  }
+  };
 
   return (
     <Modal title={t('Claim Bounty')} onDismiss={onDismiss} headerBackground={theme.colors.gradients.cardHeader}>
@@ -138,7 +138,7 @@ const BountyModal: React.FC<BountyModalProps> = ({ onDismiss, TooltipComponent }
         </span>
       </Flex>
     </Modal>
-  )
-}
+  );
+};
 
-export default BountyModal
+export default BountyModal;

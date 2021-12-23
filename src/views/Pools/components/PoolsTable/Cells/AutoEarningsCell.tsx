@@ -1,17 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Skeleton, Text, useTooltip, HelpIcon, Flex, Box, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { DeserializedPool } from 'state/types'
-import Balance from 'components/Balance'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { useTranslation } from 'contexts/Localization'
-import { getCakeVaultEarnings } from 'views/Pools/helpers'
-import BaseCell, { CellContent } from './BaseCell'
+import React from 'react';
+import styled from 'styled-components';
+import { Skeleton, Text, useTooltip, HelpIcon, Flex, Box, useMatchBreakpoints } from '@pancakeswap/uikit';
+import { DeserializedPool } from 'state/types';
+import Balance from 'components/Balance';
+import { useVaultPoolByKey } from 'state/pools/hooks';
+import { useTranslation } from 'contexts/Localization';
+import { getCakeVaultEarnings } from 'views/Pools/helpers';
+import BaseCell, { CellContent } from './BaseCell';
 
 interface AutoEarningsCellProps {
-  pool: DeserializedPool
-  account: string
-  userDataLoaded: boolean
+  pool: DeserializedPool;
+  account: string;
+  userDataLoaded: boolean;
 }
 
 const StyledCell = styled(BaseCell)`
@@ -19,37 +19,37 @@ const StyledCell = styled(BaseCell)`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex: 1 0 120px;
   }
-`
+`;
 
 const HelpIconWrapper = styled.div`
   align-self: center;
-`
+`;
 
 const AutoEarningsCell: React.FC<AutoEarningsCellProps> = ({ pool, account, userDataLoaded }) => {
-  const { t } = useTranslation()
-  const { isMobile } = useMatchBreakpoints()
-  const { earningTokenPrice } = pool
+  const { t } = useTranslation();
+  const { isMobile } = useMatchBreakpoints();
+  const { earningTokenPrice } = pool;
 
   const {
     userData: { cakeAtLastUserAction, userShares, lastUserActionTime },
     pricePerFullShare,
-  } = useVaultPoolByKey(pool.vaultKey)
+  } = useVaultPoolByKey(pool.vaultKey);
   const { hasAutoEarnings, autoCakeToDisplay, autoUsdToDisplay } = getCakeVaultEarnings(
     account,
     cakeAtLastUserAction,
     userShares,
     pricePerFullShare,
     earningTokenPrice,
-  )
+  );
 
-  const labelText = t('Recent CAKE profit')
-  const earningTokenBalance = autoCakeToDisplay
-  const hasEarnings = hasAutoEarnings
-  const earningTokenDollarBalance = autoUsdToDisplay
+  const labelText = t('Recent CAKE profit');
+  const earningTokenBalance = autoCakeToDisplay;
+  const hasEarnings = hasAutoEarnings;
+  const earningTokenDollarBalance = autoUsdToDisplay;
 
-  const lastActionInMs = lastUserActionTime && parseInt(lastUserActionTime) * 1000
-  const dateTimeLastAction = new Date(lastActionInMs)
-  const dateStringToDisplay = dateTimeLastAction.toLocaleString()
+  const lastActionInMs = lastUserActionTime && parseInt(lastUserActionTime) * 1000;
+  const dateTimeLastAction = new Date(lastActionInMs);
+  const dateStringToDisplay = dateTimeLastAction.toLocaleString();
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <>
@@ -59,7 +59,7 @@ const AutoEarningsCell: React.FC<AutoEarningsCellProps> = ({ pool, account, user
       <Text>{dateStringToDisplay}</Text>
     </>,
     { placement: 'bottom' },
-  )
+  );
 
   return (
     <StyledCell role="cell">
@@ -112,7 +112,7 @@ const AutoEarningsCell: React.FC<AutoEarningsCellProps> = ({ pool, account, user
         )}
       </CellContent>
     </StyledCell>
-  )
-}
+  );
+};
 
-export default AutoEarningsCell
+export default AutoEarningsCell;

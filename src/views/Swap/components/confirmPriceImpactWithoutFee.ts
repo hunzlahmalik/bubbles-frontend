@@ -1,6 +1,6 @@
-import { Percent } from '@pancakeswap/sdk'
-import { ContextApi } from 'contexts/Localization/types'
-import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from '../../../config/constants'
+import { Percent } from '@pancakeswap/sdk';
+import { ContextApi } from 'contexts/Localization/types';
+import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from '../../../config/constants';
 
 /**
  * Given the price impact, get user confirmation.
@@ -10,7 +10,7 @@ import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from 
  */
 export default function confirmPriceImpactWithoutFee(priceImpactWithoutFee: Percent, t: ContextApi['t']): boolean {
   if (!priceImpactWithoutFee.lessThan(PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN)) {
-    const confirmWord = 'confirm'
+    const confirmWord = 'confirm';
     return (
       // eslint-disable-next-line no-alert
       window.prompt(
@@ -22,7 +22,7 @@ export default function confirmPriceImpactWithoutFee(priceImpactWithoutFee: Perc
           },
         ),
       ) === confirmWord
-    )
+    );
   }
   if (!priceImpactWithoutFee.lessThan(ALLOWED_PRICE_IMPACT_HIGH)) {
     // eslint-disable-next-line no-alert
@@ -33,7 +33,7 @@ export default function confirmPriceImpactWithoutFee(priceImpactWithoutFee: Perc
           amount: ALLOWED_PRICE_IMPACT_HIGH.toFixed(0),
         },
       ),
-    )
+    );
   }
-  return true
+  return true;
 }

@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Flex, Button, ArrowForwardIcon, Heading, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Flex, Button, ArrowForwardIcon, Heading, useMatchBreakpoints } from '@pancakeswap/uikit';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'contexts/Localization';
 
 const StyledSubheading = styled(Heading)`
   background: -webkit-linear-gradient(#ffd800, #eb8c00);
@@ -19,7 +19,7 @@ const StyledSubheading = styled(Heading)`
     -webkit-text-stroke: unset;
   }
   margin-bottom: 8px;
-`
+`;
 
 const StyledHeading = styled(Heading)`
   color: #ffffff;
@@ -28,7 +28,7 @@ const StyledHeading = styled(Heading)`
   -webkit-background-clip: text;
   -webkit-text-stroke: 6px transparent;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`
+`;
 
 const Wrapper = styled.div`
   border-radius: 32px;
@@ -37,14 +37,14 @@ const Wrapper = styled.div`
   max-height: max-content;
   overflow: hidden;
   min-height: 162px;
-`
+`;
 
 const Inner = styled(Flex)`
   position: relative;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const RightWrapper = styled(Flex)`
   position: relative;
@@ -66,7 +66,7 @@ const RightWrapper = styled(Flex)`
     padding-left: 0;
     padding-right: 44px;
   }
-`
+`;
 
 const ImageWrapper = styled.div`
   position: absolute;
@@ -82,11 +82,11 @@ const ImageWrapper = styled.div`
     height: 100%;
     transform: none;
   }
-`
+`;
 
 const CompetitionBanner = () => {
-  const { t } = useTranslation()
-  const { isDesktop } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isDesktop } = useMatchBreakpoints();
 
   return (
     <Wrapper>
@@ -115,7 +115,7 @@ const CompetitionBanner = () => {
         </RightWrapper>
       </Inner>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default CompetitionBanner
+export default CompetitionBanner;

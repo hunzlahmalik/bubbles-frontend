@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react'
-import BigNumber from 'bignumber.js'
-import styled from 'styled-components'
+import React, { useMemo } from 'react';
+import BigNumber from 'bignumber.js';
+import styled from 'styled-components';
 import {
   Card,
   CardBody,
@@ -13,13 +13,13 @@ import {
   useModal,
   Box,
   useTooltip,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useCakeVault } from 'state/pools/hooks'
-import Balance from 'components/Balance'
-import BountyModal from './BountyModal'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useCakeVault } from 'state/pools/hooks';
+import Balance from 'components/Balance';
+import BountyModal from './BountyModal';
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -27,24 +27,24 @@ const StyledCard = styled(Card)`
   ${({ theme }) => theme.mediaQueries.sm} {
     min-width: 240px;
   }
-`
+`;
 
 const BountyCard = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const {
     estimatedCakeBountyReward,
     fees: { callFee },
-  } = useCakeVault()
-  const cakePriceBusd = usePriceCakeBusd()
+  } = useCakeVault();
+  const cakePriceBusd = usePriceCakeBusd();
 
   const estimatedDollarBountyReward = useMemo(() => {
-    return new BigNumber(estimatedCakeBountyReward).multipliedBy(cakePriceBusd)
-  }, [cakePriceBusd, estimatedCakeBountyReward])
+    return new BigNumber(estimatedCakeBountyReward).multipliedBy(cakePriceBusd);
+  }, [cakePriceBusd, estimatedCakeBountyReward]);
 
-  const hasFetchedDollarBounty = estimatedDollarBountyReward.gte(0)
-  const hasFetchedCakeBounty = estimatedCakeBountyReward ? estimatedCakeBountyReward.gte(0) : false
-  const dollarBountyToDisplay = hasFetchedDollarBounty ? getBalanceNumber(estimatedDollarBountyReward, 18) : 0
-  const cakeBountyToDisplay = hasFetchedCakeBounty ? getBalanceNumber(estimatedCakeBountyReward, 18) : 0
+  const hasFetchedDollarBounty = estimatedDollarBountyReward.gte(0);
+  const hasFetchedCakeBounty = estimatedCakeBountyReward ? estimatedCakeBountyReward.gte(0) : false;
+  const dollarBountyToDisplay = hasFetchedDollarBounty ? getBalanceNumber(estimatedDollarBountyReward, 18) : 0;
+  const cakeBountyToDisplay = hasFetchedCakeBounty ? getBalanceNumber(estimatedCakeBountyReward, 18) : 0;
 
   const TooltipComponent = ({ fee }: { fee: number }) => (
     <>
@@ -58,14 +58,14 @@ const BountyCard = () => {
         {t('Auto-Compound Bounty: %fee%% of all Auto CAKE pool users pending yield', { fee: fee / 100 })}
       </Text>
     </>
-  )
+  );
 
-  const [onPresentBountyModal] = useModal(<BountyModal TooltipComponent={TooltipComponent} />)
+  const [onPresentBountyModal] = useModal(<BountyModal TooltipComponent={TooltipComponent} />);
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(<TooltipComponent fee={callFee} />, {
     placement: 'bottom-end',
     tooltipOffset: [20, 10],
-  })
+  });
 
   return (
     <>
@@ -116,7 +116,7 @@ const BountyCard = () => {
         </CardBody>
       </StyledCard>
     </>
-  )
-}
+  );
+};
 
-export default BountyCard
+export default BountyCard;

@@ -1,11 +1,11 @@
-import React from 'react'
-import { useModal, Button, Skeleton } from '@pancakeswap/uikit'
-import WhitelistedBiddersModal from './WhitelistedBiddersModal'
-import useWhitelistedAddresses from '../hooks/useWhitelistedAddresses'
+import React from 'react';
+import { useModal, Button, Skeleton } from '@pancakeswap/uikit';
+import WhitelistedBiddersModal from './WhitelistedBiddersModal';
+import useWhitelistedAddresses from '../hooks/useWhitelistedAddresses';
 
 const WhitelistedBiddersButton: React.FC = () => {
-  const whitelistedBidders = useWhitelistedAddresses()
-  const [onShowWhitelistedBidders] = useModal(<WhitelistedBiddersModal />)
+  const whitelistedBidders = useWhitelistedAddresses();
+  const [onShowWhitelistedBidders] = useModal(<WhitelistedBiddersModal />);
 
   return whitelistedBidders ? (
     <Button p="0" variant="text" scale="sm" onClick={onShowWhitelistedBidders}>
@@ -13,7 +13,7 @@ const WhitelistedBiddersButton: React.FC = () => {
     </Button>
   ) : (
     <Skeleton height="24px" width="46px" />
-  )
-}
+  );
+};
 
-export default WhitelistedBiddersButton
+export default WhitelistedBiddersButton;

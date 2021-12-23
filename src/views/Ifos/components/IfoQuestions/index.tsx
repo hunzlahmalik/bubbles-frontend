@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Heading, Card, CardHeader, CardBody, Flex } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import FoldableText from 'components/FoldableSection/FoldableText'
-import config from './config'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Heading, Card, CardHeader, CardBody, Flex } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import FoldableText from 'components/FoldableSection/FoldableText';
+import config from './config';
 
 const ImageWrapper = styled.div`
   flex: none;
@@ -14,7 +14,7 @@ const ImageWrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     order: 1;
   }
-`
+`;
 
 const DetailsWrapper = styled.div`
   order: 1;
@@ -25,10 +25,10 @@ const DetailsWrapper = styled.div`
     margin-bottom: 0;
     margin-left: 40px;
   }
-`
+`;
 
 const IfoQuestions = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Flex alignItems={['center', null, null, 'start']} flexDirection={['column', null, null, 'row']}>
@@ -50,7 +50,7 @@ const IfoQuestions = () => {
                     <Text key={desc} color="textSubtle" as="p">
                       {desc}
                     </Text>
-                  )
+                  );
                 })}
               </FoldableText>
             ))}
@@ -58,7 +58,7 @@ const IfoQuestions = () => {
         </Card>
       </DetailsWrapper>
     </Flex>
-  )
-}
+  );
+};
 
-export default IfoQuestions
+export default IfoQuestions;

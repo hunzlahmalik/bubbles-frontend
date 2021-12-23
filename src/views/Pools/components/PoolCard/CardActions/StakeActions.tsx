@@ -1,20 +1,20 @@
-import React from 'react'
-import { Flex, Text, Button, IconButton, AddIcon, MinusIcon, useModal, Skeleton, useTooltip } from '@pancakeswap/uikit'
-import BigNumber from 'bignumber.js'
-import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { DeserializedPool } from 'state/types'
-import Balance from 'components/Balance'
-import NotEnoughTokensModal from '../Modals/NotEnoughTokensModal'
-import StakeModal from '../Modals/StakeModal'
+import React from 'react';
+import { Flex, Text, Button, IconButton, AddIcon, MinusIcon, useModal, Skeleton, useTooltip } from '@pancakeswap/uikit';
+import BigNumber from 'bignumber.js';
+import { useTranslation } from 'contexts/Localization';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { DeserializedPool } from 'state/types';
+import Balance from 'components/Balance';
+import NotEnoughTokensModal from '../Modals/NotEnoughTokensModal';
+import StakeModal from '../Modals/StakeModal';
 
 interface StakeActionsProps {
-  pool: DeserializedPool
-  stakingTokenBalance: BigNumber
-  stakedBalance: BigNumber
-  isBnbPool: boolean
-  isStaked: ConstrainBoolean
-  isLoading?: boolean
+  pool: DeserializedPool;
+  stakingTokenBalance: BigNumber;
+  stakedBalance: BigNumber;
+  isBnbPool: boolean;
+  isStaked: ConstrainBoolean;
+  isLoading?: boolean;
 }
 
 const StakeAction: React.FC<StakeActionsProps> = ({
@@ -25,15 +25,15 @@ const StakeAction: React.FC<StakeActionsProps> = ({
   isStaked,
   isLoading = false,
 }) => {
-  const { stakingToken, stakingTokenPrice, stakingLimit, isFinished, userData } = pool
-  const { t } = useTranslation()
-  const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals)
+  const { stakingToken, stakingTokenPrice, stakingLimit, isFinished, userData } = pool;
+  const { t } = useTranslation();
+  const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals);
   const stakedTokenDollarBalance = getBalanceNumber(
     stakedBalance.multipliedBy(stakingTokenPrice),
     stakingToken.decimals,
-  )
+  );
 
-  const [onPresentTokenRequired] = useModal(<NotEnoughTokensModal tokenSymbol={stakingToken.symbol} />)
+  const [onPresentTokenRequired] = useModal(<NotEnoughTokensModal tokenSymbol={stakingToken.symbol} />);
 
   const [onPresentStake] = useModal(
     <StakeModal
@@ -42,7 +42,7 @@ const StakeAction: React.FC<StakeActionsProps> = ({
       stakingTokenBalance={stakingTokenBalance}
       stakingTokenPrice={stakingTokenPrice}
     />,
-  )
+  );
 
   const [onPresentUnstake] = useModal(
     <StakeModal
@@ -52,14 +52,14 @@ const StakeAction: React.FC<StakeActionsProps> = ({
       stakingTokenPrice={stakingTokenPrice}
       isRemovingStake
     />,
-  )
+  );
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t('You’ve already staked the maximum amount you can stake in this pool!'),
     { placement: 'bottom' },
-  )
+  );
 
-  const reachStakingLimit = stakingLimit.gt(0) && userData.stakedBalance.gte(stakingLimit)
+  const reachStakingLimit = stakingLimit.gt(0) && userData.stakedBalance.gte(stakingLimit);
 
   const renderStakeAction = () => {
     return isStaked ? (
@@ -107,10 +107,12 @@ const StakeAction: React.FC<StakeActionsProps> = ({
       <Button disabled={isFinished} onClick={stakingTokenBalance.gt(0) ? onPresentStake : onPresentTokenRequired}>
         {t('Stake')}
       </Button>
-    )
-  }
+    );
+  };
 
-  return <Flex flexDirection="column">{isLoading ? <Skeleton width="100%" height="52px" /> : renderStakeAction()}</Flex>
-}
+  return (
+    <Flex flexDirection="column">{isLoading ? <Skeleton width="100%" height="52px" /> : renderStakeAction()}</Flex>
+  );
+};
 
-export default StakeAction
+export default StakeAction;

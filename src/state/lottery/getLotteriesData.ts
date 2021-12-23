@@ -1,12 +1,12 @@
-import { request, gql } from 'graphql-request'
-import { GRAPH_API_LOTTERY } from 'config/constants/endpoints'
-import { LotteryRoundGraphEntity, LotteryResponse } from 'state/types'
-import { getRoundIdsArray, fetchMultipleLotteries } from './helpers'
+import { request, gql } from 'graphql-request';
+import { GRAPH_API_LOTTERY } from 'config/constants/endpoints';
+import { LotteryRoundGraphEntity, LotteryResponse } from 'state/types';
+import { getRoundIdsArray, fetchMultipleLotteries } from './helpers';
 
-export const MAX_LOTTERIES_REQUEST_SIZE = 100
+export const MAX_LOTTERIES_REQUEST_SIZE = 100;
 
 /* eslint-disable camelcase */
-type LotteriesWhere = { id_in?: string[] }
+type LotteriesWhere = { id_in?: string[] };
 
 const applyNodeDataToLotteriesGraphResponse = (
   nodeData: LotteryResponse[],
@@ -25,13 +25,15 @@ const applyNodeDataToLotteriesGraphResponse = (
         totalTickets: '',
         totalUsers: '',
         winningTickets: '',
-      }
-    })
+      };
+    });
   }
 
   // Populate all nodeRound data with supplementary graphResponse round data when available
   const nodeRoundsWithGraphData = nodeData.map((nodeRoundData) => {
-    const graphRoundData = graphResponse.find((graphResponseRound) => graphResponseRound.id === nodeRoundData.lotteryId)
+    const graphRoundData = graphResponse.find(
+      (graphResponseRound) => graphResponseRound.id === nodeRoundData.lotteryId,
+    );
     return {
       endTime: nodeRoundData.endTime,
       finalNumber: nodeRoundData.finalNumber.toString(),
@@ -42,19 +44,19 @@ const applyNodeDataToLotteriesGraphResponse = (
       totalTickets: graphRoundData?.totalTickets,
       totalUsers: graphRoundData?.totalUsers,
       winningTickets: graphRoundData?.winningTickets,
-    }
-  })
+    };
+  });
 
   // Return the rounds with combined node + subgraph data, plus all remaining subgraph rounds.
-  const [lastCombinedDataRound] = nodeRoundsWithGraphData.slice(-1)
+  const [lastCombinedDataRound] = nodeRoundsWithGraphData.slice(-1);
   const lastCombinedDataRoundIndex = graphResponse
     .map((graphRound) => graphRound?.id)
-    .indexOf(lastCombinedDataRound?.id)
+    .indexOf(lastCombinedDataRound?.id);
 
-  const remainingSubgraphRounds = graphResponse ? graphResponse.splice(lastCombinedDataRoundIndex + 1) : []
-  const mergedResponse = [...nodeRoundsWithGraphData, ...remainingSubgraphRounds]
-  return mergedResponse
-}
+  const remainingSubgraphRounds = graphResponse ? graphResponse.splice(lastCombinedDataRoundIndex + 1) : [];
+  const mergedResponse = [...nodeRoundsWithGraphData, ...remainingSubgraphRounds];
+  return mergedResponse;
+};
 
 export const getGraphLotteries = async (
   first = MAX_LOTTERIES_REQUEST_SIZE,
@@ -80,20 +82,20 @@ export const getGraphLotteries = async (
         }
       `,
       { skip, first, where },
-    )
-    return response.lotteries
+    );
+    return response.lotteries;
   } catch (error) {
-    console.error(error)
-    return []
+    console.error(error);
+    return [];
   }
-}
+};
 
 const getLotteriesData = async (currentLotteryId: string): Promise<LotteryRoundGraphEntity[]> => {
-  const idsForNodesCall = getRoundIdsArray(currentLotteryId)
-  const nodeData = await fetchMultipleLotteries(idsForNodesCall)
-  const graphResponse = await getGraphLotteries()
-  const mergedData = applyNodeDataToLotteriesGraphResponse(nodeData, graphResponse)
-  return mergedData
-}
+  const idsForNodesCall = getRoundIdsArray(currentLotteryId);
+  const nodeData = await fetchMultipleLotteries(idsForNodesCall);
+  const graphResponse = await getGraphLotteries();
+  const mergedData = applyNodeDataToLotteriesGraphResponse(nodeData, graphResponse);
+  return mergedData;
+};
 
-export default getLotteriesData
+export default getLotteriesData;

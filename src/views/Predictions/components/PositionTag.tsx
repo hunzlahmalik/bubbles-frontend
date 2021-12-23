@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react'
-import styled from 'styled-components'
+import React, { ReactNode } from 'react';
+import styled from 'styled-components';
 import {
   ArrowUpIcon,
   ArrowDownIcon,
@@ -9,22 +9,22 @@ import {
   useTooltip,
   TooltipText,
   InfoIcon,
-} from '@pancakeswap/uikit'
-import { BetPosition } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
+} from '@pancakeswap/uikit';
+import { BetPosition } from 'state/types';
+import { useTranslation } from 'contexts/Localization';
 
 interface TagProps extends FlexProps {
-  bg?: string
-  startIcon?: ReactNode
+  bg?: string;
+  startIcon?: ReactNode;
 }
 
 const StyledTag = styled(Flex)<{ bg: TagProps['bg'] }>`
   background-color: ${({ bg, theme }) => theme.colors[bg]};
   display: inline-flex;
-`
+`;
 
 export const Tag: React.FC<TagProps> = ({ bg = 'success', startIcon, children, onClick, ...props }) => {
-  const icon = startIcon || <ArrowUpIcon color="white" />
+  const icon = startIcon || <ArrowUpIcon color="white" />;
 
   return (
     <StyledTag
@@ -43,17 +43,17 @@ export const Tag: React.FC<TagProps> = ({ bg = 'success', startIcon, children, o
         {children}
       </Text>
     </StyledTag>
-  )
-}
+  );
+};
 
 interface PositionTagProps extends FlexProps {
-  betPosition: BetPosition
+  betPosition: BetPosition;
 }
 
 const PositionTag: React.FC<PositionTagProps> = ({ betPosition, children, ...props }) => {
-  const { t } = useTranslation()
-  const isUpPosition = betPosition === BetPosition.BULL
-  const icon = isUpPosition ? <ArrowUpIcon color="white" /> : <ArrowDownIcon color="white" />
+  const { t } = useTranslation();
+  const isUpPosition = betPosition === BetPosition.BULL;
+  const icon = isUpPosition ? <ArrowUpIcon color="white" /> : <ArrowDownIcon color="white" />;
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <>
       <Text bold mb="4px">
@@ -66,7 +66,7 @@ const PositionTag: React.FC<PositionTagProps> = ({ betPosition, children, ...pro
       </Text>
     </>,
     { placement: 'right' },
-  )
+  );
 
   if (betPosition === BetPosition.HOUSE) {
     return (
@@ -79,14 +79,14 @@ const PositionTag: React.FC<PositionTagProps> = ({ betPosition, children, ...pro
           </Flex>
         </TooltipText>
       </>
-    )
+    );
   }
 
   return (
     <Tag bg={isUpPosition ? 'success' : 'failure'} startIcon={icon} {...props}>
       {children}
     </Tag>
-  )
-}
+  );
+};
 
-export default PositionTag
+export default PositionTag;

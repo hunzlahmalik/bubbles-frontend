@@ -1,28 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Flex, lightColors, Spinner, Text, Timeline } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useGetCakeBalance } from 'hooks/useTokenBalance'
-import useTheme from 'hooks/useTheme'
-import { StyledWaveContainer } from 'views/PancakeSquad/styles'
-import { UserStatusEnum } from 'views/PancakeSquad/types'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import HeaderBottomWave from '../../assets/HeaderBottomWave'
-import nftSaleConfigBuilder from '../../config'
-import CtaButtons from './CtaButtons'
-import MintText from './MintText'
-import PreEventText from './PreEventText'
-import SaleProgress from './SaleProgress'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Box, Flex, lightColors, Spinner, Text, Timeline } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useGetCakeBalance } from 'hooks/useTokenBalance';
+import useTheme from 'hooks/useTheme';
+import { StyledWaveContainer } from 'views/PancakeSquad/styles';
+import { UserStatusEnum } from 'views/PancakeSquad/types';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import HeaderBottomWave from '../../assets/HeaderBottomWave';
+import nftSaleConfigBuilder from '../../config';
+import CtaButtons from './CtaButtons';
+import MintText from './MintText';
+import PreEventText from './PreEventText';
+import SaleProgress from './SaleProgress';
 import {
   StyledSquadEventBorder,
   StyledSquadEventContainer,
   StyledSquadHeaderContainer,
   StyledSquadTitle,
-} from './styles'
-import { PancakeSquadHeaderType } from './types'
+} from './styles';
+import { PancakeSquadHeaderType } from './types';
 
-const DEFAULT_CAKE_COST = 15
-const DEFAULT_MAX_TICKETS = 10
+const DEFAULT_CAKE_COST = 15;
+const DEFAULT_MAX_TICKETS = 10;
 
 const PancakeSquadHeader: React.FC<PancakeSquadHeaderType> = ({
   userInfos,
@@ -31,10 +31,10 @@ const PancakeSquadHeader: React.FC<PancakeSquadHeaderType> = ({
   userStatus,
   isLoading,
 }) => {
-  const { t } = useTranslation()
-  const { theme, isDark } = useTheme()
-  const { balance: cakeBalance } = useGetCakeBalance()
-  const displayEventBlock = !!eventInfos || isLoading
+  const { t } = useTranslation();
+  const { theme, isDark } = useTheme();
+  const { balance: cakeBalance } = useGetCakeBalance();
+  const displayEventBlock = !!eventInfos || isLoading;
   const {
     ticketsOfUser,
     numberTicketsUsedForGen0,
@@ -42,7 +42,7 @@ const PancakeSquadHeader: React.FC<PancakeSquadHeaderType> = ({
     numberTicketsForGen0,
     canClaimForGen0,
     numberTokensOfUser,
-  } = userInfos || {}
+  } = userInfos || {};
 
   const {
     maxPerAddress,
@@ -53,7 +53,7 @@ const PancakeSquadHeader: React.FC<PancakeSquadHeaderType> = ({
     totalTicketsDistributed,
     totalSupplyMinted,
     startTimestamp,
-  } = eventInfos || {}
+  } = eventInfos || {};
 
   return (
     <StyledSquadHeaderContainer
@@ -166,7 +166,7 @@ const PancakeSquadHeader: React.FC<PancakeSquadHeaderType> = ({
         <HeaderBottomWave isDark={isDark} />
       </StyledWaveContainer>
     </StyledSquadHeaderContainer>
-  )
-}
+  );
+};
 
-export default PancakeSquadHeader
+export default PancakeSquadHeader;

@@ -1,6 +1,6 @@
-import { fromUnixTime } from 'date-fns'
-import { PairDayDatasResponse, PairHoursDatasResponse } from './fetch/types'
-import { DerivedPairDataNormalized, PairDataNormalized, PairDataTimeWindowEnum, PairPricesNormalized } from './types'
+import { fromUnixTime } from 'date-fns';
+import { PairDayDatasResponse, PairHoursDatasResponse } from './fetch/types';
+import { DerivedPairDataNormalized, PairDataNormalized, PairDataTimeWindowEnum, PairPricesNormalized } from './types';
 
 export const normalizeChartData = (
   data: PairHoursDatasResponse | PairDayDatasResponse | null,
@@ -15,7 +15,7 @@ export const normalizeChartData = (
         token1Id: fetchPairEntry.pair.token1.id,
         reserve0: parseFloat(fetchPairEntry.reserve0),
         reserve1: parseFloat(fetchPairEntry.reserve1),
-      }))
+      }));
     case PairDataTimeWindowEnum.MONTH:
     case PairDataTimeWindowEnum.YEAR:
       return (data as PairDayDatasResponse)?.pairDayDatas?.map((fetchPairEntry) => ({
@@ -24,22 +24,22 @@ export const normalizeChartData = (
         token1Id: fetchPairEntry.pairAddress.token1.id,
         reserve0: parseFloat(fetchPairEntry.reserve0),
         reserve1: parseFloat(fetchPairEntry.reserve1),
-      }))
+      }));
     default:
-      return null
+      return null;
   }
-}
+};
 
 export const normalizeDerivedChartData = (data: any) => {
   if (!data?.token0DerivedBnb || data?.token0DerivedBnb.length === 0) {
-    return []
+    return [];
   }
   return data?.token0DerivedBnb.reduce((acc, token0DerivedBnbEntry) => {
     const token1DerivedBnbEntry = data?.token1DerivedBnb?.find(
       (entry) => entry.timestamp === token0DerivedBnbEntry.timestamp,
-    )
+    );
     if (!token1DerivedBnbEntry) {
-      return acc
+      return acc;
     }
     return [
       ...acc,
@@ -50,14 +50,14 @@ export const normalizeDerivedChartData = (data: any) => {
         token0DerivedBNB: token0DerivedBnbEntry.derivedBNB,
         token1DerivedBNB: token1DerivedBnbEntry.derivedBNB,
       },
-    ]
-  }, [])
-}
+    ];
+  }, []);
+};
 
 type normalizePairDataByActiveTokenParams = {
-  pairData: PairDataNormalized
-  activeToken: string
-}
+  pairData: PairDataNormalized;
+  activeToken: string;
+};
 
 export const normalizePairDataByActiveToken = ({
   pairData,
@@ -71,12 +71,12 @@ export const normalizePairDataByActiveToken = ({
           ? pairPrice.reserve1 / pairPrice.reserve0
           : pairPrice.reserve0 / pairPrice.reserve1,
     }))
-    .reverse()
+    .reverse();
 
 type normalizeDerivedPairDataByActiveTokenParams = {
-  pairData: DerivedPairDataNormalized
-  activeToken: string
-}
+  pairData: DerivedPairDataNormalized;
+  activeToken: string;
+};
 
 export const normalizeDerivedPairDataByActiveToken = ({
   pairData,
@@ -88,4 +88,4 @@ export const normalizeDerivedPairDataByActiveToken = ({
       activeToken === pairPrice?.token0Id
         ? pairPrice.token0DerivedBNB / pairPrice.token1DerivedBNB
         : pairPrice.token1DerivedBNB / pairPrice.token0DerivedBNB,
-  }))
+  }));

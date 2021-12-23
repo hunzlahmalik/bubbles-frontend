@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Flex, Text, SearchIcon, Link } from '@pancakeswap/uikit'
-import { getBscScanLink } from 'utils'
-import { formatNumber } from 'utils/formatBalance'
-import uriToHttp from 'utils/uriToHttp'
-import { useTranslation } from 'contexts/Localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import ExpandableCard from './ExpandableCard'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Flex, Text, SearchIcon, Link } from '@pancakeswap/uikit';
+import { getBscScanLink } from 'utils';
+import { formatNumber } from 'utils/formatBalance';
+import uriToHttp from 'utils/uriToHttp';
+import { useTranslation } from 'contexts/Localization';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import ExpandableCard from './ExpandableCard';
 
 interface DetailsCardProps {
-  contractAddress: string
-  ipfsJson: string
-  count?: number
-  rarity?: number
+  contractAddress: string;
+  ipfsJson: string;
+  count?: number;
+  rarity?: number;
 }
 
 const LongTextContainer = styled(Text)`
@@ -20,12 +20,12 @@ const LongTextContainer = styled(Text)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-`
+`;
 
 const DetailsCard: React.FC<DetailsCardProps> = ({ contractAddress, ipfsJson, count, rarity }) => {
-  const { t } = useTranslation()
-  const { chainId } = useActiveWeb3React()
-  const ipfsLink = ipfsJson ? uriToHttp(ipfsJson)[0] : null
+  const { t } = useTranslation();
+  const { chainId } = useActiveWeb3React();
+  const ipfsLink = ipfsJson ? uriToHttp(ipfsJson)[0] : null;
   const content = (
     <Box p="24px">
       <Flex justifyContent="space-between" alignItems="center" mb="16px">
@@ -63,8 +63,8 @@ const DetailsCard: React.FC<DetailsCardProps> = ({ contractAddress, ipfsJson, co
         </Flex>
       )}
     </Box>
-  )
-  return <ExpandableCard title={t('Details')} icon={<SearchIcon width="24px" height="24px" />} content={content} />
-}
+  );
+  return <ExpandableCard title={t('Details')} icon={<SearchIcon width="24px" height="24px" />} content={content} />;
+};
 
-export default DetailsCard
+export default DetailsCard;

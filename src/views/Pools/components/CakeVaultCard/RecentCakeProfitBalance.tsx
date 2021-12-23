@@ -1,12 +1,12 @@
-import React from 'react'
-import { Text, TooltipText, useTooltip } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import Balance from 'components/Balance'
+import React from 'react';
+import { Text, TooltipText, useTooltip } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import Balance from 'components/Balance';
 
 interface RecentCakeProfitBalanceProps {
-  cakeToDisplay: number
-  dollarValueToDisplay: number
-  dateStringToDisplay: string
+  cakeToDisplay: number;
+  dollarValueToDisplay: number;
+  dateStringToDisplay: string;
 }
 
 const RecentCakeProfitBalance: React.FC<RecentCakeProfitBalanceProps> = ({
@@ -14,7 +14,7 @@ const RecentCakeProfitBalance: React.FC<RecentCakeProfitBalanceProps> = ({
   dollarValueToDisplay,
   dateStringToDisplay,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <>
@@ -26,7 +26,7 @@ const RecentCakeProfitBalance: React.FC<RecentCakeProfitBalanceProps> = ({
     {
       placement: 'bottom-end',
     },
-  )
+  );
 
   return (
     <>
@@ -35,7 +35,7 @@ const RecentCakeProfitBalance: React.FC<RecentCakeProfitBalanceProps> = ({
         <Balance fontSize="14px" value={cakeToDisplay} />
       </TooltipText>
     </>
-  )
-}
+  );
+};
 
-export default RecentCakeProfitBalance
+export default RecentCakeProfitBalance;

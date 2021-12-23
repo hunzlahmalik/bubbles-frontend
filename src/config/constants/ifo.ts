@@ -1,9 +1,9 @@
-import { Token, ChainId } from '@pancakeswap/sdk'
-import tokens from './tokens'
-import farms from './farms'
-import { Ifo } from './types'
+import { Token, ChainId } from '@pancakeswap/sdk';
+import tokens from './tokens';
+import farms from './farms';
+import { Ifo } from './types';
 
-export const cakeBnbLpToken = new Token(ChainId.MAINNET, farms[1].lpAddresses[ChainId.MAINNET], 18, farms[1].lpSymbol)
+export const cakeBnbLpToken = new Token(ChainId.MAINNET, farms[1].lpAddresses[ChainId.MAINNET], 18, farms[1].lpSymbol);
 
 const ifos: Ifo[] = [
   {
@@ -358,6 +358,6 @@ const ifos: Ifo[] = [
     tokenOfferingPrice: null,
     version: 1,
   },
-]
+];
 
-export default ifos
+export default ifos;

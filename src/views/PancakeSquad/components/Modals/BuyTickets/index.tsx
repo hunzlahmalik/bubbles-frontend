@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { BigNumber } from 'ethers'
+import { BigNumber } from 'ethers';
 import {
   Box,
   Button,
@@ -14,26 +14,26 @@ import {
   ModalProps,
   ModalTitle,
   Text,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useTheme from 'hooks/useTheme'
-import React, { useState } from 'react'
-import { formatBigNumber } from 'utils/formatBalance'
-import { SaleStatusEnum } from 'views/PancakeSquad/types'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useTheme from 'hooks/useTheme';
+import React, { useState } from 'react';
+import { formatBigNumber } from 'utils/formatBalance';
+import { SaleStatusEnum } from 'views/PancakeSquad/types';
 
 interface BuyTicketsModalProps extends ModalProps {
-  buyTicketCallBack: ({ ticketsNumber }: { ticketsNumber: number }) => void
-  saleStatus: SaleStatusEnum
-  cakeBalance: BigNumber
-  pricePerTicket: BigNumber
-  maxPerAddress: number
-  maxPerTransaction: number
-  numberTicketsOfUser: number
-  numberTicketsForGen0: number
-  numberTicketsUsedForGen0: number
+  buyTicketCallBack: ({ ticketsNumber }: { ticketsNumber: number }) => void;
+  saleStatus: SaleStatusEnum;
+  cakeBalance: BigNumber;
+  pricePerTicket: BigNumber;
+  maxPerAddress: number;
+  maxPerTransaction: number;
+  numberTicketsOfUser: number;
+  numberTicketsForGen0: number;
+  numberTicketsUsedForGen0: number;
 }
 
-const DEFAULT_MAX_PER_TX = 3
+const DEFAULT_MAX_PER_TX = 3;
 
 const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({
   onDismiss,
@@ -49,21 +49,21 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({
   numberTicketsOfUser,
   numberTicketsUsedForGen0,
 }) => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const [ticketsNumber, setTicketsNumber] = useState<number | null>(1)
-  const isPreSale = saleStatus === SaleStatusEnum.Presale
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const [ticketsNumber, setTicketsNumber] = useState<number | null>(1);
+  const isPreSale = saleStatus === SaleStatusEnum.Presale;
   const remainingTickets = isPreSale
     ? numberTicketsForGen0
-    : maxPerAddress - (numberTicketsOfUser - numberTicketsUsedForGen0)
-  const isCakeBalanceInsufficient = cakeBalance.lt(pricePerTicket)
-  const maxBuyTickets = Math.min(cakeBalance.div(pricePerTicket).toNumber(), remainingTickets)
-  const totalCost = pricePerTicket.mul(BigNumber.from(ticketsNumber))
+    : maxPerAddress - (numberTicketsOfUser - numberTicketsUsedForGen0);
+  const isCakeBalanceInsufficient = cakeBalance.lt(pricePerTicket);
+  const maxBuyTickets = Math.min(cakeBalance.div(pricePerTicket).toNumber(), remainingTickets);
+  const totalCost = pricePerTicket.mul(BigNumber.from(ticketsNumber));
   const maxBuyButtons =
     saleStatus === SaleStatusEnum.Presale
       ? Math.min(numberTicketsForGen0, DEFAULT_MAX_PER_TX)
-      : Math.min(maxPerTransaction, DEFAULT_MAX_PER_TX)
-  const buyButtons = new Array(maxBuyButtons).fill('')
+      : Math.min(maxPerTransaction, DEFAULT_MAX_PER_TX);
+  const buyButtons = new Array(maxBuyButtons).fill('');
 
   return (
     <ModalContainer minWidth="375px">
@@ -167,7 +167,7 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({
         </Flex>
       </ModalBody>
     </ModalContainer>
-  )
-}
+  );
+};
 
-export default BuyTicketsModal
+export default BuyTicketsModal;

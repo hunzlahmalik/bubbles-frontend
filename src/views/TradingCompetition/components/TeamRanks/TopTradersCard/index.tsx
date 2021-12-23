@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   CardFooter,
@@ -10,10 +10,10 @@ import {
   Box,
   Flex,
   ExpandableLabel,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { TeamRanksProps } from '../../../types'
-import TopTradersGrid from './TopTradersGrid'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { TeamRanksProps } from '../../../types';
+import TopTradersGrid from './TopTradersGrid';
 
 const TopTradersCard: React.FC<TeamRanksProps> = ({
   team1LeaderboardInformation,
@@ -22,34 +22,34 @@ const TopTradersCard: React.FC<TeamRanksProps> = ({
   globalLeaderboardInformation,
   isGlobalLeaderboardDataComplete,
 }) => {
-  const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState(0)
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [topTradersGridData, setTopTradersGridData] = useState(null)
-  const handleItemClick = (index: number) => setActiveTab(index)
-  const tabs = [t('Total'), 'Storm', 'Flippers', 'Cakers']
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [topTradersGridData, setTopTradersGridData] = useState(null);
+  const handleItemClick = (index: number) => setActiveTab(index);
+  const tabs = [t('Total'), 'Storm', 'Flippers', 'Cakers'];
 
   useEffect(() => {
     const getData = () => {
       if (activeTab === 0) {
-        setTopTradersGridData(globalLeaderboardInformation.data)
+        setTopTradersGridData(globalLeaderboardInformation.data);
       }
 
       if (activeTab === 1) {
-        setTopTradersGridData(team1LeaderboardInformation.leaderboardData.data)
+        setTopTradersGridData(team1LeaderboardInformation.leaderboardData.data);
       }
 
       if (activeTab === 2) {
-        setTopTradersGridData(team2LeaderboardInformation.leaderboardData.data)
+        setTopTradersGridData(team2LeaderboardInformation.leaderboardData.data);
       }
 
       if (activeTab === 3) {
-        setTopTradersGridData(team3LeaderboardInformation.leaderboardData.data)
+        setTopTradersGridData(team3LeaderboardInformation.leaderboardData.data);
       }
-    }
+    };
 
     if (isGlobalLeaderboardDataComplete) {
-      getData()
+      getData();
     }
   }, [
     isGlobalLeaderboardDataComplete,
@@ -58,7 +58,7 @@ const TopTradersCard: React.FC<TeamRanksProps> = ({
     team1LeaderboardInformation,
     team2LeaderboardInformation,
     team3LeaderboardInformation,
-  ])
+  ]);
 
   return (
     <Card id="top-traders-card">
@@ -74,7 +74,7 @@ const TopTradersCard: React.FC<TeamRanksProps> = ({
         <Box mt="16px">
           <TabMenu activeIndex={activeTab} onItemClick={handleItemClick}>
             {tabs.map((tabText) => {
-              return <Tab key={tabText}>{tabText}</Tab>
+              return <Tab key={tabText}>{tabText}</Tab>;
             })}
           </TabMenu>
           <TopTradersGrid data={topTradersGridData} isExpanded={isExpanded} />
@@ -88,7 +88,7 @@ const TopTradersCard: React.FC<TeamRanksProps> = ({
         </CardFooter>
       </Box>
     </Card>
-  )
-}
+  );
+};
 
-export default TopTradersCard
+export default TopTradersCard;

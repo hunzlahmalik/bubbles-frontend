@@ -1,5 +1,5 @@
-import { Box } from '@pancakeswap/uikit'
-import styled from 'styled-components'
+import { Box } from '@pancakeswap/uikit';
+import styled from 'styled-components';
 
 export const StyledPriceChart = styled(Box)<{ $isDark: boolean; $isExpanded: boolean }>`
   border: none;
@@ -14,8 +14,8 @@ export const StyledPriceChart = styled(Box)<{ $isDark: boolean; $isExpanded: boo
     width: ${({ $isExpanded }) => ($isExpanded ? '100%' : '50%')};
     height: ${({ $isExpanded }) => ($isExpanded ? 'calc(100vh - 100px)' : '484px')};
   }
-`
+`;
 
 StyledPriceChart.defaultProps = {
   height: '70%',
-}
+};

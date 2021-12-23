@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
-import { Box, BoxProps, Text, Input } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { isAddress } from 'utils'
-import { useTranslation } from 'contexts/Localization'
-import CircleLoader from 'components/Loader/CircleLoader'
+import React, { ChangeEvent, useState, useEffect } from 'react';
+import { Box, BoxProps, Text, Input } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { isAddress } from 'utils';
+import { useTranslation } from 'contexts/Localization';
+import CircleLoader from 'components/Loader/CircleLoader';
 
 enum ResultStatus {
   NOT_VALID,
@@ -12,8 +12,8 @@ enum ResultStatus {
 }
 
 interface AddressInputSelectProps extends BoxProps {
-  onValidAddress?: (value: string) => Promise<boolean>
-  onAddressClick: (value: string) => void
+  onValidAddress?: (value: string) => Promise<boolean>;
+  onAddressClick: (value: string) => void;
 }
 
 const SubMenu = styled.div<{ isOpen: boolean }>`
@@ -39,7 +39,7 @@ const SubMenu = styled.div<{ isOpen: boolean }>`
     opacity: 1;
     transform: scaleY(1);
   `}
-`
+`;
 
 const AddressLink = styled(Text)`
   cursor: pointer;
@@ -47,63 +47,63 @@ const AddressLink = styled(Text)`
   font-weight: bold;
   padding-left: 16px;
   padding-right: 16px;
-`
+`;
 
 const initialState = {
   isFetching: false,
   resultFound: ResultStatus.NOT_VALID,
   value: '',
-}
+};
 
-const defaultValidAddressHandler = () => Promise.resolve(true)
+const defaultValidAddressHandler = () => Promise.resolve(true);
 
 const AddressInputSelect: React.FC<AddressInputSelectProps> = ({
   onValidAddress = defaultValidAddressHandler,
   onAddressClick,
   ...props
 }) => {
-  const [state, setState] = useState(initialState)
-  const { t } = useTranslation()
-  const { isFetching, resultFound, value } = state
+  const [state, setState] = useState(initialState);
+  const { t } = useTranslation();
+  const { isFetching, resultFound, value } = state;
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { value: newValue } = evt.target
+    const { value: newValue } = evt.target;
     setState((prevState) => ({
       ...prevState,
       value: newValue,
-    }))
-  }
+    }));
+  };
 
   const handleClick = () => {
-    setState(initialState)
-    onAddressClick(state.value)
-  }
+    setState(initialState);
+    onAddressClick(state.value);
+  };
 
   // When we have a valid address fetch the data
   useEffect(() => {
-    const isValidAddress = isAddress(value) !== false
+    const isValidAddress = isAddress(value) !== false;
 
     const validAddressHandler = async () => {
       try {
-        setState((prevState) => ({ ...prevState, isFetching: true }))
-        const hasResults = await onValidAddress(value)
+        setState((prevState) => ({ ...prevState, isFetching: true }));
+        const hasResults = await onValidAddress(value);
 
         setState((prevState) => ({
           ...prevState,
           isFetching: false,
           resultFound: hasResults ? ResultStatus.FOUND : ResultStatus.NOT_FOUND,
-        }))
+        }));
       } catch {
-        setState((prevState) => ({ ...prevState, isFetching: false }))
+        setState((prevState) => ({ ...prevState, isFetching: false }));
       }
-    }
+    };
 
     if (isValidAddress) {
-      validAddressHandler()
+      validAddressHandler();
     } else {
-      setState((prevState) => ({ ...prevState, resultFound: ResultStatus.NOT_VALID }))
+      setState((prevState) => ({ ...prevState, resultFound: ResultStatus.NOT_VALID }));
     }
-  }, [value, onValidAddress, setState])
+  }, [value, onValidAddress, setState]);
 
   return (
     <Box position="relative" {...props}>
@@ -128,7 +128,7 @@ const AddressInputSelect: React.FC<AddressInputSelectProps> = ({
         )}
       </SubMenu>
     </Box>
-  )
-}
+  );
+};
 
-export default AddressInputSelect
+export default AddressInputSelect;

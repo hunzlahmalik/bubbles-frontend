@@ -1,15 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Heading, Text, Button, Flex, useMatchBreakpoints } from '@pancakeswap/uikit'
-import Container from 'components/Layout/Container'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Heading, Text, Button, Flex, useMatchBreakpoints } from '@pancakeswap/uikit';
+import Container from 'components/Layout/Container';
+import { useTranslation } from 'contexts/Localization';
 
 const StyledHero = styled(Box)`
   background-image: url('/images/ifos/assets/ifo-banner-${({ theme }) => (theme.isDark ? 'dark' : 'light')}.png');
   background-position: top, center;
   background-repeat: no-repeat;
   background-size: auto 100%;
-`
+`;
 
 const StyledHeading = styled(Heading)`
   font-size: 40px;
@@ -17,7 +17,7 @@ const StyledHeading = styled(Heading)`
   ${({ theme }) => theme.mediaQueries.md} {
     font-size: 64px;
   }
-`
+`;
 
 const StyledButton = styled(Button)`
   background-color: ${({ theme }) => theme.colors.tertiary};
@@ -30,11 +30,11 @@ const StyledButton = styled(Button)`
   box-shadow: ${({ theme }) => theme.shadows.inset};
   border-radius: 8px;
   margin-left: 8px;
-`
+`;
 
 const DesktopButton = styled(Button)`
   align-self: flex-end;
-`
+`;
 
 const StyledSubTitle = styled(Text)`
   font-size: 16px;
@@ -42,16 +42,16 @@ const StyledSubTitle = styled(Text)`
   ${({ theme }) => theme.mediaQueries.md} {
     font-size: 20px;
   }
-`
+`;
 
 const Hero = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const { isMobile } = useMatchBreakpoints()
+  const { isMobile } = useMatchBreakpoints();
 
   const handleClick = () => {
-    document.getElementById('ifo-how-to')?.scrollIntoView()
-  }
+    document.getElementById('ifo-how-to')?.scrollIntoView();
+  };
 
   return (
     <Box mb="8px">
@@ -80,7 +80,7 @@ const Hero = () => {
         </Container>
       </StyledHero>
     </Box>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

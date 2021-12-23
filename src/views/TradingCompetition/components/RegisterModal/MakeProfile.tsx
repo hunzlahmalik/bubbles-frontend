@@ -1,19 +1,19 @@
-import React from 'react'
-import { Button, Heading, Text } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import history from 'routerHistory'
-import { useTranslation } from 'contexts/Localization'
-import { CompetitionProps } from 'views/TradingCompetition/types'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
+import React from 'react';
+import { Button, Heading, Text } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import history from 'routerHistory';
+import { useTranslation } from 'contexts/Localization';
+import { CompetitionProps } from 'views/TradingCompetition/types';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
 
 const MakeProfile: React.FC<CompetitionProps> = ({ onDismiss }) => {
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
 
   const handleClick = () => {
-    history.push(`${nftsBaseUrl}/profile/${account.toLowerCase()}`)
-    onDismiss()
-  }
+    history.push(`${nftsBaseUrl}/profile/${account.toLowerCase()}`);
+    onDismiss();
+  };
 
   return (
     <>
@@ -27,7 +27,7 @@ const MakeProfile: React.FC<CompetitionProps> = ({ onDismiss }) => {
         {t('Make a profile!')}
       </Button>
     </>
-  )
-}
+  );
+};
 
-export default MakeProfile
+export default MakeProfile;

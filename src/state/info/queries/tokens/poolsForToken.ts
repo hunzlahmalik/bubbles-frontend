@@ -1,6 +1,6 @@
-import { request, gql } from 'graphql-request'
-import { INFO_CLIENT } from 'config/constants/endpoints'
-import { TOKEN_BLACKLIST } from 'config/constants/info'
+import { request, gql } from 'graphql-request';
+import { INFO_CLIENT } from 'config/constants/endpoints';
+import { TOKEN_BLACKLIST } from 'config/constants/info';
 
 /**
  * Data for showing Pools table on the Token page
@@ -24,38 +24,38 @@ const POOLS_FOR_TOKEN = gql`
       id
     }
   }
-`
+`;
 
 interface PoolsForTokenResponse {
   asToken0: {
-    id: string
-  }[]
+    id: string;
+  }[];
   asToken1: {
-    id: string
-  }[]
+    id: string;
+  }[];
 }
 
 const fetchPoolsForToken = async (
   address: string,
 ): Promise<{
-  error: boolean
-  addresses?: string[]
+  error: boolean;
+  addresses?: string[];
 }> => {
   try {
     const data = await request<PoolsForTokenResponse>(INFO_CLIENT, POOLS_FOR_TOKEN, {
       address,
       blacklist: TOKEN_BLACKLIST,
-    })
+    });
     return {
       error: false,
       addresses: data.asToken0.concat(data.asToken1).map((p) => p.id),
-    }
+    };
   } catch (error) {
-    console.error(`Failed to fetch pools for token ${address}`, error)
+    console.error(`Failed to fetch pools for token ${address}`, error);
     return {
       error: true,
-    }
+    };
   }
-}
+};
 
-export default fetchPoolsForToken
+export default fetchPoolsForToken;

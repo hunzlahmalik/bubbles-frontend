@@ -1,1 +1,1 @@
-export { default } from './BlindBox'
+export { default } from './BlindBox';

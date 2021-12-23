@@ -1,1 +1,1 @@
-export const REQUEST_SIZE = 100
+export const REQUEST_SIZE = 100;

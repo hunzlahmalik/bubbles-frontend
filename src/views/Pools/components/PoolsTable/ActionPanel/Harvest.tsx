@@ -1,19 +1,19 @@
-import React from 'react'
-import { Button, Text, useModal, Flex, Skeleton, Heading } from '@pancakeswap/uikit'
-import BigNumber from 'bignumber.js'
-import { useWeb3React } from '@web3-react/core'
-import { PoolCategory } from 'config/constants/types'
-import { formatNumber, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
-import { useTranslation } from 'contexts/Localization'
-import Balance from 'components/Balance'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { DeserializedPool } from 'state/types'
+import React from 'react';
+import { Button, Text, useModal, Flex, Skeleton, Heading } from '@pancakeswap/uikit';
+import BigNumber from 'bignumber.js';
+import { useWeb3React } from '@web3-react/core';
+import { PoolCategory } from 'config/constants/types';
+import { formatNumber, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance';
+import { useTranslation } from 'contexts/Localization';
+import Balance from 'components/Balance';
+import { BIG_ZERO } from 'utils/bigNumber';
+import { DeserializedPool } from 'state/types';
 
-import { ActionContainer, ActionTitles, ActionContent } from './styles'
-import CollectModal from '../../PoolCard/Modals/CollectModal'
+import { ActionContainer, ActionTitles, ActionContent } from './styles';
+import CollectModal from '../../PoolCard/Modals/CollectModal';
 
 interface HarvestActionProps extends DeserializedPool {
-  userDataLoaded: boolean
+  userDataLoaded: boolean;
 }
 
 const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
@@ -24,17 +24,17 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   userDataLoaded,
   earningTokenPrice,
 }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
 
-  const earnings = userData?.pendingReward ? new BigNumber(userData.pendingReward) : BIG_ZERO
-  const earningTokenBalance = getBalanceNumber(earnings, earningToken.decimals)
-  const earningTokenDollarBalance = getBalanceNumber(earnings.multipliedBy(earningTokenPrice), earningToken.decimals)
-  const hasEarnings = earnings.gt(0)
-  const fullBalance = getFullDisplayBalance(earnings, earningToken.decimals)
-  const formattedBalance = formatNumber(earningTokenBalance, 3, 3)
-  const isCompoundPool = sousId === 0
-  const isBnbPool = poolCategory === PoolCategory.BINANCE
+  const earnings = userData?.pendingReward ? new BigNumber(userData.pendingReward) : BIG_ZERO;
+  const earningTokenBalance = getBalanceNumber(earnings, earningToken.decimals);
+  const earningTokenDollarBalance = getBalanceNumber(earnings.multipliedBy(earningTokenPrice), earningToken.decimals);
+  const hasEarnings = earnings.gt(0);
+  const fullBalance = getFullDisplayBalance(earnings, earningToken.decimals);
+  const formattedBalance = formatNumber(earningTokenBalance, 3, 3);
+  const isCompoundPool = sousId === 0;
+  const isBnbPool = poolCategory === PoolCategory.BINANCE;
 
   const [onPresentCollect] = useModal(
     <CollectModal
@@ -46,7 +46,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
       isBnbPool={isBnbPool}
       isCompoundPool={isCompoundPool}
     />,
-  )
+  );
 
   const actionTitle = (
     <>
@@ -57,7 +57,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
         {t('Earned')}
       </Text>
     </>
-  )
+  );
 
   if (!account) {
     return (
@@ -68,7 +68,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           <Button disabled>{isCompoundPool ? t('Collect') : t('Harvest')}</Button>
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   if (!userDataLoaded) {
@@ -79,7 +79,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           <Skeleton width={180} height="32px" marginTop={14} />
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   return (
@@ -118,7 +118,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
         </Button>
       </ActionContent>
     </ActionContainer>
-  )
-}
+  );
+};
 
-export default HarvestAction
+export default HarvestAction;

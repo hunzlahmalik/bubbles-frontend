@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Text, PancakeToggle, Toggle, Flex, Modal, InjectedModalProps, ThemeSwitcher } from '@pancakeswap/uikit'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Text, PancakeToggle, Toggle, Flex, Modal, InjectedModalProps, ThemeSwitcher } from '@pancakeswap/uikit';
 import {
   useAudioModeManager,
   useExpertModeManager,
   useUserExpertModeAcknowledgementShow,
   useUserSingleHopOnly,
-} from 'state/user/hooks'
-import { useTranslation } from 'contexts/Localization'
-import { useSwapActionHandlers } from 'state/swap/hooks'
-import useTheme from 'hooks/useTheme'
-import QuestionHelper from '../../QuestionHelper'
-import TransactionSettings from './TransactionSettings'
-import ExpertModal from './ExpertModal'
-import GasSettings from './GasSettings'
+} from 'state/user/hooks';
+import { useTranslation } from 'contexts/Localization';
+import { useSwapActionHandlers } from 'state/swap/hooks';
+import useTheme from 'hooks/useTheme';
+import QuestionHelper from '../../QuestionHelper';
+import TransactionSettings from './TransactionSettings';
+import ExpertModal from './ExpertModal';
+import GasSettings from './GasSettings';
 
 const ScrollableContainer = styled(Flex)`
   flex-direction: column;
@@ -21,18 +21,18 @@ const ScrollableContainer = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.sm} {
     max-height: none;
   }
-`
+`;
 
 const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
-  const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
-  const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgementShow()
-  const [expertMode, toggleExpertMode] = useExpertModeManager()
-  const [singleHopOnly, setSingleHopOnly] = useUserSingleHopOnly()
-  const [audioPlay, toggleSetAudioMode] = useAudioModeManager()
-  const { onChangeRecipient } = useSwapActionHandlers()
+  const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false);
+  const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgementShow();
+  const [expertMode, toggleExpertMode] = useExpertModeManager();
+  const [singleHopOnly, setSingleHopOnly] = useUserSingleHopOnly();
+  const [audioPlay, toggleSetAudioMode] = useAudioModeManager();
+  const { onChangeRecipient } = useSwapActionHandlers();
 
-  const { t } = useTranslation()
-  const { theme, isDark, toggleTheme } = useTheme()
+  const { t } = useTranslation();
+  const { theme, isDark, toggleTheme } = useTheme();
 
   if (showConfirmExpertModal) {
     return (
@@ -41,20 +41,20 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
         onDismiss={onDismiss}
         setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
       />
-    )
+    );
   }
 
   const handleExpertModeToggle = () => {
     if (expertMode) {
-      onChangeRecipient(null)
-      toggleExpertMode()
+      onChangeRecipient(null);
+      toggleExpertMode();
     } else if (!showExpertModeAcknowledgement) {
-      onChangeRecipient(null)
-      toggleExpertMode()
+      onChangeRecipient(null);
+      toggleExpertMode();
     } else {
-      setShowConfirmExpertModal(true)
+      setShowConfirmExpertModal(true);
     }
-  }
+  };
 
   return (
     <Modal
@@ -101,7 +101,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
             checked={singleHopOnly}
             scale="md"
             onChange={() => {
-              setSingleHopOnly(!singleHopOnly)
+              setSingleHopOnly(!singleHopOnly);
             }}
           />
         </Flex>
@@ -118,7 +118,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
         </Flex>
       </ScrollableContainer>
     </Modal>
-  )
-}
+  );
+};
 
-export default SettingsModal
+export default SettingsModal;

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const LineChartLoaderSVG: React.FC<SvgProps> = (props) => {
   return (
@@ -54,7 +54,7 @@ const LineChartLoaderSVG: React.FC<SvgProps> = (props) => {
         </filter>
       </defs>
     </Svg>
-  )
-}
+  );
+};
 
-export default LineChartLoaderSVG
+export default LineChartLoaderSVG;

@@ -1,31 +1,31 @@
-import React from 'react'
-import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
-import { Button, useModal, IconButton, AddIcon, MinusIcon, Skeleton, useTooltip, Flex, Text } from '@pancakeswap/uikit'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { useWeb3React } from '@web3-react/core'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { DeserializedPool } from 'state/types'
-import Balance from 'components/Balance'
-import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { PoolCategory } from 'config/constants/types'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { useERC20 } from 'hooks/useContract'
-import { convertSharesToCake } from 'views/Pools/helpers'
-import { ActionContainer, ActionTitles, ActionContent } from './styles'
-import NotEnoughTokensModal from '../../PoolCard/Modals/NotEnoughTokensModal'
-import StakeModal from '../../PoolCard/Modals/StakeModal'
-import VaultStakeModal from '../../CakeVaultCard/VaultStakeModal'
-import { useCheckVaultApprovalStatus, useApprovePool, useVaultApprove } from '../../../hooks/useApprove'
+import React from 'react';
+import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
+import { Button, useModal, IconButton, AddIcon, MinusIcon, Skeleton, useTooltip, Flex, Text } from '@pancakeswap/uikit';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { useWeb3React } from '@web3-react/core';
+import { useVaultPoolByKey } from 'state/pools/hooks';
+import { DeserializedPool } from 'state/types';
+import Balance from 'components/Balance';
+import { useTranslation } from 'contexts/Localization';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { PoolCategory } from 'config/constants/types';
+import { BIG_ZERO } from 'utils/bigNumber';
+import { useERC20 } from 'hooks/useContract';
+import { convertSharesToCake } from 'views/Pools/helpers';
+import { ActionContainer, ActionTitles, ActionContent } from './styles';
+import NotEnoughTokensModal from '../../PoolCard/Modals/NotEnoughTokensModal';
+import StakeModal from '../../PoolCard/Modals/StakeModal';
+import VaultStakeModal from '../../CakeVaultCard/VaultStakeModal';
+import { useCheckVaultApprovalStatus, useApprovePool, useVaultApprove } from '../../../hooks/useApprove';
 
 const IconButtonWrapper = styled.div`
   display: flex;
-`
+`;
 
 interface StackedActionProps {
-  pool: DeserializedPool
-  userDataLoaded: boolean
+  pool: DeserializedPool;
+  userDataLoaded: boolean;
 }
 
 const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoaded }) => {
@@ -39,52 +39,55 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
     userData,
     stakingTokenPrice,
     vaultKey,
-  } = pool
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  } = pool;
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
 
-  const stakingTokenContract = useERC20(stakingToken.address || '')
+  const stakingTokenContract = useERC20(stakingToken.address || '');
   const { handleApprove: handlePoolApprove, requestedApproval: requestedPoolApproval } = useApprovePool(
     stakingTokenContract,
     sousId,
     earningToken.symbol,
-  )
+  );
 
-  const { isVaultApproved, setLastUpdated } = useCheckVaultApprovalStatus(pool.vaultKey)
+  const { isVaultApproved, setLastUpdated } = useCheckVaultApprovalStatus(pool.vaultKey);
   const { handleApprove: handleVaultApprove, requestedApproval: requestedVaultApproval } = useVaultApprove(
     pool.vaultKey,
     setLastUpdated,
-  )
+  );
 
-  const handleApprove = vaultKey ? handleVaultApprove : handlePoolApprove
-  const requestedApproval = vaultKey ? requestedVaultApproval : requestedPoolApproval
+  const handleApprove = vaultKey ? handleVaultApprove : handlePoolApprove;
+  const requestedApproval = vaultKey ? requestedVaultApproval : requestedPoolApproval;
 
-  const isBnbPool = poolCategory === PoolCategory.BINANCE
-  const allowance = userData?.allowance ? new BigNumber(userData.allowance) : BIG_ZERO
-  const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
-  const isNotVaultAndHasStake = !vaultKey && stakedBalance.gt(0)
+  const isBnbPool = poolCategory === PoolCategory.BINANCE;
+  const allowance = userData?.allowance ? new BigNumber(userData.allowance) : BIG_ZERO;
+  const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO;
+  const isNotVaultAndHasStake = !vaultKey && stakedBalance.gt(0);
 
-  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
+  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO;
 
-  const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals)
+  const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals);
   const stakedTokenDollarBalance = getBalanceNumber(
     stakedBalance.multipliedBy(stakingTokenPrice),
     stakingToken.decimals,
-  )
+  );
 
   const {
     userData: { userShares },
     pricePerFullShare,
-  } = useVaultPoolByKey(pool.vaultKey)
+  } = useVaultPoolByKey(pool.vaultKey);
 
-  const { cakeAsBigNumber, cakeAsNumberBalance } = convertSharesToCake(userShares, pricePerFullShare)
-  const hasSharesStaked = userShares && userShares.gt(0)
-  const isVaultWithShares = vaultKey && hasSharesStaked
-  const stakedAutoDollarValue = getBalanceNumber(cakeAsBigNumber.multipliedBy(stakingTokenPrice), stakingToken.decimals)
+  const { cakeAsBigNumber, cakeAsNumberBalance } = convertSharesToCake(userShares, pricePerFullShare);
+  const hasSharesStaked = userShares && userShares.gt(0);
+  const isVaultWithShares = vaultKey && hasSharesStaked;
+  const stakedAutoDollarValue = getBalanceNumber(
+    cakeAsBigNumber.multipliedBy(stakingTokenPrice),
+    stakingToken.decimals,
+  );
 
-  const needsApproval = vaultKey ? !isVaultApproved : !allowance.gt(0) && !isBnbPool
+  const needsApproval = vaultKey ? !isVaultApproved : !allowance.gt(0) && !isBnbPool;
 
-  const [onPresentTokenRequired] = useModal(<NotEnoughTokensModal tokenSymbol={stakingToken.symbol} />)
+  const [onPresentTokenRequired] = useModal(<NotEnoughTokensModal tokenSymbol={stakingToken.symbol} />);
 
   const [onPresentStake] = useModal(
     <StakeModal
@@ -93,9 +96,9 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
       stakingTokenBalance={stakingTokenBalance}
       stakingTokenPrice={stakingTokenPrice}
     />,
-  )
+  );
 
-  const [onPresentVaultStake] = useModal(<VaultStakeModal stakingMax={stakingTokenBalance} pool={pool} />)
+  const [onPresentVaultStake] = useModal(<VaultStakeModal stakingMax={stakingTokenBalance} pool={pool} />);
 
   const [onPresentUnstake] = useModal(
     <StakeModal
@@ -105,32 +108,34 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
       stakingTokenPrice={stakingTokenPrice}
       isRemovingStake
     />,
-  )
+  );
 
-  const [onPresentVaultUnstake] = useModal(<VaultStakeModal stakingMax={cakeAsBigNumber} pool={pool} isRemovingStake />)
+  const [onPresentVaultUnstake] = useModal(
+    <VaultStakeModal stakingMax={cakeAsBigNumber} pool={pool} isRemovingStake />,
+  );
 
   const onStake = () => {
     if (vaultKey) {
-      onPresentVaultStake()
+      onPresentVaultStake();
     } else {
-      onPresentStake()
+      onPresentStake();
     }
-  }
+  };
 
   const onUnstake = () => {
     if (vaultKey) {
-      onPresentVaultUnstake()
+      onPresentVaultUnstake();
     } else {
-      onPresentUnstake()
+      onPresentUnstake();
     }
-  }
+  };
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t("You've already staked the maximum amount you can stake in this pool!"),
     { placement: 'bottom' },
-  )
+  );
 
-  const reachStakingLimit = stakingLimit.gt(0) && userData.stakedBalance.gte(stakingLimit)
+  const reachStakingLimit = stakingLimit.gt(0) && userData.stakedBalance.gte(stakingLimit);
 
   if (!account) {
     return (
@@ -144,7 +149,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
           <ConnectWalletButton width="100%" />
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   if (!userDataLoaded) {
@@ -159,7 +164,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
           <Skeleton width={180} height="32px" marginTop={14} />
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   if (needsApproval) {
@@ -176,7 +181,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
           </Button>
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   // Wallet connected, user data loaded and approved
@@ -233,7 +238,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
           {tooltipVisible && tooltip}
         </ActionContent>
       </ActionContainer>
-    )
+    );
   }
 
   return (
@@ -257,7 +262,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({ pool, userDataLoa
         </Button>
       </ActionContent>
     </ActionContainer>
-  )
-}
+  );
+};
 
-export default Staked
+export default Staked;

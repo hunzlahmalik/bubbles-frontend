@@ -1,13 +1,13 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import styled from 'styled-components'
-import { Text, Flex, Box, Skeleton, useMatchBreakpoints, ArrowBackIcon, ArrowForwardIcon } from '@pancakeswap/uikit'
-import { TokenData } from 'state/info/types'
-import { Link } from 'react-router-dom'
-import { CurrencyLogo } from 'views/Info/components/CurrencyLogo'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import Percent from 'views/Info/components/Percent'
-import { useTranslation } from 'contexts/Localization'
-import { ClickableColumnHeader, TableWrapper, PageButtons, Arrow, Break } from './shared'
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import styled from 'styled-components';
+import { Text, Flex, Box, Skeleton, useMatchBreakpoints, ArrowBackIcon, ArrowForwardIcon } from '@pancakeswap/uikit';
+import { TokenData } from 'state/info/types';
+import { Link } from 'react-router-dom';
+import { CurrencyLogo } from 'views/Info/components/CurrencyLogo';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import Percent from 'views/Info/components/Percent';
+import { useTranslation } from 'contexts/Localization';
+import { ClickableColumnHeader, TableWrapper, PageButtons, Arrow, Break } from './shared';
 
 /**
  *  Columns on different layouts
@@ -49,7 +49,7 @@ const ResponsiveGrid = styled.div`
       display: none;
     }
   }
-`
+`;
 
 const LinkWrapper = styled(Link)`
   text-decoration: none;
@@ -57,14 +57,14 @@ const LinkWrapper = styled(Link)`
     cursor: pointer;
     opacity: 0.7;
   }
-`
+`;
 
 const ResponsiveLogo = styled(CurrencyLogo)`
   @media screen and (max-width: 670px) {
     width: 16px;
     height: 16px;
   }
-`
+`;
 
 const TableLoader: React.FC = () => {
   const loadingRow = (
@@ -76,18 +76,18 @@ const TableLoader: React.FC = () => {
       <Skeleton />
       <Skeleton />
     </ResponsiveGrid>
-  )
+  );
   return (
     <>
       {loadingRow}
       {loadingRow}
       {loadingRow}
     </>
-  )
-}
+  );
+};
 
 const DataRow: React.FC<{ tokenData: TokenData; index: number }> = ({ tokenData, index }) => {
-  const { isXs, isSm } = useMatchBreakpoints()
+  const { isXs, isSm } = useMatchBreakpoints();
   return (
     <LinkWrapper to={`/info/token/${tokenData.address}`}>
       <ResponsiveGrid>
@@ -112,8 +112,8 @@ const DataRow: React.FC<{ tokenData: TokenData; index: number }> = ({ tokenData,
         <Text fontWeight={400}>${formatAmount(tokenData.liquidityUSD)}</Text>
       </ResponsiveGrid>
     </LinkWrapper>
-  )
-}
+  );
+};
 
 const SORT_FIELD = {
   name: 'name',
@@ -122,30 +122,30 @@ const SORT_FIELD = {
   priceUSD: 'priceUSD',
   priceUSDChange: 'priceUSDChange',
   priceUSDChangeWeek: 'priceUSDChangeWeek',
-}
+};
 
-const MAX_ITEMS = 10
+const MAX_ITEMS = 10;
 
 const TokenTable: React.FC<{
-  tokenDatas: TokenData[] | undefined
-  maxItems?: number
+  tokenDatas: TokenData[] | undefined;
+  maxItems?: number;
 }> = ({ tokenDatas, maxItems = MAX_ITEMS }) => {
-  const [sortField, setSortField] = useState(SORT_FIELD.volumeUSD)
-  const [sortDirection, setSortDirection] = useState<boolean>(true)
+  const [sortField, setSortField] = useState(SORT_FIELD.volumeUSD);
+  const [sortDirection, setSortDirection] = useState<boolean>(true);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [page, setPage] = useState(1)
-  const [maxPage, setMaxPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
   useEffect(() => {
-    let extraPages = 1
+    let extraPages = 1;
     if (tokenDatas) {
       if (tokenDatas.length % maxItems === 0) {
-        extraPages = 0
+        extraPages = 0;
       }
-      setMaxPage(Math.floor(tokenDatas.length / maxItems) + extraPages)
+      setMaxPage(Math.floor(tokenDatas.length / maxItems) + extraPages);
     }
-  }, [maxItems, tokenDatas])
+  }, [maxItems, tokenDatas]);
 
   const sortedTokens = useMemo(() => {
     return tokenDatas
@@ -154,32 +154,32 @@ const TokenTable: React.FC<{
             if (a && b) {
               return a[sortField as keyof TokenData] > b[sortField as keyof TokenData]
                 ? (sortDirection ? -1 : 1) * 1
-                : (sortDirection ? -1 : 1) * -1
+                : (sortDirection ? -1 : 1) * -1;
             }
-            return -1
+            return -1;
           })
           .slice(maxItems * (page - 1), page * maxItems)
-      : []
-  }, [tokenDatas, maxItems, page, sortDirection, sortField])
+      : [];
+  }, [tokenDatas, maxItems, page, sortDirection, sortField]);
 
   const handleSort = useCallback(
     (newField: string) => {
-      setSortField(newField)
-      setSortDirection(sortField !== newField ? true : !sortDirection)
+      setSortField(newField);
+      setSortDirection(sortField !== newField ? true : !sortDirection);
     },
     [sortDirection, sortField],
-  )
+  );
 
   const arrow = useCallback(
     (field: string) => {
-      const directionArrow = !sortDirection ? '↑' : '↓'
-      return sortField === field ? directionArrow : ''
+      const directionArrow = !sortDirection ? '↑' : '↓';
+      return sortField === field ? directionArrow : '';
     },
     [sortDirection, sortField],
-  )
+  );
 
   if (!tokenDatas) {
-    return <Skeleton />
+    return <Skeleton />;
   }
 
   return (
@@ -245,14 +245,14 @@ const TokenTable: React.FC<{
                   <DataRow index={(page - 1) * MAX_ITEMS + i} tokenData={data} />
                   <Break />
                 </React.Fragment>
-              )
+              );
             }
-            return null
+            return null;
           })}
           <PageButtons>
             <Arrow
               onClick={() => {
-                setPage(page === 1 ? page : page - 1)
+                setPage(page === 1 ? page : page - 1);
               }}
             >
               <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
@@ -260,7 +260,7 @@ const TokenTable: React.FC<{
             <Text>{t('Page %page% of %maxPage%', { page, maxPage })}</Text>
             <Arrow
               onClick={() => {
-                setPage(page === maxPage ? page : page + 1)
+                setPage(page === maxPage ? page : page + 1);
               }}
             >
               <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
@@ -274,7 +274,7 @@ const TokenTable: React.FC<{
         </>
       )}
     </TableWrapper>
-  )
-}
+  );
+};
 
-export default TokenTable
+export default TokenTable;

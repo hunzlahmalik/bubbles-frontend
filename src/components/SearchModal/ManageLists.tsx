@@ -1,32 +1,32 @@
-import React, { memo, useCallback, useMemo, useState, useEffect } from 'react'
-import { Button, Text, CheckmarkIcon, CogIcon, Input, Toggle, LinkExternal, useTooltip } from '@pancakeswap/uikit'
-import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
-import { TokenList, Version } from '@uniswap/token-lists'
-import Card from 'components/Card'
-import { UNSUPPORTED_LIST_URLS } from 'config/constants/lists'
-import { parseENSAddress } from 'utils/ENS/parseENSAddress'
-import { useTranslation } from 'contexts/Localization'
-import useFetchListCallback from '../../hooks/useFetchListCallback'
+import React, { memo, useCallback, useMemo, useState, useEffect } from 'react';
+import { Button, Text, CheckmarkIcon, CogIcon, Input, Toggle, LinkExternal, useTooltip } from '@pancakeswap/uikit';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { TokenList, Version } from '@uniswap/token-lists';
+import Card from 'components/Card';
+import { UNSUPPORTED_LIST_URLS } from 'config/constants/lists';
+import { parseENSAddress } from 'utils/ENS/parseENSAddress';
+import { useTranslation } from 'contexts/Localization';
+import useFetchListCallback from '../../hooks/useFetchListCallback';
 
-import { AppDispatch, AppState } from '../../state'
-import { acceptListUpdate, removeList, disableList, enableList } from '../../state/lists/actions'
-import { useIsListActive, useAllLists, useActiveListUrls } from '../../state/lists/hooks'
-import uriToHttp from '../../utils/uriToHttp'
+import { AppDispatch, AppState } from '../../state';
+import { acceptListUpdate, removeList, disableList, enableList } from '../../state/lists/actions';
+import { useIsListActive, useAllLists, useActiveListUrls } from '../../state/lists/hooks';
+import uriToHttp from '../../utils/uriToHttp';
 
-import Column, { AutoColumn } from '../Layout/Column'
-import { ListLogo } from '../Logo'
-import Row, { RowFixed, RowBetween } from '../Layout/Row'
-import { CurrencyModalView } from './types'
+import Column, { AutoColumn } from '../Layout/Column';
+import { ListLogo } from '../Logo';
+import Row, { RowFixed, RowBetween } from '../Layout/Row';
+import { CurrencyModalView } from './types';
 
 function listVersionLabel(version: Version): string {
-  return `v${version.major}.${version.minor}.${version.patch}`
+  return `v${version.major}.${version.minor}.${version.patch}`;
 }
 
 const Wrapper = styled(Column)`
   width: 100%;
   height: 100%;
-`
+`;
 
 const RowWrapper = styled(Row)<{ active: boolean }>`
   background-color: ${({ active, theme }) => (active ? `${theme.colors.success}19` : 'transparent')};
@@ -36,40 +36,40 @@ const RowWrapper = styled(Row)<{ active: boolean }>`
   align-items: center;
   padding: 1rem;
   border-radius: 20px;
-`
+`;
 
 function listUrlRowHTMLId(listUrl: string) {
-  return `list-row-${listUrl.replace(/\./g, '-')}`
+  return `list-row-${listUrl.replace(/\./g, '-')}`;
 }
 
 const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
-  const listsByUrl = useSelector<AppState, AppState['lists']['byUrl']>((state) => state.lists.byUrl)
-  const dispatch = useDispatch<AppDispatch>()
-  const { current: list, pendingUpdate: pending } = listsByUrl[listUrl]
+  const listsByUrl = useSelector<AppState, AppState['lists']['byUrl']>((state) => state.lists.byUrl);
+  const dispatch = useDispatch<AppDispatch>();
+  const { current: list, pendingUpdate: pending } = listsByUrl[listUrl];
 
-  const isActive = useIsListActive(listUrl)
+  const isActive = useIsListActive(listUrl);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const handleAcceptListUpdate = useCallback(() => {
-    if (!pending) return
-    dispatch(acceptListUpdate(listUrl))
-  }, [dispatch, listUrl, pending])
+    if (!pending) return;
+    dispatch(acceptListUpdate(listUrl));
+  }, [dispatch, listUrl, pending]);
 
   const handleRemoveList = useCallback(() => {
     // eslint-disable-next-line no-alert
     if (window.confirm('Please confirm you would like to remove this list')) {
-      dispatch(removeList(listUrl))
+      dispatch(removeList(listUrl));
     }
-  }, [dispatch, listUrl])
+  }, [dispatch, listUrl]);
 
   const handleEnableList = useCallback(() => {
-    dispatch(enableList(listUrl))
-  }, [dispatch, listUrl])
+    dispatch(enableList(listUrl));
+  }, [dispatch, listUrl]);
 
   const handleDisableList = useCallback(() => {
-    dispatch(disableList(listUrl))
-  }, [dispatch, listUrl])
+    dispatch(disableList(listUrl));
+  }, [dispatch, listUrl]);
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <div>
@@ -87,9 +87,9 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
       )}
     </div>,
     { placement: 'right-end', trigger: 'click' },
-  )
+  );
 
-  if (!list) return null
+  if (!list) return null;
 
   return (
     <RowWrapper active={isActive} key={listUrl} id={listUrlRowHTMLId(listUrl)}>
@@ -116,73 +116,73 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
         checked={isActive}
         onChange={() => {
           if (isActive) {
-            handleDisableList()
+            handleDisableList();
           } else {
-            handleEnableList()
+            handleEnableList();
           }
         }}
       />
     </RowWrapper>
-  )
-})
+  );
+});
 
 const ListContainer = styled.div`
   padding: 1rem 0;
   height: 100%;
   overflow: auto;
-`
+`;
 
 function ManageLists({
   setModalView,
   setImportList,
   setListUrl,
 }: {
-  setModalView: (view: CurrencyModalView) => void
-  setImportList: (list: TokenList) => void
-  setListUrl: (url: string) => void
+  setModalView: (view: CurrencyModalView) => void;
+  setImportList: (list: TokenList) => void;
+  setListUrl: (url: string) => void;
 }) {
-  const [listUrlInput, setListUrlInput] = useState<string>('')
+  const [listUrlInput, setListUrlInput] = useState<string>('');
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const lists = useAllLists()
+  const lists = useAllLists();
 
   // sort by active but only if not visible
-  const activeListUrls = useActiveListUrls()
-  const [activeCopy, setActiveCopy] = useState<string[] | undefined>()
+  const activeListUrls = useActiveListUrls();
+  const [activeCopy, setActiveCopy] = useState<string[] | undefined>();
   useEffect(() => {
     if (!activeCopy && activeListUrls) {
-      setActiveCopy(activeListUrls)
+      setActiveCopy(activeListUrls);
     }
-  }, [activeCopy, activeListUrls])
+  }, [activeCopy, activeListUrls]);
 
   const handleInput = useCallback((e) => {
-    setListUrlInput(e.target.value)
-  }, [])
+    setListUrlInput(e.target.value);
+  }, []);
 
-  const fetchList = useFetchListCallback()
+  const fetchList = useFetchListCallback();
 
   const validUrl: boolean = useMemo(() => {
-    return uriToHttp(listUrlInput).length > 0 || Boolean(parseENSAddress(listUrlInput))
-  }, [listUrlInput])
+    return uriToHttp(listUrlInput).length > 0 || Boolean(parseENSAddress(listUrlInput));
+  }, [listUrlInput]);
 
   const sortedLists = useMemo(() => {
-    const listUrls = Object.keys(lists)
+    const listUrls = Object.keys(lists);
     return listUrls
       .filter((listUrl) => {
         // only show loaded lists, hide unsupported lists
-        return Boolean(lists[listUrl].current) && !UNSUPPORTED_LIST_URLS.includes(listUrl)
+        return Boolean(lists[listUrl].current) && !UNSUPPORTED_LIST_URLS.includes(listUrl);
       })
       .sort((u1, u2) => {
-        const { current: l1 } = lists[u1]
-        const { current: l2 } = lists[u2]
+        const { current: l1 } = lists[u1];
+        const { current: l2 } = lists[u2];
 
         // first filter on active lists
         if (activeCopy?.includes(u1) && !activeCopy?.includes(u2)) {
-          return -1
+          return -1;
         }
         if (!activeCopy?.includes(u1) && activeCopy?.includes(u2)) {
-          return 1
+          return 1;
         }
 
         if (l1 && l2) {
@@ -190,50 +190,50 @@ function ManageLists({
             ? -1
             : l1.name.toLowerCase() === l2.name.toLowerCase()
             ? 0
-            : 1
+            : 1;
         }
-        if (l1) return -1
-        if (l2) return 1
-        return 0
-      })
-  }, [lists, activeCopy])
+        if (l1) return -1;
+        if (l2) return 1;
+        return 0;
+      });
+  }, [lists, activeCopy]);
 
   // temporary fetched list for import flow
-  const [tempList, setTempList] = useState<TokenList>()
-  const [addError, setAddError] = useState<string | undefined>()
+  const [tempList, setTempList] = useState<TokenList>();
+  const [addError, setAddError] = useState<string | undefined>();
 
   useEffect(() => {
     async function fetchTempList() {
       fetchList(listUrlInput, false)
         .then((list) => setTempList(list))
-        .catch(() => setAddError('Error importing list'))
+        .catch(() => setAddError('Error importing list'));
     }
     // if valid url, fetch details for card
     if (validUrl) {
-      fetchTempList()
+      fetchTempList();
     } else {
-      setTempList(undefined)
+      setTempList(undefined);
       if (listUrlInput !== '') {
-        setAddError('Enter valid list location')
+        setAddError('Enter valid list location');
       }
     }
 
     // reset error
     if (listUrlInput === '') {
-      setAddError(undefined)
+      setAddError(undefined);
     }
-  }, [fetchList, listUrlInput, validUrl])
+  }, [fetchList, listUrlInput, validUrl]);
 
   // check if list is already imported
-  const isImported = Object.keys(lists).includes(listUrlInput)
+  const isImported = Object.keys(lists).includes(listUrlInput);
 
   // set list values and have parent modal switch to import list view
   const handleImport = useCallback(() => {
-    if (!tempList) return
-    setImportList(tempList)
-    setModalView(CurrencyModalView.importList)
-    setListUrl(listUrlInput)
-  }, [listUrlInput, setImportList, setListUrl, setModalView, tempList])
+    if (!tempList) return;
+    setImportList(tempList);
+    setModalView(CurrencyModalView.importList);
+    setListUrl(listUrlInput);
+  }, [listUrlInput, setImportList, setListUrl, setModalView, tempList]);
 
   return (
     <Wrapper>
@@ -288,7 +288,7 @@ function ManageLists({
         </AutoColumn>
       </ListContainer>
     </Wrapper>
-  )
+  );
 }
 
-export default ManageLists
+export default ManageLists;

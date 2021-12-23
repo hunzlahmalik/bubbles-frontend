@@ -1,8 +1,8 @@
-import { useContext } from 'react'
-import { ProfileCreationContext } from './ProfileCreationProvider'
+import { useContext } from 'react';
+import { ProfileCreationContext } from './ProfileCreationProvider';
 
 const useProfileCreation = () => {
-  return useContext(ProfileCreationContext)
-}
+  return useContext(ProfileCreationContext);
+};
 
-export default useProfileCreation
+export default useProfileCreation;

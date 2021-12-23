@@ -1,10 +1,10 @@
-import React from 'react'
-import { Heading, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import ConnectWalletButton from 'components/ConnectWalletButton'
+import React from 'react';
+import { Heading, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import ConnectWalletButton from 'components/ConnectWalletButton';
 
 const WalletNotConnected = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -16,7 +16,7 @@ const WalletNotConnected = () => {
       </Text>
       <ConnectWalletButton />
     </div>
-  )
-}
+  );
+};
 
-export default WalletNotConnected
+export default WalletNotConnected;

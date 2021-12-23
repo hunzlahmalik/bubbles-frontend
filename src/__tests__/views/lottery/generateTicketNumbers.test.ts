@@ -1,4 +1,4 @@
-import generateTicketNumbers from 'views/Lottery/components/BuyTicketsModal/generateTicketNumbers'
+import generateTicketNumbers from 'views/Lottery/components/BuyTicketsModal/generateTicketNumbers';
 
 const withoutExistingNumbers = [
   {
@@ -16,7 +16,7 @@ const withoutExistingNumbers = [
     endingNumber: 1161790,
     numbersToGenerate: 5000,
   },
-]
+];
 
 const withExistingTickets = [
   {
@@ -45,49 +45,49 @@ const withExistingTickets = [
       { id: '5', number: '1161790' },
     ],
   },
-]
+];
 
 describe('generateTicketNumbers', () => {
   it(`generates 10 unique numbers between 0 & 9`, () => {
-    const ticketsArray = generateTicketNumbers(10, null, 0, 9)
-    const expectedNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const ticketsArray = generateTicketNumbers(10, null, 0, 9);
+    const expectedNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     expectedNumbers.forEach((expectedNumber) => {
-      expect(ticketsArray).toContain(expectedNumber)
-    })
-    expect(ticketsArray).toHaveLength(10)
-    expect(ticketsArray).not.toContain(-1)
-    expect(ticketsArray).not.toContain(10)
-  })
+      expect(ticketsArray).toContain(expectedNumber);
+    });
+    expect(ticketsArray).toHaveLength(10);
+    expect(ticketsArray).not.toContain(-1);
+    expect(ticketsArray).not.toContain(10);
+  });
 
   withoutExistingNumbers.forEach((data) => {
-    const { startingNumber, endingNumber, numbersToGenerate } = data
+    const { startingNumber, endingNumber, numbersToGenerate } = data;
 
     it(`generates ${numbersToGenerate} unique numbers between ${startingNumber} & ${endingNumber} WITHOUT existing numbers`, () => {
-      const ticketsArray = generateTicketNumbers(numbersToGenerate, null, startingNumber, endingNumber)
+      const ticketsArray = generateTicketNumbers(numbersToGenerate, null, startingNumber, endingNumber);
 
-      const expectedNumbers = []
+      const expectedNumbers = [];
       for (let i = startingNumber; i < endingNumber; i++) {
-        expectedNumbers.push(i)
+        expectedNumbers.push(i);
       }
 
       expectedNumbers.forEach((expectedNumber) => {
-        expect(ticketsArray).toContain(expectedNumber)
-      })
-      expect(ticketsArray).toHaveLength(numbersToGenerate)
-      expect(ticketsArray).not.toContain(startingNumber - 1)
-      expect(ticketsArray).not.toContain(endingNumber + 1)
-    })
-  })
+        expect(ticketsArray).toContain(expectedNumber);
+      });
+      expect(ticketsArray).toHaveLength(numbersToGenerate);
+      expect(ticketsArray).not.toContain(startingNumber - 1);
+      expect(ticketsArray).not.toContain(endingNumber + 1);
+    });
+  });
 
   withExistingTickets.forEach((data) => {
-    const { startingNumber, endingNumber, numbersToGenerate, existingTickets } = data
-    const numberExistingTickets = existingTickets.length
+    const { startingNumber, endingNumber, numbersToGenerate, existingTickets } = data;
+    const numberExistingTickets = existingTickets.length;
 
     it(`generates ${numbersToGenerate} unique numbers between ${startingNumber} & ${endingNumber} WITH ${numberExistingTickets} existing numbers`, () => {
-      const ticketsArray = generateTicketNumbers(numbersToGenerate, existingTickets, startingNumber, endingNumber)
-      expect(ticketsArray).toHaveLength(numbersToGenerate)
-      existingTickets.forEach((existingTicket) => expect(ticketsArray).not.toContain(existingTicket.number))
-    })
-  })
-})
+      const ticketsArray = generateTicketNumbers(numbersToGenerate, existingTickets, startingNumber, endingNumber);
+      expect(ticketsArray).toHaveLength(numbersToGenerate);
+      existingTickets.forEach((existingTicket) => expect(ticketsArray).not.toContain(existingTicket.number));
+    });
+  });
+});

@@ -1,21 +1,21 @@
-import React from 'react'
-import { Box, CardBody, Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import PreviewImage from './PreviewImage'
-import { CostLabel, LowestPriceMetaRow, MetaRow } from './styles'
-import LocationTag from './LocationTag'
-import { CollectibleCardProps } from './types'
-import { useGetLowestPriceFromNft } from '../../hooks/useGetLowestPrice'
-import { pancakeBunniesAddress } from '../../constants'
-import NFTMedia from '../NFTMedia'
+import React from 'react';
+import { Box, CardBody, Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import PreviewImage from './PreviewImage';
+import { CostLabel, LowestPriceMetaRow, MetaRow } from './styles';
+import LocationTag from './LocationTag';
+import { CollectibleCardProps } from './types';
+import { useGetLowestPriceFromNft } from '../../hooks/useGetLowestPrice';
+import { pancakeBunniesAddress } from '../../constants';
+import NFTMedia from '../NFTMedia';
 
 const CollectibleCardBody: React.FC<CollectibleCardProps> = ({ nft, nftLocation, currentAskPrice, isUserNft }) => {
-  const { t } = useTranslation()
-  const { name } = nft
-  const bnbBusdPrice = useBNBBusdPrice()
-  const isPancakeBunny = nft.collectionAddress?.toLowerCase() === pancakeBunniesAddress.toLowerCase()
-  const { isFetching, lowestPrice } = useGetLowestPriceFromNft(nft)
+  const { t } = useTranslation();
+  const { name } = nft;
+  const bnbBusdPrice = useBNBBusdPrice();
+  const isPancakeBunny = nft.collectionAddress?.toLowerCase() === pancakeBunniesAddress.toLowerCase();
+  const { isFetching, lowestPrice } = useGetLowestPriceFromNft(nft);
 
   return (
     <CardBody p="8px">
@@ -42,7 +42,7 @@ const CollectibleCardBody: React.FC<CollectibleCardProps> = ({ nft, nftLocation,
         )}
       </Box>
     </CardBody>
-  )
-}
+  );
+};
 
-export default CollectibleCardBody
+export default CollectibleCardBody;

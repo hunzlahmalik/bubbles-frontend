@@ -1,28 +1,28 @@
-import React from 'react'
-import { Box, Card, CardBody, CardHeader, Flex, Heading, LinkExternal, Text } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { format } from 'date-fns'
-import { Proposal } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
-import { getBscScanLink } from 'utils'
-import truncateHash from 'utils/truncateHash'
-import { IPFS_GATEWAY } from '../config'
-import { ProposalStateTag } from '../components/Proposals/tags'
+import React from 'react';
+import { Box, Card, CardBody, CardHeader, Flex, Heading, LinkExternal, Text } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { format } from 'date-fns';
+import { Proposal } from 'state/types';
+import { useTranslation } from 'contexts/Localization';
+import { getBscScanLink } from 'utils';
+import truncateHash from 'utils/truncateHash';
+import { IPFS_GATEWAY } from '../config';
+import { ProposalStateTag } from '../components/Proposals/tags';
 
 interface DetailsProps {
-  proposal: Proposal
+  proposal: Proposal;
 }
 
 const DetailBox = styled(Box)`
   background-color: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: 16px;
-`
+`;
 
 const Details: React.FC<DetailsProps> = ({ proposal }) => {
-  const { t } = useTranslation()
-  const startDate = new Date(proposal.start * 1000)
-  const endDate = new Date(proposal.end * 1000)
+  const { t } = useTranslation();
+  const startDate = new Date(proposal.start * 1000);
+  const endDate = new Date(proposal.end * 1000);
 
   return (
     <Card mb="16px">
@@ -67,7 +67,7 @@ const Details: React.FC<DetailsProps> = ({ proposal }) => {
         </DetailBox>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

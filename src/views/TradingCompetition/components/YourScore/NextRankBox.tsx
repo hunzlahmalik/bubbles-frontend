@@ -1,13 +1,13 @@
-import React, { ReactElement } from 'react'
-import styled from 'styled-components'
-import { Flex, Text, FlexProps, ArrowForwardIcon } from '@pancakeswap/uikit'
+import React, { ReactElement } from 'react';
+import styled from 'styled-components';
+import { Flex, Text, FlexProps, ArrowForwardIcon } from '@pancakeswap/uikit';
 
 interface NextRankProps extends FlexProps {
-  title?: string
-  footer?: string
-  hideArrow?: boolean
-  nextMedal?: ReactElement
-  currentMedal?: ReactElement
+  title?: string;
+  footer?: string;
+  hideArrow?: boolean;
+  nextMedal?: ReactElement;
+  currentMedal?: ReactElement;
 }
 
 const Wrapper = styled(Flex)`
@@ -25,7 +25,7 @@ const Wrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-top: 0;
   }
-`
+`;
 
 const MedalsWrapper = styled(Flex)`
   align-items: center;
@@ -34,7 +34,7 @@ const MedalsWrapper = styled(Flex)`
   svg {
     width: 40px;
   }
-`
+`;
 
 const ArrowWrapper = styled(Flex)`
   svg {
@@ -42,7 +42,7 @@ const ArrowWrapper = styled(Flex)`
     width: 10px;
     fill: ${({ theme }) => theme.colors.textSubtle};
   }
-`
+`;
 
 const NextRank: React.FC<NextRankProps> = ({
   title = '',
@@ -76,7 +76,7 @@ const NextRank: React.FC<NextRankProps> = ({
         </MedalsWrapper>
       </Flex>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default NextRank
+export default NextRank;

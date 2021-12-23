@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const Prizes: React.FC<SvgProps> = (props) => {
   return (
@@ -183,7 +183,7 @@ const Prizes: React.FC<SvgProps> = (props) => {
         </clipPath>
       </defs>
     </Svg>
-  )
-}
+  );
+};
 
-export default Prizes
+export default Prizes;

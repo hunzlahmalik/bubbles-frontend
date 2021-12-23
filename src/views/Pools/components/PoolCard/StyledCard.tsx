@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Card } from '@pancakeswap/uikit'
+import styled from 'styled-components';
+import { Card } from '@pancakeswap/uikit';
 
 export const StyledCard = styled(Card)<{ isFinished?: boolean }>`
   max-width: 352px;
@@ -15,6 +15,6 @@ export const StyledCard = styled(Card)<{ isFinished?: boolean }>`
   ${({ theme }) => theme.mediaQueries.sm} {
     margin: 0 12px 46px;
   }
-`
+`;
 
-export default StyledCard
+export default StyledCard;

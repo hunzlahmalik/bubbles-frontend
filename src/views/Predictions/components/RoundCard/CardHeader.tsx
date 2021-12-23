@@ -1,72 +1,72 @@
-import React, { ReactElement } from 'react'
-import { Flex, Text } from '@pancakeswap/uikit'
-import styled, { DefaultTheme } from 'styled-components'
+import React, { ReactElement } from 'react';
+import { Flex, Text } from '@pancakeswap/uikit';
+import styled, { DefaultTheme } from 'styled-components';
 
-type Status = 'expired' | 'live' | 'next' | 'soon' | 'canceled' | 'calculating'
+type Status = 'expired' | 'live' | 'next' | 'soon' | 'canceled' | 'calculating';
 
 interface CardHeaderProps {
-  status: Status
-  title: string
-  epoch: number
-  icon?: ReactElement
+  status: Status;
+  title: string;
+  epoch: number;
+  icon?: ReactElement;
 }
 
-const HEADER_HEIGHT = '37px'
+const HEADER_HEIGHT = '37px';
 
 // Used to get the gradient for the card border, which depends on the header color to create the illusion
 // that header is overlapping the 1px card border.
 // 'live' is not included into the switch case because it has isActive border style
 export const getBorderBackground = (theme: DefaultTheme, status: Status) => {
-  const gradientStopPoint = `calc(${HEADER_HEIGHT} + 1px)`
+  const gradientStopPoint = `calc(${HEADER_HEIGHT} + 1px)`;
   switch (status) {
     case 'calculating':
-      return `linear-gradient(transparent ${gradientStopPoint}, ${theme.colors.cardBorder} ${gradientStopPoint}), ${theme.colors.gradients.cardHeader}`
+      return `linear-gradient(transparent ${gradientStopPoint}, ${theme.colors.cardBorder} ${gradientStopPoint}), ${theme.colors.gradients.cardHeader}`;
     case 'canceled':
-      return `linear-gradient(${theme.colors.warning} ${gradientStopPoint}, ${theme.colors.cardBorder} ${gradientStopPoint})`
+      return `linear-gradient(${theme.colors.warning} ${gradientStopPoint}, ${theme.colors.cardBorder} ${gradientStopPoint})`;
     case 'next':
-      return `linear-gradient(${theme.colors.secondary} ${gradientStopPoint}, ${theme.colors.cardBorder} ${gradientStopPoint})`
+      return `linear-gradient(${theme.colors.secondary} ${gradientStopPoint}, ${theme.colors.cardBorder} ${gradientStopPoint})`;
     case 'expired':
     case 'soon':
     default:
-      return theme.colors.cardBorder
+      return theme.colors.cardBorder;
   }
-}
+};
 
 const getBackgroundColor = (theme: DefaultTheme, status: Status) => {
   switch (status) {
     case 'calculating':
-      return theme.colors.gradients.cardHeader
+      return theme.colors.gradients.cardHeader;
     case 'live':
-      return 'transparent'
+      return 'transparent';
     case 'canceled':
-      return theme.colors.warning
+      return theme.colors.warning;
     case 'next':
-      return theme.colors.secondary
+      return theme.colors.secondary;
     case 'expired':
     case 'soon':
     default:
-      return theme.colors.cardBorder
+      return theme.colors.cardBorder;
   }
-}
+};
 
-type TextColor = 'textDisabled' | 'white' | 'secondary' | 'text' | 'textSubtle'
-type FallbackColor = 'text' | 'textSubtle'
+type TextColor = 'textDisabled' | 'white' | 'secondary' | 'text' | 'textSubtle';
+type FallbackColor = 'text' | 'textSubtle';
 
 const getTextColorByStatus = (status: Status, fallback: FallbackColor): TextColor => {
   switch (status) {
     case 'expired':
-      return 'textDisabled'
+      return 'textDisabled';
     case 'next':
-      return 'white'
+      return 'white';
     case 'live':
-      return 'secondary'
+      return 'secondary';
     case 'canceled':
     case 'calculating':
-      return 'text'
+      return 'text';
     default:
-      return fallback
+      return fallback;
   }
-}
+};
 
 const StyledCardHeader = styled.div<{ status: Status }>`
   align-items: center;
@@ -75,15 +75,15 @@ const StyledCardHeader = styled.div<{ status: Status }>`
   justify-content: space-between;
   height: ${HEADER_HEIGHT};
   padding: ${({ status }) => (status === 'live' ? '16px' : '8px')};
-`
+`;
 
 const Round = styled.div`
   justify-self: center;
-`
+`;
 
 const CardHeader: React.FC<CardHeaderProps> = ({ status, title, epoch, icon }) => {
-  const textColor = getTextColorByStatus(status, 'text')
-  const isLive = status === 'live'
+  const textColor = getTextColorByStatus(status, 'text');
+  const isLive = status === 'live';
 
   return (
     <StyledCardHeader status={status}>
@@ -99,7 +99,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({ status, title, epoch, icon }) =
         </Text>
       </Round>
     </StyledCardHeader>
-  )
-}
+  );
+};
 
-export default CardHeader
+export default CardHeader;

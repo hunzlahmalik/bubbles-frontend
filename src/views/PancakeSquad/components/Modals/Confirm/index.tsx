@@ -15,22 +15,22 @@ import {
   ModalTitle,
   Spinner,
   Text,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import useTheme from 'hooks/useTheme'
-import React from 'react'
-import { getBscScanLink } from 'utils'
-import truncateHash from 'utils/truncateHash'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import useTheme from 'hooks/useTheme';
+import React from 'react';
+import { getBscScanLink } from 'utils';
+import truncateHash from 'utils/truncateHash';
 
 type ConfirmModalProps = {
-  isLoading: boolean
-  txHash?: string
-  loadingText: string
-  loadingButtonLabel: string
-  successButtonLabel: string
-  onConfirmClose: () => void
-} & ModalProps
+  isLoading: boolean;
+  txHash?: string;
+  loadingText: string;
+  loadingButtonLabel: string;
+  successButtonLabel: string;
+  onConfirmClose: () => void;
+} & ModalProps;
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
   onDismiss,
@@ -43,14 +43,14 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   loadingButtonLabel,
   successButtonLabel,
 }) => {
-  const { chainId } = useActiveWeb3React()
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const { chainId } = useActiveWeb3React();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   const onCloseCallback = () => {
-    onConfirmClose()
-    onDismiss()
-  }
+    onConfirmClose();
+    onDismiss();
+  };
 
   return (
     <ModalContainer minWidth="375px">
@@ -106,7 +106,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
         </Flex>
       </ModalBody>
     </ModalContainer>
-  )
-}
+  );
+};
 
-export default ConfirmModal
+export default ConfirmModal;

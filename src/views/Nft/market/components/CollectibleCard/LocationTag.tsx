@@ -1,10 +1,10 @@
-import React from 'react'
-import { NftLocation } from 'state/nftMarket/types'
-import { Text, Flex, WalletFilledIcon, CameraIcon, SellIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import { NftLocation } from 'state/nftMarket/types';
+import { Text, Flex, WalletFilledIcon, CameraIcon, SellIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 const LocationTag: React.FC<{ nftLocation: NftLocation }> = ({ nftLocation }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const WalletTag = () => {
     return (
@@ -14,8 +14,8 @@ const LocationTag: React.FC<{ nftLocation: NftLocation }> = ({ nftLocation }) =>
           {t('Wallet')}
         </Text>
       </Flex>
-    )
-  }
+    );
+  };
 
   const ForSaleTag = () => {
     return (
@@ -25,8 +25,8 @@ const LocationTag: React.FC<{ nftLocation: NftLocation }> = ({ nftLocation }) =>
           {t('For sale')}
         </Text>
       </Flex>
-    )
-  }
+    );
+  };
 
   const ProfilePicTag = () => {
     return (
@@ -36,16 +36,16 @@ const LocationTag: React.FC<{ nftLocation: NftLocation }> = ({ nftLocation }) =>
           {t('Profile')}
         </Text>
       </Flex>
-    )
-  }
+    );
+  };
 
   const tagsConfig = {
     [NftLocation.WALLET]: WalletTag(),
     [NftLocation.PROFILE]: ProfilePicTag(),
     [NftLocation.FORSALE]: ForSaleTag(),
-  }
+  };
 
-  return tagsConfig[nftLocation]
-}
+  return tagsConfig[nftLocation];
+};
 
-export default LocationTag
+export default LocationTag;

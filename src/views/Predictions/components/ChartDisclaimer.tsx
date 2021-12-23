@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   ModalContainer,
   ModalBody,
@@ -11,10 +11,10 @@ import {
   Heading,
   Checkbox,
   Box,
-} from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import { useUserPredictionChartDisclaimerShow } from 'state/user/hooks'
+} from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import { useUserPredictionChartDisclaimerShow } from 'state/user/hooks';
 
 const Ul = styled.ul`
   color: ${({ theme }) => theme.colors.textSubtle};
@@ -25,15 +25,15 @@ const Ul = styled.ul`
     font-size: 14px;
     line-height: 1.5;
   }
-`
+`;
 
 const ChartDisclaimer: React.FC<InjectedModalProps> = ({ onDismiss }) => {
-  const [showDisclaimer, setShowDisclaimer] = useUserPredictionChartDisclaimerShow()
-  const { t } = useTranslation()
+  const [showDisclaimer, setShowDisclaimer] = useUserPredictionChartDisclaimerShow();
+  const { t } = useTranslation();
 
   const handleConfirm = () => {
-    onDismiss()
-  }
+    onDismiss();
+  };
 
   return (
     <ModalContainer minWidth="320px">
@@ -84,7 +84,7 @@ const ChartDisclaimer: React.FC<InjectedModalProps> = ({ onDismiss }) => {
         </label>
       </ModalBody>
     </ModalContainer>
-  )
-}
+  );
+};
 
-export default ChartDisclaimer
+export default ChartDisclaimer;

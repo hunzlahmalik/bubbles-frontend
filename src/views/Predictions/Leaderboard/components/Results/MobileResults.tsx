@@ -1,10 +1,10 @@
-import React from 'react'
-import { Box } from '@pancakeswap/uikit'
-import { PredictionUser } from 'state/types'
-import MobileRow from './MobileRow'
+import React from 'react';
+import { Box } from '@pancakeswap/uikit';
+import { PredictionUser } from 'state/types';
+import MobileRow from './MobileRow';
 
 interface MobileResultsProps {
-  results: PredictionUser[]
+  results: PredictionUser[];
 }
 
 const MobileResults: React.FC<MobileResultsProps> = ({ results }) => {
@@ -14,7 +14,7 @@ const MobileResults: React.FC<MobileResultsProps> = ({ results }) => {
         <MobileRow key={result.id} rank={index + 4} user={result} />
       ))}
     </Box>
-  )
-}
+  );
+};
 
-export default MobileResults
+export default MobileResults;

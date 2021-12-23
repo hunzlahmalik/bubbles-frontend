@@ -1,13 +1,13 @@
-import React from 'react'
-import { BunnyPlaceholderIcon, Flex, Heading } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import { BunnyPlaceholderIcon, Flex, Heading } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 interface ComingSoonProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 const ComingSoon: React.FC<ComingSoonProps> = ({ children }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Flex flexDirection="column" alignItems="center" justifyContent="center" p="24px">
@@ -16,7 +16,7 @@ const ComingSoon: React.FC<ComingSoonProps> = ({ children }) => {
         {children || t('Coming Soon!')}
       </Heading>
     </Flex>
-  )
-}
+  );
+};
 
-export default ComingSoon
+export default ComingSoon;

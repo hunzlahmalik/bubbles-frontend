@@ -7,30 +7,30 @@ import {
   ExpandableLabel,
   ExpandableButton,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import BigNumber from 'bignumber.js'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import { Ifo, PoolIds } from 'config/constants/types'
-import { useTranslation } from 'contexts/Localization'
-import { useERC20 } from 'hooks/useContract'
-import useRefresh from 'hooks/useRefresh'
-import useToast from 'hooks/useToast'
-import React, { useEffect, useState } from 'react'
-import { useBlock } from 'state/block/hooks'
-import styled from 'styled-components'
-import { PublicIfoData, WalletIfoData } from 'views/Ifos/types'
-import useIsWindowVisible from '../../../../hooks/useIsWindowVisible'
-import useIfoApprove from '../../hooks/useIfoApprove'
-import IfoAchievement from './Achievement'
-import IfoPoolCard from './IfoPoolCard'
-import { EnableStatus } from './types'
-import { IfoRibbon } from './IfoRibbon'
+} from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import BigNumber from 'bignumber.js';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import { Ifo, PoolIds } from 'config/constants/types';
+import { useTranslation } from 'contexts/Localization';
+import { useERC20 } from 'hooks/useContract';
+import useRefresh from 'hooks/useRefresh';
+import useToast from 'hooks/useToast';
+import React, { useEffect, useState } from 'react';
+import { useBlock } from 'state/block/hooks';
+import styled from 'styled-components';
+import { PublicIfoData, WalletIfoData } from 'views/Ifos/types';
+import useIsWindowVisible from '../../../../hooks/useIsWindowVisible';
+import useIfoApprove from '../../hooks/useIfoApprove';
+import IfoAchievement from './Achievement';
+import IfoPoolCard from './IfoPoolCard';
+import { EnableStatus } from './types';
+import { IfoRibbon } from './IfoRibbon';
 
 interface IfoFoldableCardProps {
-  ifo: Ifo
-  publicIfoData: PublicIfoData
-  walletIfoData: WalletIfoData
+  ifo: Ifo;
+  publicIfoData: PublicIfoData;
+  walletIfoData: WalletIfoData;
 }
 
 const StyledCard = styled(Card)<{ $isCurrent?: boolean }>`
@@ -63,7 +63,7 @@ const StyledCard = styled(Card)<{ $isCurrent?: boolean }>`
       border-top-right-radius: 32px;
     }
   }
-`
+`;
 
 const Header = styled(CardHeader)<{ ifoId: string; $isCurrent?: boolean }>`
   display: flex;
@@ -79,7 +79,7 @@ const Header = styled(CardHeader)<{ ifoId: string; $isCurrent?: boolean }>`
   ${({ theme }) => theme.mediaQueries.md} {
     height: 112px;
   }
-`
+`;
 
 const CardsWrapper = styled.div<{ singleCard: boolean }>`
   display: grid;
@@ -89,20 +89,20 @@ const CardsWrapper = styled.div<{ singleCard: boolean }>`
     grid-template-columns: ${({ singleCard }) => (singleCard ? '1fr' : '1fr 1fr')};
     justify-items: ${({ singleCard }) => (singleCard ? 'center' : 'unset')};
   }
-`
+`;
 
 const StyledCardBody = styled(CardBody)`
   padding: 24px 16px;
   ${({ theme }) => theme.mediaQueries.md} {
     padding: 24px;
   }
-`
+`;
 
 const StyledCardFooter = styled(CardFooter)`
   padding: 0;
   background: ${({ theme }) => theme.colors.backgroundAlt};
   text-align: center;
-`
+`;
 
 const StyledNoHatBunny = styled.div<{ $isLive: boolean; $isCurrent?: boolean }>`
   position: absolute;
@@ -132,12 +132,12 @@ const StyledNoHatBunny = styled.div<{ $isLive: boolean; $isCurrent?: boolean }>`
   ${({ theme }) => theme.mediaQueries.xxl} {
     right: 90px;
   }
-`
+`;
 
 const NoHatBunny = ({ isLive, isCurrent }: { isLive?: boolean; isCurrent?: boolean }) => {
-  const { isXs, isSm, isMd } = useMatchBreakpoints()
-  const isSmallerThanTablet = isXs || isSm || isMd
-  if (isSmallerThanTablet && isLive) return null
+  const { isXs, isSm, isMd } = useMatchBreakpoints();
+  const isSmallerThanTablet = isXs || isSm || isMd;
+  if (isSmallerThanTablet && isLive) return null;
   return (
     <StyledNoHatBunny $isLive={isLive} $isCurrent={isCurrent}>
       <img
@@ -147,8 +147,8 @@ const NoHatBunny = ({ isLive, isCurrent }: { isLive?: boolean; isCurrent?: boole
         alt="bunny"
       />
     </StyledNoHatBunny>
-  )
-}
+  );
+};
 
 // Active Ifo
 export const IfoCurrentCard = ({
@@ -156,15 +156,15 @@ export const IfoCurrentCard = ({
   publicIfoData,
   walletIfoData,
 }: {
-  ifo: Ifo
-  publicIfoData: PublicIfoData
-  walletIfoData: WalletIfoData
+  ifo: Ifo;
+  publicIfoData: PublicIfoData;
+  walletIfoData: WalletIfoData;
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const { t } = useTranslation()
-  const { isMobile } = useMatchBreakpoints()
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useTranslation();
+  const { isMobile } = useMatchBreakpoints();
 
-  const shouldShowBunny = publicIfoData.status === 'live' || publicIfoData.status === 'coming_soon'
+  const shouldShowBunny = publicIfoData.status === 'live' || publicIfoData.status === 'coming_soon';
 
   return (
     <>
@@ -201,12 +201,12 @@ export const IfoCurrentCard = ({
         </StyledCard>
       </Box>
     </>
-  )
-}
+  );
+};
 
 const FoldableContent = styled.div<{ isVisible: boolean }>`
   display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
-`
+`;
 
 // Past Ifo
 const IfoFoldableCard = ({
@@ -214,12 +214,12 @@ const IfoFoldableCard = ({
   publicIfoData,
   walletIfoData,
 }: {
-  ifo: Ifo
-  publicIfoData: PublicIfoData
-  walletIfoData: WalletIfoData
+  ifo: Ifo;
+  publicIfoData: PublicIfoData;
+  walletIfoData: WalletIfoData;
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const { isDesktop } = useMatchBreakpoints()
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { isDesktop } = useMatchBreakpoints();
 
   return (
     <Box position="relative">
@@ -241,46 +241,50 @@ const IfoFoldableCard = ({
         </FoldableContent>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 const IfoCard: React.FC<IfoFoldableCardProps> = ({ ifo, publicIfoData, walletIfoData }) => {
-  const { currentBlock } = useBlock()
-  const { fetchIfoData: fetchPublicIfoData, isInitialized: isPublicIfoDataInitialized, secondsUntilEnd } = publicIfoData
+  const { currentBlock } = useBlock();
+  const {
+    fetchIfoData: fetchPublicIfoData,
+    isInitialized: isPublicIfoDataInitialized,
+    secondsUntilEnd,
+  } = publicIfoData;
   const {
     contract,
     fetchIfoData: fetchWalletIfoData,
     resetIfoData: resetWalletIfoData,
     isInitialized: isWalletDataInitialized,
-  } = walletIfoData
-  const [enableStatus, setEnableStatus] = useState(EnableStatus.DISABLED)
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const raisingTokenContract = useERC20(ifo.currency.address)
+  } = walletIfoData;
+  const [enableStatus, setEnableStatus] = useState(EnableStatus.DISABLED);
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const raisingTokenContract = useERC20(ifo.currency.address);
   // Continue to fetch 2 more minutes to get latest data
   const isRecentlyActive =
     (publicIfoData.status !== 'finished' || (publicIfoData.status === 'finished' && secondsUntilEnd >= -120)) &&
-    ifo.isActive
-  const onApprove = useIfoApprove(raisingTokenContract, contract.address)
-  const { toastSuccess } = useToast()
-  const { fastRefresh } = useRefresh()
-  const isWindowVisible = useIsWindowVisible()
+    ifo.isActive;
+  const onApprove = useIfoApprove(raisingTokenContract, contract.address);
+  const { toastSuccess } = useToast();
+  const { fastRefresh } = useRefresh();
+  const isWindowVisible = useIsWindowVisible();
 
   useEffect(() => {
     if (isRecentlyActive || !isPublicIfoDataInitialized) {
-      fetchPublicIfoData(currentBlock)
+      fetchPublicIfoData(currentBlock);
     }
-  }, [isRecentlyActive, isPublicIfoDataInitialized, fetchPublicIfoData, currentBlock])
+  }, [isRecentlyActive, isPublicIfoDataInitialized, fetchPublicIfoData, currentBlock]);
 
   useEffect(() => {
     if (isWindowVisible && (isRecentlyActive || !isWalletDataInitialized)) {
       if (account) {
-        fetchWalletIfoData()
+        fetchWalletIfoData();
       }
     }
 
     if (!account && isWalletDataInitialized) {
-      resetWalletIfoData()
+      resetWalletIfoData();
     }
   }, [
     isWindowVisible,
@@ -290,41 +294,41 @@ const IfoCard: React.FC<IfoFoldableCardProps> = ({ ifo, publicIfoData, walletIfo
     fetchWalletIfoData,
     resetWalletIfoData,
     fastRefresh,
-  ])
+  ]);
 
   const handleApprove = async () => {
     try {
-      setEnableStatus(EnableStatus.IS_ENABLING)
+      setEnableStatus(EnableStatus.IS_ENABLING);
 
-      const receipt = await onApprove()
+      const receipt = await onApprove();
 
-      setEnableStatus(EnableStatus.ENABLED)
+      setEnableStatus(EnableStatus.ENABLED);
       toastSuccess(
         t('Successfully Enabled!'),
         <ToastDescriptionWithTx txHash={receipt.transactionHash}>
           {t('You can now participate in the %symbol% IFO.', { symbol: ifo.token.symbol })}
         </ToastDescriptionWithTx>,
-      )
+      );
     } catch (error) {
-      setEnableStatus(EnableStatus.DISABLED)
+      setEnableStatus(EnableStatus.DISABLED);
     }
-  }
+  };
 
   useEffect(() => {
     const checkAllowance = async () => {
       try {
-        const response = await raisingTokenContract.allowance(account, contract.address)
-        const currentAllowance = new BigNumber(response.toString())
-        setEnableStatus(currentAllowance.lte(0) ? EnableStatus.DISABLED : EnableStatus.ENABLED)
+        const response = await raisingTokenContract.allowance(account, contract.address);
+        const currentAllowance = new BigNumber(response.toString());
+        setEnableStatus(currentAllowance.lte(0) ? EnableStatus.DISABLED : EnableStatus.ENABLED);
       } catch (error) {
-        setEnableStatus(EnableStatus.DISABLED)
+        setEnableStatus(EnableStatus.DISABLED);
       }
-    }
+    };
 
     if (account) {
-      checkAllowance()
+      checkAllowance();
     }
-  }, [account, raisingTokenContract, contract, setEnableStatus])
+  }, [account, raisingTokenContract, contract, setEnableStatus]);
 
   return (
     <>
@@ -351,7 +355,7 @@ const IfoCard: React.FC<IfoFoldableCardProps> = ({ ifo, publicIfoData, walletIfo
         </CardsWrapper>
       </StyledCardBody>
     </>
-  )
-}
+  );
+};
 
-export default IfoFoldableCard
+export default IfoFoldableCard;

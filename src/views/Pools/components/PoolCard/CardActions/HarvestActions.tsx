@@ -1,19 +1,19 @@
-import React from 'react'
-import { Flex, Text, Button, Heading, useModal, Skeleton } from '@pancakeswap/uikit'
-import BigNumber from 'bignumber.js'
-import { Token } from '@pancakeswap/sdk'
-import { useTranslation } from 'contexts/Localization'
-import { getFullDisplayBalance, getBalanceNumber, formatNumber } from 'utils/formatBalance'
-import Balance from 'components/Balance'
-import CollectModal from '../Modals/CollectModal'
+import React from 'react';
+import { Flex, Text, Button, Heading, useModal, Skeleton } from '@pancakeswap/uikit';
+import BigNumber from 'bignumber.js';
+import { Token } from '@pancakeswap/sdk';
+import { useTranslation } from 'contexts/Localization';
+import { getFullDisplayBalance, getBalanceNumber, formatNumber } from 'utils/formatBalance';
+import Balance from 'components/Balance';
+import CollectModal from '../Modals/CollectModal';
 
 interface HarvestActionsProps {
-  earnings: BigNumber
-  earningToken: Token
-  sousId: number
-  earningTokenPrice: number
-  isBnbPool: boolean
-  isLoading?: boolean
+  earnings: BigNumber;
+  earningToken: Token;
+  sousId: number;
+  earningTokenPrice: number;
+  isBnbPool: boolean;
+  isLoading?: boolean;
 }
 
 const HarvestActions: React.FC<HarvestActionsProps> = ({
@@ -24,15 +24,15 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
   earningTokenPrice,
   isLoading = false,
 }) => {
-  const { t } = useTranslation()
-  const earningTokenBalance = getBalanceNumber(earnings, earningToken.decimals)
-  const formattedBalance = formatNumber(earningTokenBalance, 3, 3)
+  const { t } = useTranslation();
+  const earningTokenBalance = getBalanceNumber(earnings, earningToken.decimals);
+  const formattedBalance = formatNumber(earningTokenBalance, 3, 3);
 
-  const earningTokenDollarBalance = getBalanceNumber(earnings.multipliedBy(earningTokenPrice), earningToken.decimals)
+  const earningTokenDollarBalance = getBalanceNumber(earnings.multipliedBy(earningTokenPrice), earningToken.decimals);
 
-  const fullBalance = getFullDisplayBalance(earnings, earningToken.decimals)
-  const hasEarnings = earnings.toNumber() > 0
-  const isCompoundPool = sousId === 0
+  const fullBalance = getFullDisplayBalance(earnings, earningToken.decimals);
+  const hasEarnings = earnings.toNumber() > 0;
+  const isCompoundPool = sousId === 0;
 
   const [onPresentCollect] = useModal(
     <CollectModal
@@ -44,7 +44,7 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
       isBnbPool={isBnbPool}
       isCompoundPool={isCompoundPool}
     />,
-  )
+  );
 
   return (
     <Flex justifyContent="space-between" alignItems="center" mb="16px">
@@ -83,7 +83,7 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
         {isCompoundPool ? t('Collect') : t('Harvest')}
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default HarvestActions
+export default HarvestActions;

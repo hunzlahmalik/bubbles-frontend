@@ -1,38 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, useModal } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
-import { ethers, BigNumber } from 'ethers'
-import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { useCake, useNftSaleContract } from 'hooks/useContract'
-import useToast from 'hooks/useToast'
-import { DefaultTheme } from 'styled-components'
-import { ethersToBigNumber } from 'utils/bigNumber'
-import { PancakeSquadContext } from 'views/PancakeSquad/context'
-import { SaleStatusEnum, UserStatusEnum } from '../../types'
-import BuyTicketsModal from '../Modals/BuyTickets'
-import ConfirmModal from '../Modals/Confirm'
-import ReadyText from '../Header/ReadyText'
-import { getBuyButton, getBuyButtonText } from './utils'
-import { BuyButtonsEnum } from './types'
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, useModal } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
+import { ethers, BigNumber } from 'ethers';
+import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { useCake, useNftSaleContract } from 'hooks/useContract';
+import useToast from 'hooks/useToast';
+import { DefaultTheme } from 'styled-components';
+import { ethersToBigNumber } from 'utils/bigNumber';
+import { PancakeSquadContext } from 'views/PancakeSquad/context';
+import { SaleStatusEnum, UserStatusEnum } from '../../types';
+import BuyTicketsModal from '../Modals/BuyTickets';
+import ConfirmModal from '../Modals/Confirm';
+import ReadyText from '../Header/ReadyText';
+import { getBuyButton, getBuyButtonText } from './utils';
+import { BuyButtonsEnum } from './types';
 
 type BuyTicketsProps = {
-  t: ContextApi['t']
-  account: string
-  saleStatus: SaleStatusEnum
-  userStatus: UserStatusEnum
-  theme: DefaultTheme
-  canClaimForGen0: boolean
-  maxPerAddress: number
-  maxPerTransaction: number
-  numberTicketsOfUser: number
-  numberTicketsForGen0: number
-  numberTicketsUsedForGen0: number
-  cakeBalance: BigNumber
-  pricePerTicket: BigNumber
-  startTimestamp: number
-}
+  t: ContextApi['t'];
+  account: string;
+  saleStatus: SaleStatusEnum;
+  userStatus: UserStatusEnum;
+  theme: DefaultTheme;
+  canClaimForGen0: boolean;
+  maxPerAddress: number;
+  maxPerTransaction: number;
+  numberTicketsOfUser: number;
+  numberTicketsForGen0: number;
+  numberTicketsUsedForGen0: number;
+  cakeBalance: BigNumber;
+  pricePerTicket: BigNumber;
+  startTimestamp: number;
+};
 
 const BuyTicketsButtons: React.FC<BuyTicketsProps> = ({
   t,
@@ -50,55 +50,55 @@ const BuyTicketsButtons: React.FC<BuyTicketsProps> = ({
   pricePerTicket,
   startTimestamp,
 }) => {
-  const [txHashEnablingResult, setTxHashEnablingResult] = useState(null)
-  const [txHashBuyingResult, setTxHashBuyingResult] = useState(null)
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const nftSaleContract = useNftSaleContract()
-  const { toastSuccess } = useToast()
-  const cakeContract = useCake()
-  const { isUserEnabled, setIsUserEnabled } = useContext(PancakeSquadContext)
+  const [txHashEnablingResult, setTxHashEnablingResult] = useState(null);
+  const [txHashBuyingResult, setTxHashBuyingResult] = useState(null);
+  const { callWithGasPrice } = useCallWithGasPrice();
+  const nftSaleContract = useNftSaleContract();
+  const { toastSuccess } = useToast();
+  const cakeContract = useCake();
+  const { isUserEnabled, setIsUserEnabled } = useContext(PancakeSquadContext);
 
   const canBuySaleTicket =
-    saleStatus === SaleStatusEnum.Sale && numberTicketsOfUser - numberTicketsUsedForGen0 < maxPerAddress
-  const isPreSale = saleStatus === SaleStatusEnum.Presale
-  const isGen0User = userStatus === UserStatusEnum.PROFILE_ACTIVE_GEN0
+    saleStatus === SaleStatusEnum.Sale && numberTicketsOfUser - numberTicketsUsedForGen0 < maxPerAddress;
+  const isPreSale = saleStatus === SaleStatusEnum.Presale;
+  const isGen0User = userStatus === UserStatusEnum.PROFILE_ACTIVE_GEN0;
   const isUserReady =
     (userStatus === UserStatusEnum.PROFILE_ACTIVE && saleStatus < SaleStatusEnum.Sale) ||
-    (isGen0User && saleStatus === SaleStatusEnum.Pending)
+    (isGen0User && saleStatus === SaleStatusEnum.Pending);
 
   const { isApproving, isApproved, isConfirming, handleApprove, handleConfirm, hasApproveFailed, hasConfirmFailed } =
     useApproveConfirmTransaction({
       onRequiresApproval: async () => {
         try {
-          const response = await cakeContract.allowance(account, nftSaleContract.address)
-          const currentAllowance = ethersToBigNumber(response)
-          return currentAllowance.gt(0)
+          const response = await cakeContract.allowance(account, nftSaleContract.address);
+          const currentAllowance = ethersToBigNumber(response);
+          return currentAllowance.gt(0);
         } catch (error) {
-          return false
+          return false;
         }
       },
       onApprove: () => {
-        return callWithGasPrice(cakeContract, 'approve', [nftSaleContract.address, ethers.constants.MaxUint256])
+        return callWithGasPrice(cakeContract, 'approve', [nftSaleContract.address, ethers.constants.MaxUint256]);
       },
       onApproveSuccess: async ({ receipt }) => {
-        toastSuccess(t('Transaction has succeeded!'))
-        setTxHashEnablingResult(receipt.transactionHash)
+        toastSuccess(t('Transaction has succeeded!'));
+        setTxHashEnablingResult(receipt.transactionHash);
       },
       onConfirm: ({ ticketsNumber }) => {
-        onPresentConfirmModal()
+        onPresentConfirmModal();
         return callWithGasPrice(nftSaleContract, isPreSale ? 'buyTicketsInPreSaleForGen0' : 'buyTickets', [
           ticketsNumber,
-        ])
+        ]);
       },
       onSuccess: async ({ receipt }) => {
-        toastSuccess(t('Transaction has succeeded!'))
-        setTxHashBuyingResult(receipt.transactionHash)
+        toastSuccess(t('Transaction has succeeded!'));
+        setTxHashBuyingResult(receipt.transactionHash);
       },
-    })
+    });
 
   const onConfirmClose = () => {
-    setTxHashBuyingResult(null)
-  }
+    setTxHashBuyingResult(null);
+  };
 
   const [onPresentConfirmModal] = useModal(
     <ConfirmModal
@@ -112,7 +112,7 @@ const BuyTicketsButtons: React.FC<BuyTicketsProps> = ({
       onConfirmClose={onConfirmClose}
     />,
     false,
-  )
+  );
 
   const [onPresentEnableModal, onDismissEnableModal] = useModal(
     <ConfirmModal
@@ -126,7 +126,7 @@ const BuyTicketsButtons: React.FC<BuyTicketsProps> = ({
       onConfirmClose={onConfirmClose}
     />,
     false,
-  )
+  );
 
   const [onPresentBuyTicketsModal, onDismissBuyTicketsModal] = useModal(
     <BuyTicketsModal
@@ -142,20 +142,20 @@ const BuyTicketsButtons: React.FC<BuyTicketsProps> = ({
       pricePerTicket={pricePerTicket}
       saleStatus={saleStatus}
     />,
-  )
+  );
 
-  useEffect(() => txHashEnablingResult && onPresentEnableModal(), [txHashEnablingResult])
-  useEffect(() => txHashBuyingResult && onPresentConfirmModal(), [txHashBuyingResult])
-  useEffect(() => hasApproveFailed && onDismissEnableModal(), [hasApproveFailed])
-  useEffect(() => hasConfirmFailed && onDismissBuyTicketsModal(), [hasConfirmFailed])
-  useEffect(() => isApproved && setIsUserEnabled && setIsUserEnabled(isApproved), [isApproved, setIsUserEnabled])
+  useEffect(() => txHashEnablingResult && onPresentEnableModal(), [txHashEnablingResult]);
+  useEffect(() => txHashBuyingResult && onPresentConfirmModal(), [txHashBuyingResult]);
+  useEffect(() => hasApproveFailed && onDismissEnableModal(), [hasApproveFailed]);
+  useEffect(() => hasConfirmFailed && onDismissBuyTicketsModal(), [hasConfirmFailed]);
+  useEffect(() => isApproved && setIsUserEnabled && setIsUserEnabled(isApproved), [isApproved, setIsUserEnabled]);
 
   const handleEnableClick = () => {
-    onPresentEnableModal()
-    handleApprove()
-  }
+    onPresentEnableModal();
+    handleApprove();
+  };
 
-  const canBuyTickets = (canClaimForGen0 || canBuySaleTicket) && isUserEnabled
+  const canBuyTickets = (canClaimForGen0 || canBuySaleTicket) && isUserEnabled;
   const buyButton = getBuyButton({
     isApproved: isUserEnabled,
     isGen0User,
@@ -163,7 +163,7 @@ const BuyTicketsButtons: React.FC<BuyTicketsProps> = ({
     startTimestamp,
     isUserReady,
     numberTicketsUsedForGen0,
-  })
+  });
 
   return (
     <>
@@ -181,7 +181,7 @@ const BuyTicketsButtons: React.FC<BuyTicketsProps> = ({
         </Button>
       )}
     </>
-  )
-}
+  );
+};
 
-export default BuyTicketsButtons
+export default BuyTicketsButtons;

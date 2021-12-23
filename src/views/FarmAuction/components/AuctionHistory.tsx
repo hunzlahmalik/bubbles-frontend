@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import {
   Text,
   Flex,
@@ -12,13 +12,13 @@ import {
   BunnyPlaceholderIcon,
   Spinner,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useAuctionHistory from '../hooks/useAuctionHistory'
-import AuctionLeaderboardTable from './AuctionLeaderboard/AuctionLeaderboardTable'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useAuctionHistory from '../hooks/useAuctionHistory';
+import AuctionLeaderboardTable from './AuctionLeaderboard/AuctionLeaderboardTable';
 
 interface AuctionHistoryProps {
-  mostRecentClosedAuctionId: number
+  mostRecentClosedAuctionId: number;
 }
 
 const StyledIconButton = styled(IconButton)`
@@ -35,27 +35,27 @@ const StyledIconButton = styled(IconButton)`
       }
     }
   }
-`
+`;
 
 const AuctionHistory: React.FC<AuctionHistoryProps> = ({ mostRecentClosedAuctionId }) => {
   const [historyAuctionId, setHistoryAuctionId] = useState(
     mostRecentClosedAuctionId ? mostRecentClosedAuctionId.toString() : '0',
-  )
-  const historyAuctionIdAsInt = parseInt(historyAuctionId, 10)
+  );
+  const historyAuctionIdAsInt = parseInt(historyAuctionId, 10);
 
   const {
     t,
     currentLanguage: { locale },
-  } = useTranslation()
+  } = useTranslation();
 
-  const { isXs, isSm, isMd, isLg, isXl, isXxl } = useMatchBreakpoints()
-  const isLargerScreen = isLg || isXl || isXxl
-  const isSmallerScreen = isXs || isSm || isMd
+  const { isXs, isSm, isMd, isLg, isXl, isXxl } = useMatchBreakpoints();
+  const isLargerScreen = isLg || isXl || isXxl;
+  const isSmallerScreen = isXs || isSm || isMd;
 
-  const auctionHistory = useAuctionHistory(historyAuctionIdAsInt)
+  const auctionHistory = useAuctionHistory(historyAuctionIdAsInt);
   const selectedAuction = Object.values(auctionHistory).find(
     (auctionData) => auctionData.auction.id === historyAuctionIdAsInt,
-  )
+  );
 
   let auctionTable = selectedAuction ? (
     <AuctionLeaderboardTable bidders={selectedAuction.bidders} noBidsText="No bids were placed in this auction" />
@@ -63,7 +63,7 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({ mostRecentClosedAuction
     <Flex justifyContent="center" alignItems="center" p="24px" height="250px">
       <Spinner />
     </Flex>
-  )
+  );
 
   if (Number.isNaN(historyAuctionIdAsInt)) {
     auctionTable = (
@@ -71,7 +71,7 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({ mostRecentClosedAuction
         <Text mb="8px">{t('Please specify auction ID')}</Text>
         <BunnyPlaceholderIcon height="64px" width="64px" />
       </Flex>
-    )
+    );
   }
 
   const endDate = selectedAuction
@@ -82,32 +82,32 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({ mostRecentClosedAuction
         hour: '2-digit',
         minute: '2-digit',
       })
-    : null
+    : null;
 
   const handleHistoryAuctionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.validity.valid) {
       const {
         target: { value },
-      } = event
-      const valueAsNumber = +value
+      } = event;
+      const valueAsNumber = +value;
       const newAuctionId =
         valueAsNumber >= mostRecentClosedAuctionId
           ? mostRecentClosedAuctionId.toString()
           : valueAsNumber <= 0
           ? ''
-          : value
-      setHistoryAuctionId(newAuctionId)
+          : value;
+      setHistoryAuctionId(newAuctionId);
     }
-  }
+  };
 
   const handleArrowPress = (auctionId: number) => {
     if (auctionId) {
-      setHistoryAuctionId(auctionId.toString())
+      setHistoryAuctionId(auctionId.toString());
     } else {
       // auctionId is NaN when the input is empty, the only button press that will trigger this func is 'forward one'
-      setHistoryAuctionId('1')
+      setHistoryAuctionId('1');
     }
-  }
+  };
 
   return (
     <Box py="24px">
@@ -173,7 +173,7 @@ const AuctionHistory: React.FC<AuctionHistoryProps> = ({ mostRecentClosedAuction
         </Flex>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default AuctionHistory
+export default AuctionHistory;

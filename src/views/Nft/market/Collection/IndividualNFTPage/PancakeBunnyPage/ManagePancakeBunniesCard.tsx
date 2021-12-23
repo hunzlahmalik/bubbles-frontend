@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   Box,
   Flex,
@@ -12,50 +12,50 @@ import {
   BinanceIcon,
   Skeleton,
   useModal,
-} from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { useUserNfts } from 'state/nftMarket/hooks'
-import { NftLocation, NftToken, UserNftInitializationState } from 'state/nftMarket/types'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { useTranslation } from 'contexts/Localization'
-import ExpandableCard from '../shared/ExpandableCard'
-import useFetchUserNfts from '../../../Profile/hooks/useFetchUserNfts'
-import SellModal from '../../../components/BuySellModals/SellModal'
-import ProfileNftModal from '../../../components/ProfileNftModal'
-import { SmallRoundedImage, CollectibleRowContainer } from '../shared/styles'
+} from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { useUserNfts } from 'state/nftMarket/hooks';
+import { NftLocation, NftToken, UserNftInitializationState } from 'state/nftMarket/types';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { useTranslation } from 'contexts/Localization';
+import ExpandableCard from '../shared/ExpandableCard';
+import useFetchUserNfts from '../../../Profile/hooks/useFetchUserNfts';
+import SellModal from '../../../components/BuySellModals/SellModal';
+import ProfileNftModal from '../../../components/ProfileNftModal';
+import { SmallRoundedImage, CollectibleRowContainer } from '../shared/styles';
 
 const ScrollableContainer = styled(Box)`
   overflow-y: auto;
   max-height: 224px;
-`
+`;
 
 const Divider = styled.div`
   margin: 16px 20px;
   border-bottom: ${({ theme }) => `1px solid ${theme.colors.cardBorder}`};
-`
+`;
 
 const LocationColors = {
   [NftLocation.FORSALE]: 'failure',
   [NftLocation.WALLET]: 'secondary',
   [NftLocation.PROFILE]: 'textSubtle',
-}
+};
 
 const LocationIcons = {
   [NftLocation.FORSALE]: SellIcon,
   [NftLocation.WALLET]: WalletFilledIcon,
   [NftLocation.PROFILE]: CameraIcon,
-}
+};
 
 interface CollectibleRowProps {
-  nft: NftToken
-  lowestPrice: string
+  nft: NftToken;
+  lowestPrice: string;
 }
 
 const CollectibleRow: React.FC<CollectibleRowProps> = ({ nft, lowestPrice }) => {
-  const { t } = useTranslation()
-  const modalVariant = nft.location === NftLocation.WALLET ? 'sell' : 'edit'
-  const [onPresentProfileNftModal] = useModal(<ProfileNftModal nft={nft} />)
-  const [onPresentModal] = useModal(<SellModal variant={modalVariant} nftToSell={nft} />)
+  const { t } = useTranslation();
+  const modalVariant = nft.location === NftLocation.WALLET ? 'sell' : 'edit';
+  const [onPresentProfileNftModal] = useModal(<ProfileNftModal nft={nft} />);
+  const [onPresentModal] = useModal(<SellModal variant={modalVariant} nftToSell={nft} />);
   return (
     <CollectibleRowContainer
       gridTemplateColumns="96px 1fr"
@@ -98,18 +98,18 @@ const CollectibleRow: React.FC<CollectibleRowProps> = ({ nft, lowestPrice }) => 
         )}
       </Grid>
     </CollectibleRowContainer>
-  )
-}
+  );
+};
 
 interface CollectiblesByLocationProps {
-  location: NftLocation
-  nfts: NftToken[]
-  lowestPrice: string
+  location: NftLocation;
+  nfts: NftToken[];
+  lowestPrice: string;
 }
 
 const CollectiblesByLocation: React.FC<CollectiblesByLocationProps> = ({ location, nfts, lowestPrice }) => {
-  const { t } = useTranslation()
-  const IconComponent = LocationIcons[location]
+  const { t } = useTranslation();
+  const IconComponent = LocationIcons[location];
   return (
     <Flex flexDirection="column">
       <Grid gridTemplateColumns="32px 1fr" px="16px" pb="8px">
@@ -124,33 +124,33 @@ const CollectiblesByLocation: React.FC<CollectiblesByLocationProps> = ({ locatio
         ))}
       </ScrollableContainer>
     </Flex>
-  )
-}
+  );
+};
 
 interface ManagePancakeBunniesCardProps {
-  bunnyId: string
-  lowestPrice?: string
+  bunnyId: string;
+  lowestPrice?: string;
 }
 
 const ManagePancakeBunniesCard: React.FC<ManagePancakeBunniesCardProps> = ({ bunnyId, lowestPrice }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const { userNftsInitializationState, nfts: userNfts } = useUserNfts()
-  useFetchUserNfts()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const { userNftsInitializationState, nfts: userNfts } = useUserNfts();
+  useFetchUserNfts();
 
   const bunniesInWallet = userNfts.filter(
     (nft) => nft.attributes[0].value === bunnyId && nft.location === NftLocation.WALLET,
-  )
+  );
   const bunniesForSale = userNfts.filter(
     (nft) => nft.attributes[0].value === bunnyId && nft.location === NftLocation.FORSALE,
-  )
+  );
   const profilePicBunny = userNfts.filter(
     (nft) => nft.attributes[0].value === bunnyId && nft.location === NftLocation.PROFILE,
-  )
+  );
 
-  const loading = userNftsInitializationState !== UserNftInitializationState.INITIALIZED
+  const loading = userNftsInitializationState !== UserNftInitializationState.INITIALIZED;
   const useHasNoBunnies =
-    !loading && bunniesInWallet.length === 0 && bunniesForSale.length === 0 && profilePicBunny.length === 0
+    !loading && bunniesInWallet.length === 0 && bunniesForSale.length === 0 && profilePicBunny.length === 0;
 
   const content = (
     <Box pt="16px">
@@ -187,8 +187,8 @@ const ManagePancakeBunniesCard: React.FC<ManagePancakeBunniesCardProps> = ({ bun
         </>
       )}
     </Box>
-  )
-  return <ExpandableCard title={t('Manage Yours')} icon={<CogIcon width="24px" height="24px" />} content={content} />
-}
+  );
+  return <ExpandableCard title={t('Manage Yours')} icon={<CogIcon width="24px" height="24px" />} content={content} />;
+};
 
-export default ManagePancakeBunniesCard
+export default ManagePancakeBunniesCard;

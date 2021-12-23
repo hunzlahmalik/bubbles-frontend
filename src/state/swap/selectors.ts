@@ -1,18 +1,18 @@
-import get from 'lodash/get'
-import { AppState } from 'state'
-import { PairDataTimeWindowEnum } from './types'
+import get from 'lodash/get';
+import { AppState } from 'state';
+import { PairDataTimeWindowEnum } from './types';
 
 type pairByDataIdSelectorParams = {
-  pairId: string
-  timeWindow: PairDataTimeWindowEnum
-}
+  pairId: string;
+  timeWindow: PairDataTimeWindowEnum;
+};
 
 export const pairByDataIdSelector =
   ({ pairId, timeWindow }: pairByDataIdSelectorParams) =>
   (state: AppState) =>
-    get(state, ['swap', 'pairDataById', pairId, timeWindow])
+    get(state, ['swap', 'pairDataById', pairId, timeWindow]);
 
 export const derivedPairByDataIdSelector =
   ({ pairId, timeWindow }: pairByDataIdSelectorParams) =>
   (state: AppState) =>
-    get(state, ['swap', 'derivedPairDataById', pairId, timeWindow])
+    get(state, ['swap', 'derivedPairDataById', pairId, timeWindow]);

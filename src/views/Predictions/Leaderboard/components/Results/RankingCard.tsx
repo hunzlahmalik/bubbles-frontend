@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Box,
   Card,
@@ -13,46 +13,46 @@ import {
   SubMenu,
   SubMenuItem,
   useModal,
-} from '@pancakeswap/uikit'
-import { PredictionUser } from 'state/types'
-import { useGetProfileAvatar } from 'state/profile/hooks'
-import styled from 'styled-components'
-import { getBscScanLink } from 'utils'
-import truncateHash from 'utils/truncateHash'
-import { useTranslation } from 'contexts/Localization'
-import WalletStatsModal from '../WalletStatsModal'
-import { NetWinningsRow, Row } from './styles'
+} from '@pancakeswap/uikit';
+import { PredictionUser } from 'state/types';
+import { useGetProfileAvatar } from 'state/profile/hooks';
+import styled from 'styled-components';
+import { getBscScanLink } from 'utils';
+import truncateHash from 'utils/truncateHash';
+import { useTranslation } from 'contexts/Localization';
+import WalletStatsModal from '../WalletStatsModal';
+import { NetWinningsRow, Row } from './styles';
 
 interface RankingCardProps {
-  rank: 1 | 2 | 3
-  user: PredictionUser
+  rank: 1 | 2 | 3;
+  user: PredictionUser;
 }
 
 const RotatedLaurelLeftIcon = styled(LaurelLeftIcon)`
   transform: rotate(30deg);
-`
+`;
 
 const RotatedLaurelRightIcon = styled(LaurelRightIcon)`
   transform: rotate(-30deg);
-`
+`;
 
 const getRankingColor = (rank: number) => {
   if (rank === 3) {
-    return 'bronze'
+    return 'bronze';
   }
 
   if (rank === 2) {
-    return 'silver'
+    return 'silver';
   }
 
-  return 'gold'
-}
+  return 'gold';
+};
 
 const RankingCard: React.FC<RankingCardProps> = ({ rank, user }) => {
-  const { t } = useTranslation()
-  const rankColor = getRankingColor(rank)
-  const profileAvatar = useGetProfileAvatar(user.id)
-  const [onPresentWalletStatsModal] = useModal(<WalletStatsModal account={user.id} />)
+  const { t } = useTranslation();
+  const rankColor = getRankingColor(rank);
+  const profileAvatar = useGetProfileAvatar(user.id);
+  const [onPresentWalletStatsModal] = useModal(<WalletStatsModal account={user.id} />);
 
   return (
     <Card ribbon={<CardRibbon variantColor={rankColor} text={`#${rank}`} ribbonPosition="left" />}>
@@ -98,7 +98,7 @@ const RankingCard: React.FC<RankingCardProps> = ({ rank, user }) => {
         </Row>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default RankingCard
+export default RankingCard;

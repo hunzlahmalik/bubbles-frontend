@@ -1,9 +1,9 @@
-import React from 'react'
-import { useTranslation } from 'contexts/Localization'
-import { Text } from '@pancakeswap/uikit'
+import React from 'react';
+import { useTranslation } from 'contexts/Localization';
+import { Text } from '@pancakeswap/uikit';
 
 const SafemoonWarning = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <>
@@ -14,7 +14,7 @@ const SafemoonWarning = () => {
       <Text>• {t('5% fee = redistributed to all existing holders')}</Text>
       <Text>• {t('5% fee = used to add liquidity')}</Text>
     </>
-  )
-}
+  );
+};
 
-export default SafemoonWarning
+export default SafemoonWarning;

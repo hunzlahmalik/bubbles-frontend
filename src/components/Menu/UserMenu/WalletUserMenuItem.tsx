@@ -1,14 +1,14 @@
-import React from 'react'
-import { Flex, UserMenuItem, WarningIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import { Flex, UserMenuItem, WarningIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 interface WalletUserMenuItemProps {
-  hasLowBnbBalance: boolean
-  onPresentWalletModal: () => void
+  hasLowBnbBalance: boolean;
+  onPresentWalletModal: () => void;
 }
 
 const WalletUserMenuItem: React.FC<WalletUserMenuItemProps> = ({ hasLowBnbBalance, onPresentWalletModal }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <UserMenuItem as="button" onClick={onPresentWalletModal}>
@@ -17,7 +17,7 @@ const WalletUserMenuItem: React.FC<WalletUserMenuItemProps> = ({ hasLowBnbBalanc
         {hasLowBnbBalance && <WarningIcon color="warning" width="24px" />}
       </Flex>
     </UserMenuItem>
-  )
-}
+  );
+};
 
-export default WalletUserMenuItem
+export default WalletUserMenuItem;

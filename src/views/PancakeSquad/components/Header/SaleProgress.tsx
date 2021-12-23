@@ -1,39 +1,39 @@
-import React from 'react'
-import { Box, lightColors, Progress, Text } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
-import { SaleStatusEnum, UserStatusEnum } from '../../types'
+import React from 'react';
+import { Box, lightColors, Progress, Text } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
+import { SaleStatusEnum, UserStatusEnum } from '../../types';
 
 type PreEventProps = {
-  t: ContextApi['t']
-  saleStatus: SaleStatusEnum
-  userStatus: UserStatusEnum
-  totalTicketsDistributed: number
-  maxSupply: number
-  totalSupplyMinted: number
-}
+  t: ContextApi['t'];
+  saleStatus: SaleStatusEnum;
+  userStatus: UserStatusEnum;
+  totalTicketsDistributed: number;
+  maxSupply: number;
+  totalSupplyMinted: number;
+};
 
 const saleProgressTextMapping = (t: ContextApi['t'], saleStatus: SaleStatusEnum, remaining: string, total: string) => {
   const data = {
     remaining,
     total,
-  }
+  };
 
   switch (saleStatus) {
     case SaleStatusEnum.Pending:
     case SaleStatusEnum.Premint:
-      return ''
+      return '';
     case SaleStatusEnum.Presale:
-      return t('%remaining% of %total% remaining', data)
+      return t('%remaining% of %total% remaining', data);
     case SaleStatusEnum.Sale:
-      return t('%remaining% of %total% remaining', data)
+      return t('%remaining% of %total% remaining', data);
     case SaleStatusEnum.DrawingRandomness:
-      return t('Randomizing NFT allocation with Chainlink', data)
+      return t('Randomizing NFT allocation with Chainlink', data);
     case SaleStatusEnum.Claim:
-      return t('%remaining% of %total% claimed', data)
+      return t('%remaining% of %total% claimed', data);
     default:
-      return ''
+      return '';
   }
-}
+};
 
 const SaleProgress: React.FC<PreEventProps> = ({
   t,
@@ -42,12 +42,12 @@ const SaleProgress: React.FC<PreEventProps> = ({
   totalSupplyMinted,
   maxSupply,
 }) => {
-  const displaySaleProgress = saleStatus > SaleStatusEnum.Premint
-  const isClaimingPhase = saleStatus === SaleStatusEnum.Claim
-  const supplyRemaining = maxSupply - totalTicketsDistributed
-  const remainingTickets = isClaimingPhase ? totalSupplyMinted : supplyRemaining
-  const supplyRemainingPercentage = Math.round((remainingTickets / maxSupply) * 100)
-  const isMintCompleted = totalSupplyMinted === maxSupply && isClaimingPhase
+  const displaySaleProgress = saleStatus > SaleStatusEnum.Premint;
+  const isClaimingPhase = saleStatus === SaleStatusEnum.Claim;
+  const supplyRemaining = maxSupply - totalTicketsDistributed;
+  const remainingTickets = isClaimingPhase ? totalSupplyMinted : supplyRemaining;
+  const supplyRemainingPercentage = Math.round((remainingTickets / maxSupply) * 100);
+  const isMintCompleted = totalSupplyMinted === maxSupply && isClaimingPhase;
   return displaySaleProgress ? (
     <Box mb="24px">
       {isMintCompleted && (
@@ -68,7 +68,7 @@ const SaleProgress: React.FC<PreEventProps> = ({
         />
       )}
     </Box>
-  ) : null
-}
+  ) : null;
+};
 
-export default SaleProgress
+export default SaleProgress;

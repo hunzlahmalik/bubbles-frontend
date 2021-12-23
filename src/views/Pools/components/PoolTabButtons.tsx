@@ -1,10 +1,10 @@
-import React from 'react'
-import { useRouteMatch, Link } from 'react-router-dom'
-import { ViewMode } from 'state/user/actions'
-import styled from 'styled-components'
-import { ButtonMenu, ButtonMenuItem, Toggle, Text, NotificationDot } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import ToggleView from './ToggleView/ToggleView'
+import React from 'react';
+import { useRouteMatch, Link } from 'react-router-dom';
+import { ViewMode } from 'state/user/actions';
+import styled from 'styled-components';
+import { ButtonMenu, ButtonMenuItem, Toggle, Text, NotificationDot } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import ToggleView from './ToggleView/ToggleView';
 
 const ToggleWrapper = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const ToggleWrapper = styled.div`
   ${Text} {
     margin-left: 8px;
   }
-`
+`;
 
 const ViewControls = styled.div`
   flex-wrap: wrap;
@@ -35,7 +35,7 @@ const ViewControls = styled.div`
       padding: 0;
     }
   }
-`
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,13 +50,13 @@ const Wrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-left: 16px;
   }
-`
+`;
 
 const PoolTabButtons = ({ stakedOnly, setStakedOnly, hasStakeInFinishedPools, viewMode, setViewMode }) => {
-  const { url, isExact } = useRouteMatch()
-  const { t } = useTranslation()
+  const { url, isExact } = useRouteMatch();
+  const { t } = useTranslation();
 
-  const viewModeToggle = <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
+  const viewModeToggle = <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />;
 
   const liveOrFinishedSwitch = (
     <Wrapper>
@@ -71,14 +71,14 @@ const PoolTabButtons = ({ stakedOnly, setStakedOnly, hasStakeInFinishedPools, vi
         </NotificationDot>
       </ButtonMenu>
     </Wrapper>
-  )
+  );
 
   const stakedOnlySwitch = (
     <ToggleWrapper>
       <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
       <Text> {t('Staked only')}</Text>
     </ToggleWrapper>
-  )
+  );
 
   return (
     <ViewControls>
@@ -86,7 +86,7 @@ const PoolTabButtons = ({ stakedOnly, setStakedOnly, hasStakeInFinishedPools, vi
       {stakedOnlySwitch}
       {liveOrFinishedSwitch}
     </ViewControls>
-  )
-}
+  );
+};
 
-export default PoolTabButtons
+export default PoolTabButtons;

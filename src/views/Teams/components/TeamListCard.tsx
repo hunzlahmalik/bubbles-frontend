@@ -1,22 +1,22 @@
-import React from 'react'
-import styled, { DefaultTheme } from 'styled-components'
-import { Link } from 'react-router-dom'
-import { Button, Card, CommunityIcon, Flex, Heading, PrizeIcon, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { Team } from 'config/constants/types'
+import React from 'react';
+import styled, { DefaultTheme } from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Button, Card, CommunityIcon, Flex, Heading, PrizeIcon, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { Team } from 'config/constants/types';
 
 interface TeamCardProps {
-  rank: number
-  team: Team
+  rank: number;
+  team: Team;
 }
 
 const getBackground = (theme: DefaultTheme) => {
   if (theme.isDark) {
-    return 'linear-gradient(139.73deg, #142339 0%, #24243D 47.4%, #37273F 100%)'
+    return 'linear-gradient(139.73deg, #142339 0%, #24243D 47.4%, #37273F 100%)';
   }
 
-  return 'linear-gradient(139.73deg, #E6FDFF 0%, #EFF4F5 46.87%, #F3EFFF 100%)'
-}
+  return 'linear-gradient(139.73deg, #E6FDFF 0%, #EFF4F5 46.87%, #F3EFFF 100%)';
+};
 
 const TeamRank = styled.div`
   align-self: stretch;
@@ -25,7 +25,7 @@ const TeamRank = styled.div`
   padding: 16px 0;
   text-align: center;
   width: 56px;
-`
+`;
 
 const Body = styled.div`
   align-items: start;
@@ -39,15 +39,15 @@ const Body = styled.div`
     flex-direction: row;
     font-size: 40px;
   }
-`
+`;
 
 const Info = styled.div`
   flex: 1;
-`
+`;
 
 const Avatar = styled.img`
   border-radius: 50%;
-`
+`;
 
 const TeamName = styled(Heading).attrs({ as: 'h3' })`
   font-size: 24px;
@@ -55,7 +55,7 @@ const TeamName = styled(Heading).attrs({ as: 'h3' })`
   ${({ theme }) => theme.mediaQueries.md} {
     font-size: 40px;
   }
-`
+`;
 
 const MobileAvatar = styled.div`
   flex: none;
@@ -69,7 +69,7 @@ const MobileAvatar = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     display: none;
   }
-`
+`;
 
 const DesktopAvatar = styled.div`
   display: none;
@@ -83,15 +83,15 @@ const DesktopAvatar = styled.div`
       width: 128px;
     }
   }
-`
+`;
 
 const StyledTeamCard = styled(Card)`
   margin-bottom: 16px;
-`
+`;
 
 const TeamCard: React.FC<TeamCardProps> = ({ rank, team }) => {
-  const { t } = useTranslation()
-  const avatar = <Avatar src={`/images/teams/${team.images.md}`} alt="team avatar" />
+  const { t } = useTranslation();
+  const avatar = <Avatar src={`/images/teams/${team.images.md}`} alt="team avatar" />;
 
   return (
     <StyledTeamCard id={`team-${team.id}`}>
@@ -134,7 +134,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ rank, team }) => {
         </Body>
       </Flex>
     </StyledTeamCard>
-  )
-}
+  );
+};
 
-export default TeamCard
+export default TeamCard;

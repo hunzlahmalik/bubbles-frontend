@@ -1,9 +1,9 @@
-import React from 'react'
-import { Flex, Text } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import RulesCard from './RulesCard'
-import FAQs from './FAQs'
+import React from 'react';
+import { Flex, Text } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import RulesCard from './RulesCard';
+import FAQs from './FAQs';
 
 const Wrapper = styled(Flex)`
   flex-direction: column;
@@ -12,7 +12,7 @@ const Wrapper = styled(Flex)`
     flex-direction: row;
     align-items: flex-start;
   }
-`
+`;
 
 const StyledCardWrapper = styled(Flex)`
   flex-direction: column;
@@ -20,10 +20,10 @@ const StyledCardWrapper = styled(Flex)`
     margin-right: 40px;
     flex: 1;
   }
-`
+`;
 
 const Rules = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -48,7 +48,7 @@ const Rules = () => {
       </StyledCardWrapper>
       <FAQs />
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Rules
+export default Rules;

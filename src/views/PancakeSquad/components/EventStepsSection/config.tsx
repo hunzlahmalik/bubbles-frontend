@@ -1,16 +1,16 @@
-import React from 'react'
-import { Button } from '@pancakeswap/uikit'
-import { SaleStatusEnum, UserStatusEnum } from 'views/PancakeSquad/types'
-import ActivateProfileButton from '../Buttons/ActivateProfile'
-import BuyTicketsButtons from '../Buttons/BuyTickets'
-import EndEventButtons from '../Buttons/EndEvent'
-import MintButton from '../Buttons/Mint'
-import ReadyText from '../Header/ReadyText'
-import { EventStepsType } from './types'
-import { getStepperStatus } from './utils'
+import React from 'react';
+import { Button } from '@pancakeswap/uikit';
+import { SaleStatusEnum, UserStatusEnum } from 'views/PancakeSquad/types';
+import ActivateProfileButton from '../Buttons/ActivateProfile';
+import BuyTicketsButtons from '../Buttons/BuyTickets';
+import EndEventButtons from '../Buttons/EndEvent';
+import MintButton from '../Buttons/Mint';
+import ReadyText from '../Header/ReadyText';
+import { EventStepsType } from './types';
+import { getStepperStatus } from './utils';
 
 const stepsConfigBuilder = ({ t, userInfos, eventInfos, userStatus, account, theme, cakeBalance }: EventStepsType) => {
-  const { maxPerAddress, maxPerTransaction, maxSupply, pricePerTicket } = eventInfos || {}
+  const { maxPerAddress, maxPerTransaction, maxSupply, pricePerTicket } = eventInfos || {};
   const {
     canClaimForGen0,
     ticketsOfUser,
@@ -18,14 +18,14 @@ const stepsConfigBuilder = ({ t, userInfos, eventInfos, userStatus, account, the
     numberTicketsOfUser,
     numberTicketsForGen0,
     numberTokensOfUser,
-  } = userInfos || {}
+  } = userInfos || {};
 
-  const { saleStatus, totalTicketsDistributed, totalSupplyMinted, startTimestamp } = eventInfos || {}
+  const { saleStatus, totalTicketsDistributed, totalSupplyMinted, startTimestamp } = eventInfos || {};
 
-  const hasProfileActivated = [UserStatusEnum.PROFILE_ACTIVE, UserStatusEnum.PROFILE_ACTIVE_GEN0].includes(userStatus)
-  const isBuyPhaseFinished = totalTicketsDistributed === maxSupply
-  const isMintingFinished = totalSupplyMinted === maxSupply
-  const hasData = !!eventInfos && !!userInfos
+  const hasProfileActivated = [UserStatusEnum.PROFILE_ACTIVE, UserStatusEnum.PROFILE_ACTIVE_GEN0].includes(userStatus);
+  const isBuyPhaseFinished = totalTicketsDistributed === maxSupply;
+  const isMintingFinished = totalSupplyMinted === maxSupply;
+  const hasData = !!eventInfos && !!userInfos;
 
   return [
     {
@@ -164,7 +164,7 @@ const stepsConfigBuilder = ({ t, userInfos, eventInfos, userStatus, account, the
         </>
       ),
     },
-  ]
-}
+  ];
+};
 
-export default stepsConfigBuilder
+export default stepsConfigBuilder;

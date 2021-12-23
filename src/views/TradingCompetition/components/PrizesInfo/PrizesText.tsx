@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Text, Heading, Image } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import FlipperBunny from '../../pngs/flippers.png'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Text, Heading, Image } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import FlipperBunny from '../../pngs/flippers.png';
 
 const StyledFlex = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     flex: 1;
   }
-`
+`;
 
 const ImageWrapper = styled.div`
   width: 200px;
@@ -17,10 +17,10 @@ const ImageWrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     display: block;
   }
-`
+`;
 
 const PrizesText = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <StyledFlex flexDirection="column" mb="32px">
@@ -37,7 +37,7 @@ const PrizesText = () => {
         <Image src={FlipperBunny} alt="Flipper bunny" width={499} height={400} />
       </ImageWrapper>
     </StyledFlex>
-  )
-}
+  );
+};
 
-export default PrizesText
+export default PrizesText;

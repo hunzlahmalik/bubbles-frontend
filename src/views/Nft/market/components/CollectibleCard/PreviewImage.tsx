@@ -1,11 +1,11 @@
-import React from 'react'
-import { BackgroundImage, BoxProps } from '@pancakeswap/uikit'
-import PlaceholderImage from './PlaceholderImage'
+import React from 'react';
+import { BackgroundImage, BoxProps } from '@pancakeswap/uikit';
+import PlaceholderImage from './PlaceholderImage';
 
 interface PreviewImageProps extends BoxProps {
-  src: string
-  height?: number
-  width?: number
+  src: string;
+  height?: number;
+  width?: number;
 }
 
 const PreviewImage: React.FC<PreviewImageProps> = ({ height = 64, width = 64, ...props }) => {
@@ -17,7 +17,7 @@ const PreviewImage: React.FC<PreviewImageProps> = ({ height = 64, width = 64, ..
       style={{ borderRadius: '8px' }}
       {...props}
     />
-  )
-}
+  );
+};
 
-export default PreviewImage
+export default PreviewImage;

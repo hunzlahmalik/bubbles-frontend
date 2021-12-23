@@ -1,15 +1,15 @@
-import { ChainId, Token } from '@pancakeswap/sdk'
-import { serializeToken } from 'state/user/hooks/helpers'
-import { SerializedToken } from './types'
+import { ChainId, Token } from '@pancakeswap/sdk';
+import { serializeToken } from 'state/user/hooks/helpers';
+import { SerializedToken } from './types';
 
-const { MAINNET, TESTNET } = ChainId
+const { MAINNET, TESTNET } = ChainId;
 
 interface TokenList {
-  [symbol: string]: Token
+  [symbol: string]: Token;
 }
 
 interface SerializedTokenList {
-  [symbol: string]: SerializedToken
+  [symbol: string]: SerializedToken;
 }
 
 export const mainnetTokens = {
@@ -1855,7 +1855,7 @@ export const mainnetTokens = {
     'Thetan Gem',
     'https://thetanarena.com/',
   ),
-}
+};
 
 export const testnetTokens = {
   wbnb: new Token(
@@ -1898,28 +1898,28 @@ export const testnetTokens = {
     'Bakeryswap Token',
     'https://www.bakeryswap.org/',
   ),
-}
+};
 
 const tokens = (): TokenList => {
-  const chainId = process.env.REACT_APP_CHAIN_ID
+  const chainId = process.env.REACT_APP_CHAIN_ID;
 
   // If testnet - return list comprised of testnetTokens wherever they exist, and mainnetTokens where they don't
   if (parseInt(chainId, 10) === ChainId.TESTNET) {
     return Object.keys(mainnetTokens).reduce((accum, key) => {
-      return { ...accum, [key]: testnetTokens[key] || mainnetTokens[key] }
-    }, {})
+      return { ...accum, [key]: testnetTokens[key] || mainnetTokens[key] };
+    }, {});
   }
 
-  return mainnetTokens
-}
+  return mainnetTokens;
+};
 
 export const serializeTokens = (): SerializedTokenList => {
-  const unserializedTokens = tokens()
+  const unserializedTokens = tokens();
   const serializedTokens = Object.keys(unserializedTokens).reduce((accum, key) => {
-    return { ...accum, [key]: serializeToken(unserializedTokens[key]) }
-  }, {})
+    return { ...accum, [key]: serializeToken(unserializedTokens[key]) };
+  }, {});
 
-  return serializedTokens
-}
+  return serializedTokens;
+};
 
-export default tokens()
+export default tokens();

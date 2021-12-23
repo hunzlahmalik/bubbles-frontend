@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
-import { request, gql } from 'graphql-request'
-import { INFO_CLIENT } from 'config/constants/endpoints'
-import { TOKEN_BLACKLIST } from 'config/constants/info'
-import { getDeltaTimestamps } from 'views/Info/utils/infoQueryHelpers'
+import { useEffect, useState } from 'react';
+import { request, gql } from 'graphql-request';
+import { INFO_CLIENT } from 'config/constants/endpoints';
+import { TOKEN_BLACKLIST } from 'config/constants/info';
+import { getDeltaTimestamps } from 'views/Info/utils/infoQueryHelpers';
 
 interface TopTokensResponse {
   tokenDayDatas: {
-    id: string
-  }[]
+    id: string;
+  }[];
 }
 
 /**
@@ -28,34 +28,34 @@ const fetchTopTokens = async (timestamp24hAgo: number): Promise<string[]> => {
           id
         }
       }
-    `
-    const data = await request<TopTokensResponse>(INFO_CLIENT, query, { blacklist: TOKEN_BLACKLIST, timestamp24hAgo })
+    `;
+    const data = await request<TopTokensResponse>(INFO_CLIENT, query, { blacklist: TOKEN_BLACKLIST, timestamp24hAgo });
     // tokenDayDatas id has compound id "0xTOKENADDRESS-NUMBERS", extracting token address with .split('-')
-    return data.tokenDayDatas.map((t) => t.id.split('-')[0])
+    return data.tokenDayDatas.map((t) => t.id.split('-')[0]);
   } catch (error) {
-    console.error('Failed to fetch top tokens', error)
-    return []
+    console.error('Failed to fetch top tokens', error);
+    return [];
   }
-}
+};
 
 /**
  * Fetch top addresses by volume
  */
 const useTopTokenAddresses = (): string[] => {
-  const [topTokenAddresses, setTopTokenAddresses] = useState([])
-  const [timestamp24hAgo] = getDeltaTimestamps()
+  const [topTokenAddresses, setTopTokenAddresses] = useState([]);
+  const [timestamp24hAgo] = getDeltaTimestamps();
 
   useEffect(() => {
     const fetch = async () => {
-      const addresses = await fetchTopTokens(timestamp24hAgo)
-      setTopTokenAddresses(addresses)
-    }
+      const addresses = await fetchTopTokens(timestamp24hAgo);
+      setTopTokenAddresses(addresses);
+    };
     if (topTokenAddresses.length === 0) {
-      fetch()
+      fetch();
     }
-  }, [topTokenAddresses, timestamp24hAgo])
+  }, [topTokenAddresses, timestamp24hAgo]);
 
-  return topTokenAddresses
-}
+  return topTokenAddresses;
+};
 
-export default useTopTokenAddresses
+export default useTopTokenAddresses;

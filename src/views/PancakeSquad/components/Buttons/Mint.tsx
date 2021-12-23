@@ -1,37 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { BigNumber } from 'ethers'
-import React, { useEffect, useState } from 'react'
-import { AutoRenewIcon, Button, useModal } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import { useNftSaleContract } from 'hooks/useContract'
-import useToast from 'hooks/useToast'
-import { DefaultTheme } from 'styled-components'
-import { logError } from 'utils/sentry'
-import { SaleStatusEnum } from '../../types'
-import ConfirmModal from '../Modals/Confirm'
+import { BigNumber } from 'ethers';
+import React, { useEffect, useState } from 'react';
+import { AutoRenewIcon, Button, useModal } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import { useNftSaleContract } from 'hooks/useContract';
+import useToast from 'hooks/useToast';
+import { DefaultTheme } from 'styled-components';
+import { logError } from 'utils/sentry';
+import { SaleStatusEnum } from '../../types';
+import ConfirmModal from '../Modals/Confirm';
 
 type PreEventProps = {
-  t: ContextApi['t']
-  theme: DefaultTheme
-  saleStatus: SaleStatusEnum
-  numberTicketsOfUser: number
-  numberTokensOfUser: number
-  ticketsOfUser: BigNumber[]
-}
+  t: ContextApi['t'];
+  theme: DefaultTheme;
+  saleStatus: SaleStatusEnum;
+  numberTicketsOfUser: number;
+  numberTokensOfUser: number;
+  ticketsOfUser: BigNumber[];
+};
 
 const MintButton: React.FC<PreEventProps> = ({ t, theme, saleStatus, numberTicketsOfUser, ticketsOfUser }) => {
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const nftSaleContract = useNftSaleContract()
-  const [isLoading, setIsLoading] = useState(false)
-  const [txHashMintingResult, setTxHashMintingResult] = useState(null)
-  const { toastError } = useToast()
-  const canMintTickets = saleStatus === SaleStatusEnum.Claim && numberTicketsOfUser > 0
-  const { toastSuccess } = useToast()
+  const { callWithGasPrice } = useCallWithGasPrice();
+  const nftSaleContract = useNftSaleContract();
+  const [isLoading, setIsLoading] = useState(false);
+  const [txHashMintingResult, setTxHashMintingResult] = useState(null);
+  const { toastError } = useToast();
+  const canMintTickets = saleStatus === SaleStatusEnum.Claim && numberTicketsOfUser > 0;
+  const { toastSuccess } = useToast();
 
   const onConfirmClose = () => {
-    setTxHashMintingResult(null)
-  }
+    setTxHashMintingResult(null);
+  };
 
   const [onPresentConfirmModal, onDismiss] = useModal(
     <ConfirmModal
@@ -45,27 +45,27 @@ const MintButton: React.FC<PreEventProps> = ({ t, theme, saleStatus, numberTicke
       onConfirmClose={onConfirmClose}
     />,
     false,
-  )
+  );
 
   const mintTokenCallBack = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const tx = await callWithGasPrice(nftSaleContract, 'mint', [ticketsOfUser])
-      const receipt = await tx.wait()
+      const tx = await callWithGasPrice(nftSaleContract, 'mint', [ticketsOfUser]);
+      const receipt = await tx.wait();
       if (receipt.status) {
-        toastSuccess(t('Transaction has succeeded!'))
-        setTxHashMintingResult(receipt.transactionHash)
+        toastSuccess(t('Transaction has succeeded!'));
+        setTxHashMintingResult(receipt.transactionHash);
       }
     } catch (error) {
-      logError(error)
-      onDismiss()
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
+      logError(error);
+      onDismiss();
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  useEffect(() => txHashMintingResult && !isLoading && onPresentConfirmModal(), [isLoading, txHashMintingResult])
+  useEffect(() => txHashMintingResult && !isLoading && onPresentConfirmModal(), [isLoading, txHashMintingResult]);
 
   return (
     <>
@@ -80,7 +80,7 @@ const MintButton: React.FC<PreEventProps> = ({ t, theme, saleStatus, numberTicke
         </Button>
       )}
     </>
-  )
-}
+  );
+};
 
-export default MintButton
+export default MintButton;

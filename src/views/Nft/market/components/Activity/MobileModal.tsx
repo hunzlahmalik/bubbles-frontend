@@ -1,29 +1,29 @@
-import React from 'react'
-import { InjectedModalProps, Modal, Flex, Text, Button, Image, Link, BinanceIcon } from '@pancakeswap/uikit'
-import { Price } from '@pancakeswap/sdk'
-import useTheme from 'hooks/useTheme'
-import styled from 'styled-components'
-import { Activity, NftToken } from 'state/nftMarket/types'
-import { LightGreyCard } from 'components/Card'
-import { useTranslation } from 'contexts/Localization'
-import truncateHash from 'utils/truncateHash'
-import { multiplyPriceByAmount } from 'utils/prices'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { getBscScanLink } from 'utils'
-import ActivityEventText from './ActivityEventText'
+import React from 'react';
+import { InjectedModalProps, Modal, Flex, Text, Button, Image, Link, BinanceIcon } from '@pancakeswap/uikit';
+import { Price } from '@pancakeswap/sdk';
+import useTheme from 'hooks/useTheme';
+import styled from 'styled-components';
+import { Activity, NftToken } from 'state/nftMarket/types';
+import { LightGreyCard } from 'components/Card';
+import { useTranslation } from 'contexts/Localization';
+import truncateHash from 'utils/truncateHash';
+import { multiplyPriceByAmount } from 'utils/prices';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { getBscScanLink } from 'utils';
+import ActivityEventText from './ActivityEventText';
 
 const RoundedImage = styled(Image)`
   & > img {
     border-radius: ${({ theme }) => theme.radii.default};
   }
-`
+`;
 
 interface MobileModalProps extends InjectedModalProps {
-  activity: Activity
-  nft: NftToken
-  bnbBusdPrice: Price
-  localeTimestamp: string
-  isUserActivity?: boolean
+  activity: Activity;
+  nft: NftToken;
+  bnbBusdPrice: Price;
+  localeTimestamp: string;
+  isUserActivity?: boolean;
 }
 
 const MobileModal: React.FC<MobileModalProps> = ({
@@ -34,11 +34,11 @@ const MobileModal: React.FC<MobileModalProps> = ({
   onDismiss,
   isUserActivity = false,
 }) => {
-  const { chainId } = useActiveWeb3React()
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const priceAsFloat = parseFloat(activity.price)
-  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, priceAsFloat)
+  const { chainId } = useActiveWeb3React();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const priceAsFloat = parseFloat(activity.price);
+  const priceInUsd = multiplyPriceByAmount(bnbBusdPrice, priceAsFloat);
 
   return (
     <Modal title={t('Transaction Details')} onDismiss={onDismiss} headerBackground={theme.colors.gradients.cardHeader}>
@@ -109,7 +109,7 @@ const MobileModal: React.FC<MobileModalProps> = ({
         </Flex>
       </Flex>
     </Modal>
-  )
-}
+  );
+};
 
-export default MobileModal
+export default MobileModal;

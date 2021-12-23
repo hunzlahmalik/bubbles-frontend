@@ -1,28 +1,28 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react'
-import styled from 'styled-components'
-import { Text, Input, Flex, Skeleton, useMatchBreakpoints } from '@pancakeswap/uikit'
-import useFetchSearchResults from 'state/info/queries/search'
-import { CurrencyLogo, DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import { useWatchlistTokens, useWatchlistPools } from 'state/user/hooks'
-import SaveIcon from 'views/Info/components/SaveIcon'
-import { useHistory } from 'react-router-dom'
-import { usePoolDatas, useTokenDatas } from 'state/info/hooks'
-import { useTranslation } from 'contexts/Localization'
-import useDebounce from 'hooks/useDebounce'
-import { MINIMUM_SEARCH_CHARACTERS } from 'config/constants/info'
-import { PoolData } from 'state/info/types'
+import React, { useRef, useState, useEffect, useMemo } from 'react';
+import styled from 'styled-components';
+import { Text, Input, Flex, Skeleton, useMatchBreakpoints } from '@pancakeswap/uikit';
+import useFetchSearchResults from 'state/info/queries/search';
+import { CurrencyLogo, DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import { useWatchlistTokens, useWatchlistPools } from 'state/user/hooks';
+import SaveIcon from 'views/Info/components/SaveIcon';
+import { useHistory } from 'react-router-dom';
+import { usePoolDatas, useTokenDatas } from 'state/info/hooks';
+import { useTranslation } from 'contexts/Localization';
+import useDebounce from 'hooks/useDebounce';
+import { MINIMUM_SEARCH_CHARACTERS } from 'config/constants/info';
+import { PoolData } from 'state/info/types';
 
 const Container = styled.div`
   position: relative;
   z-index: 30;
   width: 100%;
-`
+`;
 
 const StyledInput = styled(Input)`
   z-index: 9999;
   border: 1px solid ${({ theme }) => theme.colors.inputSecondary};
-`
+`;
 
 const Menu = styled.div<{ hide: boolean }>`
   display: flex;
@@ -53,7 +53,7 @@ const Menu = styled.div<{ hide: boolean }>`
     width: 800px;
     max-height: 600px;
   }
-`
+`;
 
 const Blackout = styled.div`
   position: absolute;
@@ -64,7 +64,7 @@ const Blackout = styled.div`
   opacity: 0.7;
   left: 0;
   top: 0;
-`
+`;
 
 const ResponsiveGrid = styled.div`
   display: grid;
@@ -75,14 +75,14 @@ const ResponsiveGrid = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     grid-template-columns: 1.5fr repeat(3, 1fr);
   }
-`
+`;
 
 const Break = styled.div`
   height: 1px;
   background-color: ${({ theme }) => theme.colors.cardBorder};
   width: 100%;
   margin: 16px 0;
-`
+`;
 
 const HoverText = styled.div<{ hide: boolean }>`
   color: ${({ theme }) => theme.colors.secondary};
@@ -92,14 +92,14 @@ const HoverText = styled.div<{ hide: boolean }>`
     cursor: pointer;
     opacity: 0.6;
   }
-`
+`;
 
 const HoverRowLink = styled.div`
   :hover {
     cursor: pointer;
     opacity: 0.6;
   }
-`
+`;
 
 const OptionButton = styled.div<{ enabled: boolean }>`
   width: fit-content;
@@ -117,117 +117,117 @@ const OptionButton = styled.div<{ enabled: boolean }>`
     opacity: 0.6;
     cursor: pointer;
   }
-`
+`;
 type BasicTokenData = {
-  address: string
-  symbol: string
-  name: string
-}
+  address: string;
+  symbol: string;
+  name: string;
+};
 const tokenIncludesSearchTerm = (token: BasicTokenData, value: string) => {
   return (
     token.address.toLowerCase().includes(value.toLowerCase()) ||
     token.symbol.toLowerCase().includes(value.toLowerCase()) ||
     token.name.toLowerCase().includes(value.toLowerCase())
-  )
-}
+  );
+};
 
 const poolIncludesSearchTerm = (pool: PoolData, value: string) => {
   return (
     pool.address.toLowerCase().includes(value.toLowerCase()) ||
     tokenIncludesSearchTerm(pool.token0, value) ||
     tokenIncludesSearchTerm(pool.token1, value)
-  )
-}
+  );
+};
 
 const Search = () => {
-  const history = useHistory()
-  const { isXs, isSm } = useMatchBreakpoints()
-  const { t } = useTranslation()
+  const history = useHistory();
+  const { isXs, isSm } = useMatchBreakpoints();
+  const { t } = useTranslation();
 
-  const inputRef = useRef<HTMLInputElement>(null)
-  const menuRef = useRef<HTMLDivElement>(null)
-  const showMoreRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const showMoreRef = useRef<HTMLDivElement>(null);
 
-  const [showMenu, setShowMenu] = useState(false)
-  const [value, setValue] = useState('')
-  const debouncedSearchTerm = useDebounce(value, 600)
+  const [showMenu, setShowMenu] = useState(false);
+  const [value, setValue] = useState('');
+  const debouncedSearchTerm = useDebounce(value, 600);
 
-  const { tokens, pools, tokensLoading, poolsLoading, error } = useFetchSearchResults(debouncedSearchTerm)
+  const { tokens, pools, tokensLoading, poolsLoading, error } = useFetchSearchResults(debouncedSearchTerm);
 
-  const [tokensShown, setTokensShown] = useState(3)
-  const [poolsShown, setPoolsShown] = useState(3)
+  const [tokensShown, setTokensShown] = useState(3);
+  const [poolsShown, setPoolsShown] = useState(3);
 
   useEffect(() => {
-    setTokensShown(3)
-    setPoolsShown(3)
-  }, [debouncedSearchTerm])
+    setTokensShown(3);
+    setPoolsShown(3);
+  }, [debouncedSearchTerm]);
 
   const handleOutsideClick = (e: any) => {
-    const menuClick = menuRef.current && menuRef.current.contains(e.target)
-    const inputCLick = inputRef.current && inputRef.current.contains(e.target)
-    const showMoreClick = showMoreRef.current && showMoreRef.current.contains(e.target)
+    const menuClick = menuRef.current && menuRef.current.contains(e.target);
+    const inputCLick = inputRef.current && inputRef.current.contains(e.target);
+    const showMoreClick = showMoreRef.current && showMoreRef.current.contains(e.target);
 
     if (!menuClick && !inputCLick && !showMoreClick) {
-      setPoolsShown(3)
-      setTokensShown(3)
-      setShowMenu(false)
+      setPoolsShown(3);
+      setTokensShown(3);
+      setShowMenu(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (showMenu) {
-      document.addEventListener('click', handleOutsideClick)
-      document.querySelector('body').style.overflow = 'hidden'
+      document.addEventListener('click', handleOutsideClick);
+      document.querySelector('body').style.overflow = 'hidden';
     } else {
-      document.removeEventListener('click', handleOutsideClick)
-      document.querySelector('body').style.overflow = 'visible'
+      document.removeEventListener('click', handleOutsideClick);
+      document.querySelector('body').style.overflow = 'visible';
     }
 
     return () => {
-      document.removeEventListener('click', handleOutsideClick)
-    }
-  }, [showMenu])
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [showMenu]);
 
   // watchlist
-  const [savedTokens, addSavedToken] = useWatchlistTokens()
-  const [savedPools, addSavedPool] = useWatchlistPools()
+  const [savedTokens, addSavedToken] = useWatchlistTokens();
+  const [savedPools, addSavedPool] = useWatchlistPools();
 
   const handleItemClick = (to: string) => {
-    setShowMenu(false)
-    setPoolsShown(3)
-    setTokensShown(3)
-    history.push(to)
-  }
+    setShowMenu(false);
+    setPoolsShown(3);
+    setTokensShown(3);
+    history.push(to);
+  };
 
   // get date for watchlist
-  const watchListTokenData = useTokenDatas(savedTokens)
-  const watchListTokenLoading = watchListTokenData.length !== savedTokens.length
-  const watchListPoolData = usePoolDatas(savedPools)
-  const watchListPoolLoading = watchListPoolData.length !== savedPools.length
+  const watchListTokenData = useTokenDatas(savedTokens);
+  const watchListTokenLoading = watchListTokenData.length !== savedTokens.length;
+  const watchListPoolData = usePoolDatas(savedPools);
+  const watchListPoolLoading = watchListPoolData.length !== savedPools.length;
 
   // filter on view
-  const [showWatchlist, setShowWatchlist] = useState(false)
+  const [showWatchlist, setShowWatchlist] = useState(false);
   const tokensForList = useMemo(() => {
     if (showWatchlist) {
-      return watchListTokenData.filter((token) => tokenIncludesSearchTerm(token, value))
+      return watchListTokenData.filter((token) => tokenIncludesSearchTerm(token, value));
     }
-    return tokens.sort((t0, t1) => (t0.volumeUSD > t1.volumeUSD ? -1 : 1))
-  }, [showWatchlist, tokens, watchListTokenData, value])
+    return tokens.sort((t0, t1) => (t0.volumeUSD > t1.volumeUSD ? -1 : 1));
+  }, [showWatchlist, tokens, watchListTokenData, value]);
 
   const poolForList = useMemo(() => {
     if (showWatchlist) {
-      return watchListPoolData.filter((pool) => poolIncludesSearchTerm(pool, value))
+      return watchListPoolData.filter((pool) => poolIncludesSearchTerm(pool, value));
     }
-    return pools.sort((p0, p1) => (p0.volumeUSD > p1.volumeUSD ? -1 : 1))
-  }, [pools, showWatchlist, watchListPoolData, value])
+    return pools.sort((p0, p1) => (p0.volumeUSD > p1.volumeUSD ? -1 : 1));
+  }, [pools, showWatchlist, watchListPoolData, value]);
 
   const contentUnderTokenList = () => {
-    const isLoading = showWatchlist ? watchListTokenLoading : tokensLoading
+    const isLoading = showWatchlist ? watchListTokenLoading : tokensLoading;
     const noTokensFound =
-      tokensForList.length === 0 && !isLoading && debouncedSearchTerm.length >= MINIMUM_SEARCH_CHARACTERS
-    const noWatchlistTokens = tokensForList.length === 0 && !isLoading
-    const showMessage = showWatchlist ? noWatchlistTokens : noTokensFound
-    const noTokensMessage = showWatchlist ? t('Saved tokens will appear here') : t('No results')
+      tokensForList.length === 0 && !isLoading && debouncedSearchTerm.length >= MINIMUM_SEARCH_CHARACTERS;
+    const noWatchlistTokens = tokensForList.length === 0 && !isLoading;
+    const showMessage = showWatchlist ? noWatchlistTokens : noTokensFound;
+    const noTokensMessage = showWatchlist ? t('Saved tokens will appear here') : t('No results');
     return (
       <>
         {isLoading && <Skeleton />}
@@ -236,16 +236,16 @@ const Search = () => {
           <Text>{t('Search pools or tokens')}</Text>
         )}
       </>
-    )
-  }
+    );
+  };
 
   const contentUnderPoolList = () => {
-    const isLoading = showWatchlist ? watchListPoolLoading : poolsLoading
+    const isLoading = showWatchlist ? watchListPoolLoading : poolsLoading;
     const noPoolsFound =
-      poolForList.length === 0 && !poolsLoading && debouncedSearchTerm.length >= MINIMUM_SEARCH_CHARACTERS
-    const noWatchlistPools = poolForList.length === 0 && !isLoading
-    const showMessage = showWatchlist ? noWatchlistPools : noPoolsFound
-    const noPoolsMessage = showWatchlist ? t('Saved tokens will appear here') : t('No results')
+      poolForList.length === 0 && !poolsLoading && debouncedSearchTerm.length >= MINIMUM_SEARCH_CHARACTERS;
+    const noWatchlistPools = poolForList.length === 0 && !isLoading;
+    const showMessage = showWatchlist ? noWatchlistPools : noPoolsFound;
+    const noPoolsMessage = showWatchlist ? t('Saved tokens will appear here') : t('No results');
     return (
       <>
         {isLoading && <Skeleton />}
@@ -254,8 +254,8 @@ const Search = () => {
           <Text>{t('Search pools or tokens')}</Text>
         )}
       </>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -265,12 +265,12 @@ const Search = () => {
           type="text"
           value={value}
           onChange={(e) => {
-            setValue(e.target.value)
+            setValue(e.target.value);
           }}
           placeholder={t('Search pools or tokens')}
           ref={inputRef}
           onFocus={() => {
-            setShowMenu(true)
+            setShowMenu(true);
           }}
         />
         <Menu hide={!showMenu} ref={menuRef}>
@@ -319,8 +319,8 @@ const Search = () => {
                       style={{ marginLeft: '8px' }}
                       fill={savedTokens.includes(token.address)}
                       onClick={(e) => {
-                        e.stopPropagation()
-                        addSavedToken(token.address)
+                        e.stopPropagation();
+                        addSavedToken(token.address);
                       }}
                     />
                   </Flex>
@@ -329,12 +329,12 @@ const Search = () => {
                   {!isXs && !isSm && <Text textAlign="end">${formatAmount(token.liquidityUSD)}</Text>}
                 </ResponsiveGrid>
               </HoverRowLink>
-            )
+            );
           })}
           {contentUnderTokenList()}
           <HoverText
             onClick={() => {
-              setTokensShown(tokensShown + 5)
+              setTokensShown(tokensShown + 5);
             }}
             hide={tokensForList.length <= tokensShown}
             ref={showMoreRef}
@@ -378,8 +378,8 @@ const Search = () => {
                       style={{ marginLeft: '10px' }}
                       fill={savedPools.includes(p.address)}
                       onClick={(e) => {
-                        e.stopPropagation()
-                        addSavedPool(p.address)
+                        e.stopPropagation();
+                        addSavedPool(p.address);
                       }}
                     />
                   </Flex>
@@ -388,12 +388,12 @@ const Search = () => {
                   {!isXs && !isSm && <Text textAlign="end">${formatAmount(p.liquidityUSD)}</Text>}
                 </ResponsiveGrid>
               </HoverRowLink>
-            )
+            );
           })}
           {contentUnderPoolList()}
           <HoverText
             onClick={() => {
-              setPoolsShown(poolsShown + 5)
+              setPoolsShown(poolsShown + 5);
             }}
             hide={poolForList.length <= poolsShown}
             ref={showMoreRef}
@@ -403,7 +403,7 @@ const Search = () => {
         </Menu>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

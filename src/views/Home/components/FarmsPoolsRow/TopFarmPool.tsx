@@ -1,19 +1,19 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Skeleton, Text } from '@pancakeswap/uikit'
-import Balance from 'components/Balance'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Skeleton, Text } from '@pancakeswap/uikit';
+import Balance from 'components/Balance';
+import { useTranslation } from 'contexts/Localization';
 
 interface TopFarmPoolProps {
-  title: string
-  percentage: number
-  index: number
-  visible: boolean
+  title: string;
+  percentage: number;
+  index: number;
+  visible: boolean;
 }
 
 const StyledWrapper = styled(Flex)<{ index: number }>`
   position: relative;
-`
+`;
 
 const AbsoluteWrapper = styled(Flex)<{ visible: boolean; index: number; topOffset: string }>`
   position: absolute;
@@ -34,22 +34,22 @@ const AbsoluteWrapper = styled(Flex)<{ visible: boolean; index: number; topOffse
          }
        `
       : `padding-right: 16px;`}
-`
+`;
 
 const TopFarmPool: React.FC<TopFarmPoolProps> = ({ title, percentage, index, visible }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const topOffset = () => {
     if (index >= 0 && index < 2) {
-      return '0px'
+      return '0px';
     }
 
     if (index >= 2 && index < 3) {
-      return '80px'
+      return '80px';
     }
 
-    return '160px'
-  }
+    return '160px';
+  };
 
   return (
     <StyledWrapper index={index}>
@@ -75,7 +75,7 @@ const TopFarmPool: React.FC<TopFarmPoolProps> = ({ title, percentage, index, vis
         )}
       </AbsoluteWrapper>
     </StyledWrapper>
-  )
-}
+  );
+};
 
-export default TopFarmPool
+export default TopFarmPool;

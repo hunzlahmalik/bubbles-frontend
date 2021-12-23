@@ -1,14 +1,14 @@
-import React from 'react'
-import { useTheme } from 'styled-components'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { useTheme } from 'styled-components';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 interface MultiplierProps extends SvgProps {
-  isActive: boolean
+  isActive: boolean;
 }
 
 export const RoundMultiplierDownArrow: React.FC<MultiplierProps> = ({ isActive, ...props }) => {
-  const theme = useTheme()
-  const fill = theme.colors[isActive ? 'failure' : 'tertiary']
+  const theme = useTheme();
+  const fill = theme.colors[isActive ? 'failure' : 'tertiary'];
 
   return (
     <Svg height="65px" width="240px" viewBox="0 0 240 65" {...props}>
@@ -44,12 +44,12 @@ export const RoundMultiplierDownArrow: React.FC<MultiplierProps> = ({ isActive, 
         </filter>
       </defs>
     </Svg>
-  )
-}
+  );
+};
 
 export const RoundMultiplierUpArrow: React.FC<MultiplierProps> = ({ isActive, ...props }) => {
-  const theme = useTheme()
-  const fill = theme.colors[isActive ? 'success' : 'tertiary']
+  const theme = useTheme();
+  const fill = theme.colors[isActive ? 'success' : 'tertiary'];
 
   return (
     <Svg height="65px" width="240px" viewBox="0 0 240 65" {...props}>
@@ -85,5 +85,5 @@ export const RoundMultiplierUpArrow: React.FC<MultiplierProps> = ({ isActive, ..
         </filter>
       </defs>
     </Svg>
-  )
-}
+  );
+};

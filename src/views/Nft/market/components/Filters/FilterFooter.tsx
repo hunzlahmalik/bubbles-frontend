@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid, GridProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Grid, GridProps } from '@pancakeswap/uikit';
 
 const FilterFooter: React.FC<GridProps> = ({ children, ...props }) => (
   <Grid
@@ -13,6 +13,6 @@ const FilterFooter: React.FC<GridProps> = ({ children, ...props }) => (
   >
     {children}
   </Grid>
-)
+);
 
-export default FilterFooter
+export default FilterFooter;

@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Flex, Button, ArrowForwardIcon, Heading } from '@pancakeswap/uikit'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Flex, Button, ArrowForwardIcon, Heading } from '@pancakeswap/uikit';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'contexts/Localization';
 
 const StyledSubheading = styled(Heading)`
   background: -webkit-linear-gradient(#ffd800, #eb8c00);
@@ -18,7 +18,7 @@ const StyledSubheading = styled(Heading)`
     -webkit-text-stroke: unset;
   }
   margin-bottom: 8px;
-`
+`;
 
 const StyledHeading = styled(Heading)`
   color: #ffffff;
@@ -28,7 +28,7 @@ const StyledHeading = styled(Heading)`
   -webkit-text-stroke: 6px transparent;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 16px;
-`
+`;
 
 const Wrapper = styled.div`
   border-radius: 32px;
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   background-image: linear-gradient(#7645d9, #452a7a);
   max-height: max-content;
   overflow: hidden;
-`
+`;
 
 const Inner = styled(Flex)`
   position: relative;
@@ -44,7 +44,7 @@ const Inner = styled(Flex)`
   flex-direction: row;
   justify-content: space-between;
   max-height: 220px;
-`
+`;
 
 const LeftWrapper = styled(Flex)`
   z-index: 1;
@@ -56,7 +56,7 @@ const LeftWrapper = styled(Flex)`
     padding-top: 40px;
     padding-bottom: 40px;
   }
-`
+`;
 
 const RightWrapper = styled.div`
   position: absolute;
@@ -79,10 +79,10 @@ const RightWrapper = styled.div`
       height: 100%; // 100% for normal bunny, 130% for gaming bunny
     }
   }
-`
+`;
 
 const FarmAuctionsBanner = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -104,7 +104,7 @@ const FarmAuctionsBanner = () => {
         </RightWrapper>
       </Inner>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default FarmAuctionsBanner
+export default FarmAuctionsBanner;

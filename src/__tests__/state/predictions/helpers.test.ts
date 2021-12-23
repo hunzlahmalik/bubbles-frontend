@@ -3,7 +3,7 @@ import {
   numberOrNull,
   transformBetResponse,
   transformUserResponse,
-} from 'state/predictions/helpers'
+} from 'state/predictions/helpers';
 
 describe('numberOrNull', () => {
   it.each([
@@ -12,9 +12,9 @@ describe('numberOrNull', () => {
     [null, null],
     ['test', null],
   ])('return %s correctly as number, null, or NaN', (value, expected) => {
-    expect(numberOrNull(value)).toEqual(expected)
-  })
-})
+    expect(numberOrNull(value)).toEqual(expected);
+  });
+});
 
 describe('makeFutureRoundResponse', () => {
   it('returns a correctly transformed future round response', () => {
@@ -33,9 +33,9 @@ describe('makeFutureRoundResponse', () => {
       oracleCalled: false,
       lockOracleId: null,
       closeOracleId: null,
-    })
-  })
-})
+    });
+  });
+});
 
 describe('transformUserResponse', () => {
   const userResponse = {
@@ -54,7 +54,7 @@ describe('transformUserResponse', () => {
     totalBetsClaimed: '1',
     updatedAt: '1626770557',
     winRate: '20',
-  }
+  };
 
   it('transforms user response correctly', () => {
     expect(transformUserResponse(userResponse)).toEqual({
@@ -73,9 +73,9 @@ describe('transformUserResponse', () => {
       totalBetsClaimed: 1,
       updatedAt: 1626770557,
       winRate: 20,
-    })
-  })
-})
+    });
+  });
+});
 
 describe('transformBetResponse', () => {
   const userResponse = {
@@ -94,7 +94,7 @@ describe('transformBetResponse', () => {
     totalBetsClaimed: '1',
     updatedAt: '1626763291',
     winRate: '100',
-  }
+  };
 
   it('returns a correctly transformed betresponse without round', () => {
     const betResponseWithoutRound = {
@@ -112,7 +112,7 @@ describe('transformBetResponse', () => {
       position: 'Bull',
       updatedAt: '1626772720',
       user: userResponse,
-    }
+    };
 
     expect(transformBetResponse(betResponseWithoutRound)).toEqual({
       amount: 0.001030231215331515,
@@ -145,8 +145,8 @@ describe('transformBetResponse', () => {
         updatedAt: 1626763291,
         winRate: 100,
       },
-    })
-  })
+    });
+  });
 
   it('returns a correctly transformed betresponse with round', () => {
     const betResponseWithRound = {
@@ -190,7 +190,7 @@ describe('transformBetResponse', () => {
         totalBets: '0',
         bets: [],
       },
-    }
+    };
 
     expect(transformBetResponse(betResponseWithRound)).toEqual({
       amount: 0.001030231215331515,
@@ -249,6 +249,6 @@ describe('transformBetResponse', () => {
         updatedAt: 1626763291,
         winRate: 100,
       },
-    })
-  })
-})
+    });
+  });
+});

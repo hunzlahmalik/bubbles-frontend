@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import * as React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const Icon: React.FC<SvgProps & { isDark }> = ({ isDark, ...props }) => {
   return (
@@ -9,7 +9,7 @@ const Icon: React.FC<SvgProps & { isDark }> = ({ isDark, ...props }) => {
         fill={isDark ? '#0B4576' : '#70B7F2'}
       />
     </Svg>
-  )
-}
+  );
+};
 
-export default Icon
+export default Icon;

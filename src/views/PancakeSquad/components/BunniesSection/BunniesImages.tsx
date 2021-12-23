@@ -1,25 +1,25 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from 'react'
-import { StyledBunnyImage, StyledImageContainer } from './styles'
+import React, { useEffect, useState } from 'react';
+import { StyledBunnyImage, StyledImageContainer } from './styles';
 
 type BunniesImages = {
-  basePath: string
-  altText: string
-}
+  basePath: string;
+  altText: string;
+};
 
-const BUNNIES_CYCLING_TIME = 2500
+const BUNNIES_CYCLING_TIME = 2500;
 
 const BunniesImages: React.FC<BunniesImages> = ({ basePath, altText }) => {
-  const bunnies = new Array(11).fill({})
-  const [selectedBunny, setSelectedBunny] = useState(0)
+  const bunnies = new Array(11).fill({});
+  const [selectedBunny, setSelectedBunny] = useState(0);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setSelectedBunny((selectedBunny + 1) % 11)
-    }, BUNNIES_CYCLING_TIME)
+      setSelectedBunny((selectedBunny + 1) % 11);
+    }, BUNNIES_CYCLING_TIME);
 
-    return () => clearTimeout(timeoutId)
-  }, [selectedBunny])
+    return () => clearTimeout(timeoutId);
+  }, [selectedBunny]);
 
   return (
     <StyledImageContainer
@@ -37,7 +37,7 @@ const BunniesImages: React.FC<BunniesImages> = ({ basePath, altText }) => {
         />
       ))}
     </StyledImageContainer>
-  )
-}
+  );
+};
 
-export default BunniesImages
+export default BunniesImages;

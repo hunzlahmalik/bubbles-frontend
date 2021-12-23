@@ -1,14 +1,14 @@
-import React from 'react'
-import { Box, Card, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import PreviousBetsTable from '../PreviousBetsTable'
+import React from 'react';
+import { Box, Card, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import PreviousBetsTable from '../PreviousBetsTable';
 
 interface DesktopBetsTableProps {
-  account: string
+  account: string;
 }
 
 const DesktopBetsTable: React.FC<DesktopBetsTableProps> = ({ account }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Box p="24px">
@@ -19,7 +19,7 @@ const DesktopBetsTable: React.FC<DesktopBetsTableProps> = ({ account }) => {
         <PreviousBetsTable account={account} />
       </Card>
     </Box>
-  )
-}
+  );
+};
 
-export default DesktopBetsTable
+export default DesktopBetsTable;

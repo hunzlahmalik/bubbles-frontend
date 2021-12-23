@@ -1,2 +1,2 @@
-export { default } from './PageHeader'
-export * from './types'
+export { default } from './PageHeader';
+export * from './types';

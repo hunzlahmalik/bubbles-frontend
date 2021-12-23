@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Text, TicketFillIcon, PredictionsIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useTheme from 'hooks/useTheme'
-import ColoredWordHeading from '../ColoredWordHeading'
-import IconCard, { IconCardData } from '../IconCard'
-import PredictionCardContent from './PredictionCardContent'
-import LotteryCardContent from './LotteryCardContent'
-import CompositeImage from '../CompositeImage'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Text, TicketFillIcon, PredictionsIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useTheme from 'hooks/useTheme';
+import ColoredWordHeading from '../ColoredWordHeading';
+import IconCard, { IconCardData } from '../IconCard';
+import PredictionCardContent from './PredictionCardContent';
+import LotteryCardContent from './LotteryCardContent';
+import CompositeImage from '../CompositeImage';
 
 const TransparentFrame = styled.div<{ isDark: boolean }>`
   background: ${({ theme }) => (theme.isDark ? 'rgba(8, 6, 11, 0.6)' : ' rgba(255, 255, 255, 0.6)')};
@@ -20,7 +20,7 @@ const TransparentFrame = styled.div<{ isDark: boolean }>`
   ${({ theme }) => theme.mediaQueries.md} {
     padding: 40px;
   }
-`
+`;
 
 const BgWrapper = styled.div`
   z-index: -1;
@@ -30,7 +30,7 @@ const BgWrapper = styled.div`
   height: 100%;
   top: 0px;
   left: 0px;
-`
+`;
 
 const BottomLeftImgWrapper = styled(Flex)`
   position: absolute;
@@ -41,7 +41,7 @@ const BottomLeftImgWrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     max-width: 100%;
   }
-`
+`;
 
 const TopRightImgWrapper = styled(Flex)`
   position: absolute;
@@ -53,21 +53,21 @@ const TopRightImgWrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     max-width: 100%;
   }
-`
+`;
 
 const PredictionCardData: IconCardData = {
   icon: <PredictionsIcon width="36px" color="inverseContrast" />,
   background: 'linear-gradient(180deg, #ffb237 0%, #ffcd51 51.17%, #ffe76a 100%);',
   borderColor: '#ffb237',
   rotation: '-2.36deg',
-}
+};
 
 const LotteryCardData: IconCardData = {
   icon: <TicketFillIcon color="white" width="36px" />,
   background: ' linear-gradient(180deg, #7645D9 0%, #5121B1 100%);',
   borderColor: '#3C1786',
   rotation: '1.43deg',
-}
+};
 
 const bottomLeftImage = {
   path: '/images/home/prediction-cards/',
@@ -77,7 +77,7 @@ const bottomLeftImage = {
     { src: 'red', alt: 'Red Cake card with down arrow' },
     { src: 'top-right', alt: 'CAKE card' },
   ],
-}
+};
 
 const topRightImage = {
   path: '/images/home/lottery-balls/',
@@ -88,11 +88,11 @@ const topRightImage = {
     { src: '7', alt: 'Lottery ball number 7' },
     { src: '9', alt: 'Lottery ball number 9' },
   ],
-}
+};
 
 const WinSection = () => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <>
@@ -131,7 +131,7 @@ const WinSection = () => {
         </Flex>
       </TransparentFrame>
     </>
-  )
-}
+  );
+};
 
-export default WinSection
+export default WinSection;

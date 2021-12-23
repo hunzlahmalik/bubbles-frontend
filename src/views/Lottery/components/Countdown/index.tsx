@@ -1,18 +1,18 @@
-import React from 'react'
-import { Flex, Heading, Skeleton } from '@pancakeswap/uikit'
-import getTimePeriods from 'utils/getTimePeriods'
-import Timer from './Timer'
-import useNextEventCountdown from '../../hooks/useNextEventCountdown'
+import React from 'react';
+import { Flex, Heading, Skeleton } from '@pancakeswap/uikit';
+import getTimePeriods from 'utils/getTimePeriods';
+import Timer from './Timer';
+import useNextEventCountdown from '../../hooks/useNextEventCountdown';
 
 interface CountdownProps {
-  nextEventTime: number
-  preCountdownText?: string
-  postCountdownText?: string
+  nextEventTime: number;
+  preCountdownText?: string;
+  postCountdownText?: string;
 }
 
 const Countdown: React.FC<CountdownProps> = ({ nextEventTime, preCountdownText, postCountdownText }) => {
-  const secondsRemaining = useNextEventCountdown(nextEventTime)
-  const { days, hours, minutes } = getTimePeriods(secondsRemaining)
+  const secondsRemaining = useNextEventCountdown(nextEventTime);
+  const { days, hours, minutes } = getTimePeriods(secondsRemaining);
 
   return (
     <>
@@ -34,7 +34,7 @@ const Countdown: React.FC<CountdownProps> = ({ nextEventTime, preCountdownText, 
         <Skeleton height="41px" width="250px" />
       )}
     </>
-  )
-}
+  );
+};
 
-export default Countdown
+export default Countdown;

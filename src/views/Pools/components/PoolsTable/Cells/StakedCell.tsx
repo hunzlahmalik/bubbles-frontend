@@ -1,52 +1,55 @@
-import { Box, Flex, Skeleton, Text, useMatchBreakpoints } from '@pancakeswap/uikit'
-import BigNumber from 'bignumber.js'
-import Balance from 'components/Balance'
-import { useTranslation } from 'contexts/Localization'
-import React from 'react'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { DeserializedPool } from 'state/types'
-import styled from 'styled-components'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { convertSharesToCake } from 'views/Pools/helpers'
-import BaseCell, { CellContent } from './BaseCell'
+import { Box, Flex, Skeleton, Text, useMatchBreakpoints } from '@pancakeswap/uikit';
+import BigNumber from 'bignumber.js';
+import Balance from 'components/Balance';
+import { useTranslation } from 'contexts/Localization';
+import React from 'react';
+import { useVaultPoolByKey } from 'state/pools/hooks';
+import { DeserializedPool } from 'state/types';
+import styled from 'styled-components';
+import { BIG_ZERO } from 'utils/bigNumber';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { convertSharesToCake } from 'views/Pools/helpers';
+import BaseCell, { CellContent } from './BaseCell';
 
 interface StakedCellProps {
-  pool: DeserializedPool
-  account: string
-  userDataLoaded: boolean
+  pool: DeserializedPool;
+  account: string;
+  userDataLoaded: boolean;
 }
 
 const StyledCell = styled(BaseCell)`
   flex: 2 0 100px;
-`
+`;
 
 const StakedCell: React.FC<StakedCellProps> = ({ pool, account, userDataLoaded }) => {
-  const { t } = useTranslation()
-  const { isMobile } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isMobile } = useMatchBreakpoints();
 
   // vault
   const {
     userData: { userShares },
     pricePerFullShare,
-  } = useVaultPoolByKey(pool.vaultKey)
-  const hasSharesStaked = userShares && userShares.gt(0)
-  const isVaultWithShares = pool.vaultKey && hasSharesStaked
-  const { cakeAsBigNumber, cakeAsNumberBalance } = convertSharesToCake(userShares, pricePerFullShare)
+  } = useVaultPoolByKey(pool.vaultKey);
+  const hasSharesStaked = userShares && userShares.gt(0);
+  const isVaultWithShares = pool.vaultKey && hasSharesStaked;
+  const { cakeAsBigNumber, cakeAsNumberBalance } = convertSharesToCake(userShares, pricePerFullShare);
 
   // pool
-  const { stakingTokenPrice, stakingToken, userData } = pool
-  const stakedAutoDollarValue = getBalanceNumber(cakeAsBigNumber.multipliedBy(stakingTokenPrice), stakingToken.decimals)
-  const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
-  const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals)
+  const { stakingTokenPrice, stakingToken, userData } = pool;
+  const stakedAutoDollarValue = getBalanceNumber(
+    cakeAsBigNumber.multipliedBy(stakingTokenPrice),
+    stakingToken.decimals,
+  );
+  const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO;
+  const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals);
   const stakedTokenDollarBalance = getBalanceNumber(
     stakedBalance.multipliedBy(stakingTokenPrice),
     stakingToken.decimals,
-  )
+  );
 
-  const labelText = `${pool.stakingToken.symbol} ${t('Staked')}`
+  const labelText = `${pool.stakingToken.symbol} ${t('Staked')}`;
 
-  const hasStaked = stakedBalance.gt(0) || isVaultWithShares
+  const hasStaked = stakedBalance.gt(0) || isVaultWithShares;
 
   return (
     <StyledCell role="cell">
@@ -91,7 +94,7 @@ const StakedCell: React.FC<StakedCellProps> = ({ pool, account, userDataLoaded }
         )}
       </CellContent>
     </StyledCell>
-  )
-}
+  );
+};
 
-export default StakedCell
+export default StakedCell;

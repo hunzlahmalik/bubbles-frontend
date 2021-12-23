@@ -1,14 +1,14 @@
-import React from 'react'
-import { Text, Heading, Card, CardHeader, CardBody } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LandingBodyWrapper } from 'views/PancakeSquad/styles'
-import FoldableText from 'components/FoldableSection/FoldableText'
-import configBuilder from './config'
-import { StyledFaqSection, StyledDetailsWrapper } from './styles'
+import React from 'react';
+import { Text, Heading, Card, CardHeader, CardBody } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LandingBodyWrapper } from 'views/PancakeSquad/styles';
+import FoldableText from 'components/FoldableSection/FoldableText';
+import configBuilder from './config';
+import { StyledFaqSection, StyledDetailsWrapper } from './styles';
 
 const FaqSection = () => {
-  const { t } = useTranslation()
-  const config = configBuilder({ t })
+  const { t } = useTranslation();
+  const config = configBuilder({ t });
 
   return (
     <StyledFaqSection justifyContent="center">
@@ -30,7 +30,7 @@ const FaqSection = () => {
                       </Text>
                     ) : (
                       desc
-                    )
+                    );
                   })}
                 </FoldableText>
               ))}
@@ -39,7 +39,7 @@ const FaqSection = () => {
         </StyledDetailsWrapper>
       </LandingBodyWrapper>
     </StyledFaqSection>
-  )
-}
+  );
+};
 
-export default FaqSection
+export default FaqSection;

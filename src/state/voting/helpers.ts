@@ -1,7 +1,7 @@
-import request, { gql } from 'graphql-request'
-import { SNAPSHOT_API, SNAPSHOT_VOTING_API } from 'config/constants/endpoints'
-import { Proposal, ProposalState, Vote, VoteWhere } from 'state/types'
-import { simpleRpcProvider } from 'utils/providers'
+import request, { gql } from 'graphql-request';
+import { SNAPSHOT_API, SNAPSHOT_VOTING_API } from 'config/constants/endpoints';
+import { Proposal, ProposalState, Vote, VoteWhere } from 'state/types';
+import { simpleRpcProvider } from 'utils/providers';
 
 export const getProposals = async (first = 5, skip = 0, state = ProposalState.ACTIVE): Promise<Proposal[]> => {
   const response: { proposals: Proposal[] } = await request(
@@ -32,9 +32,9 @@ export const getProposals = async (first = 5, skip = 0, state = ProposalState.AC
       }
     `,
     { first, skip, state },
-  )
-  return response.proposals
-}
+  );
+  return response.proposals;
+};
 
 export const getProposal = async (id: string): Promise<Proposal> => {
   const response: { proposal: Proposal } = await request(
@@ -59,9 +59,9 @@ export const getProposal = async (id: string): Promise<Proposal> => {
       }
     `,
     { id },
-  )
-  return response.proposal
-}
+  );
+  return response.proposal;
+};
 
 export const getVotes = async (first: number, skip: number, where: VoteWhere): Promise<Vote[]> => {
   const response: { votes: Vote[] } = await request(
@@ -85,21 +85,21 @@ export const getVotes = async (first: number, skip: number, where: VoteWhere): P
       }
     `,
     { first, skip, where },
-  )
-  return response.votes
-}
+  );
+  return response.votes;
+};
 
 export const getVoteVerificationStatuses = async (
   votes: Vote[],
   block?: number,
 ): Promise<{ [key: string]: boolean }> => {
-  const blockNumber = block || (await simpleRpcProvider.getBlockNumber())
+  const blockNumber = block || (await simpleRpcProvider.getBlockNumber());
 
   const votesToVerify = votes.map((vote) => ({
     address: vote.voter,
     verificationHash: vote.metadata?.verificationHash,
     total: vote.metadata?.votingPower,
-  }))
+  }));
   const response = await fetch(`${SNAPSHOT_VOTING_API}/verify`, {
     method: 'post',
     headers: {
@@ -109,41 +109,41 @@ export const getVoteVerificationStatuses = async (
       block: blockNumber,
       votes: votesToVerify,
     }),
-  })
+  });
 
   if (!response.ok) {
-    throw new Error(response.statusText)
+    throw new Error(response.statusText);
   }
 
-  const data = await response.json()
+  const data = await response.json();
   return votes.reduce((accum, vote) => {
     return {
       ...accum,
       [vote.id]: data.data[vote.voter.toLowerCase()]?.isValid === true,
-    }
-  }, {})
-}
+    };
+  }, {});
+};
 
 export const getAllVotes = async (proposalId: string, block?: number, votesPerChunk = 1000): Promise<Vote[]> => {
   // const blockNumber = block || (await simpleRpcProvider.getBlockNumber())
   return new Promise((resolve, reject) => {
-    let votes: Vote[] = []
+    let votes: Vote[] = [];
 
     const fetchVoteChunk = async (newSkip: number) => {
       try {
-        const voteChunk = await getVotes(votesPerChunk, newSkip, { proposal: proposalId })
+        const voteChunk = await getVotes(votesPerChunk, newSkip, { proposal: proposalId });
 
         if (voteChunk.length === 0) {
-          resolve(votes)
+          resolve(votes);
         } else {
-          votes = [...votes, ...voteChunk]
-          fetchVoteChunk(newSkip + votesPerChunk)
+          votes = [...votes, ...voteChunk];
+          fetchVoteChunk(newSkip + votesPerChunk);
         }
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    }
+    };
 
-    fetchVoteChunk(0)
-  })
-}
+    fetchVoteChunk(0);
+  });
+};

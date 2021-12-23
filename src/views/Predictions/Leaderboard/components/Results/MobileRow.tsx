@@ -1,14 +1,14 @@
-import React from 'react'
-import { Box, Text } from '@pancakeswap/uikit'
-import { PredictionUser } from 'state/types'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import { NetWinningsRow, Row } from './styles'
-import ResultAvatar from './ResultAvatar'
+import React from 'react';
+import { Box, Text } from '@pancakeswap/uikit';
+import { PredictionUser } from 'state/types';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import { NetWinningsRow, Row } from './styles';
+import ResultAvatar from './ResultAvatar';
 
 interface MobileRowProps {
-  rank?: number
-  user: PredictionUser
+  rank?: number;
+  user: PredictionUser;
 }
 
 const StyledMobileRow = styled(Box)`
@@ -18,10 +18,10 @@ const StyledMobileRow = styled(Box)`
   &:first-child {
     border-top: 1px solid ${({ theme }) => theme.colors.cardBorder};
   }
-`
+`;
 
 const MobileRow: React.FC<MobileRowProps> = ({ rank, user }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <StyledMobileRow p="16px">
@@ -45,7 +45,7 @@ const MobileRow: React.FC<MobileRowProps> = ({ rank, user }) => {
         <Text fontWeight="bold">{`${user.totalBetsClaimed.toLocaleString()}/${user.totalBets.toLocaleString()}`}</Text>
       </Row>
     </StyledMobileRow>
-  )
-}
+  );
+};
 
-export default MobileRow
+export default MobileRow;

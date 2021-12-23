@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Flex } from '@pancakeswap/uikit'
-import Footer from 'components/Menu/Footer'
-import { PageMeta } from 'components/Layout/Page'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Flex } from '@pancakeswap/uikit';
+import Footer from 'components/Menu/Footer';
+import { PageMeta } from 'components/Layout/Page';
 
 const StyledPage = styled.div<{ $removePadding: boolean }>`
   display: flex;
@@ -28,7 +28,7 @@ const StyledPage = styled.div<{ $removePadding: boolean }>`
     padding-bottom: 0;
     min-height: calc(100vh - 100px);
   }
-`
+`;
 
 const Page: React.FC<
   React.HTMLAttributes<HTMLDivElement> & { removePadding?: boolean; hideFooterOnDesktop?: boolean }
@@ -44,7 +44,7 @@ const Page: React.FC<
         </Box>
       </StyledPage>
     </>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

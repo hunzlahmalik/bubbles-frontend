@@ -1,17 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import ScoreCard from './ScoreCard'
-import ScoreHeader from './ScoreHeader'
-import RibbonWithImage from '../RibbonWithImage'
-import { YourScoreProps } from '../../types'
+import React from 'react';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import ScoreCard from './ScoreCard';
+import ScoreHeader from './ScoreHeader';
+import RibbonWithImage from '../RibbonWithImage';
+import { YourScoreProps } from '../../types';
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
   margin: 24px auto 0;
   max-width: 768px;
-`
+`;
 
 const YourScore: React.FC<YourScoreProps> = ({
   hasRegistered = false,
@@ -26,8 +26,8 @@ const YourScore: React.FC<YourScoreProps> = ({
   finishedAndNothingToClaim,
   onClaimSuccess,
 }) => {
-  const { t } = useTranslation()
-  const showRibbon = !account || hasRegistered
+  const { t } = useTranslation();
+  const showRibbon = !account || hasRegistered;
 
   return (
     <Wrapper>
@@ -54,7 +54,7 @@ const YourScore: React.FC<YourScoreProps> = ({
         onClaimSuccess={onClaimSuccess}
       />
     </Wrapper>
-  )
-}
+  );
+};
 
-export default YourScore
+export default YourScore;

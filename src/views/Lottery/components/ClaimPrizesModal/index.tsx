@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
-import styled from 'styled-components'
-import { Heading, ModalContainer, ModalHeader, ModalTitle, ModalBody, ModalCloseButton } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { useTranslation } from 'contexts/Localization'
-import { delay } from 'lodash'
-import confetti from 'canvas-confetti'
-import { LotteryTicketClaimData } from 'config/constants/types'
-import { useAppDispatch } from 'state'
-import { useLottery } from 'state/lottery/hooks'
-import { fetchUserLotteries } from 'state/lottery'
-import ClaimPrizesInner from './ClaimPrizesInner'
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { Heading, ModalContainer, ModalHeader, ModalTitle, ModalBody, ModalCloseButton } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { useTranslation } from 'contexts/Localization';
+import { delay } from 'lodash';
+import confetti from 'canvas-confetti';
+import { LotteryTicketClaimData } from 'config/constants/types';
+import { useAppDispatch } from 'state';
+import { useLottery } from 'state/lottery/hooks';
+import { fetchUserLotteries } from 'state/lottery';
+import ClaimPrizesInner from './ClaimPrizesInner';
 
 const StyledModal = styled(ModalContainer)`
   position: relative;
@@ -18,13 +18,13 @@ const StyledModal = styled(ModalContainer)`
   ${({ theme }) => theme.mediaQueries.sm} {
     min-width: 380px;
   }
-`
+`;
 
 const StyledModalHeader = styled(ModalHeader)`
   background: ${({ theme }) => theme.colors.gradients.cardHeader};
   border-top-right-radius: 32px;
   border-top-left-radius: 32px;
-`
+`;
 
 const BunnyDecoration = styled.div`
   position: absolute;
@@ -32,7 +32,7 @@ const BunnyDecoration = styled.div`
   left: 0px;
   text-align: center;
   width: 100%;
-`
+`;
 
 const showConfetti = () => {
   confetti({
@@ -44,23 +44,23 @@ const showConfetti = () => {
       x: 0.5,
       y: 0.3,
     },
-  })
-}
+  });
+};
 
 interface ClaimPrizesModalModalProps {
-  roundsToClaim: LotteryTicketClaimData[]
-  onDismiss?: () => void
+  roundsToClaim: LotteryTicketClaimData[];
+  onDismiss?: () => void;
 }
 
 const ClaimPrizesModal: React.FC<ClaimPrizesModalModalProps> = ({ onDismiss, roundsToClaim }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const { currentLotteryId } = useLottery()
-  const dispatch = useAppDispatch()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const { currentLotteryId } = useLottery();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    delay(showConfetti, 100)
-  }, [])
+    delay(showConfetti, 100);
+  }, []);
 
   return (
     <StyledModal minWidth="280px">
@@ -76,14 +76,14 @@ const ClaimPrizesModal: React.FC<ClaimPrizesModalModalProps> = ({ onDismiss, rou
       <ModalBody p="24px">
         <ClaimPrizesInner
           onSuccess={() => {
-            dispatch(fetchUserLotteries({ account, currentLotteryId }))
-            onDismiss()
+            dispatch(fetchUserLotteries({ account, currentLotteryId }));
+            onDismiss();
           }}
           roundsToClaim={roundsToClaim}
         />
       </ModalBody>
     </StyledModal>
-  )
-}
+  );
+};
 
-export default ClaimPrizesModal
+export default ClaimPrizesModal;

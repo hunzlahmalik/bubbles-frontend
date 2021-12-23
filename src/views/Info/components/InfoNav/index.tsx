@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link, useRouteMatch } from 'react-router-dom'
-import { Box, Flex, ButtonMenu, ButtonMenuItem } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import Search from 'views/Info/components/InfoSearch'
+import React from 'react';
+import styled from 'styled-components';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { Box, Flex, ButtonMenu, ButtonMenuItem } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import Search from 'views/Info/components/InfoSearch';
 
 const NavWrapper = styled(Flex)`
   background: ${({ theme }) => theme.colors.gradients.cardHeader};
@@ -15,18 +15,18 @@ const NavWrapper = styled(Flex)`
     padding: 20px 40px;
     flex-direction: row;
   }
-`
+`;
 
 const InfoNav = () => {
-  const { t } = useTranslation()
-  const isPools = useRouteMatch(['/info/pools', '/info/pool', '/info/pair'])
-  const isTokens = useRouteMatch(['/info/tokens', '/info/token'])
-  let activeIndex = 0
+  const { t } = useTranslation();
+  const isPools = useRouteMatch(['/info/pools', '/info/pool', '/info/pair']);
+  const isTokens = useRouteMatch(['/info/tokens', '/info/token']);
+  let activeIndex = 0;
   if (isPools) {
-    activeIndex = 1
+    activeIndex = 1;
   }
   if (isTokens) {
-    activeIndex = 2
+    activeIndex = 2;
   }
   return (
     <NavWrapper>
@@ -47,7 +47,7 @@ const InfoNav = () => {
         <Search />
       </Box>
     </NavWrapper>
-  )
-}
+  );
+};
 
-export default InfoNav
+export default InfoNav;

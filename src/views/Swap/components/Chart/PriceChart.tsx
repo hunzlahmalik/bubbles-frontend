@@ -9,22 +9,22 @@ import {
   TradingViewIcon,
   LineGraphIcon,
   useMatchBreakpoints,
-} from '@pancakeswap/uikit'
-import { CurrencyLogo, DoubleCurrencyLogo } from 'components/Logo'
-import { useTranslation } from 'contexts/Localization'
-import React from 'react'
-import { ChartViewMode } from 'state/user/actions'
-import { useExchangeChartViewManager } from 'state/user/hooks'
-import styled from 'styled-components'
-import BasicChart from './BasicChart'
-import { StyledPriceChart } from './styles'
-import TradingViewChart from './TradingViewChart'
+} from '@pancakeswap/uikit';
+import { CurrencyLogo, DoubleCurrencyLogo } from 'components/Logo';
+import { useTranslation } from 'contexts/Localization';
+import React from 'react';
+import { ChartViewMode } from 'state/user/actions';
+import { useExchangeChartViewManager } from 'state/user/hooks';
+import styled from 'styled-components';
+import BasicChart from './BasicChart';
+import { StyledPriceChart } from './styles';
+import TradingViewChart from './TradingViewChart';
 
 const ChartButton = styled(Button)`
   background-color: ${({ $active, theme }) => $active && `${theme.colors.primary}0f`};
   padding: 4px 8px;
   border-radius: 6px;
-`
+`;
 
 const PriceChart = ({
   inputCurrency,
@@ -38,10 +38,10 @@ const PriceChart = ({
   token1Address,
   currentSwapPrice,
 }) => {
-  const { isDesktop } = useMatchBreakpoints()
-  const toggleExpanded = () => setIsChartExpanded((currentIsExpanded) => !currentIsExpanded)
-  const [chartView, setChartView] = useExchangeChartViewManager()
-  const { t } = useTranslation()
+  const { isDesktop } = useMatchBreakpoints();
+  const toggleExpanded = () => setIsChartExpanded((currentIsExpanded) => !currentIsExpanded);
+  const [chartView, setChartView] = useExchangeChartViewManager();
+  const { t } = useTranslation();
 
   return (
     <StyledPriceChart
@@ -123,7 +123,7 @@ const PriceChart = ({
         />
       )}
     </StyledPriceChart>
-  )
-}
+  );
+};
 
-export default PriceChart
+export default PriceChart;

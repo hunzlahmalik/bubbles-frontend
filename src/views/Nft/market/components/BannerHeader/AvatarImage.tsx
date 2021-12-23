@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface AvatarImageProps {
-  src: string
-  borderColor?: string
-  alt?: string
+  src: string;
+  borderColor?: string;
+  alt?: string;
 }
 
 const AvatarImage = styled.div.attrs<AvatarImageProps>(({ alt }) => ({
@@ -21,6 +21,6 @@ const AvatarImage = styled.div.attrs<AvatarImageProps>(({ alt }) => ({
   & > img {
     border-radius: 50%;
   }
-`
+`;
 
-export default AvatarImage
+export default AvatarImage;

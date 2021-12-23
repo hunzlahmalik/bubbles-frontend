@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import { Flex, Text, ChevronUpIcon, ChevronDownIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import PreviousBetsTable from './PreviousBetsTable'
+import React, { useState } from 'react';
+import { Flex, Text, ChevronUpIcon, ChevronDownIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import PreviousBetsTable from './PreviousBetsTable';
 
 interface MobileBetsTableProps {
-  account: string
+  account: string;
 }
 
 const MobileBetsTable: React.FC<MobileBetsTableProps> = ({ account }) => {
-  const { t } = useTranslation()
-  const [isOpen, setIsOpen] = useState(false)
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = () => setIsOpen(!isOpen)
+  const handleToggle = () => setIsOpen(!isOpen);
 
   return (
     <>
@@ -32,7 +32,7 @@ const MobileBetsTable: React.FC<MobileBetsTableProps> = ({ account }) => {
       </Flex>
       {isOpen && <PreviousBetsTable account={account} />}
     </>
-  )
-}
+  );
+};
 
-export default MobileBetsTable
+export default MobileBetsTable;

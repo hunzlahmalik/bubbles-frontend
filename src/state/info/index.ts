@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { createReducer } from '@reduxjs/toolkit'
-import { InfoState } from './types'
+import { createReducer } from '@reduxjs/toolkit';
+import { InfoState } from './types';
 import {
   updateProtocolData,
   updateProtocolChartData,
@@ -15,7 +15,7 @@ import {
   updateTokenChartData,
   updateTokenPriceData,
   updateTokenTransactions,
-} from './actions'
+} from './actions';
 
 const initialState: InfoState = {
   protocol: {
@@ -25,19 +25,19 @@ const initialState: InfoState = {
   },
   pools: { byAddress: {} },
   tokens: { byAddress: {} },
-}
+};
 
 export default createReducer(initialState, (builder) =>
   builder
     // Protocol actions
     .addCase(updateProtocolData, (state, { payload: { protocolData } }) => {
-      state.protocol.overview = protocolData
+      state.protocol.overview = protocolData;
     })
     .addCase(updateProtocolChartData, (state, { payload: { chartData } }) => {
-      state.protocol.chartData = chartData
+      state.protocol.chartData = chartData;
     })
     .addCase(updateProtocolTransactions, (state, { payload: { transactions } }) => {
-      state.protocol.transactions = transactions
+      state.protocol.transactions = transactions;
     })
     // Pools actions
     .addCase(updatePoolData, (state, { payload: { pools } }) => {
@@ -45,8 +45,8 @@ export default createReducer(initialState, (builder) =>
         state.pools.byAddress[poolData.address] = {
           ...state.pools.byAddress[poolData.address],
           data: poolData,
-        }
-      })
+        };
+      });
     })
     .addCase(addPoolKeys, (state, { payload: { poolAddresses } }) => {
       poolAddresses.forEach((address) => {
@@ -55,15 +55,15 @@ export default createReducer(initialState, (builder) =>
             data: undefined,
             chartData: undefined,
             transactions: undefined,
-          }
+          };
         }
-      })
+      });
     })
     .addCase(updatePoolChartData, (state, { payload: { poolAddress, chartData } }) => {
-      state.pools.byAddress[poolAddress] = { ...state.pools.byAddress[poolAddress], chartData }
+      state.pools.byAddress[poolAddress] = { ...state.pools.byAddress[poolAddress], chartData };
     })
     .addCase(updatePoolTransactions, (state, { payload: { poolAddress, transactions } }) => {
-      state.pools.byAddress[poolAddress] = { ...state.pools.byAddress[poolAddress], transactions }
+      state.pools.byAddress[poolAddress] = { ...state.pools.byAddress[poolAddress], transactions };
     })
     // Tokens actions
     .addCase(updateTokenData, (state, { payload: { tokens } }) => {
@@ -71,8 +71,8 @@ export default createReducer(initialState, (builder) =>
         state.tokens.byAddress[tokenData.address] = {
           ...state.tokens.byAddress[tokenData.address],
           data: tokenData,
-        }
-      })
+        };
+      });
     })
     .addCase(addTokenKeys, (state, { payload: { tokenAddresses } }) => {
       tokenAddresses.forEach((address) => {
@@ -83,18 +83,18 @@ export default createReducer(initialState, (builder) =>
             chartData: undefined,
             priceData: {},
             transactions: undefined,
-          }
+          };
         }
-      })
+      });
     })
     .addCase(addTokenPoolAddresses, (state, { payload: { tokenAddress, poolAddresses } }) => {
-      state.tokens.byAddress[tokenAddress] = { ...state.tokens.byAddress[tokenAddress], poolAddresses }
+      state.tokens.byAddress[tokenAddress] = { ...state.tokens.byAddress[tokenAddress], poolAddresses };
     })
     .addCase(updateTokenChartData, (state, { payload: { tokenAddress, chartData } }) => {
-      state.tokens.byAddress[tokenAddress] = { ...state.tokens.byAddress[tokenAddress], chartData }
+      state.tokens.byAddress[tokenAddress] = { ...state.tokens.byAddress[tokenAddress], chartData };
     })
     .addCase(updateTokenTransactions, (state, { payload: { tokenAddress, transactions } }) => {
-      state.tokens.byAddress[tokenAddress] = { ...state.tokens.byAddress[tokenAddress], transactions }
+      state.tokens.byAddress[tokenAddress] = { ...state.tokens.byAddress[tokenAddress], transactions };
     })
     .addCase(
       updateTokenPriceData,
@@ -106,7 +106,7 @@ export default createReducer(initialState, (builder) =>
             [secondsInterval]: priceData,
             oldestFetchedTimestamp,
           },
-        }
+        };
       },
     ),
-)
+);

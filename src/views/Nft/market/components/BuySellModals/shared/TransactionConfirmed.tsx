@@ -1,18 +1,18 @@
-import React from 'react'
-import { Flex, Text, Button, ArrowUpIcon, LinkExternal } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { getBscScanLink } from 'utils'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { Divider } from './styles'
+import React from 'react';
+import { Flex, Text, Button, ArrowUpIcon, LinkExternal } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { getBscScanLink } from 'utils';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { Divider } from './styles';
 
 interface TransactionConfirmedProps {
-  txHash: string
-  onDismiss: () => void
+  txHash: string;
+  onDismiss: () => void;
 }
 
 const TransactionConfirmed: React.FC<TransactionConfirmedProps> = ({ txHash, onDismiss }) => {
-  const { chainId } = useActiveWeb3React()
-  const { t } = useTranslation()
+  const { chainId } = useActiveWeb3React();
+  const { t } = useTranslation();
   return (
     <>
       <Flex p="16px" flexDirection="column" alignItems="center" justifyContent="space-between" height="150px">
@@ -27,7 +27,7 @@ const TransactionConfirmed: React.FC<TransactionConfirmedProps> = ({ txHash, onD
         </Button>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default TransactionConfirmed
+export default TransactionConfirmed;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Box,
   Text,
@@ -11,27 +11,27 @@ import {
   Skeleton,
   Tag,
   CheckmarkCircleIcon,
-} from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import times from 'lodash/times'
-import { Vote, VotingStateLoadingStatus } from 'state/types'
-import { useGetVotingStateLoadingStatus } from 'state/voting/hooks'
-import { formatNumber } from 'utils/formatBalance'
-import { useTranslation } from 'contexts/Localization'
-import { calculateVoteResults, getTotalFromVotes } from '../helpers'
-import TextEllipsis from '../components/TextEllipsis'
+} from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import times from 'lodash/times';
+import { Vote, VotingStateLoadingStatus } from 'state/types';
+import { useGetVotingStateLoadingStatus } from 'state/voting/hooks';
+import { formatNumber } from 'utils/formatBalance';
+import { useTranslation } from 'contexts/Localization';
+import { calculateVoteResults, getTotalFromVotes } from '../helpers';
+import TextEllipsis from '../components/TextEllipsis';
 
 interface ResultsProps {
-  choices: string[]
-  votes: Vote[]
+  choices: string[];
+  votes: Vote[];
 }
 
 const Results: React.FC<ResultsProps> = ({ choices, votes }) => {
-  const { t } = useTranslation()
-  const results = calculateVoteResults(votes)
-  const votingStatus = useGetVotingStateLoadingStatus()
-  const { account } = useWeb3React()
-  const totalVotes = getTotalFromVotes(votes)
+  const { t } = useTranslation();
+  const results = calculateVoteResults(votes);
+  const votingStatus = useGetVotingStateLoadingStatus();
+  const { account } = useWeb3React();
+  const totalVotes = getTotalFromVotes(votes);
 
   return (
     <Card>
@@ -43,12 +43,12 @@ const Results: React.FC<ResultsProps> = ({ choices, votes }) => {
       <CardBody>
         {votingStatus === VotingStateLoadingStatus.IDLE &&
           choices.map((choice, index) => {
-            const choiceVotes = results[choice] || []
-            const totalChoiceVote = getTotalFromVotes(choiceVotes)
-            const progress = totalVotes === 0 ? 0 : (totalChoiceVote / totalVotes) * 100
+            const choiceVotes = results[choice] || [];
+            const totalChoiceVote = getTotalFromVotes(choiceVotes);
+            const progress = totalVotes === 0 ? 0 : (totalChoiceVote / totalVotes) * 100;
             const hasVoted = choiceVotes.some((vote) => {
-              return account && vote.voter.toLowerCase() === account.toLowerCase()
-            })
+              return account && vote.voter.toLowerCase() === account.toLowerCase();
+            });
 
             return (
               <Box key={choice} mt={index > 0 ? '24px' : '0px'}>
@@ -72,7 +72,7 @@ const Results: React.FC<ResultsProps> = ({ choices, votes }) => {
                   </Text>
                 </Flex>
               </Box>
-            )
+            );
           })}
 
         {votingStatus === VotingStateLoadingStatus.LOADING &&
@@ -81,11 +81,11 @@ const Results: React.FC<ResultsProps> = ({ choices, votes }) => {
               <Box key={count} mt={index > 0 ? '24px' : '0px'}>
                 <Skeleton height="36px" mb="4px" />
               </Box>
-            )
+            );
           })}
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default Results
+export default Results;

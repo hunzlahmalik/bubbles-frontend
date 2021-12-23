@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Box, Image } from '@pancakeswap/uikit'
-import { TeamRanksProps } from '../../types'
-import CakerBunny from '../../pngs/cakers.png'
-import TopTradersCard from './TopTradersCard'
-import Podium from './Podium'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Box, Image } from '@pancakeswap/uikit';
+import { TeamRanksProps } from '../../types';
+import CakerBunny from '../../pngs/cakers.png';
+import TopTradersCard from './TopTradersCard';
+import Podium from './Podium';
 
 const Wrapper = styled(Flex)`
   flex-direction: column;
@@ -12,7 +12,7 @@ const Wrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     flex-direction: row;
   }
-`
+`;
 
 const StyledPodiumWrapper = styled(Flex)`
   flex-direction: column;
@@ -25,7 +25,7 @@ const StyledPodiumWrapper = styled(Flex)`
     margin-right: 40px;
     margin-bottom: 0;
   }
-`
+`;
 
 const BunnyImageWrapper = styled(Box)`
   display: none;
@@ -35,7 +35,7 @@ const BunnyImageWrapper = styled(Box)`
     width: 200px;
     height: 205px;
   }
-`
+`;
 
 const StyledTopTradersWrapper = styled(Flex)`
   width: 100%;
@@ -43,7 +43,7 @@ const StyledTopTradersWrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     flex: 2;
   }
-`
+`;
 
 const TeamRanks: React.FC<TeamRanksProps> = ({
   team1LeaderboardInformation,
@@ -55,13 +55,13 @@ const TeamRanks: React.FC<TeamRanksProps> = ({
     team1LeaderboardInformation.leaderboardData &&
       team2LeaderboardInformation.leaderboardData &&
       team3LeaderboardInformation.leaderboardData,
-  )
+  );
 
-  const isGlobalLeaderboardDataComplete = Boolean(isTeamLeaderboardDataComplete && globalLeaderboardInformation)
+  const isGlobalLeaderboardDataComplete = Boolean(isTeamLeaderboardDataComplete && globalLeaderboardInformation);
 
   const getTeamsSortedByVolume = (arrayOfTeams) => {
-    return arrayOfTeams.sort((teamA, teamB) => teamB.leaderboardData.volume - teamA.leaderboardData.volume)
-  }
+    return arrayOfTeams.sort((teamA, teamB) => teamB.leaderboardData.volume - teamA.leaderboardData.volume);
+  };
 
   return (
     <Wrapper>
@@ -90,7 +90,7 @@ const TeamRanks: React.FC<TeamRanksProps> = ({
         />
       </StyledTopTradersWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default TeamRanks
+export default TeamRanks;

@@ -1,12 +1,12 @@
-import React from 'react'
-import { Td, Text } from '@pancakeswap/uikit'
-import { PredictionUser } from 'state/types'
-import ResultAvatar from './ResultAvatar'
-import { NetWinnings } from './styles'
+import React from 'react';
+import { Td, Text } from '@pancakeswap/uikit';
+import { PredictionUser } from 'state/types';
+import ResultAvatar from './ResultAvatar';
+import { NetWinnings } from './styles';
 
 interface DesktopRowProps {
-  rank?: number
-  user: PredictionUser
+  rank?: number;
+  user: PredictionUser;
 }
 
 const DesktopRow: React.FC<DesktopRowProps> = ({ rank, user, ...props }) => (
@@ -39,6 +39,6 @@ const DesktopRow: React.FC<DesktopRowProps> = ({ rank, user, ...props }) => (
     </Td>
     <Td textAlign="center">{user.totalBets.toLocaleString()}</Td>
   </tr>
-)
+);
 
-export default DesktopRow
+export default DesktopRow;

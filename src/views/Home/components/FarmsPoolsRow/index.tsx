@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import styled from 'styled-components'
-import { Flex, Box, SwapVertIcon, IconButton } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { DeserializedPool } from 'state/types'
-import useIntersectionObserver from 'hooks/useIntersectionObserver'
-import useGetTopFarmsByApr from 'views/Home/hooks/useGetTopFarmsByApr'
-import useGetTopPoolsByApr from 'views/Home/hooks/useGetTopPoolsByApr'
-import { vaultPoolConfig } from 'config/constants/pools'
-import TopFarmPool from './TopFarmPool'
-import RowHeading from './RowHeading'
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import styled from 'styled-components';
+import { Flex, Box, SwapVertIcon, IconButton } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { DeserializedPool } from 'state/types';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
+import useGetTopFarmsByApr from 'views/Home/hooks/useGetTopFarmsByApr';
+import useGetTopPoolsByApr from 'views/Home/hooks/useGetTopPoolsByApr';
+import { vaultPoolConfig } from 'config/constants/pools';
+import TopFarmPool from './TopFarmPool';
+import RowHeading from './RowHeading';
 
 const Grid = styled.div`
   display: grid;
@@ -22,48 +22,48 @@ const Grid = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     grid-gap: 32px;
   }
-`
+`;
 
 const FarmsPoolsRow = () => {
-  const [showFarms, setShowFarms] = useState(false)
-  const { t } = useTranslation()
-  const { observerRef, isIntersecting } = useIntersectionObserver()
-  const { topFarms } = useGetTopFarmsByApr(isIntersecting)
-  const { topPools } = useGetTopPoolsByApr(isIntersecting)
+  const [showFarms, setShowFarms] = useState(false);
+  const { t } = useTranslation();
+  const { observerRef, isIntersecting } = useIntersectionObserver();
+  const { topFarms } = useGetTopFarmsByApr(isIntersecting);
+  const { topPools } = useGetTopPoolsByApr(isIntersecting);
 
-  const timer = useRef<ReturnType<typeof setTimeout>>(null)
-  const isLoaded = topFarms[0] && topPools[0]
+  const timer = useRef<ReturnType<typeof setTimeout>>(null);
+  const isLoaded = topFarms[0] && topPools[0];
 
   const startTimer = useCallback(() => {
     timer.current = setInterval(() => {
-      setShowFarms((prev) => !prev)
-    }, 6000)
-  }, [timer])
+      setShowFarms((prev) => !prev);
+    }, 6000);
+  }, [timer]);
 
   useEffect(() => {
     if (isLoaded) {
-      startTimer()
+      startTimer();
     }
 
     return () => {
-      clearInterval(timer.current)
-    }
-  }, [timer, isLoaded, startTimer])
+      clearInterval(timer.current);
+    };
+  }, [timer, isLoaded, startTimer]);
 
   const getPoolText = (pool: DeserializedPool) => {
     if (pool.vaultKey) {
-      return t(vaultPoolConfig[pool.vaultKey].name)
+      return t(vaultPoolConfig[pool.vaultKey].name);
     }
 
     if (pool.sousId === 0) {
-      return t('Manual CAKE')
+      return t('Manual CAKE');
     }
 
     return t('Stake %stakingSymbol% - Earn %earningSymbol%', {
       earningSymbol: pool.earningToken.symbol,
       stakingSymbol: pool.stakingToken.symbol,
-    })
-  }
+    });
+  };
 
   return (
     <div ref={observerRef}>
@@ -75,9 +75,9 @@ const FarmsPoolsRow = () => {
             height="100%"
             width="auto"
             onClick={() => {
-              setShowFarms((prev) => !prev)
-              clearInterval(timer.current)
-              startTimer()
+              setShowFarms((prev) => !prev);
+              clearInterval(timer.current);
+              startTimer();
             }}
           >
             <SwapVertIcon height="24px" width="24px" color="textSubtle" />
@@ -111,7 +111,7 @@ const FarmsPoolsRow = () => {
         </Box>
       </Flex>
     </div>
-  )
-}
+  );
+};
 
-export default FarmsPoolsRow
+export default FarmsPoolsRow;

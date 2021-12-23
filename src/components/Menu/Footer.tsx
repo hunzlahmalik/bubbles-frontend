@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import { ButtonMenu, ButtonMenuItem, LinkExternal, Flex, Svg, Image, Button } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { ButtonMenu, ButtonMenuItem, LinkExternal, Flex, Svg, Image, Button } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 const Wrapper = styled.div<{ $isSide: boolean }>`
   width: 100%;
@@ -16,7 +16,7 @@ const Wrapper = styled.div<{ $isSide: boolean }>`
     justify-content: space-between;
     flex-direction: ${({ $isSide }) => ($isSide ? 'column' : 'row')};
   }
-`
+`;
 
 const BubbleWrapper = styled(Flex)`
   svg {
@@ -33,13 +33,13 @@ const BubbleWrapper = styled(Flex)`
       opacity: 0.85;
     }
   }
-`
+`;
 
-type FooterVariant = 'default' | 'side'
+type FooterVariant = 'default' | 'side';
 
 const Footer: React.FC<{ variant?: FooterVariant }> = ({ variant = 'default' }) => {
-  const { t } = useTranslation()
-  const isSide = variant === 'side'
+  const { t } = useTranslation();
+  const isSide = variant === 'side';
   return (
     <Wrapper $isSide={isSide}>
       <Flex flexDirection={isSide ? 'column' : ['column', 'column', 'row']} alignItems="center">
@@ -83,7 +83,7 @@ const Footer: React.FC<{ variant?: FooterVariant }> = ({ variant = 'default' }) 
         <Image src="/images/help.svg" alt="Get some help" width={160} height={108} />
       </Flex>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

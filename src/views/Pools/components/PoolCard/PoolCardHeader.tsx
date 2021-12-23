@@ -1,18 +1,18 @@
-import { CardHeader, Flex, Heading, Text } from '@pancakeswap/uikit'
-import React from 'react'
-import styled from 'styled-components'
+import { CardHeader, Flex, Heading, Text } from '@pancakeswap/uikit';
+import React from 'react';
+import styled from 'styled-components';
 
 const Wrapper = styled(CardHeader)<{ isFinished?: boolean; background?: string }>`
   background: ${({ isFinished, background, theme }) =>
     isFinished ? theme.colors.backgroundDisabled : theme.colors.gradients[background]};
   border-radius: ${({ theme }) => `${theme.radii.card} ${theme.radii.card} 0 0`};
-`
+`;
 
 const PoolCardHeader: React.FC<{
-  isFinished?: boolean
-  isStaking?: boolean
+  isFinished?: boolean;
+  isStaking?: boolean;
 }> = ({ isFinished = false, isStaking = false, children }) => {
-  const background = isStaking ? 'bubblegum' : 'cardHeader'
+  const background = isStaking ? 'bubblegum' : 'cardHeader';
 
   return (
     <Wrapper isFinished={isFinished} background={background}>
@@ -20,8 +20,8 @@ const PoolCardHeader: React.FC<{
         {children}
       </Flex>
     </Wrapper>
-  )
-}
+  );
+};
 
 export const PoolCardHeaderTitle: React.FC<{ isFinished?: boolean; title: string; subTitle: string }> = ({
   isFinished,
@@ -37,7 +37,7 @@ export const PoolCardHeaderTitle: React.FC<{ isFinished?: boolean; title: string
         {subTitle}
       </Text>
     </Flex>
-  )
-}
+  );
+};
 
-export default PoolCardHeader
+export default PoolCardHeader;

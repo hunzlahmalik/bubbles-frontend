@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   CardProps,
   CardHeader,
@@ -8,17 +8,17 @@ import {
   IconButton,
   ChevronUpIcon,
   ChevronDownIcon,
-} from '@pancakeswap/uikit'
+} from '@pancakeswap/uikit';
 
 interface CollapsibleCardProps extends CardProps {
-  initialOpenState?: boolean
-  title: string
+  initialOpenState?: boolean;
+  title: string;
 }
 
 const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ initialOpenState = true, title, children, ...props }) => {
-  const [isOpen, setIsOpen] = useState(initialOpenState)
+  const [isOpen, setIsOpen] = useState(initialOpenState);
 
-  const toggleOpen = () => setIsOpen(!isOpen)
+  const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
     <Card {...props}>
@@ -32,7 +32,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ initialOpenState = tr
       </CardHeader>
       {isOpen && children}
     </Card>
-  )
-}
+  );
+};
 
-export default CollapsibleCard
+export default CollapsibleCard;

@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, CardHeader, CardBody, CommunityIcon, Heading, PrizeIcon, Text } from '@pancakeswap/uikit'
-import { Team } from 'config/constants/types'
-import { useTranslation } from 'contexts/Localization'
-import ComingSoon from './ComingSoon'
-import IconStatBox from './IconStatBox'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, CardHeader, CardBody, CommunityIcon, Heading, PrizeIcon, Text } from '@pancakeswap/uikit';
+import { Team } from 'config/constants/types';
+import { useTranslation } from 'contexts/Localization';
+import ComingSoon from './ComingSoon';
+import IconStatBox from './IconStatBox';
 
 interface TeamCardProps {
-  team: Team
+  team: Team;
 }
 
 const Wrapper = styled.div`
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     padding-top: 24px;
   }
-`
+`;
 
 const Avatar = styled.img`
   border-radius: 50%;
@@ -30,16 +30,16 @@ const Avatar = styled.img`
     margin-top: -24px;
     width: 128px;
   }
-`
+`;
 
 const AvatarWrap = styled.div`
   margin-bottom: 8px;
   text-align: center;
-`
+`;
 
 const StyledCard = styled(Card)`
   overflow: visible;
-`
+`;
 
 const StyledCardHeader = styled(CardHeader)<{ bg: string }>`
   position: relative;
@@ -49,7 +49,7 @@ const StyledCardHeader = styled(CardHeader)<{ bg: string }>`
   background-size: cover;
   padding-top: 0;
   text-align: center;
-`
+`;
 
 const TeamName = styled(Heading).attrs({ as: 'h2' })`
   font-size: 24px;
@@ -57,7 +57,7 @@ const TeamName = styled(Heading).attrs({ as: 'h2' })`
   ${({ theme }) => theme.mediaQueries.md} {
     font-size: 40px;
   }
-`
+`;
 
 const StatRow = styled.div`
   display: grid;
@@ -70,10 +70,10 @@ const StatRow = styled.div`
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 32px;
   }
-`
+`;
 
 const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -97,7 +97,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
         </CardBody>
       </StyledCard>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default TeamCard
+export default TeamCard;

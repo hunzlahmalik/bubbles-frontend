@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import BigNumber from 'bignumber.js'
-import { Flex, Skeleton, Heading, Box, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LotteryRound, LotteryRoundGraphEntity } from 'state/types'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { useGetLotteryGraphDataById } from 'state/lottery/hooks'
-import { getGraphLotteries } from 'state/lottery/getLotteriesData'
-import { formatNumber, getBalanceNumber } from 'utils/formatBalance'
-import Balance from 'components/Balance'
-import RewardBrackets from '../RewardBrackets'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import BigNumber from 'bignumber.js';
+import { Flex, Skeleton, Heading, Box, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LotteryRound, LotteryRoundGraphEntity } from 'state/types';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { useGetLotteryGraphDataById } from 'state/lottery/hooks';
+import { getGraphLotteries } from 'state/lottery/getLotteriesData';
+import { formatNumber, getBalanceNumber } from 'utils/formatBalance';
+import Balance from 'components/Balance';
+import RewardBrackets from '../RewardBrackets';
 
 const NextDrawWrapper = styled(Flex)`
   background: ${({ theme }) => theme.colors.background};
@@ -19,44 +19,44 @@ const NextDrawWrapper = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
   }
-`
+`;
 
 const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lotteryId: string }> = ({
   lotteryNodeData,
   lotteryId,
 }) => {
-  const { t } = useTranslation()
-  const [fetchedLotteryGraphData, setFetchedLotteryGraphData] = useState<LotteryRoundGraphEntity>()
-  const lotteryGraphDataFromState = useGetLotteryGraphDataById(lotteryId)
-  const cakePriceBusd = usePriceCakeBusd()
+  const { t } = useTranslation();
+  const [fetchedLotteryGraphData, setFetchedLotteryGraphData] = useState<LotteryRoundGraphEntity>();
+  const lotteryGraphDataFromState = useGetLotteryGraphDataById(lotteryId);
+  const cakePriceBusd = usePriceCakeBusd();
 
   useEffect(() => {
     const getGraphData = async () => {
-      const fetchedGraphData = await getGraphLotteries(undefined, undefined, { id_in: [lotteryId] })
-      setFetchedLotteryGraphData(fetchedGraphData[0])
-    }
+      const fetchedGraphData = await getGraphLotteries(undefined, undefined, { id_in: [lotteryId] });
+      setFetchedLotteryGraphData(fetchedGraphData[0]);
+    };
     if (!lotteryGraphDataFromState) {
-      getGraphData()
+      getGraphData();
     }
-  }, [lotteryGraphDataFromState, lotteryId])
+  }, [lotteryGraphDataFromState, lotteryId]);
 
-  let prizeInBusd = new BigNumber(NaN)
+  let prizeInBusd = new BigNumber(NaN);
   if (lotteryNodeData) {
-    const { amountCollectedInCake } = lotteryNodeData
-    prizeInBusd = amountCollectedInCake.times(cakePriceBusd)
+    const { amountCollectedInCake } = lotteryNodeData;
+    prizeInBusd = amountCollectedInCake.times(cakePriceBusd);
   }
 
   const getTotalUsers = (): string => {
     if (!lotteryGraphDataFromState && fetchedLotteryGraphData) {
-      return fetchedLotteryGraphData?.totalUsers?.toLocaleString()
+      return fetchedLotteryGraphData?.totalUsers?.toLocaleString();
     }
 
     if (lotteryGraphDataFromState) {
-      return lotteryGraphDataFromState?.totalUsers?.toLocaleString()
+      return lotteryGraphDataFromState?.totalUsers?.toLocaleString();
     }
 
-    return null
-  }
+    return null;
+  };
 
   const getPrizeBalances = () => {
     return (
@@ -80,8 +80,8 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
           />
         )}
       </>
-    )
-  }
+    );
+  };
 
   return (
     <NextDrawWrapper>
@@ -105,7 +105,7 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
       </Flex>
       <RewardBrackets lotteryNodeData={lotteryNodeData} isHistoricRound />
     </NextDrawWrapper>
-  )
-}
+  );
+};
 
-export default PreviousRoundCardFooter
+export default PreviousRoundCardFooter;

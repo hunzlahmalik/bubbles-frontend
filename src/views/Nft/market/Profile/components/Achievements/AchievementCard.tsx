@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, PrizeIcon, Text } from '@pancakeswap/uikit'
-import { Achievement } from 'state/types'
-import AchievementAvatar from './AchievementAvatar'
-import AchievementTitle from './AchievementTitle'
-import AchievementDescription from './AchievementDescription'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, PrizeIcon, Text } from '@pancakeswap/uikit';
+import { Achievement } from 'state/types';
+import AchievementAvatar from './AchievementAvatar';
+import AchievementTitle from './AchievementTitle';
+import AchievementDescription from './AchievementDescription';
 
 interface AchievementCardProps {
-  achievement: Achievement
+  achievement: Achievement;
 }
 
 const Details = styled(Flex)`
@@ -16,7 +16,7 @@ const Details = styled(Flex)`
   justify-content: center;
   padding-left: 8px;
   padding-right: 8px;
-`
+`;
 
 const AchievementCard: React.FC<AchievementCardProps> = ({ achievement }) => {
   return (
@@ -31,7 +31,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({ achievement }) => {
         <Text color="textSubtle">{achievement.points.toLocaleString()}</Text>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default AchievementCard
+export default AchievementCard;

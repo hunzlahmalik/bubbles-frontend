@@ -1,36 +1,36 @@
-import React from 'react'
-import { useBlock } from 'state/block/hooks'
-import BigNumber from 'bignumber.js'
-import { Button, useModal } from '@pancakeswap/uikit'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { Ifo, PoolIds } from 'config/constants/types'
-import { WalletIfoData, PublicIfoData } from 'views/Ifos/types'
-import { useTranslation } from 'contexts/Localization'
-import useTokenBalance from 'hooks/useTokenBalance'
-import useToast from 'hooks/useToast'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import GetTokenModal from './GetTokenModal'
-import ContributeModal from './ContributeModal'
+import React from 'react';
+import { useBlock } from 'state/block/hooks';
+import BigNumber from 'bignumber.js';
+import { Button, useModal } from '@pancakeswap/uikit';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { Ifo, PoolIds } from 'config/constants/types';
+import { WalletIfoData, PublicIfoData } from 'views/Ifos/types';
+import { useTranslation } from 'contexts/Localization';
+import useTokenBalance from 'hooks/useTokenBalance';
+import useToast from 'hooks/useToast';
+import { ToastDescriptionWithTx } from 'components/Toast';
+import GetTokenModal from './GetTokenModal';
+import ContributeModal from './ContributeModal';
 
 interface Props {
-  poolId: PoolIds
-  ifo: Ifo
-  publicIfoData: PublicIfoData
-  walletIfoData: WalletIfoData
+  poolId: PoolIds;
+  ifo: Ifo;
+  publicIfoData: PublicIfoData;
+  walletIfoData: WalletIfoData;
 }
 const ContributeButton: React.FC<Props> = ({ poolId, ifo, publicIfoData, walletIfoData }) => {
-  const publicPoolCharacteristics = publicIfoData[poolId]
-  const userPoolCharacteristics = walletIfoData[poolId]
-  const { isPendingTx, amountTokenCommittedInLP } = userPoolCharacteristics
-  const { limitPerUserInLP } = publicPoolCharacteristics
-  const { t } = useTranslation()
-  const { toastSuccess } = useToast()
-  const { currentBlock } = useBlock()
-  const { balance: userCurrencyBalance } = useTokenBalance(ifo.currency.address)
+  const publicPoolCharacteristics = publicIfoData[poolId];
+  const userPoolCharacteristics = walletIfoData[poolId];
+  const { isPendingTx, amountTokenCommittedInLP } = userPoolCharacteristics;
+  const { limitPerUserInLP } = publicPoolCharacteristics;
+  const { t } = useTranslation();
+  const { toastSuccess } = useToast();
+  const { currentBlock } = useBlock();
+  const { balance: userCurrencyBalance } = useTokenBalance(ifo.currency.address);
 
   // Refetch all the data, and display a message when fetching is done
   const handleContributeSuccess = async (amount: BigNumber, txHash: string) => {
-    await Promise.all([publicIfoData.fetchIfoData(currentBlock), walletIfoData.fetchIfoData()])
+    await Promise.all([publicIfoData.fetchIfoData(currentBlock), walletIfoData.fetchIfoData()]);
     toastSuccess(
       t('Success!'),
       <ToastDescriptionWithTx txHash={txHash}>
@@ -38,8 +38,8 @@ const ContributeButton: React.FC<Props> = ({ poolId, ifo, publicIfoData, walletI
           amount: getBalanceNumber(amount),
         })}
       </ToastDescriptionWithTx>,
-    )
-  }
+    );
+  };
 
   const [onPresentContributeModal] = useModal(
     <ContributeModal
@@ -52,14 +52,14 @@ const ContributeButton: React.FC<Props> = ({ poolId, ifo, publicIfoData, walletI
       userCurrencyBalance={userCurrencyBalance}
     />,
     false,
-  )
+  );
 
-  const [onPresentGetTokenModal] = useModal(<GetTokenModal currency={ifo.currency} />, false)
+  const [onPresentGetTokenModal] = useModal(<GetTokenModal currency={ifo.currency} />, false);
 
   const isDisabled =
     isPendingTx ||
     (walletIfoData.ifoCredit?.creditLeft && walletIfoData.ifoCredit?.creditLeft.isLessThanOrEqualTo(0)) ||
-    (limitPerUserInLP.isGreaterThan(0) && amountTokenCommittedInLP.isGreaterThanOrEqualTo(limitPerUserInLP))
+    (limitPerUserInLP.isGreaterThan(0) && amountTokenCommittedInLP.isGreaterThanOrEqualTo(limitPerUserInLP));
 
   return (
     <Button
@@ -69,7 +69,7 @@ const ContributeButton: React.FC<Props> = ({ poolId, ifo, publicIfoData, walletI
     >
       {isDisabled ? t('Max. Committed') : t('Commit CAKE')}
     </Button>
-  )
-}
+  );
+};
 
-export default ContributeButton
+export default ContributeButton;

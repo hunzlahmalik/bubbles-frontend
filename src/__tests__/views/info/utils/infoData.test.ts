@@ -3,7 +3,7 @@ import {
   getPercentChange,
   getChangeForPeriod,
   getLpFeesAndApr,
-} from 'views/Info/utils/infoDataHelpers'
+} from 'views/Info/utils/infoDataHelpers';
 
 describe('info/utils/infoDataHelpers', () => {
   it.each`
@@ -15,9 +15,9 @@ describe('info/utils/infoDataHelpers', () => {
     ${1234.69}   | ${123.45}    | ${1111.24}
     ${200}       | ${350}       | ${-150}
   `('getAmountChange returns $expected for $valueNow and $valueBefore', ({ valueNow, valueBefore, expected }) => {
-    const actual = getAmountChange(valueNow, valueBefore)
-    expect(actual).toBe(expected)
-  })
+    const actual = getAmountChange(valueNow, valueBefore);
+    expect(actual).toBe(expected);
+  });
 
   it.each`
     valueNow     | valueBefore  | expected
@@ -29,9 +29,9 @@ describe('info/utils/infoDataHelpers', () => {
     ${100}       | ${400}       | ${-75}
     ${100}       | ${100}       | ${0}
   `('getPercentChange returns $expected for $valueNow and $valueBefore', ({ valueNow, valueBefore, expected }) => {
-    const actual = getPercentChange(valueNow, valueBefore)
-    expect(actual).toBe(expected)
-  })
+    const actual = getPercentChange(valueNow, valueBefore);
+    expect(actual).toBe(expected);
+  });
 
   it.each`
     valueNow     | valueOnePeriodAgo | valueTwoPeriodsAgo | expected
@@ -44,10 +44,10 @@ describe('info/utils/infoDataHelpers', () => {
   `(
     'getChangeForPeriod returns $expected for $valueNow, $valueOnePeriodAgo and $valueTwoPeriodsAgo',
     ({ valueNow, valueOnePeriodAgo, valueTwoPeriodsAgo, expected }) => {
-      const actual = getChangeForPeriod(valueNow, valueOnePeriodAgo, valueTwoPeriodsAgo)
-      expect(actual).toStrictEqual(expected)
+      const actual = getChangeForPeriod(valueNow, valueOnePeriodAgo, valueTwoPeriodsAgo);
+      expect(actual).toStrictEqual(expected);
     },
-  )
+  );
 
   it.each`
     volumeUSD | volumeUSDWeek | liquidityUSD | expected
@@ -82,12 +82,12 @@ describe('info/utils/infoDataHelpers', () => {
   `(
     'getLpFeesAndApr returns expected fees and APR for $volumeUSD, $volumeUSDWeek and $liquidityUSD',
     ({ volumeUSD, volumeUSDWeek, liquidityUSD, expected }) => {
-      const actual = getLpFeesAndApr(volumeUSD, volumeUSDWeek, liquidityUSD)
+      const actual = getLpFeesAndApr(volumeUSD, volumeUSDWeek, liquidityUSD);
       // Round actual to avoid rounding errors during comparison
       Object.keys(actual).forEach((key) => {
-        actual[key] = parseFloat(actual[key].toFixed(2))
-      })
-      expect(actual).toStrictEqual(expected)
+        actual[key] = parseFloat(actual[key].toFixed(2));
+      });
+      expect(actual).toStrictEqual(expected);
     },
-  )
-})
+  );
+});

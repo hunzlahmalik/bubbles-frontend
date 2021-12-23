@@ -1,29 +1,29 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Text, Button, Input, InputProps, Flex, Link } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { parseUnits } from 'ethers/lib/utils'
-import { formatBigNumber } from 'utils/formatBalance'
+import React from 'react';
+import styled from 'styled-components';
+import { Text, Button, Input, InputProps, Flex, Link } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { parseUnits } from 'ethers/lib/utils';
+import { formatBigNumber } from 'utils/formatBalance';
 
 interface ModalInputProps {
-  max: string
-  symbol: string
-  onSelectMax?: () => void
-  onChange: (e: React.FormEvent<HTMLInputElement>) => void
-  placeholder?: string
-  value: string
-  addLiquidityUrl?: string
-  inputTitle?: string
-  decimals?: number
+  max: string;
+  symbol: string;
+  onSelectMax?: () => void;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  value: string;
+  addLiquidityUrl?: string;
+  inputTitle?: string;
+  decimals?: number;
 }
 
 const getBoxShadow = ({ isWarning = false, theme }) => {
   if (isWarning) {
-    return theme.shadows.warning
+    return theme.shadows.warning;
   }
 
-  return theme.shadows.inset
-}
+  return theme.shadows.inset;
+};
 
 const StyledTokenInput = styled.div<InputProps>`
   display: flex;
@@ -34,7 +34,7 @@ const StyledTokenInput = styled.div<InputProps>`
   color: ${({ theme }) => theme.colors.text};
   padding: 8px 16px 8px 0;
   width: 100%;
-`
+`;
 
 const StyledInput = styled(Input)`
   box-shadow: none;
@@ -50,7 +50,7 @@ const StyledInput = styled(Input)`
   ${({ theme }) => theme.mediaQueries.sm} {
     width: auto;
   }
-`
+`;
 
 const StyledErrorMessage = styled(Text)`
   position: absolute;
@@ -58,7 +58,7 @@ const StyledErrorMessage = styled(Text)`
   a {
     display: inline;
   }
-`
+`;
 
 const ModalInput: React.FC<ModalInputProps> = ({
   max,
@@ -70,17 +70,17 @@ const ModalInput: React.FC<ModalInputProps> = ({
   inputTitle,
   decimals = 18,
 }) => {
-  const { t } = useTranslation()
-  const isBalanceZero = max === '0' || !max
+  const { t } = useTranslation();
+  const isBalanceZero = max === '0' || !max;
 
   const displayBalance = (balance: string) => {
     if (isBalanceZero) {
-      return '0'
+      return '0';
     }
 
-    const balanceUnits = parseUnits(balance, decimals)
-    return formatBigNumber(balanceUnits, decimals, decimals)
-  }
+    const balanceUnits = parseUnits(balance, decimals);
+    return formatBigNumber(balanceUnits, decimals, decimals);
+  };
 
   return (
     <div style={{ position: 'relative' }}>
@@ -114,7 +114,7 @@ const ModalInput: React.FC<ModalInputProps> = ({
         </StyledErrorMessage>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ModalInput
+export default ModalInput;

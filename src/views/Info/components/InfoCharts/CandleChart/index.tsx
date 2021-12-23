@@ -1,43 +1,43 @@
-import React, { useRef, useState, useEffect, useCallback, Dispatch, SetStateAction } from 'react'
-import { useTranslation } from 'contexts/Localization'
-import { createChart, IChartApi } from 'lightweight-charts'
-import { format } from 'date-fns'
-import useTheme from 'hooks/useTheme'
-import { CandleChartLoader } from 'views/Info/components/ChartLoaders'
+import React, { useRef, useState, useEffect, useCallback, Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'contexts/Localization';
+import { createChart, IChartApi } from 'lightweight-charts';
+import { format } from 'date-fns';
+import useTheme from 'hooks/useTheme';
+import { CandleChartLoader } from 'views/Info/components/ChartLoaders';
 
-const CANDLE_CHART_HEIGHT = 250
+const CANDLE_CHART_HEIGHT = 250;
 
 export type LineChartProps = {
-  data: any[]
-  setValue?: Dispatch<SetStateAction<number | undefined>> // used for value on hover
-  setLabel?: Dispatch<SetStateAction<string | undefined>> // used for value label on hover
-} & React.HTMLAttributes<HTMLDivElement>
+  data: any[];
+  setValue?: Dispatch<SetStateAction<number | undefined>>; // used for value on hover
+  setLabel?: Dispatch<SetStateAction<string | undefined>>; // used for value label on hover
+} & React.HTMLAttributes<HTMLDivElement>;
 
 const CandleChart = ({ data, setValue, setLabel, ...rest }: LineChartProps) => {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
   const {
     currentLanguage: { locale },
-  } = useTranslation()
-  const chartRef = useRef<HTMLDivElement>(null)
-  const [chartCreated, setChart] = useState<IChartApi | undefined>()
+  } = useTranslation();
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [chartCreated, setChart] = useState<IChartApi | undefined>();
 
   const handleResize = useCallback(() => {
     if (chartCreated && chartRef?.current?.parentElement) {
-      chartCreated.resize(chartRef.current.parentElement.clientWidth - 32, CANDLE_CHART_HEIGHT)
-      chartCreated.timeScale().fitContent()
-      chartCreated.timeScale().scrollToPosition(0, false)
+      chartCreated.resize(chartRef.current.parentElement.clientWidth - 32, CANDLE_CHART_HEIGHT);
+      chartCreated.timeScale().fitContent();
+      chartCreated.timeScale().scrollToPosition(0, false);
     }
-  }, [chartCreated, chartRef])
+  }, [chartCreated, chartRef]);
 
   // add event listener for resize
-  const isClient = typeof window === 'object'
+  const isClient = typeof window === 'object';
   useEffect(() => {
     if (!isClient) {
-      return null
+      return null;
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [isClient, chartRef, handleResize]) // Empty array ensures that effect is only run on mount and unmount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isClient, chartRef, handleResize]); // Empty array ensures that effect is only run on mount and unmount
 
   // if chart not instantiated in canvas, create it
   useEffect(() => {
@@ -62,7 +62,7 @@ const CandleChart = ({ data, setValue, setLabel, ...rest }: LineChartProps) => {
           borderVisible: false,
           secondsVisible: true,
           tickMarkFormatter: (unixTime: number) => {
-            return format(unixTime * 1000, 'MM/dd h:mm a')
+            return format(unixTime * 1000, 'MM/dd h:mm a');
           },
         },
         watermark: {
@@ -91,12 +91,12 @@ const CandleChart = ({ data, setValue, setLabel, ...rest }: LineChartProps) => {
             labelBackgroundColor: theme.colors.primary,
           },
         },
-      })
+      });
 
-      chart.timeScale().fitContent()
-      setChart(chart)
+      chart.timeScale().fitContent();
+      setChart(chart);
     }
-  }, [chartCreated, data, setValue, theme])
+  }, [chartCreated, data, setValue, theme]);
 
   useEffect(() => {
     if (chartCreated && data) {
@@ -107,9 +107,9 @@ const CandleChart = ({ data, setValue, setLabel, ...rest }: LineChartProps) => {
         borderUpColor: theme.colors.success,
         wickDownColor: theme.colors.failure,
         wickUpColor: theme.colors.success,
-      })
+      });
 
-      series.setData(data)
+      series.setData(data);
 
       // update the title when hovering on the chart
       chartCreated.subscribeCrosshairMove((param) => {
@@ -123,11 +123,11 @@ const CandleChart = ({ data, setValue, setLabel, ...rest }: LineChartProps) => {
             (param && param.point && param.point.y > CANDLE_CHART_HEIGHT))
         ) {
           // reset values
-          if (setValue) setValue(undefined)
-          if (setLabel) setLabel(undefined)
+          if (setValue) setValue(undefined);
+          if (setLabel) setLabel(undefined);
         } else if (series && param) {
-          const timestamp = param.time as number
-          const now = new Date(timestamp * 1000)
+          const timestamp = param.time as number;
+          const now = new Date(timestamp * 1000);
           const time = `${now.toLocaleString(locale, {
             year: 'numeric',
             month: 'short',
@@ -135,21 +135,21 @@ const CandleChart = ({ data, setValue, setLabel, ...rest }: LineChartProps) => {
             hour: 'numeric',
             minute: '2-digit',
             timeZone: 'UTC',
-          })} (UTC)`
-          const parsed = param.seriesPrices.get(series) as { open: number } | undefined
-          if (setValue) setValue(parsed?.open)
-          if (setLabel) setLabel(time)
+          })} (UTC)`;
+          const parsed = param.seriesPrices.get(series) as { open: number } | undefined;
+          if (setValue) setValue(parsed?.open);
+          if (setLabel) setLabel(time);
         }
-      })
+      });
     }
-  }, [locale, chartCreated, data, setValue, setLabel, theme])
+  }, [locale, chartCreated, data, setValue, setLabel, theme]);
 
   return (
     <>
       {!chartCreated && <CandleChartLoader />}
       <div ref={chartRef} id="candle-chart" {...rest} />
     </>
-  )
-}
+  );
+};
 
-export default CandleChart
+export default CandleChart;

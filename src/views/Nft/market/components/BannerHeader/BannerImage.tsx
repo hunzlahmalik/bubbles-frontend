@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface StyledBannerImageProps {
-  src: string
-  alt?: string
+  src: string;
+  alt?: string;
 }
 
 const StyledBannerImage = styled.div.attrs<StyledBannerImageProps>(({ alt }) => ({
@@ -25,6 +25,6 @@ const StyledBannerImage = styled.div.attrs<StyledBannerImageProps>(({ alt }) => 
   ${({ theme }) => theme.mediaQueries.md} {
     height: 256px;
   }
-`
+`;
 
-export default StyledBannerImage
+export default StyledBannerImage;

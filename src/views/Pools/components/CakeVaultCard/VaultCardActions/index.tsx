@@ -1,35 +1,35 @@
-import BigNumber from 'bignumber.js'
-import Balance from 'components/Balance'
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Text, Box, Skeleton } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { DeserializedPool, VaultKey } from 'state/types'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { useIfoPoolCredit } from 'state/pools/hooks'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import QuestionHelper from 'components/QuestionHelper'
-import { FlexGap } from 'components/Layout/Flex'
-import { getBalanceNumber, getDecimalAmount } from 'utils/formatBalance'
-import VaultApprovalAction from './VaultApprovalAction'
-import VaultStakeActions from './VaultStakeActions'
-import { useCheckVaultApprovalStatus } from '../../../hooks/useApprove'
+import BigNumber from 'bignumber.js';
+import Balance from 'components/Balance';
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Text, Box, Skeleton } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { DeserializedPool, VaultKey } from 'state/types';
+import { BIG_ZERO } from 'utils/bigNumber';
+import { useIfoPoolCredit } from 'state/pools/hooks';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import QuestionHelper from 'components/QuestionHelper';
+import { FlexGap } from 'components/Layout/Flex';
+import { getBalanceNumber, getDecimalAmount } from 'utils/formatBalance';
+import VaultApprovalAction from './VaultApprovalAction';
+import VaultStakeActions from './VaultStakeActions';
+import { useCheckVaultApprovalStatus } from '../../../hooks/useApprove';
 
 const InlineText = styled(Text)`
   display: inline;
-`
+`;
 
 export const IfoVaultCardAvgBalance = ({ pool }: { pool: DeserializedPool }) => {
-  const { t } = useTranslation()
-  const credit = useIfoPoolCredit()
+  const { t } = useTranslation();
+  const credit = useIfoPoolCredit();
 
   // TODO: refactor this is use everywhere
-  const cakeAsNumberBalance = getBalanceNumber(credit)
-  const cakeAsBigNumber = getDecimalAmount(new BigNumber(cakeAsNumberBalance))
-  const cakePriceBusd = usePriceCakeBusd()
+  const cakeAsNumberBalance = getBalanceNumber(credit);
+  const cakeAsBigNumber = getDecimalAmount(new BigNumber(cakeAsNumberBalance));
+  const cakePriceBusd = usePriceCakeBusd();
   const stakedDollarValue = cakePriceBusd.gt(0)
     ? getBalanceNumber(cakeAsBigNumber.multipliedBy(cakePriceBusd), pool.stakingToken.decimals)
-    : 0
+    : 0;
 
   return (
     <>
@@ -60,20 +60,20 @@ export const IfoVaultCardAvgBalance = ({ pool }: { pool: DeserializedPool }) => 
         </Text>
       </Flex>
     </>
-  )
-}
+  );
+};
 
 const CakeVaultCardActions: React.FC<{
-  pool: DeserializedPool
-  accountHasSharesStaked: boolean
-  isLoading: boolean
-  performanceFee: number
+  pool: DeserializedPool;
+  accountHasSharesStaked: boolean;
+  isLoading: boolean;
+  performanceFee: number;
 }> = ({ pool, accountHasSharesStaked, isLoading, performanceFee }) => {
-  const { stakingToken, userData } = pool
-  const { t } = useTranslation()
-  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
+  const { stakingToken, userData } = pool;
+  const { t } = useTranslation();
+  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO;
 
-  const { isVaultApproved, setLastUpdated } = useCheckVaultApprovalStatus(pool.vaultKey)
+  const { isVaultApproved, setLastUpdated } = useCheckVaultApprovalStatus(pool.vaultKey);
 
   return (
     <Flex flexDirection="column">
@@ -110,7 +110,7 @@ const CakeVaultCardActions: React.FC<{
         )}
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default CakeVaultCardActions
+export default CakeVaultCardActions;

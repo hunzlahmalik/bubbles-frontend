@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Modal, Grid, Flex, Text, BinanceIcon, Skeleton } from '@pancakeswap/uikit'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import { multiplyPriceByAmount } from 'utils/prices'
-import { BuyingStage } from './types'
+import React from 'react';
+import styled from 'styled-components';
+import { Modal, Grid, Flex, Text, BinanceIcon, Skeleton } from '@pancakeswap/uikit';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import { multiplyPriceByAmount } from 'utils/prices';
+import { BuyingStage } from './types';
 
 export const StyledModal = styled(Modal)<{ stage: BuyingStage }>`
   & > div:last-child {
@@ -21,7 +21,7 @@ export const StyledModal = styled(Modal)<{ stage: BuyingStage }>`
         ? `fill: ${theme.colors.textSubtle}`
         : null};
   }
-`
+`;
 
 export const BorderedBox = styled(Grid)`
   margin: 16px 0;
@@ -31,25 +31,25 @@ export const BorderedBox = styled(Grid)`
   border-radius: ${({ theme }) => theme.radii.default};
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 8px;
-`
+`;
 
 interface BnbAmountCellProps {
-  bnbAmount: number
-  isLoading?: boolean
-  isInsufficient?: boolean
+  bnbAmount: number;
+  isLoading?: boolean;
+  isInsufficient?: boolean;
 }
 
 export const BnbAmountCell: React.FC<BnbAmountCellProps> = ({ bnbAmount, isLoading, isInsufficient }) => {
-  const bnbBusdPrice = useBNBBusdPrice()
+  const bnbBusdPrice = useBNBBusdPrice();
   if (isLoading) {
     return (
       <Flex flexDirection="column" justifySelf="flex-end">
         <Skeleton width="86px" height="20px" mb="6px" />
         <Skeleton width="86px" height="20px" />
       </Flex>
-    )
+    );
   }
-  const usdAmount = multiplyPriceByAmount(bnbBusdPrice, bnbAmount)
+  const usdAmount = multiplyPriceByAmount(bnbBusdPrice, bnbAmount);
   return (
     <Flex justifySelf="flex-end" flexDirection="column">
       <Flex justifyContent="flex-end">
@@ -66,5 +66,5 @@ export const BnbAmountCell: React.FC<BnbAmountCellProps> = ({ bnbAmount, isLoadi
         })})`}
       </Text>
     </Flex>
-  )
-}
+  );
+};

@@ -1,19 +1,19 @@
-import { BlockIcon, CheckmarkCircleIcon, Flex, Image, Skeleton, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import React from 'react'
-import styled from 'styled-components'
-import { getRewardGroupAchievements, useCompetitionRewards } from '../../helpers'
-import { UserTradingInformationProps } from '../../types'
-import { BoldTd, StyledPrizeTable, Td } from '../StyledPrizeTable'
+import { BlockIcon, CheckmarkCircleIcon, Flex, Image, Skeleton, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import React from 'react';
+import styled from 'styled-components';
+import { getRewardGroupAchievements, useCompetitionRewards } from '../../helpers';
+import { UserTradingInformationProps } from '../../types';
+import { BoldTd, StyledPrizeTable, Td } from '../StyledPrizeTable';
 
 const StyledThead = styled.thead`
   border-bottom: 2px solid ${({ theme }) => theme.colors.cardBorder};
-`
+`;
 
 const UserPrizeGrid: React.FC<{ userTradingInformation?: UserTradingInformationProps }> = ({
   userTradingInformation,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const {
     userRewardGroup,
     userCakeRewards,
@@ -22,15 +22,15 @@ const UserPrizeGrid: React.FC<{ userTradingInformation?: UserTradingInformationP
     userSantosRewards,
     userPointReward,
     canClaimNFT,
-  } = userTradingInformation
+  } = userTradingInformation;
   const { cakeReward, lazioReward, portoReward, santosReward, dollarValueOfTokensReward } = useCompetitionRewards({
     userCakeRewards,
     userLazioRewards,
     userPortoRewards,
     userSantosRewards,
-  })
+  });
 
-  const achievement = getRewardGroupAchievements(userRewardGroup, userPointReward)
+  const achievement = getRewardGroupAchievements(userRewardGroup, userPointReward);
 
   return (
     <StyledPrizeTable>
@@ -70,7 +70,7 @@ const UserPrizeGrid: React.FC<{ userTradingInformation?: UserTradingInformationP
         </tr>
       </tbody>
     </StyledPrizeTable>
-  )
-}
+  );
+};
 
-export default UserPrizeGrid
+export default UserPrizeGrid;

@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { Token } from '@pancakeswap/sdk'
-import { ButtonMenu, ButtonMenuItem, ModalBody } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { TokenList } from '@uniswap/token-lists'
-import { useTranslation } from 'contexts/Localization'
-import ManageLists from './ManageLists'
-import ManageTokens from './ManageTokens'
-import { CurrencyModalView } from './types'
+import React, { useState } from 'react';
+import { Token } from '@pancakeswap/sdk';
+import { ButtonMenu, ButtonMenuItem, ModalBody } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { TokenList } from '@uniswap/token-lists';
+import { useTranslation } from 'contexts/Localization';
+import ManageLists from './ManageLists';
+import ManageTokens from './ManageTokens';
+import { CurrencyModalView } from './types';
 
 const StyledButtonMenu = styled(ButtonMenu)`
   width: 100%;
-`
+`;
 
 export default function Manage({
   setModalView,
@@ -18,14 +18,14 @@ export default function Manage({
   setImportToken,
   setListUrl,
 }: {
-  setModalView: (view: CurrencyModalView) => void
-  setImportToken: (token: Token) => void
-  setImportList: (list: TokenList) => void
-  setListUrl: (url: string) => void
+  setModalView: (view: CurrencyModalView) => void;
+  setImportToken: (token: Token) => void;
+  setImportList: (list: TokenList) => void;
+  setListUrl: (url: string) => void;
 }) {
-  const [showLists, setShowLists] = useState(true)
+  const [showLists, setShowLists] = useState(true);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <ModalBody>
@@ -45,5 +45,5 @@ export default function Manage({
         <ManageTokens setModalView={setModalView} setImportToken={setImportToken} />
       )}
     </ModalBody>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { useTranslation } from 'contexts/Localization'
-import { Link as RouterLink, useLocation, useParams } from 'react-router-dom'
-import styled from 'styled-components'
-import { Flex } from '@pancakeswap/uikit'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'contexts/Localization';
+import { Link as RouterLink, useLocation, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { Flex } from '@pancakeswap/uikit';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
 
 const Tab = styled.button<{ $active: boolean }>`
   display: inline-flex;
@@ -21,17 +21,17 @@ const Tab = styled.button<{ $active: boolean }>`
   font-weight: ${({ $active }) => ($active ? '600' : '400')};
   background-color: ${({ theme, $active }) => ($active ? theme.colors.background : 'transparent')};
   transition: background-color 0.3s ease-out;
-`
+`;
 
 const TabMenu = () => {
-  const { t } = useTranslation()
-  const { accountAddress } = useParams<{ accountAddress: string }>()
-  const { pathname } = useLocation()
-  const [achievementsActive, setIsAchievementsActive] = useState(pathname.includes('achievements'))
+  const { t } = useTranslation();
+  const { accountAddress } = useParams<{ accountAddress: string }>();
+  const { pathname } = useLocation();
+  const [achievementsActive, setIsAchievementsActive] = useState(pathname.includes('achievements'));
 
   useEffect(() => {
-    setIsAchievementsActive(pathname.includes('achievements'))
-  }, [pathname])
+    setIsAchievementsActive(pathname.includes('achievements'));
+  }, [pathname]);
 
   return (
     <Flex>
@@ -52,7 +52,7 @@ const TabMenu = () => {
         {t('Achievements')}
       </Tab>
     </Flex>
-  )
-}
+  );
+};
 
-export default TabMenu
+export default TabMenu;

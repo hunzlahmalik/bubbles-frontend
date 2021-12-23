@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const Ranks: React.FC<SvgProps> = (props) => {
   return (
@@ -381,7 +381,7 @@ const Ranks: React.FC<SvgProps> = (props) => {
         </filter>
       </defs>
     </Svg>
-  )
-}
+  );
+};
 
-export default Ranks
+export default Ranks;

@@ -1,34 +1,34 @@
-import React from 'react'
-import { InjectedModalProps, Modal, Flex, Text, Button, useModal, Link, Grid, LinkExternal } from '@pancakeswap/uikit'
-import useTheme from 'hooks/useTheme'
-import styled from 'styled-components'
-import { NftToken } from 'state/nftMarket/types'
-import { useTranslation } from 'contexts/Localization'
-import { getBscScanLinkForNft } from 'utils'
-import { HorizontalDivider, RoundedImage } from './BuySellModals/shared/styles'
-import EditProfileModal from '../Profile/components/EditProfileModal'
-import { nftsBaseUrl, pancakeBunniesAddress } from '../constants'
+import React from 'react';
+import { InjectedModalProps, Modal, Flex, Text, Button, useModal, Link, Grid, LinkExternal } from '@pancakeswap/uikit';
+import useTheme from 'hooks/useTheme';
+import styled from 'styled-components';
+import { NftToken } from 'state/nftMarket/types';
+import { useTranslation } from 'contexts/Localization';
+import { getBscScanLinkForNft } from 'utils';
+import { HorizontalDivider, RoundedImage } from './BuySellModals/shared/styles';
+import EditProfileModal from '../Profile/components/EditProfileModal';
+import { nftsBaseUrl, pancakeBunniesAddress } from '../constants';
 
 export const StyledModal = styled(Modal)`
   & > div:last-child {
     padding: 0;
   }
-`
+`;
 
 const TextWrapper = styled(Flex)`
   background-color: ${({ theme }) => theme.colors.dropdown};
-`
+`;
 
 interface ProfileNftModalProps extends InjectedModalProps {
-  nft: NftToken
+  nft: NftToken;
 }
 
 const ProfileNftModal: React.FC<ProfileNftModalProps> = ({ nft, onDismiss }) => {
-  const [onEditProfileModal] = useModal(<EditProfileModal />, false)
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const [onEditProfileModal] = useModal(<EditProfileModal />, false);
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
-  const itemPageUrlId = nft.collectionAddress === pancakeBunniesAddress ? nft.attributes[0].value : nft.tokenId
+  const itemPageUrlId = nft.collectionAddress === pancakeBunniesAddress ? nft.attributes[0].value : nft.tokenId;
 
   return (
     <StyledModal title={t('Details')} onDismiss={onDismiss} headerBackground={theme.colors.gradients.cardHeader}>
@@ -84,7 +84,7 @@ const ProfileNftModal: React.FC<ProfileNftModalProps> = ({ nft, onDismiss }) => 
         </Flex>
       </Flex>
     </StyledModal>
-  )
-}
+  );
+};
 
-export default ProfileNftModal
+export default ProfileNftModal;

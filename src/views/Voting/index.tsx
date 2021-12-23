@@ -1,19 +1,19 @@
-import React from 'react'
-import { Flex } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { PageMeta } from 'components/Layout/Page'
-import Hero from './components/Hero'
-import Footer from './components/Footer'
-import { Proposals } from './components/Proposals'
+import React from 'react';
+import { Flex } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { PageMeta } from 'components/Layout/Page';
+import Hero from './components/Hero';
+import Footer from './components/Footer';
+import { Proposals } from './components/Proposals';
 
 const Chrome = styled.div`
   flex: none;
-`
+`;
 
 const Content = styled.div`
   flex: 1;
   height: 100%;
-`
+`;
 
 const Voting = () => {
   return (
@@ -31,7 +31,7 @@ const Voting = () => {
         </Chrome>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default Voting
+export default Voting;

@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import { ArrowDownIcon, ArrowUpIcon } from '@pancakeswap/uikit'
-import { BetPosition } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { ArrowDownIcon, ArrowUpIcon } from '@pancakeswap/uikit';
+import { BetPosition } from 'state/types';
+import { useTranslation } from 'contexts/Localization';
 
 interface PositionLabelProps {
-  position: BetPosition
+  position: BetPosition;
 }
 
 const StyledPositionLabel = styled.div<{ bgColor: string }>`
@@ -18,7 +18,7 @@ const StyledPositionLabel = styled.div<{ bgColor: string }>`
   min-width: 16px;
   padding-left: 8px;
   padding-right: 8px;
-`
+`;
 
 const Label = styled.div`
   color: #fff;
@@ -29,20 +29,20 @@ const Label = styled.div`
     display: block;
     margin-left: 4px;
   }
-`
+`;
 
 const PositionLabel: React.FC<PositionLabelProps> = ({ position }) => {
-  const { t } = useTranslation()
-  const isBull = position === BetPosition.BULL
-  const bgColor = isBull ? 'success' : 'failure'
-  const icon = isBull ? <ArrowUpIcon width="24px" color="white" /> : <ArrowDownIcon width="24px" color="white" />
+  const { t } = useTranslation();
+  const isBull = position === BetPosition.BULL;
+  const bgColor = isBull ? 'success' : 'failure';
+  const icon = isBull ? <ArrowUpIcon width="24px" color="white" /> : <ArrowDownIcon width="24px" color="white" />;
 
   return (
     <StyledPositionLabel bgColor={bgColor}>
       {icon}
       <Label>{isBull ? t('Up') : t('Down')}</Label>
     </StyledPositionLabel>
-  )
-}
+  );
+};
 
-export default PositionLabel
+export default PositionLabel;

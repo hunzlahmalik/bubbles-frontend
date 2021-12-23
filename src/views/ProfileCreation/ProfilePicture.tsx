@@ -1,56 +1,56 @@
-import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
-import { AutoRenewIcon, Button, Card, CardBody, Heading, Text } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { Link as RouterLink } from 'react-router-dom'
-import { getPancakeProfileAddress } from 'utils/addressHelpers'
-import { getErc721Contract } from 'utils/contractHelpers'
-import { useTranslation } from 'contexts/Localization'
-import { useUserNfts } from 'state/nftMarket/hooks'
-import useToast from 'hooks/useToast'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import useFetchUserNfts from 'views/Nft/market/Profile/hooks/useFetchUserNfts'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
-import { NftLocation, UserNftInitializationState } from 'state/nftMarket/types'
-import SelectionCard from './SelectionCard'
-import NextStepButton from './NextStepButton'
-import { ProfileCreationContext } from './contexts/ProfileCreationProvider'
+import React, { useContext, useState } from 'react';
+import styled from 'styled-components';
+import { AutoRenewIcon, Button, Card, CardBody, Heading, Text } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { getPancakeProfileAddress } from 'utils/addressHelpers';
+import { getErc721Contract } from 'utils/contractHelpers';
+import { useTranslation } from 'contexts/Localization';
+import { useUserNfts } from 'state/nftMarket/hooks';
+import useToast from 'hooks/useToast';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import useFetchUserNfts from 'views/Nft/market/Profile/hooks/useFetchUserNfts';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
+import { NftLocation, UserNftInitializationState } from 'state/nftMarket/types';
+import SelectionCard from './SelectionCard';
+import NextStepButton from './NextStepButton';
+import { ProfileCreationContext } from './contexts/ProfileCreationProvider';
 
 const Link = styled(RouterLink)`
   color: ${({ theme }) => theme.colors.primary};
-`
+`;
 
 const NftWrapper = styled.div`
   margin-bottom: 24px;
-`
+`;
 
 const ProfilePicture: React.FC = () => {
-  const { library } = useWeb3React()
-  const [isApproved, setIsApproved] = useState(false)
-  const [isApproving, setIsApproving] = useState(false)
-  const { selectedNft, actions } = useContext(ProfileCreationContext)
+  const { library } = useWeb3React();
+  const [isApproved, setIsApproved] = useState(false);
+  const [isApproving, setIsApproving] = useState(false);
+  const { selectedNft, actions } = useContext(ProfileCreationContext);
 
-  const { nfts, userNftsInitializationState } = useUserNfts()
-  useFetchUserNfts()
+  const { nfts, userNftsInitializationState } = useUserNfts();
+  useFetchUserNfts();
 
-  const { t } = useTranslation()
-  const { toastError, toastSuccess } = useToast()
-  const { callWithGasPrice } = useCallWithGasPrice()
+  const { t } = useTranslation();
+  const { toastError, toastSuccess } = useToast();
+  const { callWithGasPrice } = useCallWithGasPrice();
 
   const handleApprove = async () => {
-    const contract = getErc721Contract(selectedNft.collectionAddress, library.getSigner())
-    const tx = await callWithGasPrice(contract, 'approve', [getPancakeProfileAddress(), selectedNft.tokenId])
-    setIsApproving(true)
-    const receipt = await tx.wait()
+    const contract = getErc721Contract(selectedNft.collectionAddress, library.getSigner());
+    const tx = await callWithGasPrice(contract, 'approve', [getPancakeProfileAddress(), selectedNft.tokenId]);
+    setIsApproving(true);
+    const receipt = await tx.wait();
     if (receipt.status) {
-      toastSuccess(t('Enabled'), t('Please progress to the next step.'))
-      setIsApproving(false)
-      setIsApproved(true)
+      toastSuccess(t('Enabled'), t('Please progress to the next step.'));
+      setIsApproving(false);
+      setIsApproved(true);
     } else {
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
-      setIsApproving(false)
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
+      setIsApproving(false);
     }
-  }
+  };
 
   if (nfts.length === 0 && userNftsInitializationState === UserNftInitializationState.INITIALIZED) {
     return (
@@ -67,7 +67,7 @@ const ProfilePicture: React.FC = () => {
           )}
         </Text>
       </>
-    )
+    );
   }
 
   return (
@@ -107,7 +107,7 @@ const ProfilePicture: React.FC = () => {
                   >
                     <Text bold>{walletNft.name}</Text>
                   </SelectionCard>
-                )
+                );
               })}
           </NftWrapper>
           <Heading as="h4" scale="lg" mb="8px">
@@ -133,7 +133,7 @@ const ProfilePicture: React.FC = () => {
         {t('Next Step')}
       </NextStepButton>
     </>
-  )
-}
+  );
+};
 
-export default ProfilePicture
+export default ProfilePicture;

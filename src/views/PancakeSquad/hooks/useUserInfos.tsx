@@ -1,15 +1,15 @@
-import { useEffect } from 'react'
-import { getNftSaleAddress } from 'utils/addressHelpers'
-import { getPancakeSquadContract } from 'utils/contractHelpers'
-import { multicallv2 } from 'utils/multicall'
-import nftSaleAbi from 'config/abi/nftSale.json'
+import { useEffect } from 'react';
+import { getNftSaleAddress } from 'utils/addressHelpers';
+import { getPancakeSquadContract } from 'utils/contractHelpers';
+import { multicallv2 } from 'utils/multicall';
+import nftSaleAbi from 'config/abi/nftSale.json';
 
 const useUserInfos = ({ account, refreshCounter, setCallback }) => {
   useEffect(() => {
     const fetchUserInfos = async () => {
       try {
-        const nftSaleAddress = getNftSaleAddress()
-        const pancakeSquadContract = getPancakeSquadContract()
+        const nftSaleAddress = getNftSaleAddress();
+        const pancakeSquadContract = getPancakeSquadContract();
 
         if (account) {
           const calls = [
@@ -22,7 +22,7 @@ const useUserInfos = ({ account, refreshCounter, setCallback }) => {
             address: nftSaleAddress,
             name: method,
             params: method === 'ticketsOfUserBySize' ? [account, 0, 600] : [account],
-          }))
+          }));
 
           const [
             [currentCanClaimForGen0],
@@ -30,9 +30,9 @@ const useUserInfos = ({ account, refreshCounter, setCallback }) => {
             [currentNumberTicketsUsedForGen0],
             [currentNumberTicketsOfUser],
             [currentTicketsOfUser],
-          ] = await multicallv2(nftSaleAbi, calls)
+          ] = await multicallv2(nftSaleAbi, calls);
 
-          const currentNumberTokensOfUser = await pancakeSquadContract.balanceOf(account)
+          const currentNumberTokensOfUser = await pancakeSquadContract.balanceOf(account);
 
           setCallback({
             canClaimForGen0: currentCanClaimForGen0,
@@ -41,16 +41,16 @@ const useUserInfos = ({ account, refreshCounter, setCallback }) => {
             numberTicketsOfUser: currentNumberTicketsOfUser.toNumber(),
             ticketsOfUser: currentTicketsOfUser,
             numberTokensOfUser: currentNumberTokensOfUser.toNumber(),
-          })
+          });
         }
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
-    }
+    };
     if (nftSaleAbi.length > 0) {
-      fetchUserInfos()
+      fetchUserInfos();
     }
-  }, [account, refreshCounter, setCallback])
-}
+  }, [account, refreshCounter, setCallback]);
+};
 
-export default useUserInfos
+export default useUserInfos;

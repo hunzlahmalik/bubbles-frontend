@@ -1,26 +1,26 @@
-import React from 'react'
-import { Card, CardBody, Text, WaitIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { NodeRound, BetPosition } from 'state/types'
-import useTheme from 'hooks/useTheme'
-import { useGetIntervalSeconds } from 'state/predictions/hooks'
-import { ROUND_BUFFER } from 'state/predictions/config'
-import { formatRoundTime } from '../../helpers'
-import useCountdown from '../../hooks/useCountdown'
-import { RoundResultBox } from '../RoundResult'
-import MultiplierArrow from './MultiplierArrow'
-import CardHeader, { getBorderBackground } from './CardHeader'
+import React from 'react';
+import { Card, CardBody, Text, WaitIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { NodeRound, BetPosition } from 'state/types';
+import useTheme from 'hooks/useTheme';
+import { useGetIntervalSeconds } from 'state/predictions/hooks';
+import { ROUND_BUFFER } from 'state/predictions/config';
+import { formatRoundTime } from '../../helpers';
+import useCountdown from '../../hooks/useCountdown';
+import { RoundResultBox } from '../RoundResult';
+import MultiplierArrow from './MultiplierArrow';
+import CardHeader, { getBorderBackground } from './CardHeader';
 
 interface SoonRoundCardProps {
-  round: NodeRound
+  round: NodeRound;
 }
 
 const SoonRoundCard: React.FC<SoonRoundCardProps> = ({ round }) => {
-  const intervalSeconds = useGetIntervalSeconds()
-  const { secondsRemaining } = useCountdown(round.startTimestamp + intervalSeconds + ROUND_BUFFER)
-  const countdown = formatRoundTime(secondsRemaining)
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const intervalSeconds = useGetIntervalSeconds();
+  const { secondsRemaining } = useCountdown(round.startTimestamp + intervalSeconds + ROUND_BUFFER);
+  const countdown = formatRoundTime(secondsRemaining);
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <Card borderBackground={getBorderBackground(theme, 'soon')}>
@@ -38,7 +38,7 @@ const SoonRoundCard: React.FC<SoonRoundCardProps> = ({ round }) => {
         <MultiplierArrow betPosition={BetPosition.BEAR} isDisabled />
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default SoonRoundCard
+export default SoonRoundCard;

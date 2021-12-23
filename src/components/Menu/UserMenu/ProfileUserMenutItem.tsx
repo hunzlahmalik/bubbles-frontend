@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Skeleton, UserMenuItem } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { useTranslation } from 'contexts/Localization'
-import history from 'routerHistory'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Skeleton, UserMenuItem } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { useTranslation } from 'contexts/Localization';
+import history from 'routerHistory';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
 
 interface ProfileUserMenuItemProps {
-  isLoading: boolean
-  hasProfile: boolean
+  isLoading: boolean;
+  hasProfile: boolean;
 }
 
 const Dot = styled.div`
@@ -16,26 +16,26 @@ const Dot = styled.div`
   border-radius: 50%;
   height: 8px;
   width: 8px;
-`
+`;
 
 const ProfileUserMenuItem: React.FC<ProfileUserMenuItemProps> = ({ isLoading, hasProfile }) => {
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
 
   const handleClick = () => {
-    history.push(`${nftsBaseUrl}/profile/${account.toLowerCase()}/achievements`)
-  }
+    history.push(`${nftsBaseUrl}/profile/${account.toLowerCase()}/achievements`);
+  };
 
   const handleNoProfileClick = () => {
-    history.push('/create-profile')
-  }
+    history.push('/create-profile');
+  };
 
   if (isLoading) {
     return (
       <UserMenuItem>
         <Skeleton height="24px" width="35%" />
       </UserMenuItem>
-    )
+    );
   }
 
   if (!hasProfile) {
@@ -46,14 +46,14 @@ const ProfileUserMenuItem: React.FC<ProfileUserMenuItemProps> = ({ isLoading, ha
           <Dot />
         </Flex>
       </UserMenuItem>
-    )
+    );
   }
 
   return (
     <UserMenuItem as="button" onClick={handleClick}>
       {t('Your Profile')}
     </UserMenuItem>
-  )
-}
+  );
+};
 
-export default ProfileUserMenuItem
+export default ProfileUserMenuItem;

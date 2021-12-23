@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import { ChevronRightIcon, Button as UIKitButton, AutoRenewIcon, ChevronDownIcon, Box, Flex } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import styled from 'styled-components';
+import { ChevronRightIcon, Button as UIKitButton, AutoRenewIcon, ChevronDownIcon, Box, Flex } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 export enum ButtonArrangement {
   ROW = 'row',
@@ -9,15 +9,15 @@ export enum ButtonArrangement {
 }
 
 interface ApproveConfirmButtonsProps {
-  isApproveDisabled: boolean
-  isApproving: boolean
-  isConfirming: boolean
-  isConfirmDisabled: boolean
-  onApprove: () => void
-  onConfirm: () => void
-  buttonArrangement?: ButtonArrangement
-  confirmLabel?: string
-  confirmId?: string
+  isApproveDisabled: boolean;
+  isApproving: boolean;
+  isConfirming: boolean;
+  isConfirmDisabled: boolean;
+  onApprove: () => void;
+  onConfirm: () => void;
+  buttonArrangement?: ButtonArrangement;
+  confirmLabel?: string;
+  confirmId?: string;
 }
 
 const StyledApproveConfirmButtonRow = styled.div`
@@ -29,7 +29,7 @@ const StyledApproveConfirmButtonRow = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     grid-template-columns: 1fr 24px 1fr;
   }
-`
+`;
 
 const Button = styled(UIKitButton)`
   width: 100%;
@@ -37,9 +37,9 @@ const Button = styled(UIKitButton)`
   ${({ theme }) => theme.mediaQueries.md} {
     min-width: 160px;
   }
-`
+`;
 
-const iconAttrs = { width: '24px', color: 'textDisabled' }
+const iconAttrs = { width: '24px', color: 'textDisabled' };
 
 const ChevronRight = styled(ChevronRightIcon).attrs(iconAttrs)`
   display: none;
@@ -47,7 +47,7 @@ const ChevronRight = styled(ChevronRightIcon).attrs(iconAttrs)`
   ${({ theme }) => theme.mediaQueries.md} {
     display: block;
   }
-`
+`;
 
 const ChevronBottom = styled(ChevronDownIcon).attrs(iconAttrs)`
   display: block;
@@ -55,9 +55,9 @@ const ChevronBottom = styled(ChevronDownIcon).attrs(iconAttrs)`
   ${({ theme }) => theme.mediaQueries.md} {
     display: none;
   }
-`
+`;
 
-const spinnerIcon = <AutoRenewIcon spin color="currentColor" />
+const spinnerIcon = <AutoRenewIcon spin color="currentColor" />;
 
 const ApproveConfirmButtons: React.FC<ApproveConfirmButtonsProps> = ({
   isApproveDisabled,
@@ -70,8 +70,8 @@ const ApproveConfirmButtons: React.FC<ApproveConfirmButtonsProps> = ({
   confirmLabel,
   confirmId,
 }) => {
-  const { t } = useTranslation()
-  const confirmButtonText = confirmLabel ?? t('Confirm')
+  const { t } = useTranslation();
+  const confirmButtonText = confirmLabel ?? t('Confirm');
 
   const ApproveConfirmRow = () => {
     return (
@@ -102,8 +102,8 @@ const ApproveConfirmButtons: React.FC<ApproveConfirmButtonsProps> = ({
           </Button>
         </Box>
       </StyledApproveConfirmButtonRow>
-    )
-  }
+    );
+  };
 
   const ApproveConfirmSequential = () => {
     return (
@@ -128,10 +128,10 @@ const ApproveConfirmButtons: React.FC<ApproveConfirmButtonsProps> = ({
           </Box>
         )}
       </>
-    )
-  }
+    );
+  };
 
-  return buttonArrangement === ButtonArrangement.ROW ? ApproveConfirmRow() : ApproveConfirmSequential()
-}
+  return buttonArrangement === ButtonArrangement.ROW ? ApproveConfirmRow() : ApproveConfirmSequential();
+};
 
-export default ApproveConfirmButtons
+export default ApproveConfirmButtons;

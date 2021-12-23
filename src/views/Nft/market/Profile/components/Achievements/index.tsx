@@ -1,17 +1,17 @@
-import React from 'react'
-import { Card, CardBody, Heading, PrizeIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import IconStatBox from 'views/Teams/components/IconStatBox'
-import { Achievement } from 'state/types'
-import AchievementsList from './AchievementsList'
-import ClaimPointsCallout from './ClaimPointsCallout'
+import React from 'react';
+import { Card, CardBody, Heading, PrizeIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import IconStatBox from 'views/Teams/components/IconStatBox';
+import { Achievement } from 'state/types';
+import AchievementsList from './AchievementsList';
+import ClaimPointsCallout from './ClaimPointsCallout';
 
 const Achievements: React.FC<{ achievements: Achievement[]; isLoading: boolean; points?: number }> = ({
   achievements,
   isLoading,
   points = 0,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Card>
@@ -24,7 +24,7 @@ const Achievements: React.FC<{ achievements: Achievement[]; isLoading: boolean; 
         <AchievementsList achievements={achievements} isLoading={isLoading} />
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default Achievements
+export default Achievements;

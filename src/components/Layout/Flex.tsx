@@ -1,5 +1,5 @@
-import { Flex } from '@pancakeswap/uikit'
-import styled from 'styled-components'
+import { Flex } from '@pancakeswap/uikit';
+import styled from 'styled-components';
 
 const FlexLayout = styled.div`
   display: flex;
@@ -12,10 +12,10 @@ const FlexLayout = styled.div`
     margin: 0 8px;
     margin-bottom: 32px;
   }
-`
+`;
 
 export const FlexGap = styled(Flex)<{ gap?: string }>`
   gap: ${({ gap }) => gap};
-`
+`;
 
-export default FlexLayout
+export default FlexLayout;

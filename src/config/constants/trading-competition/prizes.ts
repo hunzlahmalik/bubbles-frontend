@@ -7,19 +7,19 @@ export enum Tiers {
 }
 
 export interface Rank {
-  group: string
-  rank: string
-  tier: Tiers
-  tokenPrizeInUsd: number
+  group: string;
+  rank: string;
+  tier: Tiers;
+  tokenPrizeInUsd: number;
   achievements: {
-    image: string
-    points: number
-  }
-  hasNft: boolean
+    image: string;
+    points: number;
+  };
+  hasNft: boolean;
 }
 
 interface Config {
-  [key: string]: Rank[]
+  [key: string]: Rank[];
 }
 
 const prizes: Config = {
@@ -196,6 +196,6 @@ const prizes: Config = {
       hasNft: false,
     },
   ],
-}
+};
 
-export default prizes
+export default prizes;

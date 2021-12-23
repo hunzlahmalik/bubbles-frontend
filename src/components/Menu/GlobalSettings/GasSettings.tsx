@@ -1,13 +1,13 @@
-import React from 'react'
-import { Flex, Button, Text } from '@pancakeswap/uikit'
-import QuestionHelper from 'components/QuestionHelper'
-import { useTranslation } from 'contexts/Localization'
-import { GAS_PRICE_GWEI, GAS_PRICE } from 'state/user/hooks/helpers'
-import { useGasPriceManager } from 'state/user/hooks'
+import React from 'react';
+import { Flex, Button, Text } from '@pancakeswap/uikit';
+import QuestionHelper from 'components/QuestionHelper';
+import { useTranslation } from 'contexts/Localization';
+import { GAS_PRICE_GWEI, GAS_PRICE } from 'state/user/hooks/helpers';
+import { useGasPriceManager } from 'state/user/hooks';
 
 const GasSettings = () => {
-  const { t } = useTranslation()
-  const [gasPrice, setGasPrice] = useGasPriceManager()
+  const { t } = useTranslation();
+  const [gasPrice, setGasPrice] = useGasPriceManager();
 
   return (
     <Flex flexDirection="column">
@@ -27,7 +27,7 @@ const GasSettings = () => {
           mr="4px"
           scale="sm"
           onClick={() => {
-            setGasPrice(GAS_PRICE_GWEI.default)
+            setGasPrice(GAS_PRICE_GWEI.default);
           }}
           variant={gasPrice === GAS_PRICE_GWEI.default ? 'primary' : 'tertiary'}
         >
@@ -38,7 +38,7 @@ const GasSettings = () => {
           mr="4px"
           scale="sm"
           onClick={() => {
-            setGasPrice(GAS_PRICE_GWEI.fast)
+            setGasPrice(GAS_PRICE_GWEI.fast);
           }}
           variant={gasPrice === GAS_PRICE_GWEI.fast ? 'primary' : 'tertiary'}
         >
@@ -49,7 +49,7 @@ const GasSettings = () => {
           mt="4px"
           scale="sm"
           onClick={() => {
-            setGasPrice(GAS_PRICE_GWEI.instant)
+            setGasPrice(GAS_PRICE_GWEI.instant);
           }}
           variant={gasPrice === GAS_PRICE_GWEI.instant ? 'primary' : 'tertiary'}
         >
@@ -57,7 +57,7 @@ const GasSettings = () => {
         </Button>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default GasSettings
+export default GasSettings;

@@ -1,22 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Button, Card, CardBody, Flex, Step, Stepper, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { StyledWaveContainer, LandingBodyWrapper } from 'views/PancakeSquad/styles'
-import useTheme from 'hooks/useTheme'
-import { useGetCakeBalance } from 'hooks/useTokenBalance'
-import EventStepsBottomWave from '../../assets/EventStepsBottomWave'
-import EventStepsTopWave from '../../assets/EventStepsTopWave'
-import stepsConfigBuilder from './config'
-import { StyledBunniesSquadImg, StyledEventStepsSectionContainer } from './styles'
-import { EventStepsProps } from './types'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Box, Button, Card, CardBody, Flex, Step, Stepper, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { StyledWaveContainer, LandingBodyWrapper } from 'views/PancakeSquad/styles';
+import useTheme from 'hooks/useTheme';
+import { useGetCakeBalance } from 'hooks/useTokenBalance';
+import EventStepsBottomWave from '../../assets/EventStepsBottomWave';
+import EventStepsTopWave from '../../assets/EventStepsTopWave';
+import stepsConfigBuilder from './config';
+import { StyledBunniesSquadImg, StyledEventStepsSectionContainer } from './styles';
+import { EventStepsProps } from './types';
 
 const EventStepsSection: React.FC<EventStepsProps> = ({ eventInfos, userInfos, isLoading, userStatus, account }) => {
-  const { t } = useTranslation()
-  const { theme, isDark } = useTheme()
-  const { balance: cakeBalance } = useGetCakeBalance()
-  const stepsConfig = stepsConfigBuilder({ t, eventInfos, userInfos, userStatus, account, theme, cakeBalance })
-  const isMintingFinished = userInfos && eventInfos && eventInfos.maxSupply === eventInfos.totalSupplyMinted
+  const { t } = useTranslation();
+  const { theme, isDark } = useTheme();
+  const { balance: cakeBalance } = useGetCakeBalance();
+  const stepsConfig = stepsConfigBuilder({ t, eventInfos, userInfos, userStatus, account, theme, cakeBalance });
+  const isMintingFinished = userInfos && eventInfos && eventInfos.maxSupply === eventInfos.totalSupplyMinted;
   return (
     <StyledEventStepsSectionContainer justifyContent="center" $isDark={isDark}>
       <StyledWaveContainer top="-13px">
@@ -78,7 +78,7 @@ const EventStepsSection: React.FC<EventStepsProps> = ({ eventInfos, userInfos, i
         <EventStepsBottomWave isDark={isDark} />
       </StyledWaveContainer>
     </StyledEventStepsSectionContainer>
-  )
-}
+  );
+};
 
-export default EventStepsSection
+export default EventStepsSection;

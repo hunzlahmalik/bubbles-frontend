@@ -1,87 +1,87 @@
-import React, { useState, useEffect } from 'react'
-import { formatUnits } from '@ethersproject/units'
-import { Card, CardBody, Heading, Text } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { useTranslation } from 'contexts/Localization'
-import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useCake, useBunnyFactory } from 'hooks/useContract'
-import { FetchStatus, useGetCakeBalance } from 'hooks/useTokenBalance'
-import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
-import ApproveConfirmButtons from 'components/ApproveConfirmButtons'
-import useToast from 'hooks/useToast'
-import { useAppDispatch } from 'state'
-import { fetchUserNfts } from 'state/nftMarket/reducer'
-import { useGetCollections } from 'state/nftMarket/hooks'
-import { getNftsFromCollectionApi } from 'state/nftMarket/helpers'
-import { ApiSingleTokenData } from 'state/nftMarket/types'
-import { pancakeBunniesAddress } from 'views/Nft/market/constants'
-import SelectionCard from './SelectionCard'
-import NextStepButton from './NextStepButton'
-import useProfileCreation from './contexts/hook'
-import { MINT_COST, STARTER_NFT_BUNNY_IDS } from './config'
+import React, { useState, useEffect } from 'react';
+import { formatUnits } from '@ethersproject/units';
+import { Card, CardBody, Heading, Text } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { useTranslation } from 'contexts/Localization';
+import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction';
+import { useCake, useBunnyFactory } from 'hooks/useContract';
+import { FetchStatus, useGetCakeBalance } from 'hooks/useTokenBalance';
+import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
+import ApproveConfirmButtons from 'components/ApproveConfirmButtons';
+import useToast from 'hooks/useToast';
+import { useAppDispatch } from 'state';
+import { fetchUserNfts } from 'state/nftMarket/reducer';
+import { useGetCollections } from 'state/nftMarket/hooks';
+import { getNftsFromCollectionApi } from 'state/nftMarket/helpers';
+import { ApiSingleTokenData } from 'state/nftMarket/types';
+import { pancakeBunniesAddress } from 'views/Nft/market/constants';
+import SelectionCard from './SelectionCard';
+import NextStepButton from './NextStepButton';
+import useProfileCreation from './contexts/hook';
+import { MINT_COST, STARTER_NFT_BUNNY_IDS } from './config';
 
 interface MintNftData extends ApiSingleTokenData {
-  bunnyId?: string
+  bunnyId?: string;
 }
 
 const Mint: React.FC = () => {
-  const [selectedBunnyId, setSelectedBunnyId] = useState<string>('')
-  const [starterNfts, setStarterNfts] = useState<MintNftData[]>([])
-  const { actions, minimumCakeRequired, allowance } = useProfileCreation()
-  const collections = useGetCollections()
-  const { toastSuccess } = useToast()
-  const dispatch = useAppDispatch()
+  const [selectedBunnyId, setSelectedBunnyId] = useState<string>('');
+  const [starterNfts, setStarterNfts] = useState<MintNftData[]>([]);
+  const { actions, minimumCakeRequired, allowance } = useProfileCreation();
+  const collections = useGetCollections();
+  const { toastSuccess } = useToast();
+  const dispatch = useAppDispatch();
 
-  const { account } = useWeb3React()
-  const cakeContract = useCake()
-  const bunnyFactoryContract = useBunnyFactory()
-  const { t } = useTranslation()
-  const { balance: cakeBalance, fetchStatus } = useGetCakeBalance()
-  const hasMinimumCakeRequired = fetchStatus === FetchStatus.SUCCESS && cakeBalance.gte(MINT_COST)
-  const { callWithGasPrice } = useCallWithGasPrice()
+  const { account } = useWeb3React();
+  const cakeContract = useCake();
+  const bunnyFactoryContract = useBunnyFactory();
+  const { t } = useTranslation();
+  const { balance: cakeBalance, fetchStatus } = useGetCakeBalance();
+  const hasMinimumCakeRequired = fetchStatus === FetchStatus.SUCCESS && cakeBalance.gte(MINT_COST);
+  const { callWithGasPrice } = useCallWithGasPrice();
 
   useEffect(() => {
     const getStarterNfts = async () => {
-      const { data: allPbTokens } = await getNftsFromCollectionApi(pancakeBunniesAddress)
+      const { data: allPbTokens } = await getNftsFromCollectionApi(pancakeBunniesAddress);
       const nfts = STARTER_NFT_BUNNY_IDS.map((bunnyId) => {
         if (allPbTokens && allPbTokens[bunnyId]) {
-          return { ...allPbTokens[bunnyId], bunnyId }
+          return { ...allPbTokens[bunnyId], bunnyId };
         }
-        return undefined
-      })
-      setStarterNfts(nfts)
-    }
+        return undefined;
+      });
+      setStarterNfts(nfts);
+    };
     if (starterNfts.length === 0) {
-      getStarterNfts()
+      getStarterNfts();
     }
-  }, [starterNfts])
+  }, [starterNfts]);
 
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
       onRequiresApproval: async () => {
         // TODO: Move this to a helper, this check will be probably be used many times
         try {
-          const response = await cakeContract.allowance(account, bunnyFactoryContract.address)
-          return response.gte(minimumCakeRequired)
+          const response = await cakeContract.allowance(account, bunnyFactoryContract.address);
+          return response.gte(minimumCakeRequired);
         } catch (error) {
-          return false
+          return false;
         }
       },
       onApprove: () => {
-        return callWithGasPrice(cakeContract, 'approve', [bunnyFactoryContract.address, allowance.toString()])
+        return callWithGasPrice(cakeContract, 'approve', [bunnyFactoryContract.address, allowance.toString()]);
       },
       onConfirm: () => {
-        return callWithGasPrice(bunnyFactoryContract, 'mintNFT', [selectedBunnyId])
+        return callWithGasPrice(bunnyFactoryContract, 'mintNFT', [selectedBunnyId]);
       },
       onApproveSuccess: () => {
-        toastSuccess(t('Enabled'), t("Press 'confirm' to mint this NFT"))
+        toastSuccess(t('Enabled'), t("Press 'confirm' to mint this NFT"));
       },
       onSuccess: () => {
-        toastSuccess(t('Success'), t('You have minted your starter NFT'))
-        dispatch(fetchUserNfts({ account, collections }))
-        actions.nextStep()
+        toastSuccess(t('Success'), t('You have minted your starter NFT'));
+        dispatch(fetchUserNfts({ account, collections }));
+        actions.nextStep();
       },
-    })
+    });
 
   return (
     <>
@@ -108,7 +108,7 @@ const Mint: React.FC = () => {
             {t('Cost: %num% CAKE', { num: formatUnits(MINT_COST) })}
           </Text>
           {starterNfts.map((nft) => {
-            const handleChange = (value: string) => setSelectedBunnyId(value)
+            const handleChange = (value: string) => setSelectedBunnyId(value);
 
             return (
               <SelectionCard
@@ -122,7 +122,7 @@ const Mint: React.FC = () => {
               >
                 <Text bold>{nft?.name}</Text>
               </SelectionCard>
-            )
+            );
           })}
           {!hasMinimumCakeRequired && (
             <Text color="failure" mb="16px">
@@ -143,7 +143,7 @@ const Mint: React.FC = () => {
         {t('Next Step')}
       </NextStepButton>
     </>
-  )
-}
+  );
+};
 
-export default Mint
+export default Mint;

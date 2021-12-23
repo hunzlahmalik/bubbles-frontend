@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Image, Skeleton } from '@pancakeswap/uikit'
-import Sticker from '../../Sticker'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Image, Skeleton } from '@pancakeswap/uikit';
+import Sticker from '../../Sticker';
 
 const Wrapper = styled(Flex)<{ imageSize?: number }>`
   align-items: center;
@@ -25,11 +25,11 @@ const Wrapper = styled(Flex)<{ imageSize?: number }>`
     width: ${({ imageSize }) => imageSize + 4}px;
     height: ${({ imageSize }) => imageSize + 4}px;
   }
-`
+`;
 
 interface PodiumIconProps {
-  teamId?: number
-  teamPosition?: number
+  teamId?: number;
+  teamPosition?: number;
 }
 
 const TeamPodiumIcon: React.FC<PodiumIconProps> = ({ teamId, teamPosition }) => {
@@ -37,9 +37,9 @@ const TeamPodiumIcon: React.FC<PodiumIconProps> = ({ teamId, teamPosition }) => 
     1: { imgSrc: 'syrup-storm-lg.png', stickerCol: '#1FC7D4' },
     2: { imgSrc: 'fearsome-flippers-lg.png', stickerCol: '#452A7A' },
     3: { imgSrc: 'chaotic-cakers-lg.png', stickerCol: '#FFB237' },
-  }
+  };
 
-  const imageSize = () => (teamPosition === 1 ? 128 : 113)
+  const imageSize = () => (teamPosition === 1 ? 128 : 113);
 
   return (
     <Wrapper imageSize={imageSize()}>
@@ -51,7 +51,7 @@ const TeamPodiumIcon: React.FC<PodiumIconProps> = ({ teamId, teamPosition }) => 
         </Sticker>
       )}
     </Wrapper>
-  )
-}
+  );
+};
 
-export default TeamPodiumIcon
+export default TeamPodiumIcon;

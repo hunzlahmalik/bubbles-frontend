@@ -1,28 +1,28 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Button, Heading, Flex } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'contexts/Localization'
-import PageHeader from 'components/PageHeader'
-import SectionsWithFoldableText from 'components/FoldableSection/SectionsWithFoldableText'
-import PageSection from 'components/PageSection'
-import { PageMeta } from 'components/Layout/Page'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
-import useTheme from 'hooks/useTheme'
-import SearchBar from '../components/SearchBar'
-import Collections from './Collections'
-import Newest from './Newest'
-import config from './config'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Button, Heading, Flex } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'contexts/Localization';
+import PageHeader from 'components/PageHeader';
+import SectionsWithFoldableText from 'components/FoldableSection/SectionsWithFoldableText';
+import PageSection from 'components/PageSection';
+import { PageMeta } from 'components/Layout/Page';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
+import useTheme from 'hooks/useTheme';
+import SearchBar from '../components/SearchBar';
+import Collections from './Collections';
+import Newest from './Newest';
+import config from './config';
 
 const Gradient = styled(Box)`
   background: ${({ theme }) => theme.colors.gradients.cardHeader};
-`
+`;
 
 const StyledPageHeader = styled(PageHeader)`
   margin-bottom: -40px;
   padding-bottom: 40px;
-`
+`;
 
 const StyledHeaderInner = styled(Flex)`
   flex-direction: column;
@@ -47,12 +47,12 @@ const StyledHeaderInner = styled(Flex)`
       align-self: auto;
     }
   }
-`
+`;
 
 const Home = () => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const { theme } = useTheme()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const { theme } = useTheme();
 
   return (
     <>
@@ -89,7 +89,7 @@ const Home = () => {
         <SectionsWithFoldableText header={t('FAQs')} config={config(t)} m="auto" />
       </Gradient>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

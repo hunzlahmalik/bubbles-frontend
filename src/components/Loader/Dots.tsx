@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Dots = styled.span`
   &::after {
@@ -19,6 +19,6 @@ const Dots = styled.span`
       content: '...';
     }
   }
-`
+`;
 
-export default Dots
+export default Dots;

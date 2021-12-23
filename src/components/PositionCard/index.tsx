@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { JSBI, Pair, Percent } from '@pancakeswap/sdk'
+import React, { useState } from 'react';
+import { JSBI, Pair, Percent } from '@pancakeswap/sdk';
 import {
   Button,
   Text,
@@ -10,51 +10,51 @@ import {
   Flex,
   CardProps,
   AddIcon,
-} from '@pancakeswap/uikit'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import useTotalSupply from '../../hooks/useTotalSupply'
+} from '@pancakeswap/uikit';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import useTotalSupply from '../../hooks/useTotalSupply';
 
-import { useTokenBalance } from '../../state/wallet/hooks'
-import { currencyId } from '../../utils/currencyId'
-import { unwrappedToken } from '../../utils/wrappedCurrency'
+import { useTokenBalance } from '../../state/wallet/hooks';
+import { currencyId } from '../../utils/currencyId';
+import { unwrappedToken } from '../../utils/wrappedCurrency';
 
-import { LightCard } from '../Card'
-import { AutoColumn } from '../Layout/Column'
-import CurrencyLogo from '../Logo/CurrencyLogo'
-import { DoubleCurrencyLogo } from '../Logo'
-import { RowBetween, RowFixed } from '../Layout/Row'
-import { BIG_INT_ZERO } from '../../config/constants'
-import Dots from '../Loader/Dots'
+import { LightCard } from '../Card';
+import { AutoColumn } from '../Layout/Column';
+import CurrencyLogo from '../Logo/CurrencyLogo';
+import { DoubleCurrencyLogo } from '../Logo';
+import { RowBetween, RowFixed } from '../Layout/Row';
+import { BIG_INT_ZERO } from '../../config/constants';
+import Dots from '../Loader/Dots';
 
 const FixedHeightRow = styled(RowBetween)`
   height: 24px;
-`
+`;
 
 interface PositionCardProps extends CardProps {
-  pair: Pair
-  showUnwrapped?: boolean
+  pair: Pair;
+  showUnwrapped?: boolean;
 }
 
 export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCardProps) {
-  const { account } = useActiveWeb3React()
+  const { account } = useActiveWeb3React();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
-  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
+  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0);
+  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1);
 
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(false);
 
-  const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
-  const totalPoolTokens = useTotalSupply(pair.liquidityToken)
+  const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken);
+  const totalPoolTokens = useTotalSupply(pair.liquidityToken);
 
   const poolTokenPercentage =
     !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
       ? new Percent(userPoolBalance.raw, totalPoolTokens.raw)
-      : undefined
+      : undefined;
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
@@ -66,7 +66,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
           pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
           pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false),
         ]
-      : [undefined, undefined]
+      : [undefined, undefined];
 
   return (
     <>
@@ -140,24 +140,24 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
         </LightCard>
       )}
     </>
-  )
+  );
 }
 
 export default function FullPositionCard({ pair, ...props }: PositionCardProps) {
-  const { account } = useActiveWeb3React()
+  const { account } = useActiveWeb3React();
 
-  const currency0 = unwrappedToken(pair.token0)
-  const currency1 = unwrappedToken(pair.token1)
+  const currency0 = unwrappedToken(pair.token0);
+  const currency1 = unwrappedToken(pair.token1);
 
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(false);
 
-  const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
-  const totalPoolTokens = useTotalSupply(pair.liquidityToken)
+  const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken);
+  const totalPoolTokens = useTotalSupply(pair.liquidityToken);
 
   const poolTokenPercentage =
     !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
       ? new Percent(userPoolBalance.raw, totalPoolTokens.raw)
-      : undefined
+      : undefined;
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
@@ -169,7 +169,7 @@ export default function FullPositionCard({ pair, ...props }: PositionCardProps) 
           pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
           pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false),
         ]
-      : [undefined, undefined]
+      : [undefined, undefined];
 
   return (
     <Card style={{ borderRadius: '12px' }} {...props}>
@@ -256,5 +256,5 @@ export default function FullPositionCard({ pair, ...props }: PositionCardProps) 
         </AutoColumn>
       )}
     </Card>
-  )
+  );
 }

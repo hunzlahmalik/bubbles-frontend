@@ -1,19 +1,19 @@
-import React from 'react'
-import { BoxProps, Text } from '@pancakeswap/uikit'
-import { NodeRound } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
-import { getRoundPosition } from '../../helpers'
-import { LockPriceRow, PrizePoolRow, RoundPrice, RoundResultBox } from './styles'
+import React from 'react';
+import { BoxProps, Text } from '@pancakeswap/uikit';
+import { NodeRound } from 'state/types';
+import { useTranslation } from 'contexts/Localization';
+import { getRoundPosition } from '../../helpers';
+import { LockPriceRow, PrizePoolRow, RoundPrice, RoundResultBox } from './styles';
 
 interface RoundResultProps extends BoxProps {
-  round: NodeRound
-  hasFailed?: boolean
+  round: NodeRound;
+  hasFailed?: boolean;
 }
 
 const RoundResult: React.FC<RoundResultProps> = ({ round, hasFailed = false, children, ...props }) => {
-  const { lockPrice, closePrice, totalAmount } = round
-  const betPosition = getRoundPosition(lockPrice, closePrice)
-  const { t } = useTranslation()
+  const { lockPrice, closePrice, totalAmount } = round;
+  const betPosition = getRoundPosition(lockPrice, closePrice);
+  const { t } = useTranslation();
 
   return (
     <RoundResultBox betPosition={betPosition} {...props}>
@@ -31,7 +31,7 @@ const RoundResult: React.FC<RoundResultProps> = ({ round, hasFailed = false, chi
       <PrizePoolRow totalAmount={totalAmount} />
       {children}
     </RoundResultBox>
-  )
-}
+  );
+};
 
-export default RoundResult
+export default RoundResult;

@@ -1,12 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Heading, Text, Link } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import Container from 'components/Layout/Container'
-import { useWeb3React } from '@web3-react/core'
-import SunburstSvg from './SunburstSvg'
-import CompositeImage from './CompositeImage'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Heading, Text, Link } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import Container from 'components/Layout/Container';
+import { useWeb3React } from '@web3-react/core';
+import SunburstSvg from './SunburstSvg';
+import CompositeImage from './CompositeImage';
 
 const BgWrapper = styled.div`
   overflow: hidden;
@@ -15,7 +15,7 @@ const BgWrapper = styled.div`
   height: 100%;
   top: 0px;
   left: 0px;
-`
+`;
 
 const StyledSunburst = styled(SunburstSvg)`
   height: 350%;
@@ -25,7 +25,7 @@ const StyledSunburst = styled(SunburstSvg)`
     height: 400%;
     width: 400%;
   }
-`
+`;
 
 const Wrapper = styled(Flex)`
   z-index: 1;
@@ -34,7 +34,7 @@ const Wrapper = styled(Flex)`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-`
+`;
 
 const FloatingPancakesWrapper = styled(Container)`
   overflow: hidden;
@@ -49,19 +49,19 @@ const FloatingPancakesWrapper = styled(Container)`
   ${({ theme }) => theme.mediaQueries.md} {
     visibility: visible;
   }
-`
+`;
 
 const TopLeftImgWrapper = styled(Flex)`
   position: absolute;
   left: 0;
   top: 0;
-`
+`;
 
 const BottomRightImgWrapper = styled(Flex)`
   position: absolute;
   right: 0;
   bottom: 0;
-`
+`;
 
 const topLeftImage = {
   path: '/images/home/flying-pancakes/',
@@ -70,7 +70,7 @@ const topLeftImage = {
     { src: '1-left', alt: 'Pancake flying on the left' },
     { src: '1-top', alt: 'Pancake flying on the top' },
   ],
-}
+};
 
 const bottomRightImage = {
   path: '/images/home/flying-pancakes/',
@@ -79,11 +79,11 @@ const bottomRightImage = {
     { src: '2-top', alt: 'Pancake flying on the top' },
     { src: '2-right', alt: 'Pancake flying on the right' },
   ],
-}
+};
 
 const Footer = () => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
 
   return (
     <>
@@ -117,7 +117,7 @@ const Footer = () => {
         {!account && <ConnectWalletButton mt="24px" />}
       </Wrapper>
     </>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

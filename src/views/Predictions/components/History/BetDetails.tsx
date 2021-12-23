@@ -1,30 +1,30 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Bet } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
-import { getBscScanLink } from 'utils'
-import { Flex, Text, Link, Heading } from '@pancakeswap/uikit'
-import { Result } from 'state/predictions/helpers'
-import { PayoutRow, RoundResultHistory } from '../RoundResult'
-import BetResult from './BetResult'
-import { getMultiplier } from './helpers'
+import React from 'react';
+import styled from 'styled-components';
+import { Bet } from 'state/types';
+import { useTranslation } from 'contexts/Localization';
+import { getBscScanLink } from 'utils';
+import { Flex, Text, Link, Heading } from '@pancakeswap/uikit';
+import { Result } from 'state/predictions/helpers';
+import { PayoutRow, RoundResultHistory } from '../RoundResult';
+import BetResult from './BetResult';
+import { getMultiplier } from './helpers';
 
 interface BetDetailsProps {
-  bet: Bet
-  result: Result
+  bet: Bet;
+  result: Result;
 }
 
 const StyledBetDetails = styled.div`
   background-color: ${({ theme }) => theme.colors.dropdown};
   border-bottom: 2px solid ${({ theme }) => theme.colors.cardBorder};
   padding: 24px;
-`
+`;
 
 const BetDetails: React.FC<BetDetailsProps> = ({ bet, result }) => {
-  const { t } = useTranslation()
-  const { totalAmount, bullAmount, bearAmount } = bet.round
-  const bullMultiplier = getMultiplier(totalAmount, bullAmount)
-  const bearMultiplier = getMultiplier(totalAmount, bearAmount)
+  const { t } = useTranslation();
+  const { totalAmount, bullAmount, bearAmount } = bet.round;
+  const bullMultiplier = getMultiplier(totalAmount, bullAmount);
+  const bearMultiplier = getMultiplier(totalAmount, bearAmount);
 
   return (
     <StyledBetDetails>
@@ -58,7 +58,7 @@ const BetDetails: React.FC<BetDetailsProps> = ({ bet, result }) => {
         </Flex>
       )}
     </StyledBetDetails>
-  )
-}
+  );
+};
 
-export default BetDetails
+export default BetDetails;

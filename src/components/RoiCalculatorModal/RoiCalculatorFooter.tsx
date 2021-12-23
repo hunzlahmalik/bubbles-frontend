@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Flex, Box, Text, ExpandableLabel, LinkExternal, Grid, HelpIcon, useTooltip } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { getApy } from 'utils/compoundApyHelpers'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Flex, Box, Text, ExpandableLabel, LinkExternal, Grid, HelpIcon, useTooltip } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { getApy } from 'utils/compoundApyHelpers';
 
 const Footer = styled(Flex)`
   width: 100%;
   background: ${({ theme }) => theme.colors.dropdown};
-`
+`;
 
 const BulletList = styled.ul`
   list-style-type: none;
@@ -25,17 +25,17 @@ const BulletList = styled.ul`
   li::marker {
     font-size: 12px;
   }
-`
+`;
 
 interface RoiCalculatorFooterProps {
-  isFarm: boolean
-  apr: number
-  displayApr: string
-  autoCompoundFrequency: number
-  multiplier: string
-  linkLabel: string
-  linkHref: string
-  performanceFee: number
+  isFarm: boolean;
+  apr: number;
+  displayApr: string;
+  autoCompoundFrequency: number;
+  multiplier: string;
+  linkLabel: string;
+  linkHref: string;
+  performanceFee: number;
 }
 
 const RoiCalculatorFooter: React.FC<RoiCalculatorFooterProps> = ({
@@ -48,8 +48,8 @@ const RoiCalculatorFooter: React.FC<RoiCalculatorFooterProps> = ({
   linkHref,
   performanceFee,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const { t } = useTranslation()
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useTranslation();
   const {
     targetRef: multiplierRef,
     tooltip: multiplierTooltip,
@@ -67,10 +67,12 @@ const RoiCalculatorFooter: React.FC<RoiCalculatorFooterProps> = ({
       <Text>{t('This amount is already included in all APR calculations for the farm.')}</Text>
     </>,
     { placement: 'top-end', tooltipOffset: [20, 10] },
-  )
+  );
 
-  const gridRowCount = isFarm ? 4 : 2
-  const apy = (getApy(apr, autoCompoundFrequency > 0 ? autoCompoundFrequency : 1, 365, performanceFee) * 100).toFixed(2)
+  const gridRowCount = isFarm ? 4 : 2;
+  const apy = (getApy(apr, autoCompoundFrequency > 0 ? autoCompoundFrequency : 1, 365, performanceFee) * 100).toFixed(
+    2,
+  );
 
   return (
     <Footer p="16px" flexDirection="column">
@@ -157,7 +159,7 @@ const RoiCalculatorFooter: React.FC<RoiCalculatorFooterProps> = ({
         </Box>
       )}
     </Footer>
-  )
-}
+  );
+};
 
-export default RoiCalculatorFooter
+export default RoiCalculatorFooter;

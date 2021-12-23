@@ -1,12 +1,12 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Flex, Box, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LotteryStatus } from 'config/constants/types'
-import { useLottery } from 'state/lottery/hooks'
-import useTheme from 'hooks/useTheme'
-import TicketNumber from '../TicketNumber'
-import BuyTicketsButton from '../BuyTicketsButton'
+import React from 'react';
+import styled from 'styled-components';
+import { Flex, Box, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LotteryStatus } from 'config/constants/types';
+import { useLottery } from 'state/lottery/hooks';
+import useTheme from 'hooks/useTheme';
+import TicketNumber from '../TicketNumber';
+import BuyTicketsButton from '../BuyTicketsButton';
 
 const ScrollBox = styled(Box)`
   max-height: 300px;
@@ -15,16 +15,16 @@ const ScrollBox = styled(Box)`
   margin-right: -24px;
   padding-left: 24px;
   padding-right: 20px;
-`
+`;
 
 const CurrentRoundTicketsInner = () => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const { t } = useTranslation();
+  const { theme } = useTheme();
   const {
     isTransitioning,
     currentRound: { status, userTickets },
-  } = useLottery()
-  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning
+  } = useLottery();
+  const ticketBuyIsDisabled = status !== LotteryStatus.OPEN || isTransitioning;
 
   return (
     <>
@@ -42,7 +42,7 @@ const CurrentRoundTicketsInner = () => {
                 number={ticket.number}
                 status={ticket.status}
               />
-            )
+            );
           })}
         </ScrollBox>
       </Flex>
@@ -50,7 +50,7 @@ const CurrentRoundTicketsInner = () => {
         <BuyTicketsButton disabled={ticketBuyIsDisabled} mt="24px" width="100%" />
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default CurrentRoundTicketsInner
+export default CurrentRoundTicketsInner;

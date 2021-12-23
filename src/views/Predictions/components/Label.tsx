@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react'
-import { useCountUp } from 'react-countup'
-import styled from 'styled-components'
-import { BnbUsdtPairTokenIcon, Box, Flex, PocketWatchIcon, Text } from '@pancakeswap/uikit'
-import { ROUND_BUFFER } from 'state/predictions/config'
-import { formatBigNumberToFixed } from 'utils/formatBalance'
-import { useGetCurrentRoundLockTimestamp, useGetLastOraclePrice } from 'state/predictions/hooks'
-import { useTranslation } from 'contexts/Localization'
-import { formatRoundTime } from '../helpers'
-import useCountdown from '../hooks/useCountdown'
+import React, { useEffect, useRef } from 'react';
+import { useCountUp } from 'react-countup';
+import styled from 'styled-components';
+import { BnbUsdtPairTokenIcon, Box, Flex, PocketWatchIcon, Text } from '@pancakeswap/uikit';
+import { ROUND_BUFFER } from 'state/predictions/config';
+import { formatBigNumberToFixed } from 'utils/formatBalance';
+import { useGetCurrentRoundLockTimestamp, useGetLastOraclePrice } from 'state/predictions/hooks';
+import { useTranslation } from 'contexts/Localization';
+import { formatRoundTime } from '../helpers';
+import useCountdown from '../hooks/useCountdown';
 
 const Token = styled(Box)`
   margin-top: -24px;
@@ -28,7 +28,7 @@ const Token = styled(Box)`
       width: 64px;
     }
   }
-`
+`;
 
 const Title = styled(Text)`
   font-size: 16px;
@@ -38,7 +38,7 @@ const Title = styled(Text)`
     font-size: 20px;
     line-height: 22px;
   }
-`
+`;
 
 const ClosingTitle = styled(Text)`
   font-size: 9px;
@@ -52,7 +52,7 @@ const ClosingTitle = styled(Text)`
     font-size: 20px;
     line-height: 22px;
   }
-`
+`;
 
 const Price = styled(Text)`
   height: 18px;
@@ -62,14 +62,14 @@ const Price = styled(Text)`
   ${({ theme }) => theme.mediaQueries.lg} {
     text-align: center;
   }
-`
+`;
 
 const Interval = styled(Text)`
   ${({ theme }) => theme.mediaQueries.lg} {
     text-align: center;
     width: 32px;
   }
-`
+`;
 
 const Label = styled(Flex)<{ dir: 'left' | 'right' }>`
   background-color: ${({ theme }) => theme.card.background};
@@ -86,23 +86,23 @@ const Label = styled(Flex)<{ dir: 'left' | 'right' }>`
     flex-direction: row;
     padding: ${({ dir }) => (dir === 'right' ? '8px 40px 8px 8px' : '8px 8px 8px 40px')};
   }
-`
+`;
 
 export const PricePairLabel: React.FC = () => {
-  const price = useGetLastOraclePrice()
-  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8))
+  const price = useGetLastOraclePrice();
+  const priceAsNumber = parseFloat(formatBigNumberToFixed(price, 3, 8));
   const { countUp, update } = useCountUp({
     start: 0,
     end: priceAsNumber,
     duration: 1,
     decimals: 3,
-  })
+  });
 
-  const updateRef = useRef(update)
+  const updateRef = useRef(update);
 
   useEffect(() => {
-    updateRef.current(priceAsNumber)
-  }, [priceAsNumber, updateRef])
+    updateRef.current(priceAsNumber);
+  }, [priceAsNumber, updateRef]);
 
   return (
     <Box pl="24px" position="relative" display="inline-block">
@@ -116,19 +116,19 @@ export const PricePairLabel: React.FC = () => {
         <Price fontSize="12px">{`$${countUp}`}</Price>
       </Label>
     </Box>
-  )
-}
+  );
+};
 
 interface TimerLabelProps {
-  interval: string
-  unit: 'm' | 'h' | 'd'
+  interval: string;
+  unit: 'm' | 'h' | 'd';
 }
 
 export const TimerLabel: React.FC<TimerLabelProps> = ({ interval, unit }) => {
-  const currentRoundLockTimestamp = useGetCurrentRoundLockTimestamp()
-  const { secondsRemaining } = useCountdown(currentRoundLockTimestamp + ROUND_BUFFER)
-  const countdown = formatRoundTime(secondsRemaining)
-  const { t } = useTranslation()
+  const currentRoundLockTimestamp = useGetCurrentRoundLockTimestamp();
+  const { secondsRemaining } = useCountdown(currentRoundLockTimestamp + ROUND_BUFFER);
+  const countdown = formatRoundTime(secondsRemaining);
+  const { t } = useTranslation();
 
   return (
     <Box pr="24px" position="relative">
@@ -148,5 +148,5 @@ export const TimerLabel: React.FC<TimerLabelProps> = ({ interval, unit }) => {
         <PocketWatchIcon />
       </Token>
     </Box>
-  )
-}
+  );
+};

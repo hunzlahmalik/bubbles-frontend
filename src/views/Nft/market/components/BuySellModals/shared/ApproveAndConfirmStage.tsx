@@ -1,15 +1,15 @@
-import React from 'react'
-import { Flex, Text, Button, Spinner } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { StepIndicator } from './styles'
+import React from 'react';
+import { Flex, Text, Button, Spinner } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { StepIndicator } from './styles';
 
 interface ApproveAndConfirmStageProps {
-  variant: 'buy' | 'sell'
-  isApproved: boolean
-  isApproving: boolean
-  isConfirming: boolean
-  handleApprove: () => void
-  handleConfirm: () => void
+  variant: 'buy' | 'sell';
+  isApproved: boolean;
+  isApproving: boolean;
+  isConfirming: boolean;
+  handleApprove: () => void;
+  handleConfirm: () => void;
 }
 
 // Buy Flow:
@@ -24,7 +24,7 @@ const ApproveAndConfirmStage: React.FC<ApproveAndConfirmStageProps> = ({
   handleApprove,
   handleConfirm,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Flex p="16px" flexDirection="column">
@@ -81,7 +81,7 @@ const ApproveAndConfirmStage: React.FC<ApproveAndConfirmStageProps> = ({
         {isConfirming ? t('Confirming') : t('Confirm')}
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default ApproveAndConfirmStage
+export default ApproveAndConfirmStage;

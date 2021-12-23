@@ -1,23 +1,23 @@
-import React from 'react'
-import { useWeb3React } from '@web3-react/core'
-import { useParams } from 'react-router'
-import { isAddress } from 'utils'
-import { Flex, Text } from '@pancakeswap/uikit'
-import Page from 'components/Layout/Page'
-import { useTranslation } from 'contexts/Localization'
-import ConnectedProfile from './ConnectedProfile'
-import UnconnectedProfile from './UnconnectedProfile'
-import MarketPageHeader from '../components/MarketPageHeader'
-import ProfileHeader from './components/ProfileHeader'
-import NoNftsImage from '../components/Activity/NoNftsImage'
+import React from 'react';
+import { useWeb3React } from '@web3-react/core';
+import { useParams } from 'react-router';
+import { isAddress } from 'utils';
+import { Flex, Text } from '@pancakeswap/uikit';
+import Page from 'components/Layout/Page';
+import { useTranslation } from 'contexts/Localization';
+import ConnectedProfile from './ConnectedProfile';
+import UnconnectedProfile from './UnconnectedProfile';
+import MarketPageHeader from '../components/MarketPageHeader';
+import ProfileHeader from './components/ProfileHeader';
+import NoNftsImage from '../components/Activity/NoNftsImage';
 
 const NftProfile = () => {
-  const { account } = useWeb3React()
-  const { accountAddress } = useParams<{ accountAddress: string }>()
-  const { t } = useTranslation()
+  const { account } = useWeb3React();
+  const { accountAddress } = useParams<{ accountAddress: string }>();
+  const { t } = useTranslation();
 
-  const isConnectedProfile = account?.toLowerCase() === accountAddress?.toLowerCase()
-  const invalidAddress = !accountAddress || isAddress(accountAddress) === false
+  const isConnectedProfile = account?.toLowerCase() === accountAddress?.toLowerCase();
+  const invalidAddress = !accountAddress || isAddress(accountAddress) === false;
 
   if (invalidAddress) {
     return (
@@ -42,10 +42,10 @@ const NftProfile = () => {
           </Flex>
         </Page>
       </>
-    )
+    );
   }
 
-  return <>{isConnectedProfile ? <ConnectedProfile /> : <UnconnectedProfile />}</>
-}
+  return <>{isConnectedProfile ? <ConnectedProfile /> : <UnconnectedProfile />}</>;
+};
 
-export default NftProfile
+export default NftProfile;

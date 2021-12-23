@@ -1,18 +1,18 @@
-import React from 'react'
-import { Box, Flex, Text, NftIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { NftAttribute } from 'state/nftMarket/types'
-import ExpandableCard from './ExpandableCard'
+import React from 'react';
+import { Box, Flex, Text, NftIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { NftAttribute } from 'state/nftMarket/types';
+import ExpandableCard from './ExpandableCard';
 
 interface PropertiesCardProps {
-  properties: NftAttribute[]
-  rarity: { [key: string]: number }
+  properties: NftAttribute[];
+  rarity: { [key: string]: number };
 }
 
 // Map of known traits to human-readable text
 const KNOWN_TRAITS_TEXT = {
   bunnyId: 'Bunny ID',
-}
+};
 
 const SingleProperty: React.FC<{ title: string; value: string | number; rarity: number }> = ({
   title,
@@ -35,11 +35,11 @@ const SingleProperty: React.FC<{ title: string; value: string | number; rarity: 
         )}
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
 const PropertiesCard: React.FC<PropertiesCardProps> = ({ properties, rarity }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const content = (
     <Box p="24px">
       {properties.map((property) => (
@@ -51,8 +51,8 @@ const PropertiesCard: React.FC<PropertiesCardProps> = ({ properties, rarity }) =
         />
       ))}
     </Box>
-  )
-  return <ExpandableCard title={t('Properties')} icon={<NftIcon width="24px" height="24px" />} content={content} />
-}
+  );
+  return <ExpandableCard title={t('Properties')} icon={<NftIcon width="24px" height="24px" />} content={content} />;
+};
 
-export default PropertiesCard
+export default PropertiesCard;

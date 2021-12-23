@@ -1,22 +1,22 @@
-import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react'
-import { Box, CloseIcon, IconButton, Input, InputProps } from '@pancakeswap/uikit'
+import React, { ChangeEvent, InputHTMLAttributes, useState } from 'react';
+import { Box, CloseIcon, IconButton, Input, InputProps } from '@pancakeswap/uikit';
 
 interface ChoiceProps extends InputProps, InputHTMLAttributes<HTMLInputElement> {
-  onTextInput: (value: string) => void
-  onRemove?: () => void
+  onTextInput: (value: string) => void;
+  onRemove?: () => void;
 }
 
 const Choice: React.FC<ChoiceProps> = ({ onRemove, onTextInput, ...props }) => {
-  const [isWarning, setIsWarning] = useState(false)
-  const [isDirty, setIsDirty] = useState(false)
+  const [isWarning, setIsWarning] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.currentTarget
+    const { value } = evt.currentTarget;
 
-    setIsWarning(isDirty && value.length === 0)
-    setIsDirty(true)
-    onTextInput(value)
-  }
+    setIsWarning(isDirty && value.length === 0);
+    setIsDirty(true);
+    onTextInput(value);
+  };
 
   return (
     <Box position="relative" mb="16px">
@@ -29,7 +29,7 @@ const Choice: React.FC<ChoiceProps> = ({ onRemove, onTextInput, ...props }) => {
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default Choice
+export default Choice;

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Text, Flex, Skeleton, Image } from '@pancakeswap/uikit'
-import { useFarmAuctionContract } from 'hooks/useContract'
-import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { ethersToBigNumber } from 'utils/bigNumber'
-import Balance from 'components/Balance'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import { Text, Flex, Skeleton, Image } from '@pancakeswap/uikit';
+import { useFarmAuctionContract } from 'hooks/useContract';
+import { useTranslation } from 'contexts/Localization';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { ethersToBigNumber } from 'utils/bigNumber';
+import Balance from 'components/Balance';
+import styled from 'styled-components';
 
 const BurnedText = styled(Text)`
   font-size: 52px;
@@ -14,30 +14,30 @@ const BurnedText = styled(Text)`
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 64px;
   }
-`
+`;
 
 const AuctionCakeBurn: React.FC = () => {
-  const [burnedCakeAmount, setBurnedCakeAmount] = useState(0)
-  const { t } = useTranslation()
-  const farmAuctionContract = useFarmAuctionContract()
-  const cakePriceBusd = usePriceCakeBusd()
+  const [burnedCakeAmount, setBurnedCakeAmount] = useState(0);
+  const { t } = useTranslation();
+  const farmAuctionContract = useFarmAuctionContract();
+  const cakePriceBusd = usePriceCakeBusd();
 
-  const burnedAmountAsUSD = cakePriceBusd.times(burnedCakeAmount)
+  const burnedAmountAsUSD = cakePriceBusd.times(burnedCakeAmount);
 
   useEffect(() => {
     const fetchBurnedCakeAmount = async () => {
       try {
-        const amount = await farmAuctionContract.totalCollected()
-        const amountAsBN = ethersToBigNumber(amount)
-        setBurnedCakeAmount(getBalanceNumber(amountAsBN))
+        const amount = await farmAuctionContract.totalCollected();
+        const amountAsBN = ethersToBigNumber(amount);
+        setBurnedCakeAmount(getBalanceNumber(amountAsBN));
       } catch (error) {
-        console.error('Failed to fetch burned auction cake', error)
+        console.error('Failed to fetch burned auction cake', error);
       }
-    }
+    };
     if (burnedCakeAmount === 0) {
-      fetchBurnedCakeAmount()
+      fetchBurnedCakeAmount();
     }
-  }, [burnedCakeAmount, farmAuctionContract])
+  }, [burnedCakeAmount, farmAuctionContract]);
   return (
     <Flex flexDirection={['column-reverse', null, 'row']}>
       <Flex flexDirection="column" flex="2">
@@ -62,7 +62,7 @@ const AuctionCakeBurn: React.FC = () => {
       </Flex>
       <Image width={350} height={320} src="/images/burnt-cake.png" alt={t('Burnt CAKE')} />
     </Flex>
-  )
-}
+  );
+};
 
-export default AuctionCakeBurn
+export default AuctionCakeBurn;

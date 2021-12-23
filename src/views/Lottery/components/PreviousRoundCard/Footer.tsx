@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { Flex, ExpandableLabel, CardFooter } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { LotteryRound } from 'state/types'
-import FooterExpanded from './FooterExpanded'
+import React, { useEffect, useState } from 'react';
+import { Flex, ExpandableLabel, CardFooter } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { LotteryRound } from 'state/types';
+import FooterExpanded from './FooterExpanded';
 
 interface PreviousRoundCardFooterProps {
-  lotteryNodeData: LotteryRound
-  lotteryId: string
+  lotteryNodeData: LotteryRound;
+  lotteryId: string;
 }
 
 const PreviousRoundCardFooter: React.FC<PreviousRoundCardFooterProps> = ({ lotteryNodeData, lotteryId }) => {
-  const { t } = useTranslation()
-  const [isExpanded, setIsExpanded] = useState(false)
+  const { t } = useTranslation();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     if (!lotteryId) {
-      setIsExpanded(false)
+      setIsExpanded(false);
     }
-  }, [lotteryId])
+  }, [lotteryId]);
 
   return (
     <CardFooter p="0">
@@ -27,7 +27,7 @@ const PreviousRoundCardFooter: React.FC<PreviousRoundCardFooterProps> = ({ lotte
           expanded={isExpanded}
           onClick={() => {
             if (lotteryId) {
-              setIsExpanded(!isExpanded)
+              setIsExpanded(!isExpanded);
             }
           }}
         >
@@ -35,7 +35,7 @@ const PreviousRoundCardFooter: React.FC<PreviousRoundCardFooterProps> = ({ lotte
         </ExpandableLabel>
       </Flex>
     </CardFooter>
-  )
-}
+  );
+};
 
-export default PreviousRoundCardFooter
+export default PreviousRoundCardFooter;

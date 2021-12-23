@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 export const MatchExampleA: React.FC<{ isDark: boolean } & SvgProps> = ({ isDark, ...rest }) => {
   return (
@@ -92,8 +92,8 @@ export const MatchExampleA: React.FC<{ isDark: boolean } & SvgProps> = ({ isDark
         </defs>
       </svg>
     </Svg>
-  )
-}
+  );
+};
 export const MatchExampleB: React.FC<{ isDark: boolean } & SvgProps> = ({ isDark, ...rest }) => {
   return (
     <Svg viewBox="0 0 258 45" {...rest}>
@@ -172,5 +172,5 @@ export const MatchExampleB: React.FC<{ isDark: boolean } & SvgProps> = ({ isDark
         </defs>
       </svg>
     </Svg>
-  )
-}
+  );
+};

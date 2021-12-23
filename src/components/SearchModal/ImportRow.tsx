@@ -1,15 +1,15 @@
-import React, { CSSProperties } from 'react'
-import { Token } from '@pancakeswap/sdk'
-import { Button, Text, CheckmarkCircleIcon } from '@pancakeswap/uikit'
-import { AutoRow, RowFixed } from 'components/Layout/Row'
-import { AutoColumn } from 'components/Layout/Column'
-import CurrencyLogo from 'components/Logo/CurrencyLogo'
-import { ListLogo } from 'components/Logo'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useCombinedInactiveList } from 'state/lists/hooks'
-import styled from 'styled-components'
-import { useIsUserAddedToken, useIsTokenActive } from 'hooks/Tokens'
-import { useTranslation } from 'contexts/Localization'
+import React, { CSSProperties } from 'react';
+import { Token } from '@pancakeswap/sdk';
+import { Button, Text, CheckmarkCircleIcon } from '@pancakeswap/uikit';
+import { AutoRow, RowFixed } from 'components/Layout/Row';
+import { AutoColumn } from 'components/Layout/Column';
+import CurrencyLogo from 'components/Logo/CurrencyLogo';
+import { ListLogo } from 'components/Logo';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { useCombinedInactiveList } from 'state/lists/hooks';
+import styled from 'styled-components';
+import { useIsUserAddedToken, useIsTokenActive } from 'hooks/Tokens';
+import { useTranslation } from 'contexts/Localization';
 
 const TokenSection = styled.div<{ dim?: boolean }>`
   padding: 4px 20px;
@@ -20,14 +20,14 @@ const TokenSection = styled.div<{ dim?: boolean }>`
   align-items: center;
 
   opacity: ${({ dim }) => (dim ? '0.4' : '1')};
-`
+`;
 
 const CheckIcon = styled(CheckmarkCircleIcon)`
   height: 16px;
   width: 16px;
   margin-right: 6px;
   stroke: ${({ theme }) => theme.colors.success};
-`
+`;
 
 const NameOverflow = styled.div`
   white-space: nowrap;
@@ -35,7 +35,7 @@ const NameOverflow = styled.div`
   text-overflow: ellipsis;
   max-width: 140px;
   font-size: 12px;
-`
+`;
 
 export default function ImportRow({
   token,
@@ -44,24 +44,24 @@ export default function ImportRow({
   showImportView,
   setImportToken,
 }: {
-  token: Token
-  style?: CSSProperties
-  dim?: boolean
-  showImportView: () => void
-  setImportToken: (token: Token) => void
+  token: Token;
+  style?: CSSProperties;
+  dim?: boolean;
+  showImportView: () => void;
+  setImportToken: (token: Token) => void;
 }) {
   // globals
-  const { chainId } = useActiveWeb3React()
+  const { chainId } = useActiveWeb3React();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   // check if token comes from list
-  const inactiveTokenList = useCombinedInactiveList()
-  const list = chainId && inactiveTokenList?.[chainId]?.[token.address]?.list
+  const inactiveTokenList = useCombinedInactiveList();
+  const list = chainId && inactiveTokenList?.[chainId]?.[token.address]?.list;
 
   // check if already active on list or local storage tokens
-  const isAdded = useIsUserAddedToken(token)
-  const isActive = useIsTokenActive(token)
+  const isAdded = useIsUserAddedToken(token);
+  const isActive = useIsTokenActive(token);
 
   return (
     <TokenSection style={style}>
@@ -87,9 +87,9 @@ export default function ImportRow({
           width="fit-content"
           onClick={() => {
             if (setImportToken) {
-              setImportToken(token)
+              setImportToken(token);
             }
-            showImportView()
+            showImportView();
           }}
         >
           {t('Import')}
@@ -101,5 +101,5 @@ export default function ImportRow({
         </RowFixed>
       )}
     </TokenSection>
-  )
+  );
 }

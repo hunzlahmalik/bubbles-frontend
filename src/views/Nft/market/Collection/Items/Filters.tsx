@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Box, ButtonMenu, ButtonMenuItem, Flex, Grid, Text } from '@pancakeswap/uikit'
-import capitalize from 'lodash/capitalize'
-import isEmpty from 'lodash/isEmpty'
-import { useGetNftFilters, useGetNftShowOnlyOnSale } from 'state/nftMarket/hooks'
-import { Collection, NftAttribute } from 'state/nftMarket/types'
-import { useTranslation } from 'contexts/Localization'
-import { Item, ListFilter } from 'views/Nft/market/components/Filters'
-import { useAppDispatch } from 'state'
-import { setShowOnlyOnSale } from 'state/nftMarket/reducer'
-import useGetCollectionDistribution from '../../hooks/useGetCollectionDistribution'
-import ClearAllButton from './ClearAllButton'
-import SortSelect from './SortSelect'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Box, ButtonMenu, ButtonMenuItem, Flex, Grid, Text } from '@pancakeswap/uikit';
+import capitalize from 'lodash/capitalize';
+import isEmpty from 'lodash/isEmpty';
+import { useGetNftFilters, useGetNftShowOnlyOnSale } from 'state/nftMarket/hooks';
+import { Collection, NftAttribute } from 'state/nftMarket/types';
+import { useTranslation } from 'contexts/Localization';
+import { Item, ListFilter } from 'views/Nft/market/components/Filters';
+import { useAppDispatch } from 'state';
+import { setShowOnlyOnSale } from 'state/nftMarket/reducer';
+import useGetCollectionDistribution from '../../hooks/useGetCollectionDistribution';
+import ClearAllButton from './ClearAllButton';
+import SortSelect from './SortSelect';
 
 interface FiltersProps {
-  collection: Collection
+  collection: Collection;
 }
 
 const GridContainer = styled(Grid)`
@@ -52,23 +52,23 @@ const GridContainer = styled(Grid)`
   ${({ theme }) => theme.mediaQueries.xxl} {
     grid-template-columns: 1fr 5fr 1fr;
   }
-`
+`;
 
 const FilterByTitle = styled(Text)`
   grid-area: filterByTitle;
-`
+`;
 
 const FilterByControls = styled(Box)`
   grid-area: filterByControls;
-`
+`;
 
 const SortByTitle = styled(Text)`
   grid-area: sortByTitle;
-`
+`;
 
 const SortByControls = styled(Box)`
   grid-area: sortByControls;
-`
+`;
 
 const ScrollableFlexContainer = styled(Flex)`
   grid-area: attributeFilters;
@@ -82,30 +82,30 @@ const ScrollableFlexContainer = styled(Flex)`
     flex-wrap: wrap;
     overflow-x: revert;
   }
-`
+`;
 
 const Filters: React.FC<FiltersProps> = ({ collection }) => {
-  const { address } = collection
-  const dispatch = useAppDispatch()
-  const { data } = useGetCollectionDistribution(address)
-  const { t } = useTranslation()
-  const showOnlyNftsOnSale = useGetNftShowOnlyOnSale(address)
-  const [activeButtonIndex, setActiveButtonIndex] = useState(showOnlyNftsOnSale ? 1 : 0)
+  const { address } = collection;
+  const dispatch = useAppDispatch();
+  const { data } = useGetCollectionDistribution(address);
+  const { t } = useTranslation();
+  const showOnlyNftsOnSale = useGetNftShowOnlyOnSale(address);
+  const [activeButtonIndex, setActiveButtonIndex] = useState(showOnlyNftsOnSale ? 1 : 0);
 
   const onActiveButtonChange = (newIndex: number) => {
-    dispatch(setShowOnlyOnSale({ collection: address, showOnlyOnSale: newIndex === 1 }))
-    setActiveButtonIndex(newIndex)
-  }
+    dispatch(setShowOnlyOnSale({ collection: address, showOnlyOnSale: newIndex === 1 }));
+    setActiveButtonIndex(newIndex);
+  };
 
-  const nftFilters = useGetNftFilters(address)
+  const nftFilters = useGetNftFilters(address);
   const attrsByType: Record<string, NftAttribute[]> = collection?.attributes?.reduce(
     (accum, attr) => ({
       ...accum,
       [attr.traitType]: accum[attr.traitType] ? [...accum[attr.traitType], attr] : [attr],
     }),
     {},
-  )
-  const uniqueTraitTypes = attrsByType ? Object.keys(attrsByType) : []
+  );
+  const uniqueTraitTypes = attrsByType ? Object.keys(attrsByType) : [];
 
   return (
     <GridContainer>
@@ -126,12 +126,12 @@ const Filters: React.FC<FiltersProps> = ({ collection }) => {
       </SortByControls>
       <ScrollableFlexContainer>
         {uniqueTraitTypes.map((traitType) => {
-          const attrs = attrsByType[traitType]
+          const attrs = attrsByType[traitType];
           const items: Item[] = attrs.map((attr) => ({
             label: capitalize(attr.value as string),
             count: data && data[traitType] ? data[traitType][attr.value] : undefined,
             attr,
-          }))
+          }));
 
           return (
             <ListFilter
@@ -141,12 +141,12 @@ const Filters: React.FC<FiltersProps> = ({ collection }) => {
               items={items}
               collectionAddress={address}
             />
-          )
+          );
         })}
         {!isEmpty(nftFilters) && <ClearAllButton collectionAddress={address} mb="4px" />}
       </ScrollableFlexContainer>
     </GridContainer>
-  )
-}
+  );
+};
 
-export default Filters
+export default Filters;

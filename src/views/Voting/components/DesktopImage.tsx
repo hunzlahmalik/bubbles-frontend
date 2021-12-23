@@ -1,5 +1,5 @@
-import { Image } from '@pancakeswap/uikit'
-import styled from 'styled-components'
+import { Image } from '@pancakeswap/uikit';
+import styled from 'styled-components';
 
 const DesktopImage = styled(Image)`
   display: none;
@@ -7,6 +7,6 @@ const DesktopImage = styled(Image)`
   ${({ theme }) => theme.mediaQueries.lg} {
     display: block;
   }
-`
+`;
 
-export default DesktopImage
+export default DesktopImage;

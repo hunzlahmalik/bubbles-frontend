@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request'
+import { gql } from 'graphql-request';
 
 const pairDayDatasByIdsQuery = gql`
   query pairDayDatasByIdsQuery($pairIds: [String]) {
@@ -18,5 +18,5 @@ const pairDayDatasByIdsQuery = gql`
       }
     }
   }
-`
-export default pairDayDatasByIdsQuery
+`;
+export default pairDayDatasByIdsQuery;

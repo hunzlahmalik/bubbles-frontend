@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Box,
   CloseIcon,
@@ -14,26 +14,26 @@ import {
   useMatchBreakpoints,
   Skeleton,
   Heading,
-} from '@pancakeswap/uikit'
-import { useGetProfileAvatar } from 'state/profile/hooks'
-import useTheme from 'hooks/useTheme'
-import styled from 'styled-components'
-import { getBscScanLink } from 'utils'
-import truncateHash from 'utils/truncateHash'
-import { LeaderboardLoadingState } from 'state/types'
+} from '@pancakeswap/uikit';
+import { useGetProfileAvatar } from 'state/profile/hooks';
+import useTheme from 'hooks/useTheme';
+import styled from 'styled-components';
+import { getBscScanLink } from 'utils';
+import truncateHash from 'utils/truncateHash';
+import { LeaderboardLoadingState } from 'state/types';
 import {
   useGetOrFetchLeaderboardAddressResult,
   useGetLeaderboardLoadingState,
   useGetSelectedAddress,
-} from 'state/predictions/hooks'
-import { useTranslation } from 'contexts/Localization'
-import { NetWinnings } from './Results/styles'
-import MobileBetsTable from './MobileBetsTable'
-import DesktopBetsTable from './Results/DesktopBetsTable'
+} from 'state/predictions/hooks';
+import { useTranslation } from 'contexts/Localization';
+import { NetWinnings } from './Results/styles';
+import MobileBetsTable from './MobileBetsTable';
+import DesktopBetsTable from './Results/DesktopBetsTable';
 
 interface WalletStatsModalProps extends InjectedModalProps {
-  account?: string
-  onBeforeDismiss?: () => void
+  account?: string;
+  onBeforeDismiss?: () => void;
 }
 
 const ExternalLink = styled(LinkExternal)`
@@ -42,26 +42,26 @@ const ExternalLink = styled(LinkExternal)`
   svg {
     fill: ${({ theme }) => theme.colors.text};
   }
-`
+`;
 
 const WalletStatsModal: React.FC<WalletStatsModalProps> = ({ account, onDismiss, onBeforeDismiss }) => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const selectedAddress = useGetSelectedAddress()
-  const address = account || selectedAddress
-  const result = useGetOrFetchLeaderboardAddressResult(address)
-  const profileAvatar = useGetProfileAvatar(address)
-  const leaderboardLoadingState = useGetLeaderboardLoadingState()
-  const isLoading = leaderboardLoadingState === LeaderboardLoadingState.LOADING
-  const { isDesktop } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const selectedAddress = useGetSelectedAddress();
+  const address = account || selectedAddress;
+  const result = useGetOrFetchLeaderboardAddressResult(address);
+  const profileAvatar = useGetProfileAvatar(address);
+  const leaderboardLoadingState = useGetLeaderboardLoadingState();
+  const isLoading = leaderboardLoadingState === LeaderboardLoadingState.LOADING;
+  const { isDesktop } = useMatchBreakpoints();
 
   const handleDismiss = () => {
     if (onBeforeDismiss) {
-      onBeforeDismiss()
+      onBeforeDismiss();
     }
 
-    onDismiss()
-  }
+    onDismiss();
+  };
 
   return (
     <ModalContainer minWidth="320px">
@@ -141,7 +141,7 @@ const WalletStatsModal: React.FC<WalletStatsModalProps> = ({ account, onDismiss,
         </Box>
       )}
     </ModalContainer>
-  )
-}
+  );
+};
 
-export default WalletStatsModal
+export default WalletStatsModal;

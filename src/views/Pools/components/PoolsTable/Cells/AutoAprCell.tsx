@@ -1,27 +1,27 @@
-import React from 'react'
-import { Text, useMatchBreakpoints } from '@pancakeswap/uikit'
-import { DeserializedPool } from 'state/types'
-import { useVaultPoolByKey } from 'state/pools/hooks'
-import { useTranslation } from 'contexts/Localization'
-import BaseCell, { CellContent } from './BaseCell'
-import Apr from '../Apr'
-import { convertSharesToCake } from '../../../helpers'
+import React from 'react';
+import { Text, useMatchBreakpoints } from '@pancakeswap/uikit';
+import { DeserializedPool } from 'state/types';
+import { useVaultPoolByKey } from 'state/pools/hooks';
+import { useTranslation } from 'contexts/Localization';
+import BaseCell, { CellContent } from './BaseCell';
+import Apr from '../Apr';
+import { convertSharesToCake } from '../../../helpers';
 
 interface AprCellProps {
-  pool: DeserializedPool
+  pool: DeserializedPool;
 }
 
 const AutoAprCell: React.FC<AprCellProps> = ({ pool }) => {
-  const { t } = useTranslation()
-  const { isMobile } = useMatchBreakpoints()
+  const { t } = useTranslation();
+  const { isMobile } = useMatchBreakpoints();
 
   const {
     userData: { userShares },
     fees: { performanceFeeAsDecimal },
     pricePerFullShare,
-  } = useVaultPoolByKey(pool.vaultKey)
+  } = useVaultPoolByKey(pool.vaultKey);
 
-  const { cakeAsBigNumber } = convertSharesToCake(userShares, pricePerFullShare)
+  const { cakeAsBigNumber } = convertSharesToCake(userShares, pricePerFullShare);
 
   return (
     <BaseCell role="cell" flex={['1 0 50px', '1 0 50px', '2 0 100px', '2 0 100px', '1 0 120px']}>
@@ -37,7 +37,7 @@ const AutoAprCell: React.FC<AprCellProps> = ({ pool }) => {
         />
       </CellContent>
     </BaseCell>
-  )
-}
+  );
+};
 
-export default AutoAprCell
+export default AutoAprCell;

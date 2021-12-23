@@ -1,5 +1,5 @@
-import React from 'react'
-import BigNumber from 'bignumber.js'
+import React from 'react';
+import BigNumber from 'bignumber.js';
 import {
   Text,
   Flex,
@@ -15,33 +15,33 @@ import {
   MessageText,
   useModal,
   Link,
-} from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useWeb3React } from '@web3-react/core'
-import { Token } from '@pancakeswap/sdk'
-import { Ifo, PoolIds } from 'config/constants/types'
-import tokens from 'config/constants/tokens'
-import { cakeBnbLpToken } from 'config/constants/ifo'
-import { PublicIfoData, WalletIfoData } from 'views/Ifos/types'
-import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { TokenImage, TokenPairImage } from 'components/TokenImage'
-import VaultStakeModal from 'views/Pools/components/CakeVaultCard/VaultStakeModal'
-import { useIfoPoolVault, useIfoPoolCredit, useIfoWithApr } from 'state/pools/hooks'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { EnableStatus } from '../types'
-import PercentageOfTotal from './PercentageOfTotal'
-import { SkeletonCardTokens } from './Skeletons'
+} from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { useWeb3React } from '@web3-react/core';
+import { Token } from '@pancakeswap/sdk';
+import { Ifo, PoolIds } from 'config/constants/types';
+import tokens from 'config/constants/tokens';
+import { cakeBnbLpToken } from 'config/constants/ifo';
+import { PublicIfoData, WalletIfoData } from 'views/Ifos/types';
+import { useTranslation } from 'contexts/Localization';
+import { getBalanceNumber } from 'utils/formatBalance';
+import { TokenImage, TokenPairImage } from 'components/TokenImage';
+import VaultStakeModal from 'views/Pools/components/CakeVaultCard/VaultStakeModal';
+import { useIfoPoolVault, useIfoPoolCredit, useIfoWithApr } from 'state/pools/hooks';
+import { BIG_ZERO } from 'utils/bigNumber';
+import { EnableStatus } from '../types';
+import PercentageOfTotal from './PercentageOfTotal';
+import { SkeletonCardTokens } from './Skeletons';
 
 interface TokenSectionProps extends FlexProps {
-  primaryToken?: Token
-  secondaryToken?: Token
+  primaryToken?: Token;
+  secondaryToken?: Token;
 }
 
 const TokenSection: React.FC<TokenSectionProps> = ({ primaryToken, secondaryToken, children, ...props }) => {
   const renderTokenComponent = () => {
     if (!primaryToken) {
-      return <BunnyPlaceholderIcon width={32} mr="16px" />
+      return <BunnyPlaceholderIcon width={32} mr="16px" />;
     }
 
     if (primaryToken && secondaryToken) {
@@ -54,44 +54,44 @@ const TokenSection: React.FC<TokenSectionProps> = ({ primaryToken, secondaryToke
           secondaryToken={secondaryToken}
           mr="16px"
         />
-      )
+      );
     }
 
-    return <TokenImage token={primaryToken} height={32} width={32} mr="16px" />
-  }
+    return <TokenImage token={primaryToken} height={32} width={32} mr="16px" />;
+  };
 
   return (
     <Flex {...props}>
       {renderTokenComponent()}
       <div>{children}</div>
     </Flex>
-  )
-}
+  );
+};
 
 const CommitTokenSection: React.FC<TokenSectionProps & { commitToken: Token }> = ({ commitToken, ...props }) => {
   if (commitToken.equals(cakeBnbLpToken)) {
-    return <TokenSection primaryToken={tokens.cake} secondaryToken={tokens.wbnb} {...props} />
+    return <TokenSection primaryToken={tokens.cake} secondaryToken={tokens.wbnb} {...props} />;
   }
-  return <TokenSection primaryToken={commitToken} {...props} />
-}
+  return <TokenSection primaryToken={commitToken} {...props} />;
+};
 
-const Label = (props) => <Text bold fontSize="12px" color="secondary" textTransform="uppercase" {...props} />
+const Label = (props) => <Text bold fontSize="12px" color="secondary" textTransform="uppercase" {...props} />;
 
-const Value = (props) => <Text bold fontSize="20px" style={{ wordBreak: 'break-all' }} {...props} />
+const Value = (props) => <Text bold fontSize="20px" style={{ wordBreak: 'break-all' }} {...props} />;
 
 interface IfoCardTokensProps {
-  poolId: PoolIds
-  ifo: Ifo
-  publicIfoData: PublicIfoData
-  walletIfoData: WalletIfoData
-  hasProfile: boolean
-  isLoading: boolean
-  onApprove: () => Promise<any>
-  enableStatus: EnableStatus
+  poolId: PoolIds;
+  ifo: Ifo;
+  publicIfoData: PublicIfoData;
+  walletIfoData: WalletIfoData;
+  hasProfile: boolean;
+  isLoading: boolean;
+  onApprove: () => Promise<any>;
+  enableStatus: EnableStatus;
 }
 
 const OnSaleInfo = ({ token, saleAmount, distributionRatio }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <TokenSection primaryToken={token}>
       <Flex flexDirection="column">
@@ -102,8 +102,8 @@ const OnSaleInfo = ({ token, saleAmount, distributionRatio }) => {
         </Text>
       </Flex>
     </TokenSection>
-  )
-}
+  );
+};
 
 const MessageTextLink = styled(Link)`
   display: inline;
@@ -111,7 +111,7 @@ const MessageTextLink = styled(Link)`
   font-weight: bold;
   font-size: 14px;
   white-space: nowrap;
-`
+`;
 
 const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
   poolId,
@@ -123,29 +123,29 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
   onApprove,
   enableStatus,
 }) => {
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t(
       'Sorry, you didn’t contribute enough CAKE to meet the minimum threshold. You didn’t buy anything in this sale, but you can still reclaim your CAKE.',
     ),
     { placement: 'bottom' },
-  )
+  );
 
-  const publicPoolCharacteristics = publicIfoData[poolId]
-  const userPoolCharacteristics = walletIfoData[poolId]
+  const publicPoolCharacteristics = publicIfoData[poolId];
+  const userPoolCharacteristics = walletIfoData[poolId];
 
-  const { currency, token } = ifo
-  const { hasClaimed } = userPoolCharacteristics
-  const distributionRatio = ifo[poolId].distributionRatio * 100
+  const { currency, token } = ifo;
+  const { hasClaimed } = userPoolCharacteristics;
+  const distributionRatio = ifo[poolId].distributionRatio * 100;
 
-  const ifoPoolVault = useIfoPoolVault()
-  const { pool } = useIfoWithApr()
-  const credit = useIfoPoolCredit()
+  const ifoPoolVault = useIfoPoolVault();
+  const { pool } = useIfoWithApr();
+  const credit = useIfoPoolCredit();
 
   const stakingTokenBalance = pool?.userData?.stakingTokenBalance
     ? new BigNumber(pool.userData.stakingTokenBalance)
-    : BIG_ZERO
+    : BIG_ZERO;
 
   const [onPresentStake] = useModal(
     <VaultStakeModal
@@ -153,17 +153,17 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
       performanceFee={ifoPoolVault.fees.performanceFeeAsDecimal}
       pool={pool}
     />,
-  )
+  );
 
   const renderTokenSection = () => {
     if (isLoading) {
-      return <SkeletonCardTokens />
+      return <SkeletonCardTokens />;
     }
     if (!account) {
-      return <OnSaleInfo token={token} distributionRatio={distributionRatio} saleAmount={ifo[poolId].saleAmount} />
+      return <OnSaleInfo token={token} distributionRatio={distributionRatio} saleAmount={ifo[poolId].saleAmount} />;
     }
 
-    let message
+    let message;
 
     if (account && !hasProfile) {
       message = (
@@ -179,7 +179,7 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
             </MessageTextLink>
           </Box>
         </Message>
-      )
+      );
     }
 
     if (ifo.version === 3 && getBalanceNumber(credit) === 0) {
@@ -194,7 +194,7 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
             </MessageTextLink>
           </Box>
         </Message>
-      )
+      );
     }
     if (account && !hasProfile) {
       return (
@@ -202,7 +202,7 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
           <OnSaleInfo token={token} distributionRatio={distributionRatio} saleAmount={ifo[poolId].saleAmount} />
           {message}
         </>
-      )
+      );
     }
     if (publicIfoData.status === 'coming_soon') {
       return (
@@ -227,7 +227,7 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
             </Button>
           )}
         </>
-      )
+      );
     }
     if (publicIfoData.status === 'live') {
       return (
@@ -245,7 +245,7 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
             <Value>{getBalanceNumber(userPoolCharacteristics.offeringAmountInToken, token.decimals)}</Value>
           </TokenSection>
         </>
-      )
+      );
     }
     if (publicIfoData.status === 'finished') {
       return userPoolCharacteristics.amountTokenCommittedInLP.isEqualTo(0) ? (
@@ -295,16 +295,16 @@ const IfoCardTokens: React.FC<IfoCardTokensProps> = ({
             </Message>
           )}
         </>
-      )
+      );
     }
-    return null
-  }
+    return null;
+  };
   return (
     <Box>
       {tooltipVisible && tooltip}
       {renderTokenSection()}
     </Box>
-  )
-}
+  );
+};
 
-export default IfoCardTokens
+export default IfoCardTokens;

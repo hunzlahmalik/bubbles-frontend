@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Modal, Text, Flex, Button, ArrowBackIcon, AutoRenewIcon } from '@pancakeswap/uikit'
-import useTheme from 'hooks/useTheme'
-import { useTranslation } from 'contexts/Localization'
-import TicketInput from './TicketInput'
-import { UpdateTicketAction, Ticket } from './useTicketsReducer'
+import React from 'react';
+import styled from 'styled-components';
+import { Modal, Text, Flex, Button, ArrowBackIcon, AutoRenewIcon } from '@pancakeswap/uikit';
+import useTheme from 'hooks/useTheme';
+import { useTranslation } from 'contexts/Localization';
+import TicketInput from './TicketInput';
+import { UpdateTicketAction, Ticket } from './useTicketsReducer';
 
 const StyledModal = styled(Modal)`
   min-width: 280px;
@@ -14,27 +14,27 @@ const StyledModal = styled(Modal)`
   & div:nth-child(2) {
     padding: 0;
   }
-`
+`;
 
 const ScrollableContainer = styled.div`
   height: 310px;
   overflow-y: scroll;
   border-bottom: ${({ theme }) => `1px solid ${theme.colors.cardBorder}`};
   padding: 24px;
-`
+`;
 
 const EditNumbersModal: React.FC<{
-  totalCost: string
-  updateTicket: UpdateTicketAction
-  randomize: () => void
-  tickets: Ticket[]
-  allComplete: boolean
-  onConfirm: () => void
-  isConfirming: boolean
-  onDismiss?: () => void
+  totalCost: string;
+  updateTicket: UpdateTicketAction;
+  randomize: () => void;
+  tickets: Ticket[];
+  allComplete: boolean;
+  onConfirm: () => void;
+  isConfirming: boolean;
+  onDismiss?: () => void;
 }> = ({ totalCost, updateTicket, randomize, tickets, allComplete, onConfirm, isConfirming, onDismiss }) => {
-  const { theme } = useTheme()
-  const { t } = useTranslation()
+  const { theme } = useTheme();
+  const { t } = useTranslation();
   return (
     <StyledModal
       title={t('Edit numbers')}
@@ -71,7 +71,7 @@ const EditNumbersModal: React.FC<{
           disabled={!allComplete || isConfirming}
           endIcon={isConfirming ? <AutoRenewIcon spin color="currentColor" /> : undefined}
           onClick={() => {
-            onConfirm()
+            onConfirm();
           }}
         >
           {isConfirming ? t('Confirming') : t('Confirm and buy')}
@@ -81,7 +81,7 @@ const EditNumbersModal: React.FC<{
         </Button>
       </Flex>
     </StyledModal>
-  )
-}
+  );
+};
 
-export default EditNumbersModal
+export default EditNumbersModal;

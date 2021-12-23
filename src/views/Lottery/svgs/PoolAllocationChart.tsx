@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const PoolAllocationChart: React.FC<SvgProps> = (props) => {
   return (
@@ -91,7 +91,7 @@ const PoolAllocationChart: React.FC<SvgProps> = (props) => {
         />
       </svg>
     </Svg>
-  )
-}
+  );
+};
 
-export default PoolAllocationChart
+export default PoolAllocationChart;

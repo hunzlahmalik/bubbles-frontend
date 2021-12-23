@@ -1,14 +1,14 @@
-import React from 'react'
-import { Flex, Box, Text, Button } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { Divider } from '../shared/styles'
+import React from 'react';
+import { Flex, Box, Text, Button } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { Divider } from '../shared/styles';
 
 interface RemoveStageProps {
-  continueToNextStage: () => void
+  continueToNextStage: () => void;
 }
 
 const RemoveStage: React.FC<RemoveStageProps> = ({ continueToNextStage }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <Box p="16px" maxWidth="360px">
@@ -29,7 +29,7 @@ const RemoveStage: React.FC<RemoveStageProps> = ({ continueToNextStage }) => {
         </Button>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default RemoveStage
+export default RemoveStage;

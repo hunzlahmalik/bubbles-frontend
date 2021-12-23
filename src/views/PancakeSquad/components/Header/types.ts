@@ -1,12 +1,12 @@
-import { EventInfos, UserInfos, UserStatusEnum } from 'views/PancakeSquad/types'
+import { EventInfos, UserInfos, UserStatusEnum } from 'views/PancakeSquad/types';
 
 export type PancakeSquadHeaderType = {
-  account: string
-  isLoading: boolean
-  eventInfos?: EventInfos
-  userInfos?: UserInfos
-  userStatus: UserStatusEnum
-}
+  account: string;
+  isLoading: boolean;
+  eventInfos?: EventInfos;
+  userInfos?: UserInfos;
+  userStatus: UserStatusEnum;
+};
 
 export enum ButtonsEnum {
   ACTIVATE,

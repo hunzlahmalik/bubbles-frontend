@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Modal, Box, Flex, Text, BinanceIcon, Input } from '@pancakeswap/uikit'
-import { useBNBBusdPrice } from 'hooks/useBUSDPrice'
-import { multiplyPriceByAmount } from 'utils/prices'
-import { SellingStage } from './types'
+import React from 'react';
+import styled from 'styled-components';
+import { Modal, Box, Flex, Text, BinanceIcon, Input } from '@pancakeswap/uikit';
+import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
+import { multiplyPriceByAmount } from 'utils/prices';
+import { SellingStage } from './types';
 
 export const stagesWithBackButton = [
   SellingStage.SET_PRICE,
@@ -14,7 +14,7 @@ export const stagesWithBackButton = [
   SellingStage.CONFIRM_REMOVE_FROM_MARKET,
   SellingStage.TRANSFER,
   SellingStage.CONFIRM_TRANSFER,
-]
+];
 
 export const StyledModal = styled(Modal)<{ stage: SellingStage }>`
   width: 360px;
@@ -27,23 +27,23 @@ export const StyledModal = styled(Modal)<{ stage: SellingStage }>`
   & svg:first-of-type {
     ${({ stage, theme }) => (stagesWithBackButton.includes(stage) ? `fill: ${theme.colors.textSubtle}` : null)};
   }
-`
+`;
 
 export const GreyedOutContainer = styled(Box)`
   background-color: ${({ theme }) => theme.colors.dropdown};
   padding: 16px;
-`
+`;
 
 export const RightAlignedInput = styled(Input)`
   text-align: right;
-`
+`;
 
 interface BnbAmountCellProps {
-  bnbAmount: number
+  bnbAmount: number;
 }
 
 export const BnbAmountCell: React.FC<BnbAmountCellProps> = ({ bnbAmount }) => {
-  const bnbBusdPrice = useBNBBusdPrice()
+  const bnbBusdPrice = useBNBBusdPrice();
   if (!bnbAmount || bnbAmount === 0) {
     return (
       <Flex alignItems="center" justifyContent="flex-end">
@@ -52,9 +52,9 @@ export const BnbAmountCell: React.FC<BnbAmountCellProps> = ({ bnbAmount }) => {
           -
         </Text>
       </Flex>
-    )
+    );
   }
-  const usdAmount = multiplyPriceByAmount(bnbBusdPrice, bnbAmount)
+  const usdAmount = multiplyPriceByAmount(bnbBusdPrice, bnbAmount);
   return (
     <Flex alignItems="center" justifyContent="flex-end">
       <BinanceIcon width={16} height={16} mr="4px" />
@@ -69,13 +69,13 @@ export const BnbAmountCell: React.FC<BnbAmountCellProps> = ({ bnbAmount }) => {
         })})`}
       </Text>
     </Flex>
-  )
-}
+  );
+};
 
 interface FeeAmountCellProps {
-  bnbAmount: number
-  creatorFee: number
-  tradingFee: number
+  bnbAmount: number;
+  creatorFee: number;
+  tradingFee: number;
 }
 
 export const FeeAmountCell: React.FC<FeeAmountCellProps> = ({ bnbAmount, creatorFee, tradingFee }) => {
@@ -87,12 +87,12 @@ export const FeeAmountCell: React.FC<FeeAmountCellProps> = ({ bnbAmount, creator
           -
         </Text>
       </Flex>
-    )
+    );
   }
 
-  const totalFee = creatorFee + tradingFee
-  const totalFeeAsDecimal = totalFee / 100
-  const feeAmount = bnbAmount * totalFeeAsDecimal
+  const totalFee = creatorFee + tradingFee;
+  const totalFeeAsDecimal = totalFee / 100;
+  const feeAmount = bnbAmount * totalFeeAsDecimal;
   return (
     <Flex alignItems="center" justifyContent="flex-end">
       <BinanceIcon width={16} height={16} mr="4px" />
@@ -104,5 +104,5 @@ export const FeeAmountCell: React.FC<FeeAmountCellProps> = ({ bnbAmount, creator
         ({totalFee}%)
       </Text>
     </Flex>
-  )
-}
+  );
+};

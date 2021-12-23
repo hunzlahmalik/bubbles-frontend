@@ -1,15 +1,15 @@
-import React from 'react'
-import { Currency, Pair } from '@pancakeswap/sdk'
-import { Button, ChevronDownIcon, Text, useModal, Flex, Box } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useCurrencyBalance } from '../../state/wallet/hooks'
-import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
-import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo'
+import React from 'react';
+import { Currency, Pair } from '@pancakeswap/sdk';
+import { Button, ChevronDownIcon, Text, useModal, Flex, Box } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { useCurrencyBalance } from '../../state/wallet/hooks';
+import CurrencySearchModal from '../SearchModal/CurrencySearchModal';
+import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo';
 
-import { RowBetween } from '../Layout/Row'
-import { Input as NumericalInput } from './NumericalInput'
+import { RowBetween } from '../Layout/Row';
+import { Input as NumericalInput } from './NumericalInput';
 
 const InputRow = styled.div<{ selected: boolean }>`
   display: flex;
@@ -17,10 +17,10 @@ const InputRow = styled.div<{ selected: boolean }>`
   align-items: center;
   justify-content: flex-end;
   padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
-`
+`;
 const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm' })`
   padding: 0 0.5rem;
-`
+`;
 const LabelRow = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -29,7 +29,7 @@ const LabelRow = styled.div`
   font-size: 0.75rem;
   line-height: 1rem;
   padding: 0.75rem 1rem 0 1rem;
-`
+`;
 const InputPanel = styled.div`
   display: flex;
   flex-flow: column nowrap;
@@ -37,26 +37,26 @@ const InputPanel = styled.div`
   border-radius: '20px';
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
   z-index: 1;
-`
+`;
 const Container = styled.div`
   border-radius: 16px;
   background-color: ${({ theme }) => theme.colors.input};
   box-shadow: ${({ theme }) => theme.shadows.inset};
-`
+`;
 interface CurrencyInputPanelProps {
-  value: string
-  onUserInput: (value: string) => void
-  onMax?: () => void
-  showMaxButton: boolean
-  label?: string
-  onCurrencySelect: (currency: Currency) => void
-  currency?: Currency | null
-  disableCurrencySelect?: boolean
-  hideBalance?: boolean
-  pair?: Pair | null
-  otherCurrency?: Currency | null
-  id: string
-  showCommonBases?: boolean
+  value: string;
+  onUserInput: (value: string) => void;
+  onMax?: () => void;
+  showMaxButton: boolean;
+  label?: string;
+  onCurrencySelect: (currency: Currency) => void;
+  currency?: Currency | null;
+  disableCurrencySelect?: boolean;
+  hideBalance?: boolean;
+  pair?: Pair | null;
+  otherCurrency?: Currency | null;
+  id: string;
+  showCommonBases?: boolean;
 }
 export default function CurrencyInputPanel({
   value,
@@ -73,9 +73,9 @@ export default function CurrencyInputPanel({
   id,
   showCommonBases,
 }: CurrencyInputPanelProps) {
-  const { account } = useActiveWeb3React()
-  const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
-  const { t } = useTranslation()
+  const { account } = useActiveWeb3React();
+  const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined);
+  const { t } = useTranslation();
 
   const [onPresentCurrencyModal] = useModal(
     <CurrencySearchModal
@@ -84,7 +84,7 @@ export default function CurrencyInputPanel({
       otherSelectedCurrency={otherCurrency}
       showCommonBases={showCommonBases}
     />,
-  )
+  );
   return (
     <Box id={id}>
       <Flex mb="6px" alignItems="center" justifyContent="space-between">
@@ -93,7 +93,7 @@ export default function CurrencyInputPanel({
           selected={!!currency}
           onClick={() => {
             if (!disableCurrencySelect) {
-              onPresentCurrencyModal()
+              onPresentCurrencyModal();
             }
           }}
         >
@@ -136,7 +136,7 @@ export default function CurrencyInputPanel({
                 className="token-amount-input"
                 value={value}
                 onUserInput={(val) => {
-                  onUserInput(val)
+                  onUserInput(val);
                 }}
               />
             </RowBetween>
@@ -151,5 +151,5 @@ export default function CurrencyInputPanel({
         </Container>
       </InputPanel>
     </Box>
-  )
+  );
 }

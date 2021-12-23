@@ -1,4 +1,4 @@
-import { ContextApi } from 'contexts/Localization/types'
+import { ContextApi } from 'contexts/Localization/types';
 
 const bunniesConfig = (t: ContextApi['t']) => {
   return {
@@ -16,7 +16,7 @@ const bunniesConfig = (t: ContextApi['t']) => {
       text: t('View in Market'),
     },
     images: { basePath: '/images/pancakeSquad/bunnies/bunny', alt: 'bunny nft' },
-  }
-}
+  };
+};
 
-export default bunniesConfig
+export default bunniesConfig;

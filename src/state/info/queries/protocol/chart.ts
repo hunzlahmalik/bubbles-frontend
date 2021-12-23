@@ -1,11 +1,11 @@
 /* eslint-disable no-await-in-loop */
-import { useState, useEffect } from 'react'
-import { request, gql } from 'graphql-request'
-import { INFO_CLIENT } from 'config/constants/endpoints'
-import { PCS_V2_START } from 'config/constants/info'
-import { ChartEntry } from 'state/info/types'
-import { PancakeDayDatasResponse } from '../types'
-import { fetchChartData, mapDayData } from '../helpers'
+import { useState, useEffect } from 'react';
+import { request, gql } from 'graphql-request';
+import { INFO_CLIENT } from 'config/constants/endpoints';
+import { PCS_V2_START } from 'config/constants/info';
+import { ChartEntry } from 'state/info/types';
+import { PancakeDayDatasResponse } from '../types';
+import { fetchChartData, mapDayData } from '../helpers';
 
 /**
  * Data for displaying Liquidity and Volume charts on Overview page
@@ -18,50 +18,50 @@ const PANCAKE_DAY_DATAS = gql`
       totalLiquidityUSD
     }
   }
-`
+`;
 
 const getOverviewChartData = async (skip: number): Promise<{ data?: ChartEntry[]; error: boolean }> => {
   try {
     const { pancakeDayDatas } = await request<PancakeDayDatasResponse>(INFO_CLIENT, PANCAKE_DAY_DATAS, {
       startTime: PCS_V2_START,
       skip,
-    })
-    const data = pancakeDayDatas.map(mapDayData)
-    return { data, error: false }
+    });
+    const data = pancakeDayDatas.map(mapDayData);
+    return { data, error: false };
   } catch (error) {
-    console.error('Failed to fetch overview chart data', error)
-    return { error: true }
+    console.error('Failed to fetch overview chart data', error);
+    return { error: true };
   }
-}
+};
 
 /**
  * Fetch historic chart data
  */
 const useFetchGlobalChartData = (): {
-  error: boolean
-  data: ChartEntry[] | undefined
+  error: boolean;
+  data: ChartEntry[] | undefined;
 } => {
-  const [overviewChartData, setOverviewChartData] = useState<ChartEntry[] | undefined>()
-  const [error, setError] = useState(false)
+  const [overviewChartData, setOverviewChartData] = useState<ChartEntry[] | undefined>();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
-      const { data } = await fetchChartData(getOverviewChartData)
+      const { data } = await fetchChartData(getOverviewChartData);
       if (data) {
-        setOverviewChartData(data)
+        setOverviewChartData(data);
       } else {
-        setError(true)
+        setError(true);
       }
-    }
+    };
     if (!overviewChartData && !error) {
-      fetch()
+      fetch();
     }
-  }, [overviewChartData, error])
+  }, [overviewChartData, error]);
 
   return {
     error,
     data: overviewChartData,
-  }
-}
+  };
+};
 
-export default useFetchGlobalChartData
+export default useFetchGlobalChartData;

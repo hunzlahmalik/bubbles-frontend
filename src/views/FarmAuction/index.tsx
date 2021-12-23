@@ -1,22 +1,22 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link as RouterLink } from 'react-router-dom'
-import { Button, Heading, Text, Flex, Link, Breadcrumbs } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { useTranslation } from 'contexts/Localization'
-import PageHeader from 'components/PageHeader'
-import PageSection from 'components/PageSection'
-import useTheme from 'hooks/useTheme'
-import FAQs from './components/FAQs'
-import AuctionDetails from './components/AuctionDetailsCard'
-import AuctionLeaderboard from './components/AuctionLeaderboard'
-import { FORM_ADDRESS } from './helpers'
-import { useCurrentFarmAuction } from './hooks/useCurrentFarmAuction'
-import AuctionTimer from './components/AuctionTimer'
-import ReclaimBidCard from './components/ReclaimBidCard'
-import NotWhitelistedNotice from './components/NotWhitelistedNotice'
-import CongratulationsCard from './components/CongratulationsCard'
-import AuctionCakeBurn from './components/AuctionCakeBurn'
+import React from 'react';
+import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
+import { Button, Heading, Text, Flex, Link, Breadcrumbs } from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { useTranslation } from 'contexts/Localization';
+import PageHeader from 'components/PageHeader';
+import PageSection from 'components/PageSection';
+import useTheme from 'hooks/useTheme';
+import FAQs from './components/FAQs';
+import AuctionDetails from './components/AuctionDetailsCard';
+import AuctionLeaderboard from './components/AuctionLeaderboard';
+import { FORM_ADDRESS } from './helpers';
+import { useCurrentFarmAuction } from './hooks/useCurrentFarmAuction';
+import AuctionTimer from './components/AuctionTimer';
+import ReclaimBidCard from './components/ReclaimBidCard';
+import NotWhitelistedNotice from './components/NotWhitelistedNotice';
+import CongratulationsCard from './components/CongratulationsCard';
+import AuctionCakeBurn from './components/AuctionCakeBurn';
 
 const StyledHeader = styled(PageHeader)`
   max-height: max-content;
@@ -26,12 +26,12 @@ const StyledHeader = styled(PageHeader)`
   ${({ theme }) => theme.mediaQueries.md} {
     max-height: 600px;
   }
-`
+`;
 
 const Left = styled(Flex)`
   flex-direction: column;
   flex: 1;
-`
+`;
 
 const Right = styled(Flex)`
   align-items: center;
@@ -50,7 +50,7 @@ const Right = styled(Flex)`
       width: auto;
     }
   }
-`
+`;
 
 const AuctionContainer = styled(Flex)`
   width: 100%;
@@ -59,20 +59,20 @@ const AuctionContainer = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.md} {
     gap: 24px;
   }
-`
+`;
 
 const FarmAuction = () => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const { account } = useWeb3React();
 
-  const { currentAuction, bidders, connectedBidder, refreshBidders } = useCurrentFarmAuction(account)
-  const FAQS_BG_LIGHT = 'linear-gradient(180deg, #CBD7EF 0%, #9A9FD0 100%)'
-  const FAQ_BG_DARK = 'linear-gradient(180deg, #434575 0%, #66578D 100%)'
-  const CAKE_BURN_BG_LIGHT = 'radial-gradient(50% 79.31% at 50% 50%, #FAF9FA 0%, #EAECF4 100%)'
-  const CAKE_BURN_TOP_FILL_LIGHT = 'radial-gradient(ellipse at bottom, #f0f1f6, #EAECF4)'
-  const CAKE_BURN_BG_DARK = 'radial-gradient(103.12% 50% at 50% 50%, #152534 0%, #191326 100%)'
-  const CAKE_BURN_TOP_FILL_DARK = '#191326'
+  const { currentAuction, bidders, connectedBidder, refreshBidders } = useCurrentFarmAuction(account);
+  const FAQS_BG_LIGHT = 'linear-gradient(180deg, #CBD7EF 0%, #9A9FD0 100%)';
+  const FAQ_BG_DARK = 'linear-gradient(180deg, #434575 0%, #66578D 100%)';
+  const CAKE_BURN_BG_LIGHT = 'radial-gradient(50% 79.31% at 50% 50%, #FAF9FA 0%, #EAECF4 100%)';
+  const CAKE_BURN_TOP_FILL_LIGHT = 'radial-gradient(ellipse at bottom, #f0f1f6, #EAECF4)';
+  const CAKE_BURN_BG_DARK = 'radial-gradient(103.12% 50% at 50% 50%, #152534 0%, #191326 100%)';
+  const CAKE_BURN_TOP_FILL_DARK = '#191326';
 
   return (
     <>
@@ -160,7 +160,7 @@ const FarmAuction = () => {
         </PageSection>
       </>
     </>
-  )
-}
+  );
+};
 
-export default FarmAuction
+export default FarmAuction;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import {
   Flex,
   Card,
@@ -13,17 +13,17 @@ import {
   ArrowDownIcon,
   Button,
   Spinner,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useTheme from 'hooks/useTheme'
-import { NftToken } from 'state/nftMarket/types'
-import ForSaleTableRows from './ForSaleTableRows'
-import { StyledSortButton, TableHeading } from '../../shared/styles'
-import UpdateIndicator from './UpdateIndicator'
-import { Arrow, PageButtons } from '../../../../components/PaginationButtons'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useTheme from 'hooks/useTheme';
+import { NftToken } from 'state/nftMarket/types';
+import ForSaleTableRows from './ForSaleTableRows';
+import { StyledSortButton, TableHeading } from '../../shared/styles';
+import UpdateIndicator from './UpdateIndicator';
+import { Arrow, PageButtons } from '../../../../components/PaginationButtons';
 
-const ITEMS_PER_PAGE_DESKTOP = 10
-const ITEMS_PER_PAGE_MOBILE = 5
+const ITEMS_PER_PAGE_DESKTOP = 10;
+const ITEMS_PER_PAGE_MOBILE = 5;
 
 const StyledCard = styled(Card)<{ hasManyPages: boolean }>`
   width: 100%;
@@ -35,16 +35,16 @@ const StyledCard = styled(Card)<{ hasManyPages: boolean }>`
       ${({ hasManyPages }) => (hasManyPages ? 'min-height: 850px;' : null)}
     }
   }
-`
+`;
 
 interface ForSaleTableCardProps {
-  nftsForSale: NftToken[]
-  bunnyId: string
-  totalForSale: number
-  priceSort: 'asc' | 'desc'
-  isFetchingMoreNfts: boolean
-  togglePriceSort: () => void
-  loadMore: (orderDirection: 'asc' | 'desc') => void
+  nftsForSale: NftToken[];
+  bunnyId: string;
+  totalForSale: number;
+  priceSort: 'asc' | 'desc';
+  isFetchingMoreNfts: boolean;
+  togglePriceSort: () => void;
+  loadMore: (orderDirection: 'asc' | 'desc') => void;
 }
 
 const ForSaleTableCard: React.FC<ForSaleTableCardProps> = ({
@@ -56,34 +56,34 @@ const ForSaleTableCard: React.FC<ForSaleTableCardProps> = ({
   priceSort,
   togglePriceSort,
 }) => {
-  const [page, setPage] = useState(1)
-  const { isMobile } = useMatchBreakpoints()
-  const itemsPerPage = isMobile ? ITEMS_PER_PAGE_MOBILE : ITEMS_PER_PAGE_DESKTOP
+  const [page, setPage] = useState(1);
+  const { isMobile } = useMatchBreakpoints();
+  const itemsPerPage = isMobile ? ITEMS_PER_PAGE_MOBILE : ITEMS_PER_PAGE_DESKTOP;
 
-  const { t } = useTranslation()
-  const { theme } = useTheme()
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   useEffect(() => {
     // If user clicks on other NFT at the bottom of the page - load new NFT table starting on page 1
     // Same for reversing sorting direction
-    setPage(1)
-  }, [bunnyId, priceSort])
+    setPage(1);
+  }, [bunnyId, priceSort]);
 
-  const needsExtraPage = nftsForSale.length % itemsPerPage !== 0
-  let maxPage = Math.floor(nftsForSale.length / itemsPerPage)
+  const needsExtraPage = nftsForSale.length % itemsPerPage !== 0;
+  let maxPage = Math.floor(nftsForSale.length / itemsPerPage);
   if (needsExtraPage) {
-    maxPage += 1
+    maxPage += 1;
   }
 
-  const nftsOnCurrentPage = nftsForSale.slice((page - 1) * itemsPerPage, page * itemsPerPage)
+  const nftsOnCurrentPage = nftsForSale.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   const switchPage = (pageNumber: number) => {
-    setPage(pageNumber)
-  }
+    setPage(pageNumber);
+  };
 
   const loadMoreHandler = () => {
-    loadMore(priceSort)
-  }
+    loadMore(priceSort);
+  };
 
   const loadMoreButton = isFetchingMoreNfts ? (
     <Flex width="96px" justifyContent="center">
@@ -93,7 +93,7 @@ const ForSaleTableCard: React.FC<ForSaleTableCardProps> = ({
     <Button variant="primary" scale="xs" ml="12px" onClick={loadMoreHandler}>
       {t('Load more')}
     </Button>
-  )
+  );
 
   return (
     <StyledCard hasManyPages={maxPage > 1}>
@@ -129,7 +129,7 @@ const ForSaleTableCard: React.FC<ForSaleTableCardProps> = ({
             <PageButtons>
               <Arrow
                 onClick={() => {
-                  switchPage(page === 1 ? page : page - 1)
+                  switchPage(page === 1 ? page : page - 1);
                 }}
               >
                 <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
@@ -140,7 +140,7 @@ const ForSaleTableCard: React.FC<ForSaleTableCardProps> = ({
               ) : (
                 <Arrow
                   onClick={() => {
-                    switchPage(page === maxPage ? page : page + 1)
+                    switchPage(page === maxPage ? page : page + 1);
                   }}
                 >
                   <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
@@ -155,7 +155,7 @@ const ForSaleTableCard: React.FC<ForSaleTableCardProps> = ({
         </Flex>
       )}
     </StyledCard>
-  )
-}
+  );
+};
 
-export default ForSaleTableCard
+export default ForSaleTableCard;

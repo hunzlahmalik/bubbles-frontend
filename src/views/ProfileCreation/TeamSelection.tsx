@@ -1,18 +1,18 @@
-import React, { useMemo } from 'react'
-import { Card, CardBody, CommunityIcon, Flex, Heading, Text } from '@pancakeswap/uikit'
-import shuffle from 'lodash/shuffle'
-import { useTeams } from 'state/teams/hooks'
-import { useTranslation } from 'contexts/Localization'
-import SelectionCard from './SelectionCard'
-import NextStepButton from './NextStepButton'
-import useProfileCreation from './contexts/hook'
+import React, { useMemo } from 'react';
+import { Card, CardBody, CommunityIcon, Flex, Heading, Text } from '@pancakeswap/uikit';
+import shuffle from 'lodash/shuffle';
+import { useTeams } from 'state/teams/hooks';
+import { useTranslation } from 'contexts/Localization';
+import SelectionCard from './SelectionCard';
+import NextStepButton from './NextStepButton';
+import useProfileCreation from './contexts/hook';
 
 const Team: React.FC = () => {
-  const { teamId: currentTeamId, actions } = useProfileCreation()
-  const { t } = useTranslation()
-  const { teams } = useTeams()
-  const handleTeamSelection = (value: string) => actions.setTeamId(parseInt(value, 10))
-  const teamValues = useMemo(() => shuffle(Object.values(teams)), [teams])
+  const { teamId: currentTeamId, actions } = useProfileCreation();
+  const { t } = useTranslation();
+  const { teams } = useTeams();
+  const handleTeamSelection = (value: string) => actions.setTeamId(parseInt(value, 10));
+  const teamValues = useMemo(() => shuffle(Object.values(teams)), [teams]);
 
   return (
     <>
@@ -53,7 +53,7 @@ const Team: React.FC = () => {
                     <Text>{team.users.toLocaleString()}</Text>
                   </Flex>
                 </SelectionCard>
-              )
+              );
             })}
         </CardBody>
       </Card>
@@ -61,7 +61,7 @@ const Team: React.FC = () => {
         {t('Next Step')}
       </NextStepButton>
     </>
-  )
-}
+  );
+};
 
-export default Team
+export default Team;

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   Box,
   CardBody,
@@ -11,43 +11,43 @@ import {
   LinkExternal,
   Link,
   TokenPairImage,
-} from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useWeb3React } from '@web3-react/core'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { useIfoPooStartBlock, useVaultPoolByKey } from 'state/pools/hooks'
-import { DeserializedPool, VaultKey } from 'state/types'
-import { convertSharesToCake } from 'views/Pools/helpers'
-import { FlexGap } from 'components/Layout/Flex'
-import { vaultPoolConfig } from 'config/constants/pools'
-import { getBscScanLink } from 'utils'
-import AprRow from '../PoolCard/AprRow'
-import { StyledCard } from '../PoolCard/StyledCard'
-import CardFooter from '../PoolCard/CardFooter'
-import PoolCardHeader, { PoolCardHeaderTitle } from '../PoolCard/PoolCardHeader'
-import VaultCardActions from './VaultCardActions'
-import UnstakingFeeCountdownRow from './UnstakingFeeCountdownRow'
-import RecentCakeProfitRow from './RecentCakeProfitRow'
+} from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useWeb3React } from '@web3-react/core';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { useIfoPooStartBlock, useVaultPoolByKey } from 'state/pools/hooks';
+import { DeserializedPool, VaultKey } from 'state/types';
+import { convertSharesToCake } from 'views/Pools/helpers';
+import { FlexGap } from 'components/Layout/Flex';
+import { vaultPoolConfig } from 'config/constants/pools';
+import { getBscScanLink } from 'utils';
+import AprRow from '../PoolCard/AprRow';
+import { StyledCard } from '../PoolCard/StyledCard';
+import CardFooter from '../PoolCard/CardFooter';
+import PoolCardHeader, { PoolCardHeaderTitle } from '../PoolCard/PoolCardHeader';
+import VaultCardActions from './VaultCardActions';
+import UnstakingFeeCountdownRow from './UnstakingFeeCountdownRow';
+import RecentCakeProfitRow from './RecentCakeProfitRow';
 
 const StyledCardBody = styled(CardBody)<{ isLoading: boolean }>`
   min-height: ${({ isLoading }) => (isLoading ? '0' : '254px')};
-`
+`;
 
 interface CakeVaultProps extends CardProps {
-  pool: DeserializedPool
-  showStakedOnly: boolean
-  defaultFooterExpanded?: boolean
+  pool: DeserializedPool;
+  showStakedOnly: boolean;
+  defaultFooterExpanded?: boolean;
 }
 
 const CakeVaultCard: React.FC<CakeVaultProps> = ({ pool, showStakedOnly, defaultFooterExpanded, ...props }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
   const {
     userData: { userShares, isLoading: isVaultUserDataLoading },
     fees: { performanceFeeAsDecimal },
     pricePerFullShare,
-  } = useVaultPoolByKey(pool.vaultKey)
-  const creditStartBlock = useIfoPooStartBlock()
+  } = useVaultPoolByKey(pool.vaultKey);
+  const creditStartBlock = useIfoPooStartBlock();
   const { tooltip, tooltipVisible, targetRef } = useTooltip(
     <>
       <Text>
@@ -60,15 +60,15 @@ const CakeVaultCard: React.FC<CakeVaultProps> = ({ pool, showStakedOnly, default
       </LinkExternal>
     </>,
     { placement: 'auto' },
-  )
+  );
 
-  const { cakeAsBigNumber } = convertSharesToCake(userShares, pricePerFullShare)
+  const { cakeAsBigNumber } = convertSharesToCake(userShares, pricePerFullShare);
 
-  const accountHasSharesStaked = userShares && userShares.gt(0)
-  const isLoading = !pool.userData || isVaultUserDataLoading
+  const accountHasSharesStaked = userShares && userShares.gt(0);
+  const isLoading = !pool.userData || isVaultUserDataLoading;
 
   if (showStakedOnly && !accountHasSharesStaked) {
-    return null
+    return null;
   }
 
   return (
@@ -126,7 +126,7 @@ const CakeVaultCard: React.FC<CakeVaultProps> = ({ pool, showStakedOnly, default
       </StyledCardBody>
       <CardFooter defaultExpanded={defaultFooterExpanded} pool={pool} account={account} />
     </StyledCard>
-  )
-}
+  );
+};
 
-export default CakeVaultCard
+export default CakeVaultCard;

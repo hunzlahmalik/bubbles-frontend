@@ -1,13 +1,13 @@
-import React from 'react'
-import { useTranslation } from 'contexts/Localization'
-import { useLocation, useParams } from 'react-router'
-import BaseSubMenu from '../../components/BaseSubMenu'
-import { nftsBaseUrl } from '../../constants'
+import React from 'react';
+import { useTranslation } from 'contexts/Localization';
+import { useLocation, useParams } from 'react-router';
+import BaseSubMenu from '../../components/BaseSubMenu';
+import { nftsBaseUrl } from '../../constants';
 
 const SubMenuComponent: React.FC = () => {
-  const { t } = useTranslation()
-  const { accountAddress } = useParams<{ accountAddress: string }>()
-  const { pathname } = useLocation()
+  const { t } = useTranslation();
+  const { accountAddress } = useParams<{ accountAddress: string }>();
+  const { pathname } = useLocation();
 
   const ItemsConfig = [
     {
@@ -18,9 +18,9 @@ const SubMenuComponent: React.FC = () => {
       label: t('Activity'),
       href: `${nftsBaseUrl}/profile/${accountAddress}/activity`,
     },
-  ]
+  ];
 
-  return <BaseSubMenu items={ItemsConfig} activeItem={pathname} justifyContent="flex-start" mb="60px" />
-}
+  return <BaseSubMenu items={ItemsConfig} activeItem={pathname} justifyContent="flex-start" mb="60px" />;
+};
 
-export default SubMenuComponent
+export default SubMenuComponent;

@@ -1,26 +1,26 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { Box, Button, Flex, Text } from '@pancakeswap/uikit'
-import { AppDispatch } from 'state'
-import { isTransactionRecent, useAllTransactions } from 'state/transactions/hooks'
-import { useTranslation } from 'contexts/Localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { clearAllTransactions } from 'state/transactions/actions'
-import { orderBy } from 'lodash'
-import TransactionRow from './TransactionRow'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Box, Button, Flex, Text } from '@pancakeswap/uikit';
+import { AppDispatch } from 'state';
+import { isTransactionRecent, useAllTransactions } from 'state/transactions/hooks';
+import { useTranslation } from 'contexts/Localization';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import { clearAllTransactions } from 'state/transactions/actions';
+import { orderBy } from 'lodash';
+import TransactionRow from './TransactionRow';
 
 const WalletTransactions: React.FC = () => {
-  const { chainId } = useActiveWeb3React()
-  const dispatch = useDispatch<AppDispatch>()
-  const { t } = useTranslation()
-  const allTransactions = useAllTransactions()
-  const sortedTransactions = orderBy(Object.values(allTransactions).filter(isTransactionRecent), 'addedTime', 'desc')
+  const { chainId } = useActiveWeb3React();
+  const dispatch = useDispatch<AppDispatch>();
+  const { t } = useTranslation();
+  const allTransactions = useAllTransactions();
+  const sortedTransactions = orderBy(Object.values(allTransactions).filter(isTransactionRecent), 'addedTime', 'desc');
 
   const handleClearAll = () => {
     if (chainId) {
-      dispatch(clearAllTransactions({ chainId }))
+      dispatch(clearAllTransactions({ chainId }));
     }
-  }
+  };
 
   return (
     <Box minHeight="120px">
@@ -40,7 +40,7 @@ const WalletTransactions: React.FC = () => {
         <Text textAlign="center">{t('No recent transactions')}</Text>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default WalletTransactions
+export default WalletTransactions;

@@ -1,29 +1,39 @@
-import React from 'react'
-import { Image, Flex, Text, Td, IconButton, Link, OpenNewIcon, useMatchBreakpoints, useModal } from '@pancakeswap/uikit'
-import { Link as RouterLink } from 'react-router-dom'
-import { Activity, NftToken } from 'state/nftMarket/types'
-import { Price } from '@pancakeswap/sdk'
-import styled from 'styled-components'
-import { getBscScanLink } from 'utils'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import ProfileCell from 'views/Nft/market/components/ProfileCell'
-import MobileModal from './MobileModal'
-import ActivityPrice from './ActivityPrice'
-import ActivityEventText from './ActivityEventText'
-import { nftsBaseUrl, pancakeBunniesAddress } from '../../constants'
+import React from 'react';
+import {
+  Image,
+  Flex,
+  Text,
+  Td,
+  IconButton,
+  Link,
+  OpenNewIcon,
+  useMatchBreakpoints,
+  useModal,
+} from '@pancakeswap/uikit';
+import { Link as RouterLink } from 'react-router-dom';
+import { Activity, NftToken } from 'state/nftMarket/types';
+import { Price } from '@pancakeswap/sdk';
+import styled from 'styled-components';
+import { getBscScanLink } from 'utils';
+import useActiveWeb3React from 'hooks/useActiveWeb3React';
+import ProfileCell from 'views/Nft/market/components/ProfileCell';
+import MobileModal from './MobileModal';
+import ActivityPrice from './ActivityPrice';
+import ActivityEventText from './ActivityEventText';
+import { nftsBaseUrl, pancakeBunniesAddress } from '../../constants';
 
 const RoundedImage = styled(Image)`
   & > img {
     border-radius: ${({ theme }) => theme.radii.default};
   }
-`
+`;
 
 interface ActivityRowProps {
-  activity: Activity
-  nft: NftToken
-  bnbBusdPrice: Price
-  isUserActivity?: boolean
-  isNftActivity?: boolean
+  activity: Activity;
+  nft: NftToken;
+  bnbBusdPrice: Price;
+  isUserActivity?: boolean;
+  isNftActivity?: boolean;
 }
 
 const ActivityRow: React.FC<ActivityRowProps> = ({
@@ -33,17 +43,17 @@ const ActivityRow: React.FC<ActivityRowProps> = ({
   isUserActivity = false,
   isNftActivity = false,
 }) => {
-  const { chainId } = useActiveWeb3React()
-  const { isXs, isSm } = useMatchBreakpoints()
-  const priceAsFloat = parseFloat(activity.price)
-  const timestampAsMs = parseFloat(activity.timestamp) * 1000
+  const { chainId } = useActiveWeb3React();
+  const { isXs, isSm } = useMatchBreakpoints();
+  const priceAsFloat = parseFloat(activity.price);
+  const timestampAsMs = parseFloat(activity.timestamp) * 1000;
   const localeTimestamp = new Date(timestampAsMs).toLocaleString(undefined, {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-  })
+  });
   const [onPresentMobileModal] = useModal(
     <MobileModal
       nft={nft}
@@ -52,14 +62,14 @@ const ActivityRow: React.FC<ActivityRowProps> = ({
       bnbBusdPrice={bnbBusdPrice}
       isUserActivity={isUserActivity}
     />,
-  )
-  const isPBCollection = nft ? nft.collectionAddress.toLowerCase() === pancakeBunniesAddress.toLowerCase() : false
+  );
+  const isPBCollection = nft ? nft.collectionAddress.toLowerCase() === pancakeBunniesAddress.toLowerCase() : false;
   const tokenId =
     nft && isPBCollection
       ? nft.attributes.find((attribute) => attribute.traitType === 'bunnyId')?.value
       : nft
       ? nft.tokenId
-      : null
+      : null;
 
   return (
     <tr {...((isXs || isSm) && { onClick: onPresentMobileModal })}>
@@ -67,7 +77,7 @@ const ActivityRow: React.FC<ActivityRowProps> = ({
         <Td
           {...((isXs || isSm) && {
             onClick: (event) => {
-              event.stopPropagation()
+              event.stopPropagation();
             },
           })}
         >
@@ -141,7 +151,7 @@ const ActivityRow: React.FC<ActivityRowProps> = ({
         </Td>
       )}
     </tr>
-  )
-}
+  );
+};
 
-export default ActivityRow
+export default ActivityRow;

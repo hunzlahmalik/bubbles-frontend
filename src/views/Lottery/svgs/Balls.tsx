@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Svg, SvgProps, Text, Flex } from '@pancakeswap/uikit'
+import React from 'react';
+import styled from 'styled-components';
+import { Svg, SvgProps, Text, Flex } from '@pancakeswap/uikit';
 
 export const PinkBall: React.FC<SvgProps> = (props) => {
   return (
@@ -39,8 +39,8 @@ export const PinkBall: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  )
-}
+  );
+};
 
 export const LilacBall: React.FC<SvgProps> = (props) => {
   return (
@@ -79,8 +79,8 @@ export const LilacBall: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  )
-}
+  );
+};
 
 export const TealBall: React.FC<SvgProps> = (props) => {
   return (
@@ -119,8 +119,8 @@ export const TealBall: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  )
-}
+  );
+};
 
 export const AquaBall: React.FC<SvgProps> = (props) => {
   return (
@@ -159,8 +159,8 @@ export const AquaBall: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  )
-}
+  );
+};
 
 export const GreenBall: React.FC<SvgProps> = (props) => {
   return (
@@ -199,8 +199,8 @@ export const GreenBall: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  )
-}
+  );
+};
 
 export const YellowBall: React.FC<SvgProps> = (props) => {
   return (
@@ -239,30 +239,30 @@ export const YellowBall: React.FC<SvgProps> = (props) => {
         />
       </g>
     </Svg>
-  )
-}
+  );
+};
 
 export const BallTextWrapper = styled.div`
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-`
+`;
 
 export const BallText = styled(Text)<{ rotationTransform?: number }>`
   color: #000000;
   text-shadow: -0.75px -0.75px 0 white, 0.75px -0.75px 0 white, -0.75px 0.75px 0 white, 0.75px 0.75px 0 white;
   transform: rotate(${({ rotationTransform }) => rotationTransform || 0}deg);
-`
+`;
 
-export type BallColor = 'pink' | 'lilac' | 'teal' | 'aqua' | 'green' | 'yellow'
+export type BallColor = 'pink' | 'lilac' | 'teal' | 'aqua' | 'green' | 'yellow';
 
 interface BallWithNumberProps {
-  color: BallColor
-  number: string
-  size?: string
-  fontSize?: string
-  rotationTransform?: number
+  color: BallColor;
+  number: string;
+  size?: string;
+  fontSize?: string;
+  rotationTransform?: number;
 }
 
 const ballsMap = {
@@ -272,10 +272,10 @@ const ballsMap = {
   aqua: AquaBall,
   green: GreenBall,
   yellow: YellowBall,
-}
+};
 
 export const BallWithNumber: React.FC<BallWithNumberProps> = ({ color, number, size, fontSize, rotationTransform }) => {
-  const BallComponent = ballsMap[color]
+  const BallComponent = ballsMap[color];
   return (
     <Flex alignItems="center" justifyContent="center" position="relative" mx="2px">
       <BallComponent width={size ?? '32px'} height={size ?? '32px'} />
@@ -285,5 +285,5 @@ export const BallWithNumber: React.FC<BallWithNumberProps> = ({ color, number, s
         </BallText>
       </BallTextWrapper>
     </Flex>
-  )
-}
+  );
+};

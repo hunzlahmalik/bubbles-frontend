@@ -1,27 +1,27 @@
-import React from 'react'
-import { Card, CardBody, Text, Flex, BlockIcon, LinkExternal } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { NodeRound, BetPosition } from 'state/types'
-import useTheme from 'hooks/useTheme'
-import ReclaimPositionButton from '../ReclaimPositionButton'
-import useIsRefundable from '../../hooks/useIsRefundable'
-import { RoundResultBox } from '../RoundResult'
-import MultiplierArrow from './MultiplierArrow'
-import CardHeader, { getBorderBackground } from './CardHeader'
+import React from 'react';
+import { Card, CardBody, Text, Flex, BlockIcon, LinkExternal } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { NodeRound, BetPosition } from 'state/types';
+import useTheme from 'hooks/useTheme';
+import ReclaimPositionButton from '../ReclaimPositionButton';
+import useIsRefundable from '../../hooks/useIsRefundable';
+import { RoundResultBox } from '../RoundResult';
+import MultiplierArrow from './MultiplierArrow';
+import CardHeader, { getBorderBackground } from './CardHeader';
 
 interface CanceledRoundCardProps {
-  round: NodeRound
+  round: NodeRound;
 }
 
 const CanceledRoundCard: React.FC<CanceledRoundCardProps> = ({ round }) => {
-  const { t } = useTranslation()
-  const { theme } = useTheme()
-  const { isRefundable, setIsRefundable } = useIsRefundable(round.epoch)
-  const { epoch } = round
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const { isRefundable, setIsRefundable } = useIsRefundable(round.epoch);
+  const { epoch } = round;
 
   const handleSuccess = async () => {
-    setIsRefundable(false)
-  }
+    setIsRefundable(false);
+  };
 
   return (
     <Card borderBackground={getBorderBackground(theme, 'canceled')}>
@@ -47,7 +47,7 @@ const CanceledRoundCard: React.FC<CanceledRoundCardProps> = ({ round }) => {
         <MultiplierArrow betPosition={BetPosition.BEAR} isDisabled />
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default CanceledRoundCard
+export default CanceledRoundCard;

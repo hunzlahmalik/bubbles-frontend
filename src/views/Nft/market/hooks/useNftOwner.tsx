@@ -1,37 +1,37 @@
-import { useEffect, useState } from 'react'
-import { useErc721CollectionContract } from 'hooks/useContract'
-import { NftToken } from 'state/nftMarket/types'
+import { useEffect, useState } from 'react';
+import { useErc721CollectionContract } from 'hooks/useContract';
+import { NftToken } from 'state/nftMarket/types';
 
-const NOT_ON_SALE_SELLER = '0x0000000000000000000000000000000000000000'
+const NOT_ON_SALE_SELLER = '0x0000000000000000000000000000000000000000';
 
 const useNftOwner = (nft: NftToken) => {
-  const [owner, setOwner] = useState(null)
-  const [isLoadingOwner, setIsLoadingOwner] = useState(true)
-  const collectionContract = useErc721CollectionContract(nft.collectionAddress, false)
-  const currentSeller = nft.marketData?.currentSeller
-  const { tokenId } = nft
+  const [owner, setOwner] = useState(null);
+  const [isLoadingOwner, setIsLoadingOwner] = useState(true);
+  const collectionContract = useErc721CollectionContract(nft.collectionAddress, false);
+  const currentSeller = nft.marketData?.currentSeller;
+  const { tokenId } = nft;
 
   useEffect(() => {
     const getOwner = async () => {
       try {
-        const tokenOwner = await collectionContract.ownerOf(tokenId)
-        setOwner(tokenOwner)
+        const tokenOwner = await collectionContract.ownerOf(tokenId);
+        setOwner(tokenOwner);
       } catch (error) {
-        setOwner(null)
+        setOwner(null);
       } finally {
-        setIsLoadingOwner(false)
+        setIsLoadingOwner(false);
       }
-    }
+    };
 
     if (currentSeller && currentSeller !== NOT_ON_SALE_SELLER) {
-      setOwner(currentSeller)
-      setIsLoadingOwner(false)
+      setOwner(currentSeller);
+      setIsLoadingOwner(false);
     } else {
-      getOwner()
+      getOwner();
     }
-  }, [currentSeller, collectionContract, tokenId])
+  }, [currentSeller, collectionContract, tokenId]);
 
-  return { owner, isLoadingOwner }
-}
+  return { owner, isLoadingOwner };
+};
 
-export default useNftOwner
+export default useNftOwner;

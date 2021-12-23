@@ -1,5 +1,5 @@
-import React from 'react'
-import { Svg, SvgProps } from '@pancakeswap/uikit'
+import React from 'react';
+import { Svg, SvgProps } from '@pancakeswap/uikit';
 
 const GradientLogo: React.FC<SvgProps> = (props) => {
   return (
@@ -17,7 +17,7 @@ const GradientLogo: React.FC<SvgProps> = (props) => {
         </linearGradient>
       </defs>
     </Svg>
-  )
-}
+  );
+};
 
-export default GradientLogo
+export default GradientLogo;

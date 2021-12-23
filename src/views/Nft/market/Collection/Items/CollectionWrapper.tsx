@@ -1,21 +1,21 @@
-import React from 'react'
-import { createPortal } from 'react-dom'
-import { Box } from '@pancakeswap/uikit'
-import isEmpty from 'lodash/isEmpty'
-import { Collection } from 'state/nftMarket/types'
-import { useGetNftFilters } from 'state/nftMarket/hooks'
-import Container from 'components/Layout/Container'
-import ScrollButton from 'components/ScrollToTopButton'
-import Filters from './Filters'
-import CollectionNfts from './CollectionNfts'
-import FilteredCollectionNfts from './FilteredCollectionNfts'
+import React from 'react';
+import { createPortal } from 'react-dom';
+import { Box } from '@pancakeswap/uikit';
+import isEmpty from 'lodash/isEmpty';
+import { Collection } from 'state/nftMarket/types';
+import { useGetNftFilters } from 'state/nftMarket/hooks';
+import Container from 'components/Layout/Container';
+import ScrollButton from 'components/ScrollToTopButton';
+import Filters from './Filters';
+import CollectionNfts from './CollectionNfts';
+import FilteredCollectionNfts from './FilteredCollectionNfts';
 
 interface CollectionWrapperProps {
-  collection: Collection
+  collection: Collection;
 }
 
 const CollectionWrapper: React.FC<CollectionWrapperProps> = ({ collection }) => {
-  const nftFilters = useGetNftFilters(collection.address)
+  const nftFilters = useGetNftFilters(collection.address);
 
   return (
     <Box py="32px">
@@ -31,7 +31,7 @@ const CollectionWrapper: React.FC<CollectionWrapperProps> = ({ collection }) => 
       </Container>
       {createPortal(<ScrollButton />, document.body)}
     </Box>
-  )
-}
+  );
+};
 
-export default CollectionWrapper
+export default CollectionWrapper;

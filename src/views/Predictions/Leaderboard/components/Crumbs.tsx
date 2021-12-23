@@ -1,10 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Breadcrumbs, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Box, Breadcrumbs, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 const Crumbs = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <Box mb="24px">
@@ -14,7 +14,7 @@ const Crumbs = () => {
         <Text>{t('Leaderboard')}</Text>
       </Breadcrumbs>
     </Box>
-  )
-}
+  );
+};
 
-export default Crumbs
+export default Crumbs;

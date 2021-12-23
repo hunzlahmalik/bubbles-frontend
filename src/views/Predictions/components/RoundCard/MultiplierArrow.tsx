@@ -1,28 +1,28 @@
-import React from 'react'
-import { ethers } from 'ethers'
-import styled, { CSSProperties } from 'styled-components'
-import { Box, Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { BetPosition } from 'state/types'
-import { RoundMultiplierDownArrow, RoundMultiplierUpArrow } from '../../RoundMultiplierArrows'
-import EnteredTag from './EnteredTag'
+import React from 'react';
+import { ethers } from 'ethers';
+import styled, { CSSProperties } from 'styled-components';
+import { Box, Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { BetPosition } from 'state/types';
+import { RoundMultiplierDownArrow, RoundMultiplierUpArrow } from '../../RoundMultiplierArrows';
+import EnteredTag from './EnteredTag';
 
 interface MultiplierArrowProps {
-  betAmount?: ethers.BigNumber
-  multiplier?: string
-  hasEntered?: boolean
-  hasClaimed?: boolean
-  betPosition?: BetPosition
-  isDisabled?: boolean
-  isActive?: boolean
-  isHouse?: boolean
+  betAmount?: ethers.BigNumber;
+  multiplier?: string;
+  hasEntered?: boolean;
+  hasClaimed?: boolean;
+  betPosition?: BetPosition;
+  isDisabled?: boolean;
+  isActive?: boolean;
+  isHouse?: boolean;
 }
 
 const ArrowWrapper = styled.div`
   height: 65px;
   margin: 0 auto;
   width: 240px;
-`
+`;
 
 const Content = styled.div`
   align-items: center;
@@ -34,26 +34,26 @@ const Content = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-`
+`;
 
 const EnteredTagWrapper = styled.div`
   position: absolute;
   z-index: 10;
-`
+`;
 
 const getTextColor =
   (fallback = 'textSubtle') =>
   (isActive: boolean, isDisabled: boolean, isHouse: boolean) => {
     if (isDisabled || isHouse) {
-      return 'textDisabled'
+      return 'textDisabled';
     }
 
     if (isActive) {
-      return 'white'
+      return 'white';
     }
 
-    return fallback
-  }
+    return fallback;
+  };
 
 const MultiplierArrow: React.FC<MultiplierArrowProps> = ({
   betAmount,
@@ -65,10 +65,10 @@ const MultiplierArrow: React.FC<MultiplierArrowProps> = ({
   isActive = false,
   isHouse = false,
 }) => {
-  const { t } = useTranslation()
-  const upColor = getTextColor('success')(isActive, isDisabled, isHouse)
-  const downColor = getTextColor('failure')(isActive, isDisabled, isHouse)
-  const textColor = getTextColor()(isActive, isDisabled, isHouse)
+  const { t } = useTranslation();
+  const upColor = getTextColor('success')(isActive, isDisabled, isHouse);
+  const downColor = getTextColor('failure')(isActive, isDisabled, isHouse);
+  const textColor = getTextColor()(isActive, isDisabled, isHouse);
   const multiplierText = (
     <Box>
       <Flex justifyContent="center" height="14px">
@@ -80,19 +80,19 @@ const MultiplierArrow: React.FC<MultiplierArrowProps> = ({
         </Text>
       </Flex>
     </Box>
-  )
+  );
 
   const getEnteredTag = (position: CSSProperties) => {
     if (!hasEntered) {
-      return null
+      return null;
     }
 
     return (
       <EnteredTagWrapper style={position}>
         <EnteredTag amount={betAmount} hasClaimed={hasClaimed} />
       </EnteredTagWrapper>
-    )
-  }
+    );
+  };
 
   if (betPosition === BetPosition.BEAR) {
     return (
@@ -108,7 +108,7 @@ const MultiplierArrow: React.FC<MultiplierArrowProps> = ({
           </Content>
         </ArrowWrapper>
       </Box>
-    )
+    );
   }
 
   return (
@@ -124,7 +124,7 @@ const MultiplierArrow: React.FC<MultiplierArrowProps> = ({
         </Content>
       </ArrowWrapper>
     </Box>
-  )
-}
+  );
+};
 
-export default MultiplierArrow
+export default MultiplierArrow;

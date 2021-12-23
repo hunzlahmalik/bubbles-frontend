@@ -1,4 +1,4 @@
-import { Address } from '../types'
+import { Address } from '../types';
 
 export enum CollectionKey {
   PANCAKE = 'pancake',
@@ -6,12 +6,12 @@ export enum CollectionKey {
 }
 
 export type Collection = {
-  name: string
-  description?: string
-  slug: string
-  address: Address
-}
+  name: string;
+  description?: string;
+  slug: string;
+  address: Address;
+};
 
 export type Collections = {
-  [key in CollectionKey]: Collection
-}
+  [key in CollectionKey]: Collection;
+};

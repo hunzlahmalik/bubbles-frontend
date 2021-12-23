@@ -1,31 +1,31 @@
-import React from 'react'
-import { useWeb3React } from '@web3-react/core'
-import { orderBy } from 'lodash'
-import { Box, Button, Flex, Heading, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useAppDispatch } from 'state'
-import { Bet } from 'state/types'
-import { fetchNodeHistory } from 'state/predictions'
-import { useGetCurrentHistoryPage, useGetHasHistoryLoaded, useGetIsFetchingHistory } from 'state/predictions/hooks'
-import HistoricalBet from './HistoricalBet'
-import V1ClaimCheck from '../v1/V1ClaimCheck'
+import React from 'react';
+import { useWeb3React } from '@web3-react/core';
+import { orderBy } from 'lodash';
+import { Box, Button, Flex, Heading, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useAppDispatch } from 'state';
+import { Bet } from 'state/types';
+import { fetchNodeHistory } from 'state/predictions';
+import { useGetCurrentHistoryPage, useGetHasHistoryLoaded, useGetIsFetchingHistory } from 'state/predictions/hooks';
+import HistoricalBet from './HistoricalBet';
+import V1ClaimCheck from '../v1/V1ClaimCheck';
 
 interface RoundsTabProps {
-  hasBetHistory: boolean
-  bets: Bet[]
+  hasBetHistory: boolean;
+  bets: Bet[];
 }
 
 const RoundsTab: React.FC<RoundsTabProps> = ({ hasBetHistory, bets }) => {
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
-  const hasHistoryLoaded = useGetHasHistoryLoaded()
-  const currentHistoryPage = useGetCurrentHistoryPage()
-  const isFetchingHistory = useGetIsFetchingHistory()
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { account } = useWeb3React();
+  const hasHistoryLoaded = useGetHasHistoryLoaded();
+  const currentHistoryPage = useGetCurrentHistoryPage();
+  const isFetchingHistory = useGetIsFetchingHistory();
 
   const handleClick = () => {
-    dispatch(fetchNodeHistory({ account, page: currentHistoryPage + 1 }))
-  }
+    dispatch(fetchNodeHistory({ account, page: currentHistoryPage + 1 }));
+  };
 
   return hasBetHistory ? (
     <>
@@ -55,7 +55,7 @@ const RoundsTab: React.FC<RoundsTabProps> = ({ hasBetHistory, bets }) => {
         </Text>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default RoundsTab
+export default RoundsTab;

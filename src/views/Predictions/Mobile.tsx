@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Flex } from '@pancakeswap/uikit'
-import { useGetPredictionsStatus, useIsChartPaneOpen, useIsHistoryPaneOpen } from 'state/predictions/hooks'
-import { PredictionStatus } from 'state/types'
-import MobileMenu from './components/MobileMenu'
-import History from './History'
-import Positions from './Positions'
-import Chart from './Chart'
-import { ErrorNotification, PauseNotification } from './components/Notification'
-import { PageView } from './types'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Flex } from '@pancakeswap/uikit';
+import { useGetPredictionsStatus, useIsChartPaneOpen, useIsHistoryPaneOpen } from 'state/predictions/hooks';
+import { PredictionStatus } from 'state/types';
+import MobileMenu from './components/MobileMenu';
+import History from './History';
+import Positions from './Positions';
+import Chart from './Chart';
+import { ErrorNotification, PauseNotification } from './components/Notification';
+import { PageView } from './types';
 
 const StyledMobile = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const StyledMobile = styled.div`
   ${({ theme }) => theme.mediaQueries.xl} {
     display: none;
   }
-`
+`;
 
 const View = styled.div<{ isVisible: boolean }>`
   height: 100%;
@@ -28,25 +28,25 @@ const View = styled.div<{ isVisible: boolean }>`
   top: 0;
   width: 100%;
   visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
-`
+`;
 
 const getView = (isHistoryPaneOpen: boolean, isChartPaneOpen: boolean): PageView => {
   if (isHistoryPaneOpen) {
-    return PageView.HISTORY
+    return PageView.HISTORY;
   }
 
   if (isChartPaneOpen) {
-    return PageView.CHART
+    return PageView.CHART;
   }
 
-  return PageView.POSITIONS
-}
+  return PageView.POSITIONS;
+};
 
 const Mobile: React.FC = () => {
-  const isHistoryPaneOpen = useIsHistoryPaneOpen()
-  const isChartPaneOpen = useIsChartPaneOpen()
-  const view = getView(isHistoryPaneOpen, isChartPaneOpen)
-  const status = useGetPredictionsStatus()
+  const isHistoryPaneOpen = useIsHistoryPaneOpen();
+  const isChartPaneOpen = useIsChartPaneOpen();
+  const view = getView(isHistoryPaneOpen, isChartPaneOpen);
+  const status = useGetPredictionsStatus();
 
   return (
     <StyledMobile>
@@ -67,7 +67,7 @@ const Mobile: React.FC = () => {
       </Box>
       <MobileMenu />
     </StyledMobile>
-  )
-}
+  );
+};
 
-export default Mobile
+export default Mobile;

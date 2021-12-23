@@ -1,14 +1,14 @@
-import React from 'react'
-import { Text, TextProps } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { MarketEvent } from '../../../../../state/nftMarket/types'
+import React from 'react';
+import { Text, TextProps } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { MarketEvent } from '../../../../../state/nftMarket/types';
 
 interface ActivityEventTextProps extends TextProps {
-  marketEvent: MarketEvent
+  marketEvent: MarketEvent;
 }
 
 const ActivityEventText: React.FC<ActivityEventTextProps> = ({ marketEvent, ...props }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const events = {
     [MarketEvent.NEW]: {
@@ -31,13 +31,13 @@ const ActivityEventText: React.FC<ActivityEventTextProps> = ({ marketEvent, ...p
       text: t('Sold'),
       color: 'failure',
     },
-  }
+  };
 
   return (
     <Text {...props} color={events[marketEvent].color}>
       {events[marketEvent].text}
     </Text>
-  )
-}
+  );
+};
 
-export default ActivityEventText
+export default ActivityEventText;

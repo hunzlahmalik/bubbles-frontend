@@ -1,10 +1,10 @@
-import React from 'react'
-import { Flex, Text, Button, Spinner } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
+import React from 'react';
+import { Flex, Text, Button, Spinner } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
 
 interface ConfirmStageProps {
-  isConfirming: boolean
-  handleConfirm: () => void
+  isConfirming: boolean;
+  handleConfirm: () => void;
 }
 
 // Buy Flow:
@@ -13,7 +13,7 @@ interface ConfirmStageProps {
 // Sell Flow:
 // Shown if user adjusts the price or removes NFT from the market
 const ConfirmStage: React.FC<ConfirmStageProps> = ({ isConfirming, handleConfirm }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Flex p="16px" flexDirection="column">
       <Flex alignItems="center">
@@ -35,7 +35,7 @@ const ConfirmStage: React.FC<ConfirmStageProps> = ({ isConfirming, handleConfirm
         {isConfirming ? `${t('Confirming')}...` : t('Confirm')}
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default ConfirmStage
+export default ConfirmStage;

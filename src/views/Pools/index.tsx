@@ -1,15 +1,15 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import styled from 'styled-components'
-import { ethers } from 'ethers'
-import { formatUnits } from 'ethers/lib/utils'
-import BigNumber from 'bignumber.js'
-import { useWeb3React } from '@web3-react/core'
-import { Heading, Flex, Image, Text } from '@pancakeswap/uikit'
-import orderBy from 'lodash/orderBy'
-import partition from 'lodash/partition'
-import { useTranslation } from 'contexts/Localization'
-import useIntersectionObserver from 'hooks/useIntersectionObserver'
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+import { ethers } from 'ethers';
+import { formatUnits } from 'ethers/lib/utils';
+import BigNumber from 'bignumber.js';
+import { useWeb3React } from '@web3-react/core';
+import { Heading, Flex, Image, Text } from '@pancakeswap/uikit';
+import orderBy from 'lodash/orderBy';
+import partition from 'lodash/partition';
+import { useTranslation } from 'contexts/Localization';
+import useIntersectionObserver from 'hooks/useIntersectionObserver';
 import {
   useFetchPublicPoolsData,
   usePools,
@@ -17,31 +17,31 @@ import {
   useFetchCakeVault,
   useFetchIfoPool,
   useVaultPools,
-} from 'state/pools/hooks'
-import { usePollFarmsPublicData } from 'state/farms/hooks'
-import { latinise } from 'utils/latinise'
-import FlexLayout from 'components/Layout/Flex'
-import Page from 'components/Layout/Page'
-import PageHeader from 'components/PageHeader'
-import SearchInput from 'components/SearchInput'
-import Select, { OptionProps } from 'components/Select/Select'
-import { DeserializedPool } from 'state/types'
-import { useUserPoolStakedOnly, useUserPoolsViewMode } from 'state/user/hooks'
-import { usePoolsWithVault } from 'views/Home/hooks/useGetTopPoolsByApr'
-import { ViewMode } from 'state/user/actions'
-import { BIG_ZERO } from 'utils/bigNumber'
-import Loading from 'components/Loading'
-import PoolCard from './components/PoolCard'
-import CakeVaultCard from './components/CakeVaultCard'
-import PoolTabButtons from './components/PoolTabButtons'
-import BountyCard from './components/BountyCard'
-import HelpButton from './components/HelpButton'
-import PoolsTable from './components/PoolsTable/PoolsTable'
-import { getCakeVaultEarnings } from './helpers'
+} from 'state/pools/hooks';
+import { usePollFarmsPublicData } from 'state/farms/hooks';
+import { latinise } from 'utils/latinise';
+import FlexLayout from 'components/Layout/Flex';
+import Page from 'components/Layout/Page';
+import PageHeader from 'components/PageHeader';
+import SearchInput from 'components/SearchInput';
+import Select, { OptionProps } from 'components/Select/Select';
+import { DeserializedPool } from 'state/types';
+import { useUserPoolStakedOnly, useUserPoolsViewMode } from 'state/user/hooks';
+import { usePoolsWithVault } from 'views/Home/hooks/useGetTopPoolsByApr';
+import { ViewMode } from 'state/user/actions';
+import { BIG_ZERO } from 'utils/bigNumber';
+import Loading from 'components/Loading';
+import PoolCard from './components/PoolCard';
+import CakeVaultCard from './components/CakeVaultCard';
+import PoolTabButtons from './components/PoolTabButtons';
+import BountyCard from './components/BountyCard';
+import HelpButton from './components/HelpButton';
+import PoolsTable from './components/PoolsTable/PoolsTable';
+import { getCakeVaultEarnings } from './helpers';
 
 const CardLayout = styled(FlexLayout)`
   justify-content: center;
-`
+`;
 
 const PoolControls = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ const PoolControls = styled.div`
     padding: 16px 32px;
     margin-bottom: 0;
   }
-`
+`;
 
 const FilterContainer = styled.div`
   display: flex;
@@ -71,103 +71,103 @@ const FilterContainer = styled.div`
     width: auto;
     padding: 0;
   }
-`
+`;
 
 const LabelWrapper = styled.div`
   > ${Text} {
     font-size: 12px;
   }
-`
+`;
 
 const ControlStretch = styled(Flex)`
   > div {
     flex: 1;
   }
-`
+`;
 
-const NUMBER_OF_POOLS_VISIBLE = 12
+const NUMBER_OF_POOLS_VISIBLE = 12;
 
 const Pools: React.FC = () => {
-  const location = useLocation()
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const { userDataLoaded } = usePools()
-  const [stakedOnly, setStakedOnly] = useUserPoolStakedOnly()
-  const [viewMode, setViewMode] = useUserPoolsViewMode()
-  const [numberOfPoolsVisible, setNumberOfPoolsVisible] = useState(NUMBER_OF_POOLS_VISIBLE)
-  const { observerRef, isIntersecting } = useIntersectionObserver()
-  const [searchQuery, setSearchQuery] = useState('')
-  const [sortOption, setSortOption] = useState('hot')
-  const chosenPoolsLength = useRef(0)
-  const vaultPools = useVaultPools()
+  const location = useLocation();
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
+  const { userDataLoaded } = usePools();
+  const [stakedOnly, setStakedOnly] = useUserPoolStakedOnly();
+  const [viewMode, setViewMode] = useUserPoolsViewMode();
+  const [numberOfPoolsVisible, setNumberOfPoolsVisible] = useState(NUMBER_OF_POOLS_VISIBLE);
+  const { observerRef, isIntersecting } = useIntersectionObserver();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOption, setSortOption] = useState('hot');
+  const chosenPoolsLength = useRef(0);
+  const vaultPools = useVaultPools();
   const cakeInVaults = Object.values(vaultPools).reduce((total, vault) => {
-    return total.plus(vault.totalCakeInVault)
-  }, BIG_ZERO)
+    return total.plus(vault.totalCakeInVault);
+  }, BIG_ZERO);
 
-  const pools = usePoolsWithVault()
+  const pools = usePoolsWithVault();
 
   // TODO aren't arrays in dep array checked just by reference, i.e. it will rerender every time reference changes?
-  const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools])
+  const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools]);
   const stakedOnlyFinishedPools = useMemo(
     () =>
       finishedPools.filter((pool) => {
         if (pool.vaultKey) {
-          return vaultPools[pool.vaultKey].userData.userShares && vaultPools[pool.vaultKey].userData.userShares.gt(0)
+          return vaultPools[pool.vaultKey].userData.userShares && vaultPools[pool.vaultKey].userData.userShares.gt(0);
         }
-        return pool.userData && new BigNumber(pool.userData.stakedBalance).isGreaterThan(0)
+        return pool.userData && new BigNumber(pool.userData.stakedBalance).isGreaterThan(0);
       }),
     [finishedPools, vaultPools],
-  )
+  );
   const stakedOnlyOpenPools = useMemo(
     () =>
       openPools.filter((pool) => {
         if (pool.vaultKey) {
-          return vaultPools[pool.vaultKey].userData.userShares && vaultPools[pool.vaultKey].userData.userShares.gt(0)
+          return vaultPools[pool.vaultKey].userData.userShares && vaultPools[pool.vaultKey].userData.userShares.gt(0);
         }
-        return pool.userData && new BigNumber(pool.userData.stakedBalance).isGreaterThan(0)
+        return pool.userData && new BigNumber(pool.userData.stakedBalance).isGreaterThan(0);
       }),
     [openPools, vaultPools],
-  )
-  const hasStakeInFinishedPools = stakedOnlyFinishedPools.length > 0
+  );
+  const hasStakeInFinishedPools = stakedOnlyFinishedPools.length > 0;
 
-  usePollFarmsPublicData()
-  useFetchCakeVault()
-  useFetchIfoPool()
-  useFetchPublicPoolsData()
-  useFetchUserPools(account)
+  usePollFarmsPublicData();
+  useFetchCakeVault();
+  useFetchIfoPool();
+  useFetchPublicPoolsData();
+  useFetchUserPools(account);
 
   useEffect(() => {
     if (isIntersecting) {
       setNumberOfPoolsVisible((poolsCurrentlyVisible) => {
         if (poolsCurrentlyVisible <= chosenPoolsLength.current) {
-          return poolsCurrentlyVisible + NUMBER_OF_POOLS_VISIBLE
+          return poolsCurrentlyVisible + NUMBER_OF_POOLS_VISIBLE;
         }
-        return poolsCurrentlyVisible
-      })
+        return poolsCurrentlyVisible;
+      });
     }
-  }, [isIntersecting])
+  }, [isIntersecting]);
 
-  const showFinishedPools = location.pathname.includes('history')
+  const showFinishedPools = location.pathname.includes('history');
 
   const handleChangeSearchQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value)
-  }
+    setSearchQuery(event.target.value);
+  };
 
   const handleSortOptionChange = (option: OptionProps): void => {
-    setSortOption(option.value)
-  }
+    setSortOption(option.value);
+  };
 
   const sortPools = (poolsToSort: DeserializedPool[]) => {
     switch (sortOption) {
       case 'apr':
         // Ternary is needed to prevent pools without APR (like MIX) getting top spot
-        return orderBy(poolsToSort, (pool: DeserializedPool) => (pool.apr ? pool.apr : 0), 'desc')
+        return orderBy(poolsToSort, (pool: DeserializedPool) => (pool.apr ? pool.apr : 0), 'desc');
       case 'earned':
         return orderBy(
           poolsToSort,
           (pool: DeserializedPool) => {
             if (!pool.userData || !pool.earningTokenPrice) {
-              return 0
+              return 0;
             }
             return pool.vaultKey
               ? getCakeVaultEarnings(
@@ -177,61 +177,61 @@ const Pools: React.FC = () => {
                   vaultPools[pool.vaultKey].pricePerFullShare,
                   pool.earningTokenPrice,
                 ).autoUsdToDisplay
-              : pool.userData.pendingReward.times(pool.earningTokenPrice).toNumber()
+              : pool.userData.pendingReward.times(pool.earningTokenPrice).toNumber();
           },
           'desc',
-        )
+        );
       case 'totalStaked':
         return orderBy(
           poolsToSort,
           (pool: DeserializedPool) => {
-            let totalStaked = Number.NaN
+            let totalStaked = Number.NaN;
             if (pool.vaultKey) {
               if (pool.stakingTokenPrice && vaultPools[pool.vaultKey].totalCakeInVault.isFinite()) {
                 totalStaked =
                   +formatUnits(
                     ethers.BigNumber.from(vaultPools[pool.vaultKey].totalCakeInVault.toString()),
                     pool.stakingToken.decimals,
-                  ) * pool.stakingTokenPrice
+                  ) * pool.stakingTokenPrice;
               }
             } else if (pool.sousId === 0) {
               if (pool.totalStaked?.isFinite() && pool.stakingTokenPrice && cakeInVaults.isFinite()) {
                 const manualCakeTotalMinusAutoVault = ethers.BigNumber.from(pool.totalStaked.toString()).sub(
                   cakeInVaults.toString(),
-                )
+                );
                 totalStaked =
-                  +formatUnits(manualCakeTotalMinusAutoVault, pool.stakingToken.decimals) * pool.stakingTokenPrice
+                  +formatUnits(manualCakeTotalMinusAutoVault, pool.stakingToken.decimals) * pool.stakingTokenPrice;
               }
             } else if (pool.totalStaked?.isFinite() && pool.stakingTokenPrice) {
               totalStaked =
                 +formatUnits(ethers.BigNumber.from(pool.totalStaked.toString()), pool.stakingToken.decimals) *
-                pool.stakingTokenPrice
+                pool.stakingTokenPrice;
             }
-            return Number.isFinite(totalStaked) ? totalStaked : 0
+            return Number.isFinite(totalStaked) ? totalStaked : 0;
           },
           'desc',
-        )
+        );
       default:
-        return poolsToSort
+        return poolsToSort;
     }
-  }
+  };
 
-  let chosenPools
+  let chosenPools;
   if (showFinishedPools) {
-    chosenPools = stakedOnly ? stakedOnlyFinishedPools : finishedPools
+    chosenPools = stakedOnly ? stakedOnlyFinishedPools : finishedPools;
   } else {
-    chosenPools = stakedOnly ? stakedOnlyOpenPools : openPools
+    chosenPools = stakedOnly ? stakedOnlyOpenPools : openPools;
   }
 
   if (searchQuery) {
-    const lowercaseQuery = latinise(searchQuery.toLowerCase())
+    const lowercaseQuery = latinise(searchQuery.toLowerCase());
     chosenPools = chosenPools.filter((pool) =>
       latinise(pool.earningToken.symbol.toLowerCase()).includes(lowercaseQuery),
-    )
+    );
   }
 
-  chosenPools = sortPools(chosenPools).slice(0, numberOfPoolsVisible)
-  chosenPoolsLength.current = chosenPools.length
+  chosenPools = sortPools(chosenPools).slice(0, numberOfPoolsVisible);
+  chosenPoolsLength.current = chosenPools.length;
 
   const cardLayout = (
     <CardLayout>
@@ -243,9 +243,9 @@ const Pools: React.FC = () => {
         ),
       )}
     </CardLayout>
-  )
+  );
 
-  const tableLayout = <PoolsTable pools={chosenPools} account={account} userDataLoaded={userDataLoaded} />
+  const tableLayout = <PoolsTable pools={chosenPools} account={account} userDataLoaded={userDataLoaded} />;
 
   return (
     <>
@@ -336,7 +336,7 @@ const Pools: React.FC = () => {
         />
       </Page>
     </>
-  )
-}
+  );
+};
 
-export default Pools
+export default Pools;

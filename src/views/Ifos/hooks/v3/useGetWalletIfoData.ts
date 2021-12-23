@@ -1,16 +1,16 @@
-import { useState, useCallback } from 'react'
-import { useWeb3React } from '@web3-react/core'
-import BigNumber from 'bignumber.js'
-import { Ifo, PoolIds } from 'config/constants/types'
-import { useERC20, useIfoV2Contract } from 'hooks/useContract'
-import { multicallv2 } from 'utils/multicall'
-import ifoV2Abi from 'config/abi/ifoV2.json'
-import { useIfoPoolCredit } from 'state/pools/hooks'
-import { fetchIfoPoolUserAndCredit } from 'state/pools'
-import { useAppDispatch } from 'state'
-import { BIG_ZERO } from 'utils/bigNumber'
-import useIfoAllowance from '../useIfoAllowance'
-import { WalletIfoState, WalletIfoData } from '../../types'
+import { useState, useCallback } from 'react';
+import { useWeb3React } from '@web3-react/core';
+import BigNumber from 'bignumber.js';
+import { Ifo, PoolIds } from 'config/constants/types';
+import { useERC20, useIfoV2Contract } from 'hooks/useContract';
+import { multicallv2 } from 'utils/multicall';
+import ifoV2Abi from 'config/abi/ifoV2.json';
+import { useIfoPoolCredit } from 'state/pools/hooks';
+import { fetchIfoPoolUserAndCredit } from 'state/pools';
+import { useAppDispatch } from 'state';
+import { BIG_ZERO } from 'utils/bigNumber';
+import useIfoAllowance from '../useIfoAllowance';
+import { WalletIfoState, WalletIfoData } from '../../types';
 
 const initialState = {
   isInitialized: false,
@@ -30,22 +30,22 @@ const initialState = {
     hasClaimed: false,
     isPendingTx: false,
   },
-}
+};
 
 /**
  * Gets all data from an IFO related to a wallet
  */
 const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
-  const [state, setState] = useState<WalletIfoState>(initialState)
-  const dispatch = useAppDispatch()
-  const credit = useIfoPoolCredit()
+  const [state, setState] = useState<WalletIfoState>(initialState);
+  const dispatch = useAppDispatch();
+  const credit = useIfoPoolCredit();
 
-  const { address, currency } = ifo
+  const { address, currency } = ifo;
 
-  const { account } = useWeb3React()
-  const contract = useIfoV2Contract(address)
-  const currencyContract = useERC20(currency.address)
-  const allowance = useIfoAllowance(currencyContract, address)
+  const { account } = useWeb3React();
+  const contract = useIfoV2Contract(address);
+  const currencyContract = useERC20(currency.address);
+  const allowance = useIfoAllowance(currencyContract, address);
 
   const setPendingTx = (status: boolean, poolId: PoolIds) =>
     setState((prevState) => ({
@@ -54,7 +54,7 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
         ...prevState[poolId],
         isPendingTx: status,
       },
-    }))
+    }));
 
   const setIsClaimed = (poolId: PoolIds) => {
     setState((prevState) => ({
@@ -63,19 +63,19 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
         ...prevState[poolId],
         hasClaimed: true,
       },
-    }))
-  }
+    }));
+  };
 
   const fetchIfoData = useCallback(async () => {
     const ifoCalls = ['viewUserInfo', 'viewUserOfferingAndRefundingAmountsForPools'].map((method) => ({
       address,
       name: method,
       params: [account, [0, 1]],
-    }))
+    }));
 
-    dispatch(fetchIfoPoolUserAndCredit({ account }))
+    dispatch(fetchIfoPoolUserAndCredit({ account }));
 
-    const [userInfo, amounts] = await multicallv2(ifoV2Abi, ifoCalls)
+    const [userInfo, amounts] = await multicallv2(ifoV2Abi, ifoCalls);
 
     setState((prevState) => ({
       ...prevState,
@@ -96,21 +96,21 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
         taxAmountInLP: new BigNumber(amounts[0][1][2].toString()),
         hasClaimed: userInfo[1][1],
       },
-    }))
-  }, [account, address, dispatch])
+    }));
+  }, [account, address, dispatch]);
 
   const resetIfoData = useCallback(() => {
-    setState({ ...initialState })
-  }, [])
+    setState({ ...initialState });
+  }, []);
 
   const ifoCredit = {
     credit,
     creditLeft: credit
       .minus(state.poolBasic.amountTokenCommittedInLP)
       .minus(state.poolUnlimited.amountTokenCommittedInLP),
-  }
+  };
 
-  return { ...state, allowance, contract, setPendingTx, setIsClaimed, fetchIfoData, resetIfoData, ifoCredit }
-}
+  return { ...state, allowance, contract, setPendingTx, setIsClaimed, fetchIfoData, resetIfoData, ifoCredit };
+};
 
-export default useGetWalletIfoData
+export default useGetWalletIfoData;

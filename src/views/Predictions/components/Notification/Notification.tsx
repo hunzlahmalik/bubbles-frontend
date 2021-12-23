@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, CardBody, Heading } from '@pancakeswap/uikit'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, CardBody, Heading } from '@pancakeswap/uikit';
 
 interface NotificationProps {
-  title: string
+  title: string;
 }
 
 // const BunnyDecoration = styled.div`
@@ -20,12 +20,12 @@ const Wrapper = styled.div`
   flex: 1;
   height: 100%;
   justify-content: center;
-`
+`;
 
 const CardWrapper = styled.div`
   position: relative;
   width: 320px;
-`
+`;
 
 const BunnyDecoration = styled.div`
   position: absolute;
@@ -34,7 +34,7 @@ const BunnyDecoration = styled.div`
   text-align: center;
   width: 100%;
   z-index: 5;
-`
+`;
 
 const Notification: React.FC<NotificationProps> = ({ title, children }) => {
   return (
@@ -51,7 +51,7 @@ const Notification: React.FC<NotificationProps> = ({ title, children }) => {
         </Card>
       </CardWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Notification
+export default Notification;

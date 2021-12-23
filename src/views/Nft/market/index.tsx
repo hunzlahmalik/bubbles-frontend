@@ -1,24 +1,24 @@
-import React, { lazy } from 'react'
-import { Redirect, Route } from 'react-router-dom'
-import { useWeb3React } from '@web3-react/core'
-import { useFetchCollections, useGetNFTInitializationState } from 'state/nftMarket/hooks'
-import PageLoader from 'components/Loader/PageLoader'
-import { NFTMarketInitializationState } from 'state/nftMarket/types'
-import { nftsBaseUrl } from './constants'
+import React, { lazy } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { useWeb3React } from '@web3-react/core';
+import { useFetchCollections, useGetNFTInitializationState } from 'state/nftMarket/hooks';
+import PageLoader from 'components/Loader/PageLoader';
+import { NFTMarketInitializationState } from 'state/nftMarket/types';
+import { nftsBaseUrl } from './constants';
 
-const Home = lazy(() => import('./Home'))
-const NftProfile = lazy(() => import('./Profile'))
-const Collection = lazy(() => import('./Collection'))
-const Collections = lazy(() => import('./Collections'))
+const Home = lazy(() => import('./Home'));
+const NftProfile = lazy(() => import('./Profile'));
+const Collection = lazy(() => import('./Collection'));
+const Collections = lazy(() => import('./Collections'));
 
 const Market = () => {
-  const { account } = useWeb3React()
-  const initializationState = useGetNFTInitializationState()
+  const { account } = useWeb3React();
+  const initializationState = useGetNFTInitializationState();
 
-  useFetchCollections()
+  useFetchCollections();
 
   if (initializationState !== NFTMarketInitializationState.INITIALIZED) {
-    return <PageLoader />
+    return <PageLoader />;
   }
 
   return (
@@ -39,7 +39,7 @@ const Market = () => {
         <Redirect to={`${nftsBaseUrl}/profile/${account?.toLowerCase() || ''}`} />
       </Route>
     </>
-  )
-}
+  );
+};
 
-export default Market
+export default Market;

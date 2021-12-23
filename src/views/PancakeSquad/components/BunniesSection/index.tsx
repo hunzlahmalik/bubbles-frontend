@@ -1,20 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Button, Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import ColoredWordHeading from 'views/Home/components/ColoredWordHeading'
-import { LandingBodyWrapper } from 'views/PancakeSquad/styles'
-import { SlideSvgDark, SlideSvgLight } from 'views/Home/components/SlideSvg'
-import useTheme from 'hooks/useTheme'
-import bunniesConfig from './config'
-import { StyledBunnySectionContainer, StyledTextContainer } from './styles'
-import BunniesImages from './BunniesImages'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Box, Button, Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import ColoredWordHeading from 'views/Home/components/ColoredWordHeading';
+import { LandingBodyWrapper } from 'views/PancakeSquad/styles';
+import { SlideSvgDark, SlideSvgLight } from 'views/Home/components/SlideSvg';
+import useTheme from 'hooks/useTheme';
+import bunniesConfig from './config';
+import { StyledBunnySectionContainer, StyledTextContainer } from './styles';
+import BunniesImages from './BunniesImages';
 
 const BunniesSection = () => {
-  const { t } = useTranslation()
-  const { isDark } = useTheme()
+  const { t } = useTranslation();
+  const { isDark } = useTheme();
 
-  const { headingText, bodyText, subHeadingText, primaryButton, images } = bunniesConfig(t)
+  const { headingText, bodyText, subHeadingText, primaryButton, images } = bunniesConfig(t);
 
   return (
     <StyledBunnySectionContainer justifyContent={['flex-start', null, null, 'center']}>
@@ -52,7 +52,7 @@ const BunniesSection = () => {
         {isDark ? <SlideSvgDark width="100%" /> : <SlideSvgLight width="100%" />}
       </Box>
     </StyledBunnySectionContainer>
-  )
-}
+  );
+};
 
-export default BunniesSection
+export default BunniesSection;

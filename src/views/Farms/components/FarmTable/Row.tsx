@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
-import { useMatchBreakpoints } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import useDelayedUnmount from 'hooks/useDelayedUnmount'
-import { useFarmUser } from 'state/farms/hooks'
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard';
+import { useMatchBreakpoints } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import useDelayedUnmount from 'hooks/useDelayedUnmount';
+import { useFarmUser } from 'state/farms/hooks';
 
-import Apr, { AprProps } from './Apr'
-import Farm, { FarmProps } from './Farm'
-import Earned, { EarnedProps } from './Earned'
-import Details from './Details'
-import Multiplier, { MultiplierProps } from './Multiplier'
-import Liquidity, { LiquidityProps } from './Liquidity'
-import ActionPanel from './Actions/ActionPanel'
-import CellLayout from './CellLayout'
-import { DesktopColumnSchema, MobileColumnSchema } from '../types'
+import Apr, { AprProps } from './Apr';
+import Farm, { FarmProps } from './Farm';
+import Earned, { EarnedProps } from './Earned';
+import Details from './Details';
+import Multiplier, { MultiplierProps } from './Multiplier';
+import Liquidity, { LiquidityProps } from './Liquidity';
+import ActionPanel from './Actions/ActionPanel';
+import CellLayout from './CellLayout';
+import { DesktopColumnSchema, MobileColumnSchema } from '../types';
 
 export interface RowProps {
-  apr: AprProps
-  farm: FarmProps
-  earned: EarnedProps
-  multiplier: MultiplierProps
-  liquidity: LiquidityProps
-  details: FarmWithStakedValue
+  apr: AprProps;
+  farm: FarmProps;
+  earned: EarnedProps;
+  multiplier: MultiplierProps;
+  liquidity: LiquidityProps;
+  details: FarmWithStakedValue;
 }
 
 interface RowPropsWithLoading extends RowProps {
-  userDataReady: boolean
+  userDataReady: boolean;
 }
 
 const cells = {
@@ -36,7 +36,7 @@ const cells = {
   details: Details,
   multiplier: Multiplier,
   liquidity: Liquidity,
-}
+};
 
 const CellInner = styled.div`
   padding: 24px 0px;
@@ -48,55 +48,55 @@ const CellInner = styled.div`
   ${({ theme }) => theme.mediaQueries.xl} {
     padding-right: 32px;
   }
-`
+`;
 
 const StyledTr = styled.tr`
   cursor: pointer;
   border-bottom: 2px solid ${({ theme }) => theme.colors.cardBorder};
-`
+`;
 
 const EarnedMobileCell = styled.td`
   padding: 16px 0 24px 16px;
-`
+`;
 
 const AprMobileCell = styled.td`
   padding-top: 16px;
   padding-bottom: 24px;
-`
+`;
 
 const FarmMobileCell = styled.td`
   padding-top: 24px;
-`
+`;
 
 const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
-  const { details, userDataReady } = props
-  const hasStakedAmount = !!useFarmUser(details.pid).stakedBalance.toNumber()
-  const [actionPanelExpanded, setActionPanelExpanded] = useState(hasStakedAmount)
-  const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300)
-  const { t } = useTranslation()
+  const { details, userDataReady } = props;
+  const hasStakedAmount = !!useFarmUser(details.pid).stakedBalance.toNumber();
+  const [actionPanelExpanded, setActionPanelExpanded] = useState(hasStakedAmount);
+  const shouldRenderChild = useDelayedUnmount(actionPanelExpanded, 300);
+  const { t } = useTranslation();
 
   const toggleActionPanel = () => {
-    setActionPanelExpanded(!actionPanelExpanded)
-  }
+    setActionPanelExpanded(!actionPanelExpanded);
+  };
 
   useEffect(() => {
-    setActionPanelExpanded(hasStakedAmount)
-  }, [hasStakedAmount])
+    setActionPanelExpanded(hasStakedAmount);
+  }, [hasStakedAmount]);
 
-  const { isDesktop, isMobile } = useMatchBreakpoints()
+  const { isDesktop, isMobile } = useMatchBreakpoints();
 
-  const isSmallerScreen = !isDesktop
-  const tableSchema = isSmallerScreen ? MobileColumnSchema : DesktopColumnSchema
-  const columnNames = tableSchema.map((column) => column.name)
+  const isSmallerScreen = !isDesktop;
+  const tableSchema = isSmallerScreen ? MobileColumnSchema : DesktopColumnSchema;
+  const columnNames = tableSchema.map((column) => column.name);
 
   const handleRenderRow = () => {
     if (!isMobile) {
       return (
         <StyledTr onClick={toggleActionPanel}>
           {Object.keys(props).map((key) => {
-            const columnIndex = columnNames.indexOf(key)
+            const columnIndex = columnNames.indexOf(key);
             if (columnIndex === -1) {
-              return null
+              return null;
             }
 
             switch (key) {
@@ -109,7 +109,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                       </CellLayout>
                     </CellInner>
                   </td>
-                )
+                );
               case 'apr':
                 return (
                   <td key={key}>
@@ -119,7 +119,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                       </CellLayout>
                     </CellInner>
                   </td>
-                )
+                );
               default:
                 return (
                   <td key={key}>
@@ -129,11 +129,11 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                       </CellLayout>
                     </CellInner>
                   </td>
-                )
+                );
             }
           })}
         </StyledTr>
-      )
+      );
     }
 
     return (
@@ -167,8 +167,8 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
           </CellInner>
         </td>
       </StyledTr>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -181,7 +181,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
         </tr>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Row
+export default Row;

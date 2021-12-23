@@ -1,12 +1,12 @@
-import React from 'react'
-import { useTranslation } from 'contexts/Localization'
-import styled from 'styled-components'
-import { Flex, Heading, PocketWatchIcon, Text, Skeleton } from '@pancakeswap/uikit'
-import getTimePeriods from 'utils/getTimePeriods'
-import { PublicIfoData } from 'views/Ifos/types'
+import React from 'react';
+import { useTranslation } from 'contexts/Localization';
+import styled from 'styled-components';
+import { Flex, Heading, PocketWatchIcon, Text, Skeleton } from '@pancakeswap/uikit';
+import getTimePeriods from 'utils/getTimePeriods';
+import { PublicIfoData } from 'views/Ifos/types';
 
 interface Props {
-  publicIfoData: PublicIfoData
+  publicIfoData: PublicIfoData;
 }
 
 const GradientText = styled(Heading)`
@@ -15,16 +15,16 @@ const GradientText = styled(Heading)`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
-`
+`;
 
 const FlexGap = styled(Flex)<{ gap: string }>`
   gap: ${({ gap }) => gap};
-`
+`;
 
 export const SoonTimer: React.FC<Props> = ({ publicIfoData }) => {
-  const { t } = useTranslation()
-  const { status, secondsUntilStart } = publicIfoData
-  const timeUntil = getTimePeriods(secondsUntilStart)
+  const { t } = useTranslation();
+  const { status, secondsUntilStart } = publicIfoData;
+  const timeUntil = getTimePeriods(secondsUntilStart);
   return (
     <Flex justifyContent="center" position="relative">
       {status === 'idle' ? (
@@ -63,8 +63,8 @@ export const SoonTimer: React.FC<Props> = ({ publicIfoData }) => {
         </>
       )}
     </Flex>
-  )
-}
+  );
+};
 
 const EndInHeading = styled(Heading)`
   color: white;
@@ -75,7 +75,7 @@ const EndInHeading = styled(Heading)`
   ${({ theme }) => theme.mediaQueries.md} {
     font-size: 24px;
   }
-`
+`;
 
 const LiveNowHeading = styled(EndInHeading)`
   color: white;
@@ -86,12 +86,12 @@ const LiveNowHeading = styled(EndInHeading)`
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
   }
-`
+`;
 
 const LiveTimer: React.FC<Props> = ({ publicIfoData }) => {
-  const { t } = useTranslation()
-  const { status, secondsUntilEnd } = publicIfoData
-  const timeUntil = getTimePeriods(secondsUntilEnd)
+  const { t } = useTranslation();
+  const { status, secondsUntilEnd } = publicIfoData;
+  const timeUntil = getTimePeriods(secondsUntilEnd);
   return (
     <Flex justifyContent="center" position="relative">
       {status === 'idle' ? (
@@ -126,7 +126,7 @@ const LiveTimer: React.FC<Props> = ({ publicIfoData }) => {
         </>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default LiveTimer
+export default LiveTimer;

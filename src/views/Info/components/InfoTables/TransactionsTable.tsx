@@ -1,20 +1,20 @@
 // TODO PCS refactor ternaries
 /* eslint-disable no-nested-ternary */
-import React, { useCallback, useState, useMemo, useEffect } from 'react'
-import styled from 'styled-components'
-import { formatDistanceToNowStrict } from 'date-fns'
-import { Text, Flex, Box, Radio, Skeleton, LinkExternal, ArrowForwardIcon, ArrowBackIcon } from '@pancakeswap/uikit'
-import { formatAmount } from 'views/Info/utils/formatInfoNumbers'
-import { getBscScanLink } from 'utils'
-import truncateHash from 'utils/truncateHash'
-import { Transaction, TransactionType } from 'state/info/types'
-import { ITEMS_PER_INFO_TABLE_PAGE } from 'config/constants/info'
-import { useTranslation } from 'contexts/Localization'
-import { ClickableColumnHeader, TableWrapper, PageButtons, Arrow, Break } from './shared'
+import React, { useCallback, useState, useMemo, useEffect } from 'react';
+import styled from 'styled-components';
+import { formatDistanceToNowStrict } from 'date-fns';
+import { Text, Flex, Box, Radio, Skeleton, LinkExternal, ArrowForwardIcon, ArrowBackIcon } from '@pancakeswap/uikit';
+import { formatAmount } from 'views/Info/utils/formatInfoNumbers';
+import { getBscScanLink } from 'utils';
+import truncateHash from 'utils/truncateHash';
+import { Transaction, TransactionType } from 'state/info/types';
+import { ITEMS_PER_INFO_TABLE_PAGE } from 'config/constants/info';
+import { useTranslation } from 'contexts/Localization';
+import { ClickableColumnHeader, TableWrapper, PageButtons, Arrow, Break } from './shared';
 
 const Wrapper = styled.div`
   width: 100%;
-`
+`;
 
 const ResponsiveGrid = styled.div`
   display: grid;
@@ -55,14 +55,14 @@ const ResponsiveGrid = styled.div`
       display: none;
     }
   }
-`
+`;
 
 const RadioGroup = styled(Flex)`
   align-items: center;
   margin-right: 16px;
   margin-top: 8px;
   cursor: pointer;
-`
+`;
 
 const SORT_FIELD = {
   amountUSD: 'amountUSD',
@@ -70,7 +70,7 @@ const SORT_FIELD = {
   sender: 'sender',
   amountToken0: 'amountToken0',
   amountToken1: 'amountToken1',
-}
+};
 
 const TableLoader: React.FC = () => {
   const loadingRow = (
@@ -82,22 +82,22 @@ const TableLoader: React.FC = () => {
       <Skeleton />
       <Skeleton />
     </ResponsiveGrid>
-  )
+  );
   return (
     <>
       {loadingRow}
       {loadingRow}
       {loadingRow}
     </>
-  )
-}
+  );
+};
 
 const DataRow: React.FC<{ transaction: Transaction }> = ({ transaction }) => {
-  const { t } = useTranslation()
-  const abs0 = Math.abs(transaction.amountToken0)
-  const abs1 = Math.abs(transaction.amountToken1)
-  const outputTokenSymbol = transaction.amountToken0 < 0 ? transaction.token0Symbol : transaction.token1Symbol
-  const inputTokenSymbol = transaction.amountToken1 < 0 ? transaction.token0Symbol : transaction.token1Symbol
+  const { t } = useTranslation();
+  const abs0 = Math.abs(transaction.amountToken0);
+  const abs1 = Math.abs(transaction.amountToken1);
+  const outputTokenSymbol = transaction.amountToken0 < 0 ? transaction.token0Symbol : transaction.token1Symbol;
+  const inputTokenSymbol = transaction.amountToken1 < 0 ? transaction.token0Symbol : transaction.token1Symbol;
 
   return (
     <ResponsiveGrid>
@@ -122,84 +122,84 @@ const DataRow: React.FC<{ transaction: Transaction }> = ({ transaction }) => {
       </LinkExternal>
       <Text>{formatDistanceToNowStrict(parseInt(transaction.timestamp, 10) * 1000)}</Text>
     </ResponsiveGrid>
-  )
-}
+  );
+};
 
 const TransactionTable: React.FC<{
-  transactions: Transaction[]
+  transactions: Transaction[];
 }> = ({ transactions }) => {
-  const [sortField, setSortField] = useState(SORT_FIELD.timestamp)
-  const [sortDirection, setSortDirection] = useState<boolean>(true)
+  const [sortField, setSortField] = useState(SORT_FIELD.timestamp);
+  const [sortDirection, setSortDirection] = useState<boolean>(true);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [page, setPage] = useState(1)
-  const [maxPage, setMaxPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
 
-  const [txFilter, setTxFilter] = useState<TransactionType | undefined>(undefined)
+  const [txFilter, setTxFilter] = useState<TransactionType | undefined>(undefined);
 
   const sortedTransactions = useMemo(() => {
-    const toBeAbsList = [SORT_FIELD.amountToken0, SORT_FIELD.amountToken1]
+    const toBeAbsList = [SORT_FIELD.amountToken0, SORT_FIELD.amountToken1];
     return transactions
       ? transactions
           .slice()
           .sort((a, b) => {
             if (a && b) {
-              const firstField = a[sortField as keyof Transaction]
-              const secondField = b[sortField as keyof Transaction]
+              const firstField = a[sortField as keyof Transaction];
+              const secondField = b[sortField as keyof Transaction];
               const [first, second] = toBeAbsList.includes(sortField)
                 ? [Math.abs(firstField as number), Math.abs(secondField as number)]
-                : [firstField, secondField]
-              return first > second ? (sortDirection ? -1 : 1) * 1 : (sortDirection ? -1 : 1) * -1
+                : [firstField, secondField];
+              return first > second ? (sortDirection ? -1 : 1) * 1 : (sortDirection ? -1 : 1) * -1;
             }
-            return -1
+            return -1;
           })
           .filter((x) => {
-            return txFilter === undefined || x.type === txFilter
+            return txFilter === undefined || x.type === txFilter;
           })
           .slice(ITEMS_PER_INFO_TABLE_PAGE * (page - 1), page * ITEMS_PER_INFO_TABLE_PAGE)
-      : []
-  }, [transactions, page, sortField, sortDirection, txFilter])
+      : [];
+  }, [transactions, page, sortField, sortDirection, txFilter]);
 
   // Update maxPage based on amount of items & applied filtering
   useEffect(() => {
     if (transactions) {
       const filteredTransactions = transactions.filter((tx) => {
-        return txFilter === undefined || tx.type === txFilter
-      })
+        return txFilter === undefined || tx.type === txFilter;
+      });
       if (filteredTransactions.length % ITEMS_PER_INFO_TABLE_PAGE === 0) {
-        setMaxPage(Math.floor(filteredTransactions.length / ITEMS_PER_INFO_TABLE_PAGE))
+        setMaxPage(Math.floor(filteredTransactions.length / ITEMS_PER_INFO_TABLE_PAGE));
       } else {
-        setMaxPage(Math.floor(filteredTransactions.length / ITEMS_PER_INFO_TABLE_PAGE) + 1)
+        setMaxPage(Math.floor(filteredTransactions.length / ITEMS_PER_INFO_TABLE_PAGE) + 1);
       }
     }
-  }, [transactions, txFilter])
+  }, [transactions, txFilter]);
 
   const handleFilter = useCallback(
     (newFilter: TransactionType) => {
       if (newFilter !== txFilter) {
-        setTxFilter(newFilter)
-        setPage(1)
+        setTxFilter(newFilter);
+        setPage(1);
       }
     },
     [txFilter],
-  )
+  );
 
   const handleSort = useCallback(
     (newField: string) => {
-      setSortField(newField)
-      setSortDirection(sortField !== newField ? true : !sortDirection)
+      setSortField(newField);
+      setSortDirection(sortField !== newField ? true : !sortDirection);
     },
     [sortDirection, sortField],
-  )
+  );
 
   const arrow = useCallback(
     (field: string) => {
-      const directionArrow = !sortDirection ? '↑' : '↓'
-      return sortField === field ? directionArrow : ''
+      const directionArrow = !sortDirection ? '↑' : '↓';
+      return sortField === field ? directionArrow : '';
     },
     [sortDirection, sortField],
-  )
+  );
 
   return (
     <Wrapper>
@@ -291,9 +291,9 @@ const TransactionTable: React.FC<{
                     <DataRow transaction={transaction} />
                     <Break />
                   </React.Fragment>
-                )
+                );
               }
-              return null
+              return null;
             })}
             {sortedTransactions.length === 0 ? (
               <Flex justifyContent="center">
@@ -303,7 +303,7 @@ const TransactionTable: React.FC<{
             <PageButtons>
               <Arrow
                 onClick={() => {
-                  setPage(page === 1 ? page : page - 1)
+                  setPage(page === 1 ? page : page - 1);
                 }}
               >
                 <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
@@ -312,7 +312,7 @@ const TransactionTable: React.FC<{
               <Text>{t('Page %page% of %maxPage%', { page, maxPage })}</Text>
               <Arrow
                 onClick={() => {
-                  setPage(page === maxPage ? page : page + 1)
+                  setPage(page === maxPage ? page : page + 1);
                 }}
               >
                 <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
@@ -328,7 +328,7 @@ const TransactionTable: React.FC<{
         )}
       </TableWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default TransactionTable
+export default TransactionTable;

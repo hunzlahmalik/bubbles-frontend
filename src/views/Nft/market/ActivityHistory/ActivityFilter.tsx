@@ -1,16 +1,16 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Box, Button, Flex, IconButton, CloseIcon } from '@pancakeswap/uikit'
-import { useAppDispatch } from 'state'
-import { addActivityTypeFilters, removeActivityTypeFilters } from 'state/nftMarket/reducer'
-import { useGetNftActivityFilters } from 'state/nftMarket/hooks'
-import { ContextApi } from 'contexts/Localization/types'
-import { useTranslation } from 'contexts/Localization'
-import { MarketEvent } from '../../../../state/nftMarket/types'
+import React from 'react';
+import styled from 'styled-components';
+import { Box, Button, Flex, IconButton, CloseIcon } from '@pancakeswap/uikit';
+import { useAppDispatch } from 'state';
+import { addActivityTypeFilters, removeActivityTypeFilters } from 'state/nftMarket/reducer';
+import { useGetNftActivityFilters } from 'state/nftMarket/hooks';
+import { ContextApi } from 'contexts/Localization/types';
+import { useTranslation } from 'contexts/Localization';
+import { MarketEvent } from '../../../../state/nftMarket/types';
 
 interface ActivityFilterProps {
-  eventType: MarketEvent
-  collectionAddress: string
+  eventType: MarketEvent;
+  collectionAddress: string;
 }
 
 const TriggerButton = styled(Button)<{ hasItem: boolean }>`
@@ -21,44 +21,44 @@ const TriggerButton = styled(Button)<{ hasItem: boolean }>`
     border-bottom-right-radius: 0;
     padding-right: 8px;
   `}
-`
+`;
 
 const CloseButton = styled(IconButton)`
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-`
+`;
 
 const eventName = (t: ContextApi['t'], eventType: string) => {
   switch (eventType) {
     case MarketEvent.CANCEL:
-      return t('Delisted')
+      return t('Delisted');
     case MarketEvent.MODIFY:
-      return t('Modified')
+      return t('Modified');
     case MarketEvent.NEW:
-      return t('Listed')
+      return t('Listed');
     case MarketEvent.SELL:
-      return t('Sold')
+      return t('Sold');
     default:
-      return ''
+      return '';
   }
-}
+};
 
 export const ActivityFilter: React.FC<ActivityFilterProps> = ({ eventType, collectionAddress }) => {
-  const nftActivityFilters = useGetNftActivityFilters(collectionAddress)
-  const dispatch = useAppDispatch()
-  const { t } = useTranslation()
+  const nftActivityFilters = useGetNftActivityFilters(collectionAddress);
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
-  const isEventSelected = nftActivityFilters.typeFilters.some((nftActivityFilter) => nftActivityFilter === eventType)
+  const isEventSelected = nftActivityFilters.typeFilters.some((nftActivityFilter) => nftActivityFilter === eventType);
 
   const handleMenuClick = () => {
     if (!isEventSelected) {
-      dispatch(addActivityTypeFilters({ collection: collectionAddress, field: eventType }))
+      dispatch(addActivityTypeFilters({ collection: collectionAddress, field: eventType }));
     }
-  }
+  };
 
   const handleClearItem = () => {
-    dispatch(removeActivityTypeFilters({ collection: collectionAddress, field: eventType }))
-  }
+    dispatch(removeActivityTypeFilters({ collection: collectionAddress, field: eventType }));
+  };
 
   return (
     <Flex alignItems="center" mr="4px" mb="4px">
@@ -78,5 +78,5 @@ export const ActivityFilter: React.FC<ActivityFilterProps> = ({ eventType, colle
         </CloseButton>
       )}
     </Flex>
-  )
-}
+  );
+};

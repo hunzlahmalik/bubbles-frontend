@@ -1,4 +1,4 @@
-import { Collections, CollectionKey } from './types'
+import { Collections, CollectionKey } from './types';
 
 const collections: Collections = {
   [CollectionKey.PANCAKE]: {
@@ -18,6 +18,6 @@ const collections: Collections = {
       97: '0xEf12ef570300bFA65c4F022deAaA3dfF4f5d5c91',
     },
   },
-}
+};
 
-export default collections
+export default collections;

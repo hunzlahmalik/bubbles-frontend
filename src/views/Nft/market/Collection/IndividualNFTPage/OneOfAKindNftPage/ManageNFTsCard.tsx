@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Box,
   Flex,
@@ -11,37 +11,37 @@ import {
   BinanceIcon,
   Skeleton,
   useModal,
-} from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
-import { NftLocation, NftToken } from 'state/nftMarket/types'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { useTranslation } from 'contexts/Localization'
-import ExpandableCard from '../shared/ExpandableCard'
-import SellModal from '../../../components/BuySellModals/SellModal'
-import ProfileNftModal from '../../../components/ProfileNftModal'
-import { SmallRoundedImage, CollectibleRowContainer } from '../shared/styles'
+} from '@pancakeswap/uikit';
+import { useWeb3React } from '@web3-react/core';
+import { NftLocation, NftToken } from 'state/nftMarket/types';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { useTranslation } from 'contexts/Localization';
+import ExpandableCard from '../shared/ExpandableCard';
+import SellModal from '../../../components/BuySellModals/SellModal';
+import ProfileNftModal from '../../../components/ProfileNftModal';
+import { SmallRoundedImage, CollectibleRowContainer } from '../shared/styles';
 
 const LocationColors = {
   [NftLocation.FORSALE]: 'failure',
   [NftLocation.WALLET]: 'secondary',
   [NftLocation.PROFILE]: 'textSubtle',
-}
+};
 
 const LocationIcons = {
   [NftLocation.FORSALE]: SellIcon,
   [NftLocation.WALLET]: WalletFilledIcon,
   [NftLocation.PROFILE]: CameraIcon,
-}
+};
 
 interface CollectibleRowProps {
-  nft: NftToken
+  nft: NftToken;
 }
 
 const CollectibleRow: React.FC<CollectibleRowProps> = ({ nft }) => {
-  const { t } = useTranslation()
-  const modalVariant = nft.location === NftLocation.WALLET ? 'sell' : 'edit'
-  const [onPresentProfileNftModal] = useModal(<ProfileNftModal nft={nft} />)
-  const [onPresentModal] = useModal(<SellModal variant={modalVariant} nftToSell={nft} />)
+  const { t } = useTranslation();
+  const modalVariant = nft.location === NftLocation.WALLET ? 'sell' : 'edit';
+  const [onPresentProfileNftModal] = useModal(<ProfileNftModal nft={nft} />);
+  const [onPresentModal] = useModal(<SellModal variant={modalVariant} nftToSell={nft} />);
   return (
     <CollectibleRowContainer
       gridTemplateColumns="96px 1fr"
@@ -73,16 +73,16 @@ const CollectibleRow: React.FC<CollectibleRowProps> = ({ nft }) => {
         )}
       </Grid>
     </CollectibleRowContainer>
-  )
-}
+  );
+};
 
 interface CollectibleByLocationProps {
-  nft: NftToken
+  nft: NftToken;
 }
 
 const CollectibleByLocation: React.FC<CollectibleByLocationProps> = ({ nft }) => {
-  const { t } = useTranslation()
-  const IconComponent = LocationIcons[nft.location]
+  const { t } = useTranslation();
+  const IconComponent = LocationIcons[nft.location];
   return (
     <Flex flexDirection="column">
       <Grid gridTemplateColumns="32px 1fr" px="16px" pb="8px">
@@ -93,20 +93,20 @@ const CollectibleByLocation: React.FC<CollectibleByLocationProps> = ({ nft }) =>
       </Grid>
       <CollectibleRow key={nft.tokenId} nft={nft} />
     </Flex>
-  )
-}
+  );
+};
 
 interface ManageNFTsCardProps {
-  nft?: NftToken
-  isLoading: boolean
-  isOwnNft: boolean
+  nft?: NftToken;
+  isLoading: boolean;
+  isOwnNft: boolean;
 }
 
 const ManageNFTsCard: React.FC<ManageNFTsCardProps> = ({ nft, isLoading, isOwnNft }) => {
-  const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { t } = useTranslation();
+  const { account } = useWeb3React();
 
-  const hasThisNft = isOwnNft && nft
+  const hasThisNft = isOwnNft && nft;
 
   const content = (
     <Box pt="16px">
@@ -129,8 +129,8 @@ const ManageNFTsCard: React.FC<ManageNFTsCardProps> = ({ nft, isLoading, isOwnNf
       )}
       {!isLoading && hasThisNft && <CollectibleByLocation nft={nft} />}
     </Box>
-  )
-  return <ExpandableCard title={t('Manage Yours')} icon={<CogIcon width="24px" height="24px" />} content={content} />
-}
+  );
+  return <ExpandableCard title={t('Manage Yours')} icon={<CogIcon width="24px" height="24px" />} content={content} />;
+};
 
-export default ManageNFTsCard
+export default ManageNFTsCard;

@@ -1,5 +1,5 @@
-import { Flex, lightColors } from '@pancakeswap/uikit'
-import styled, { keyframes } from 'styled-components'
+import { Flex, lightColors } from '@pancakeswap/uikit';
+import styled, { keyframes } from 'styled-components';
 
 const flyingAnim = () => keyframes`
   from {
@@ -11,20 +11,20 @@ const flyingAnim = () => keyframes`
   to {
     transform: translate(0, 0px);
   }  
-`
+`;
 
 export const StyledEventDescriptionSectionContainer = styled(Flex)`
   background: ${({ theme }) => theme.colors.background};
-`
+`;
 
 export const StyledBodyTextList = styled('ul')`
   color: ${lightColors.textSubtle};
   margin-bottom: 24px;
-`
+`;
 
 export const StyledBodyTextElement = styled('li')`
   margin-left: 12px;
-`
+`;
 
 export const StyledBunnyAccessoriesContainer = styled(Flex)`
   position: absolute;
@@ -50,11 +50,11 @@ export const StyledBunnyAccessoriesContainer = styled(Flex)`
     animation: ${flyingAnim} 3.5s ease-in-out infinite;
     animation-delay: 0s;
   }
-`
+`;
 
 export const StyledBunnyAccessory = styled.img`
   position: absolute;
   left: 0;
   top: 0;
   z-index: 5;
-`
+`;

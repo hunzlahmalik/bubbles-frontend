@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import {
   Box,
   Button,
@@ -13,26 +13,26 @@ import {
   CloseIcon,
   ArrowUpIcon,
   ArrowDownIcon,
-} from '@pancakeswap/uikit'
-import orderBy from 'lodash/orderBy'
-import { useAppDispatch } from 'state'
-import { filterNftsFromCollection } from 'state/nftMarket/reducer'
-import { useTranslation } from 'contexts/Localization'
-import { useGetNftFilterLoadingState, useGetNftFilters } from 'state/nftMarket/hooks'
-import { NftFilterLoadingState } from 'state/nftMarket/types'
-import { FilterButton, ItemRow, SearchWrapper } from './styles'
-import { Item } from './types'
+} from '@pancakeswap/uikit';
+import orderBy from 'lodash/orderBy';
+import { useAppDispatch } from 'state';
+import { filterNftsFromCollection } from 'state/nftMarket/reducer';
+import { useTranslation } from 'contexts/Localization';
+import { useGetNftFilterLoadingState, useGetNftFilters } from 'state/nftMarket/hooks';
+import { NftFilterLoadingState } from 'state/nftMarket/types';
+import { FilterButton, ItemRow, SearchWrapper } from './styles';
+import { Item } from './types';
 
 interface ListFilterProps {
-  title?: string
-  traitType: string
-  items: Item[]
-  collectionAddress: string
+  title?: string;
+  traitType: string;
+  items: Item[];
+  collectionAddress: string;
 }
 
 interface State {
-  orderKey: string
-  orderDir: 'asc' | 'desc'
+  orderKey: string;
+  orderDir: 'asc' | 'desc';
 }
 
 const TriggerButton = styled(Button)<{ hasItem: boolean }>`
@@ -43,52 +43,52 @@ const TriggerButton = styled(Button)<{ hasItem: boolean }>`
     border-bottom-right-radius: 0;
     padding-right: 8px;
   `}
-`
+`;
 
 const CloseButton = styled(IconButton)`
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-`
+`;
 
 export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items, collectionAddress }) => {
-  const { t } = useTranslation()
-  const [isOpen, setIsOpen] = useState(false)
-  const [query, setQuery] = useState('')
-  const [orderState, setOrderState] = useState<State>({ orderKey: 'count', orderDir: 'asc' })
-  const wrapperRef = useRef(null)
-  const menuRef = useRef(null)
-  const nftFilters = useGetNftFilters(collectionAddress)
-  const nftFilterState = useGetNftFilterLoadingState(collectionAddress)
-  const dispatch = useAppDispatch()
-  const { orderKey, orderDir } = orderState
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [orderState, setOrderState] = useState<State>({ orderKey: 'count', orderDir: 'asc' });
+  const wrapperRef = useRef(null);
+  const menuRef = useRef(null);
+  const nftFilters = useGetNftFilters(collectionAddress);
+  const nftFilterState = useGetNftFilterLoadingState(collectionAddress);
+  const dispatch = useAppDispatch();
+  const { orderKey, orderDir } = orderState;
 
-  const traitFilter = nftFilters[traitType]
-  const isTraitSelected = !!traitFilter
+  const traitFilter = nftFilters[traitType];
+  const isTraitSelected = !!traitFilter;
 
   const filteredItems =
     query && query.length > 1
       ? items.filter((item) => item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1)
-      : items
+      : items;
 
   const handleClearItem = () => {
-    const newFilters = { ...nftFilters }
+    const newFilters = { ...nftFilters };
 
-    delete newFilters[traitType]
+    delete newFilters[traitType];
 
     dispatch(
       filterNftsFromCollection({
         collectionAddress,
         nftFilters: newFilters,
       }),
-    )
-  }
+    );
+  };
 
-  const handleMenuClick = () => setIsOpen(!isOpen)
+  const handleMenuClick = () => setIsOpen(!isOpen);
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target
-    setQuery(value)
-  }
+    const { value } = evt.target;
+    setQuery(value);
+  };
 
   const handleItemSelect = ({ attr }: Item) => {
     dispatch(
@@ -96,8 +96,8 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
         collectionAddress,
         nftFilters: { ...nftFilters, [traitType]: attr },
       }),
-    )
-  }
+    );
+  };
 
   const toggleSort = (newOrderKey: string) => () => {
     setOrderState((prevOrderDir) => {
@@ -105,15 +105,15 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
         return {
           orderKey: newOrderKey,
           orderDir: 'asc',
-        }
+        };
       }
 
       return {
         orderKey: newOrderKey,
         orderDir: prevOrderDir.orderDir === 'asc' ? 'desc' : 'asc',
-      }
-    })
-  }
+      };
+    });
+  };
 
   // @TODO Fix this in the Toolkit
   // This is a fix to ensure the "isOpen" value is aligned with the menus's (to avoid a double click)
@@ -125,16 +125,16 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
         !menuRef.current.contains(target) &&
         !wrapperRef.current.contains(target)
       ) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
+    };
 
-    document.addEventListener('click', handleClickOutside)
+    document.addEventListener('click', handleClickOutside);
 
     return () => {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [setIsOpen, wrapperRef, menuRef])
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [setIsOpen, wrapperRef, menuRef]);
 
   return (
     <Flex alignItems="center" mr="4px" mb="4px">
@@ -183,8 +183,8 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
             <Box height="240px" overflowY="auto">
               {filteredItems.length > 0 ? (
                 orderBy(filteredItems, orderKey, orderDir).map((filteredItem) => {
-                  const handleSelect = () => handleItemSelect(filteredItem)
-                  const isItemSelected = traitFilter ? traitFilter.value === filteredItem.attr.value : false
+                  const handleSelect = () => handleItemSelect(filteredItem);
+                  const isItemSelected = traitFilter ? traitFilter.value === filteredItem.attr.value : false;
 
                   return (
                     <ItemRow
@@ -193,7 +193,7 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
                       isSelected={isItemSelected}
                       onSelect={handleSelect}
                     />
-                  )
+                  );
                 })
               ) : (
                 <Flex alignItems="center" justifyContent="center" height="230px">
@@ -217,5 +217,5 @@ export const ListFilter: React.FC<ListFilterProps> = ({ title, traitType, items,
         </CloseButton>
       )}
     </Flex>
-  )
-}
+  );
+};

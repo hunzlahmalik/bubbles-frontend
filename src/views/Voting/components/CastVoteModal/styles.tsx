@@ -1,6 +1,6 @@
-import React from 'react'
-import { Box, BoxProps } from '@pancakeswap/uikit'
-import styled from 'styled-components'
+import React from 'react';
+import { Box, BoxProps } from '@pancakeswap/uikit';
+import styled from 'styled-components';
 
 export const VotingBox = styled.div`
   align-items: center;
@@ -11,8 +11,8 @@ export const VotingBox = styled.div`
   justify-content: space-between;
   margin-bottom: 24px;
   padding: 0 16px;
-`
+`;
 
 export const ModalInner: React.FC<BoxProps> = (props) => {
-  return <Box mb="24px" maxWidth="320px" {...props} />
-}
+  return <Box mb="24px" maxWidth="320px" {...props} />;
+};

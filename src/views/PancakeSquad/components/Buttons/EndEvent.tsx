@@ -1,18 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Button, Flex } from '@pancakeswap/uikit'
-import { ContextApi } from 'contexts/Localization/types'
-import { SaleStatusEnum, UserStatusEnum } from '../../types'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Flex } from '@pancakeswap/uikit';
+import { ContextApi } from 'contexts/Localization/types';
+import { SaleStatusEnum, UserStatusEnum } from '../../types';
 
 type EndEventProps = {
-  t: ContextApi['t']
-  account: string
-  saleStatus: SaleStatusEnum
-  userStatus: UserStatusEnum
-  maxSupply: number
-  totalSupplyMinted: number
-  numberTokensOfUser: number
-}
+  t: ContextApi['t'];
+  account: string;
+  saleStatus: SaleStatusEnum;
+  userStatus: UserStatusEnum;
+  maxSupply: number;
+  totalSupplyMinted: number;
+  numberTokensOfUser: number;
+};
 
 const EndEventButtons: React.FC<EndEventProps> = ({
   t,
@@ -22,8 +22,8 @@ const EndEventButtons: React.FC<EndEventProps> = ({
   maxSupply,
   totalSupplyMinted,
 }) => {
-  const hasSquad = saleStatus === SaleStatusEnum.Claim && numberTokensOfUser > 0
-  const canViewMarket = maxSupply === totalSupplyMinted
+  const hasSquad = saleStatus === SaleStatusEnum.Claim && numberTokensOfUser > 0;
+  const canViewMarket = maxSupply === totalSupplyMinted;
 
   return (
     <Flex flexDirection={['column', null, null, 'row']}>
@@ -38,7 +38,7 @@ const EndEventButtons: React.FC<EndEventProps> = ({
         </Button>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default EndEventButtons
+export default EndEventButtons;

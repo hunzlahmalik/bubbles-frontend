@@ -1,52 +1,52 @@
-import React, { useEffect, useState } from 'react'
-import { sumBy } from 'lodash'
-import { useAppDispatch } from 'state'
-import { useWeb3React } from '@web3-react/core'
-import { Card, CardBody, CardHeader, Flex, Heading, PrizeIcon } from '@pancakeswap/uikit'
-import { useProfile } from 'state/profile/hooks'
-import { Achievement } from 'state/types'
-import { addPoints } from 'state/profile'
-import { addAchievement } from 'state/achievements'
-import { useTranslation } from 'contexts/Localization'
-import { getClaimableIfoData } from 'utils/achievements'
-import AchievementRow from './AchievementRow'
+import React, { useEffect, useState } from 'react';
+import { sumBy } from 'lodash';
+import { useAppDispatch } from 'state';
+import { useWeb3React } from '@web3-react/core';
+import { Card, CardBody, CardHeader, Flex, Heading, PrizeIcon } from '@pancakeswap/uikit';
+import { useProfile } from 'state/profile/hooks';
+import { Achievement } from 'state/types';
+import { addPoints } from 'state/profile';
+import { addAchievement } from 'state/achievements';
+import { useTranslation } from 'contexts/Localization';
+import { getClaimableIfoData } from 'utils/achievements';
+import AchievementRow from './AchievementRow';
 
 const ClaimPointsCallout = () => {
-  const [claimableAchievements, setClaimableAchievement] = useState<Achievement[]>([])
-  const { t } = useTranslation()
-  const dispatch = useAppDispatch()
-  const { profile } = useProfile()
-  const { account } = useWeb3React()
+  const [claimableAchievements, setClaimableAchievement] = useState<Achievement[]>([]);
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { profile } = useProfile();
+  const { account } = useWeb3React();
 
   useEffect(() => {
     const fetchIfoClaims = async () => {
-      const ifoData = await getClaimableIfoData(account)
-      setClaimableAchievement(ifoData)
-    }
+      const ifoData = await getClaimableIfoData(account);
+      setClaimableAchievement(ifoData);
+    };
 
     if (account) {
-      fetchIfoClaims()
+      fetchIfoClaims();
     }
-  }, [account, dispatch, setClaimableAchievement])
+  }, [account, dispatch, setClaimableAchievement]);
 
   const handleCollectSuccess = (achievement: Achievement) => {
-    dispatch(addAchievement(achievement))
-    dispatch(addPoints(achievement.points))
+    dispatch(addAchievement(achievement));
+    dispatch(addPoints(achievement.points));
 
     setClaimableAchievement((prevClaimableAchievements) =>
       prevClaimableAchievements.filter((prevClaimableAchievement) => prevClaimableAchievement.id !== achievement.id),
-    )
-  }
+    );
+  };
 
   if (!profile?.isActive) {
-    return null
+    return null;
   }
 
   if (claimableAchievements.length === 0) {
-    return null
+    return null;
   }
 
-  const totalPointsToCollect = sumBy(claimableAchievements, 'points')
+  const totalPointsToCollect = sumBy(claimableAchievements, 'points');
 
   return (
     <Card isActive mb="32px">
@@ -64,7 +64,7 @@ const ClaimPointsCallout = () => {
         ))}
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
-export default ClaimPointsCallout
+export default ClaimPointsCallout;

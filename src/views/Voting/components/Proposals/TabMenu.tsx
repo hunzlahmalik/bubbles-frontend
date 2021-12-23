@@ -1,47 +1,47 @@
-import React from 'react'
-import styled from 'styled-components'
-import { TabMenu as UIKitTabMenu, Tab, Flex, VerifiedIcon, CommunityIcon } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { ProposalType } from 'state/types'
+import React from 'react';
+import styled from 'styled-components';
+import { TabMenu as UIKitTabMenu, Tab, Flex, VerifiedIcon, CommunityIcon } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { ProposalType } from 'state/types';
 
 interface TabMenuProps {
-  proposalType: ProposalType
-  onTypeChange: (proposalType: ProposalType) => void
+  proposalType: ProposalType;
+  onTypeChange: (proposalType: ProposalType) => void;
 }
 
 const StyledTabMenu = styled.div`
   background-color: ${({ theme }) => theme.colors.input};
   padding-top: 16px;
-`
+`;
 
 const getIndexFromType = (proposalType: ProposalType) => {
   switch (proposalType) {
     case ProposalType.COMMUNITY:
-      return 1
+      return 1;
     case ProposalType.ALL:
-      return 2
+      return 2;
     case ProposalType.CORE:
     default:
-      return 0
+      return 0;
   }
-}
+};
 
 const getTypeFromIndex = (index: number) => {
   switch (index) {
     case 1:
-      return ProposalType.COMMUNITY
+      return ProposalType.COMMUNITY;
     case 2:
-      return ProposalType.ALL
+      return ProposalType.ALL;
     default:
-      return ProposalType.CORE
+      return ProposalType.CORE;
   }
-}
+};
 
 const TabMenu: React.FC<TabMenuProps> = ({ proposalType, onTypeChange }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const handleItemClick = (index: number) => {
-    onTypeChange(getTypeFromIndex(index))
-  }
+    onTypeChange(getTypeFromIndex(index));
+  };
 
   return (
     <StyledTabMenu>
@@ -62,7 +62,7 @@ const TabMenu: React.FC<TabMenuProps> = ({ proposalType, onTypeChange }) => {
         <Tab>All</Tab>
       </UIKitTabMenu>
     </StyledTabMenu>
-  )
-}
+  );
+};
 
-export default TabMenu
+export default TabMenu;

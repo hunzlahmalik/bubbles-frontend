@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { escapeRegExp } from 'utils'
-import { Text, Button, Input, Flex, Box } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
-import QuestionHelper from '../../QuestionHelper'
+import React, { useState } from 'react';
+import { escapeRegExp } from 'utils';
+import { Text, Button, Input, Flex, Box } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks';
+import QuestionHelper from '../../QuestionHelper';
 
 enum SlippageError {
   InvalidInput = 'InvalidInput',
@@ -15,65 +15,65 @@ enum DeadlineError {
   InvalidInput = 'InvalidInput',
 }
 
-const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
+const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`); // match escaped "." characters via in a non-capturing group
 
 const SlippageTabs = () => {
-  const [userSlippageTolerance, setUserSlippageTolerance] = useUserSlippageTolerance()
-  const [ttl, setTtl] = useUserTransactionTTL()
-  const [slippageInput, setSlippageInput] = useState('')
-  const [deadlineInput, setDeadlineInput] = useState('')
+  const [userSlippageTolerance, setUserSlippageTolerance] = useUserSlippageTolerance();
+  const [ttl, setTtl] = useUserTransactionTTL();
+  const [slippageInput, setSlippageInput] = useState('');
+  const [deadlineInput, setDeadlineInput] = useState('');
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const slippageInputIsValid =
-    slippageInput === '' || (userSlippageTolerance / 100).toFixed(2) === Number.parseFloat(slippageInput).toFixed(2)
-  const deadlineInputIsValid = deadlineInput === '' || (ttl / 60).toString() === deadlineInput
+    slippageInput === '' || (userSlippageTolerance / 100).toFixed(2) === Number.parseFloat(slippageInput).toFixed(2);
+  const deadlineInputIsValid = deadlineInput === '' || (ttl / 60).toString() === deadlineInput;
 
-  let slippageError: SlippageError | undefined
+  let slippageError: SlippageError | undefined;
   if (slippageInput !== '' && !slippageInputIsValid) {
-    slippageError = SlippageError.InvalidInput
+    slippageError = SlippageError.InvalidInput;
   } else if (slippageInputIsValid && userSlippageTolerance < 50) {
-    slippageError = SlippageError.RiskyLow
+    slippageError = SlippageError.RiskyLow;
   } else if (slippageInputIsValid && userSlippageTolerance > 500) {
-    slippageError = SlippageError.RiskyHigh
+    slippageError = SlippageError.RiskyHigh;
   } else {
-    slippageError = undefined
+    slippageError = undefined;
   }
 
-  let deadlineError: DeadlineError | undefined
+  let deadlineError: DeadlineError | undefined;
   if (deadlineInput !== '' && !deadlineInputIsValid) {
-    deadlineError = DeadlineError.InvalidInput
+    deadlineError = DeadlineError.InvalidInput;
   } else {
-    deadlineError = undefined
+    deadlineError = undefined;
   }
 
   const parseCustomSlippage = (value: string) => {
     if (value === '' || inputRegex.test(escapeRegExp(value))) {
-      setSlippageInput(value)
+      setSlippageInput(value);
 
       try {
-        const valueAsIntFromRoundedFloat = Number.parseInt((Number.parseFloat(value) * 100).toString())
+        const valueAsIntFromRoundedFloat = Number.parseInt((Number.parseFloat(value) * 100).toString());
         if (!Number.isNaN(valueAsIntFromRoundedFloat) && valueAsIntFromRoundedFloat < 5000) {
-          setUserSlippageTolerance(valueAsIntFromRoundedFloat)
+          setUserSlippageTolerance(valueAsIntFromRoundedFloat);
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
-  }
+  };
 
   const parseCustomDeadline = (value: string) => {
-    setDeadlineInput(value)
+    setDeadlineInput(value);
 
     try {
-      const valueAsInt: number = Number.parseInt(value) * 60
+      const valueAsInt: number = Number.parseInt(value) * 60;
       if (!Number.isNaN(valueAsInt) && valueAsInt > 0) {
-        setTtl(valueAsInt)
+        setTtl(valueAsInt);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <Flex flexDirection="column">
@@ -94,8 +94,8 @@ const SlippageTabs = () => {
             mr="4px"
             scale="sm"
             onClick={() => {
-              setSlippageInput('')
-              setUserSlippageTolerance(10)
+              setSlippageInput('');
+              setUserSlippageTolerance(10);
             }}
             variant={userSlippageTolerance === 10 ? 'primary' : 'tertiary'}
           >
@@ -106,8 +106,8 @@ const SlippageTabs = () => {
             mr="4px"
             scale="sm"
             onClick={() => {
-              setSlippageInput('')
-              setUserSlippageTolerance(50)
+              setSlippageInput('');
+              setUserSlippageTolerance(50);
             }}
             variant={userSlippageTolerance === 50 ? 'primary' : 'tertiary'}
           >
@@ -118,8 +118,8 @@ const SlippageTabs = () => {
             mt="4px"
             scale="sm"
             onClick={() => {
-              setSlippageInput('')
-              setUserSlippageTolerance(100)
+              setSlippageInput('');
+              setUserSlippageTolerance(100);
             }}
             variant={userSlippageTolerance === 100 ? 'primary' : 'tertiary'}
           >
@@ -134,11 +134,11 @@ const SlippageTabs = () => {
                 placeholder={(userSlippageTolerance / 100).toFixed(2)}
                 value={slippageInput}
                 onBlur={() => {
-                  parseCustomSlippage((userSlippageTolerance / 100).toFixed(2))
+                  parseCustomSlippage((userSlippageTolerance / 100).toFixed(2));
                 }}
                 onChange={(event) => {
                   if (event.currentTarget.validity.valid) {
-                    parseCustomSlippage(event.target.value.replace(/,/g, '.'))
+                    parseCustomSlippage(event.target.value.replace(/,/g, '.'));
                   }
                 }}
                 isWarning={!slippageInputIsValid}
@@ -177,13 +177,13 @@ const SlippageTabs = () => {
               pattern="^[0-9]+$"
               color={deadlineError ? 'red' : undefined}
               onBlur={() => {
-                parseCustomDeadline((ttl / 60).toString())
+                parseCustomDeadline((ttl / 60).toString());
               }}
               placeholder={(ttl / 60).toString()}
               value={deadlineInput}
               onChange={(event) => {
                 if (event.currentTarget.validity.valid) {
-                  parseCustomDeadline(event.target.value)
+                  parseCustomDeadline(event.target.value);
                 }
               }}
             />
@@ -191,7 +191,7 @@ const SlippageTabs = () => {
         </Flex>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default SlippageTabs
+export default SlippageTabs;

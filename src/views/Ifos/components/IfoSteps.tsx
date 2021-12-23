@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import every from 'lodash/every'
+import React from 'react';
+import styled from 'styled-components';
+import every from 'lodash/every';
 import {
   Stepper,
   Step,
@@ -19,30 +19,30 @@ import {
   Skeleton,
   useModal,
   Link,
-} from '@pancakeswap/uikit'
-import { Link as RouterLink } from 'react-router-dom'
-import { useWeb3React } from '@web3-react/core'
-import { Ifo } from 'config/constants/types'
-import { WalletIfoData } from 'views/Ifos/types'
-import { useTranslation } from 'contexts/Localization'
-import useTokenBalance from 'hooks/useTokenBalance'
-import Container from 'components/Layout/Container'
-import { useProfile } from 'state/profile/hooks'
-import Balance from 'components/Balance'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
-import ConnectWalletButton from 'components/ConnectWalletButton'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import { FlexGap } from 'components/Layout/Flex'
-import { getBalanceNumber } from 'utils/formatBalance'
-import VaultStakeModal from 'views/Pools/components/CakeVaultCard/VaultStakeModal'
-import { BIG_ZERO } from 'utils/bigNumber'
-import BigNumber from 'bignumber.js'
-import { useIfoPoolVault, useIfoPoolCredit, useIfoWithApr } from 'state/pools/hooks'
+} from '@pancakeswap/uikit';
+import { Link as RouterLink } from 'react-router-dom';
+import { useWeb3React } from '@web3-react/core';
+import { Ifo } from 'config/constants/types';
+import { WalletIfoData } from 'views/Ifos/types';
+import { useTranslation } from 'contexts/Localization';
+import useTokenBalance from 'hooks/useTokenBalance';
+import Container from 'components/Layout/Container';
+import { useProfile } from 'state/profile/hooks';
+import Balance from 'components/Balance';
+import { nftsBaseUrl } from 'views/Nft/market/constants';
+import ConnectWalletButton from 'components/ConnectWalletButton';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import { FlexGap } from 'components/Layout/Flex';
+import { getBalanceNumber } from 'utils/formatBalance';
+import VaultStakeModal from 'views/Pools/components/CakeVaultCard/VaultStakeModal';
+import { BIG_ZERO } from 'utils/bigNumber';
+import BigNumber from 'bignumber.js';
+import { useIfoPoolVault, useIfoPoolCredit, useIfoWithApr } from 'state/pools/hooks';
 
 interface Props {
-  ifo: Ifo
-  walletIfoData: WalletIfoData
-  isLive?: boolean
+  ifo: Ifo;
+  walletIfoData: WalletIfoData;
+  isLive?: boolean;
 }
 
 const Wrapper = styled(Container)`
@@ -56,23 +56,23 @@ const Wrapper = styled(Container)`
     margin-left: -24px;
     margin-right: -24px;
   }
-`
+`;
 
 const InlineLink = styled(Link)`
   display: inline;
-`
+`;
 
 const SmallStakePoolCard = styled(Box)`
   margin-top: 16px;
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   background-color: ${({ theme }) => theme.colors.background};
-`
+`;
 
 const Step1 = ({ hasProfile }: { hasProfile: boolean }) => {
-  const { t } = useTranslation()
-  const ifoPoolVault = useIfoPoolVault()
-  const credit = useIfoPoolCredit()
-  const { pool } = useIfoWithApr()
+  const { t } = useTranslation();
+  const ifoPoolVault = useIfoPoolVault();
+  const credit = useIfoPoolCredit();
+  const { pool } = useIfoWithApr();
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <Box>
       <span>
@@ -88,14 +88,15 @@ const Step1 = ({ hasProfile }: { hasProfile: boolean }) => {
       </InlineLink>
     </Box>,
     {},
-  )
+  );
 
-  const cakePriceBusd = usePriceCakeBusd()
-  const stakedDollarValue = cakePriceBusd.gt(0) && credit ? getBalanceNumber(credit.multipliedBy(cakePriceBusd), 18) : 0
+  const cakePriceBusd = usePriceCakeBusd();
+  const stakedDollarValue =
+    cakePriceBusd.gt(0) && credit ? getBalanceNumber(credit.multipliedBy(cakePriceBusd), 18) : 0;
 
   const stakingTokenBalance = pool?.userData?.stakingTokenBalance
     ? new BigNumber(pool.userData.stakingTokenBalance)
-    : BIG_ZERO
+    : BIG_ZERO;
 
   const [onPresentStake] = useModal(
     <VaultStakeModal
@@ -103,7 +104,7 @@ const Step1 = ({ hasProfile }: { hasProfile: boolean }) => {
       performanceFee={ifoPoolVault.fees.performanceFeeAsDecimal}
       pool={pool}
     />,
-  )
+  );
 
   return (
     <CardBody>
@@ -152,11 +153,11 @@ const Step1 = ({ hasProfile }: { hasProfile: boolean }) => {
         </SmallStakePoolCard>
       )}
     </CardBody>
-  )
-}
+  );
+};
 
 const Step2 = ({ hasProfile, isLive, isCommitted }: { hasProfile: boolean; isLive: boolean; isCommitted: boolean }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <CardBody>
       <Heading as="h4" color="secondary" mb="16px">
@@ -172,38 +173,38 @@ const Step2 = ({ hasProfile, isLive, isCommitted }: { hasProfile: boolean; isLiv
         </Button>
       )}
     </CardBody>
-  )
-}
+  );
+};
 
 const IfoSteps: React.FC<Props> = ({ ifo, walletIfoData, isLive }) => {
-  const { poolBasic, poolUnlimited } = walletIfoData
-  const { hasProfile } = useProfile()
-  const { account } = useWeb3React()
-  const { t } = useTranslation()
-  const { balance } = useTokenBalance(ifo.currency.address)
+  const { poolBasic, poolUnlimited } = walletIfoData;
+  const { hasProfile } = useProfile();
+  const { account } = useWeb3React();
+  const { t } = useTranslation();
+  const { balance } = useTokenBalance(ifo.currency.address);
   const isCommitted =
-    poolBasic.amountTokenCommittedInLP.isGreaterThan(0) || poolUnlimited.amountTokenCommittedInLP.isGreaterThan(0)
+    poolBasic.amountTokenCommittedInLP.isGreaterThan(0) || poolUnlimited.amountTokenCommittedInLP.isGreaterThan(0);
   const stepsValidationStatus = [
     hasProfile,
     balance.isGreaterThan(0),
     isCommitted,
     poolBasic.hasClaimed || poolUnlimited.hasClaimed,
-  ]
+  ];
 
   const getStatusProp = (index: number): StepStatus => {
-    const arePreviousValid = index === 0 ? true : every(stepsValidationStatus.slice(0, index), Boolean)
+    const arePreviousValid = index === 0 ? true : every(stepsValidationStatus.slice(0, index), Boolean);
     if (stepsValidationStatus[index]) {
-      return arePreviousValid ? 'past' : 'future'
+      return arePreviousValid ? 'past' : 'future';
     }
-    return arePreviousValid ? 'current' : 'future'
-  }
+    return arePreviousValid ? 'current' : 'future';
+  };
 
   const renderCardBody = (step: number) => {
-    const isStepValid = stepsValidationStatus[step]
+    const isStepValid = stepsValidationStatus[step];
 
     const renderAccountStatus = () => {
       if (!account) {
-        return <ConnectWalletButton />
+        return <ConnectWalletButton />;
       }
 
       if (isStepValid) {
@@ -214,15 +215,15 @@ const IfoSteps: React.FC<Props> = ({ ifo, walletIfoData, isLive }) => {
             </Text>
             <CheckmarkIcon color="success" />
           </Flex>
-        )
+        );
       }
 
       return (
         <Button as={RouterLink} to={`${nftsBaseUrl}/profile/${account.toLowerCase()}`}>
           {t('Activate your Profile')}
         </Button>
-      )
-    }
+      );
+    };
 
     switch (step) {
       case 0:
@@ -236,11 +237,11 @@ const IfoSteps: React.FC<Props> = ({ ifo, walletIfoData, isLive }) => {
             </Text>
             {renderAccountStatus()}
           </CardBody>
-        )
+        );
       case 1:
-        return <Step1 hasProfile={hasProfile} />
+        return <Step1 hasProfile={hasProfile} />;
       case 2:
-        return <Step2 hasProfile={hasProfile} isLive={isLive} isCommitted={isCommitted} />
+        return <Step2 hasProfile={hasProfile} isLive={isLive} isCommitted={isCommitted} />;
       case 3:
         return (
           <CardBody>
@@ -253,11 +254,11 @@ const IfoSteps: React.FC<Props> = ({ ifo, walletIfoData, isLive }) => {
               )}
             </Text>
           </CardBody>
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   return (
     <Wrapper>
@@ -278,7 +279,7 @@ const IfoSteps: React.FC<Props> = ({ ifo, walletIfoData, isLive }) => {
         ))}
       </Stepper>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default IfoSteps
+export default IfoSteps;

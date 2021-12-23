@@ -1,16 +1,16 @@
-import { Flex, Text } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import React from 'react'
+import { Flex, Text } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import React from 'react';
 
 interface NoChartAvailableProps {
-  token0Address: string
-  token1Address: string
-  pairAddress: string
-  isMobile: boolean
+  token0Address: string;
+  token1Address: string;
+  pairAddress: string;
+  isMobile: boolean;
 }
 
 const NoChartAvailable: React.FC<NoChartAvailableProps> = ({ token0Address, token1Address, pairAddress, isMobile }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <Flex justifyContent="center" alignItems="center" height="100%" flexDirection="column">
@@ -44,7 +44,7 @@ const NoChartAvailable: React.FC<NoChartAvailableProps> = ({ token0Address, toke
         </Text>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default NoChartAvailable
+export default NoChartAvailable;

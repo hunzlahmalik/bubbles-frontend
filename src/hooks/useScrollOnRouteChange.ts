@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import history from 'routerHistory'
+import { useEffect } from 'react';
+import history from 'routerHistory';
 
 const useScrollOnRouteChange = () => {
   useEffect(() => {
@@ -10,13 +10,13 @@ const useScrollOnRouteChange = () => {
             top: 0,
             left: 0,
             behavior: 'smooth',
-          })
-        }, 50)
+          });
+        }, 50);
       }
-    })
+    });
 
-    return () => unlisten()
-  }, [])
-}
+    return () => unlisten();
+  }, []);
+};
 
-export default useScrollOnRouteChange
+export default useScrollOnRouteChange;

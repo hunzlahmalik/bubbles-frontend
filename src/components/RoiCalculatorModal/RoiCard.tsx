@@ -1,25 +1,25 @@
-import React, { useRef, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { Box, Flex, Text, Input, CheckmarkIcon, PencilIcon, IconButton } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { CalculatorMode, RoiCalculatorReducerState } from './useRoiCalculatorReducer'
+import React, { useRef, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Box, Flex, Text, Input, CheckmarkIcon, PencilIcon, IconButton } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { CalculatorMode, RoiCalculatorReducerState } from './useRoiCalculatorReducer';
 
-const MILLION = 1000000
-const TRILLION = 1000000000000
+const MILLION = 1000000;
+const TRILLION = 1000000000000;
 
 const RoiCardWrapper = styled(Box)`
   background: linear-gradient(180deg, #53dee9, #7645d9);
   padding: 1px;
   width: 100%;
   border-radius: ${({ theme }) => theme.radii.default};
-`
+`;
 
 const RoiCardInner = styled(Box)`
   height: 120px;
   padding: 24px;
   border-radius: ${({ theme }) => theme.radii.default};
   background: ${({ theme }) => theme.colors.gradients.bubblegum};
-`
+`;
 
 const RoiInputContainer = styled(Box)`
   position: relative;
@@ -34,12 +34,12 @@ const RoiInputContainer = styled(Box)`
     left: 16px;
     top: 8px;
   }
-`
+`;
 
 const RoiDisplayContainer = styled(Flex)`
   max-width: 82%;
   margin-right: 8px;
-`
+`;
 
 const RoiDollarAmount = styled(Text)<{ fadeOut: boolean }>`
   position: relative;
@@ -66,49 +66,49 @@ const RoiDollarAmount = styled(Text)<{ fadeOut: boolean }>`
         width: 40px;
       }
   `}
-`
+`;
 
 interface RoiCardProps {
-  earningTokenSymbol: string
-  calculatorState: RoiCalculatorReducerState
-  setTargetRoi: (amount: string) => void
-  setCalculatorMode: (mode: CalculatorMode) => void
+  earningTokenSymbol: string;
+  calculatorState: RoiCalculatorReducerState;
+  setTargetRoi: (amount: string) => void;
+  setCalculatorMode: (mode: CalculatorMode) => void;
 }
 
 const RoiCard: React.FC<RoiCardProps> = ({ earningTokenSymbol, calculatorState, setTargetRoi, setCalculatorMode }) => {
-  const [expectedRoi, setExpectedRoi] = useState('')
-  const inputRef = useRef<HTMLInputElement | null>(null)
-  const { roiUSD, roiTokens, roiPercentage } = calculatorState.data
-  const { mode } = calculatorState.controls
+  const [expectedRoi, setExpectedRoi] = useState('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const { roiUSD, roiTokens, roiPercentage } = calculatorState.data;
+  const { mode } = calculatorState.controls;
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (mode === CalculatorMode.PRINCIPAL_BASED_ON_ROI && inputRef.current) {
-      inputRef.current.focus()
+      inputRef.current.focus();
     }
-  }, [mode])
+  }, [mode]);
 
   const onEnterEditing = () => {
-    setCalculatorMode(CalculatorMode.PRINCIPAL_BASED_ON_ROI)
+    setCalculatorMode(CalculatorMode.PRINCIPAL_BASED_ON_ROI);
     setExpectedRoi(
       roiUSD.toLocaleString('en', {
         minimumFractionDigits: roiUSD > MILLION ? 0 : 2,
         maximumFractionDigits: roiUSD > MILLION ? 0 : 2,
       }),
-    )
-  }
+    );
+  };
 
   const onExitRoiEditing = () => {
-    setCalculatorMode(CalculatorMode.ROI_BASED_ON_PRINCIPAL)
-  }
+    setCalculatorMode(CalculatorMode.ROI_BASED_ON_PRINCIPAL);
+  };
   const handleExpectedRoiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.validity.valid) {
-      const roiAsString = event.target.value.replace(/,/g, '.')
-      setTargetRoi(roiAsString)
-      setExpectedRoi(roiAsString)
+      const roiAsString = event.target.value.replace(/,/g, '.');
+      setTargetRoi(roiAsString);
+      setExpectedRoi(roiAsString);
     }
-  }
+  };
   return (
     <RoiCardWrapper>
       <RoiCardInner>
@@ -161,7 +161,7 @@ const RoiCard: React.FC<RoiCardProps> = ({ earningTokenSymbol, calculatorState, 
         </Text>
       </RoiCardInner>
     </RoiCardWrapper>
-  )
-}
+  );
+};
 
-export default RoiCard
+export default RoiCard;

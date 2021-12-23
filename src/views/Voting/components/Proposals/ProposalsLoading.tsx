@@ -1,18 +1,18 @@
-import React from 'react'
-import { Box, Flex, Skeleton } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import times from 'lodash/times'
-import { PROPOSALS_TO_SHOW } from '../../config'
+import React from 'react';
+import { Box, Flex, Skeleton } from '@pancakeswap/uikit';
+import styled from 'styled-components';
+import times from 'lodash/times';
+import { PROPOSALS_TO_SHOW } from '../../config';
 
 const Row = styled(Flex)`
   border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
-`
+`;
 
 const Wrapper = styled.div`
   ${Row}:last-child {
     border-bottom: 0;
   }
-`
+`;
 
 const ProposalsLoading = () => {
   return (
@@ -28,7 +28,7 @@ const ProposalsLoading = () => {
         </Row>
       ))}
     </Wrapper>
-  )
-}
+  );
+};
 
-export default ProposalsLoading
+export default ProposalsLoading;

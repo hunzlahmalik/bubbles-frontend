@@ -1,57 +1,57 @@
-import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
-import { AutoRenewIcon, Button, Card, CardBody, Flex, Skeleton, Text, ArrowForwardIcon } from '@pancakeswap/uikit'
-import { Link } from 'react-router-dom'
-import BigNumber from 'bignumber.js'
-import { useTranslation } from 'contexts/Localization'
-import { usePriceCakeBusd } from 'state/farms/hooks'
-import useToast from 'hooks/useToast'
-import { useMasterchef } from 'hooks/useContract'
-import { harvestFarm } from 'utils/calls'
-import Balance from 'components/Balance'
-import { logError } from 'utils/sentry'
-import useFarmsWithBalance from 'views/Home/hooks/useFarmsWithBalance'
-import { getEarningsText } from './EarningsText'
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
+import { AutoRenewIcon, Button, Card, CardBody, Flex, Skeleton, Text, ArrowForwardIcon } from '@pancakeswap/uikit';
+import { Link } from 'react-router-dom';
+import BigNumber from 'bignumber.js';
+import { useTranslation } from 'contexts/Localization';
+import { usePriceCakeBusd } from 'state/farms/hooks';
+import useToast from 'hooks/useToast';
+import { useMasterchef } from 'hooks/useContract';
+import { harvestFarm } from 'utils/calls';
+import Balance from 'components/Balance';
+import { logError } from 'utils/sentry';
+import useFarmsWithBalance from 'views/Home/hooks/useFarmsWithBalance';
+import { getEarningsText } from './EarningsText';
 
 const StyledCard = styled(Card)`
   width: 100%;
   height: fit-content;
-`
+`;
 
 const HarvestCard = () => {
-  const [pendingTx, setPendingTx] = useState(false)
-  const { t } = useTranslation()
-  const { toastSuccess, toastError } = useToast()
-  const { farmsWithStakedBalance, earningsSum: farmEarningsSum } = useFarmsWithBalance()
+  const [pendingTx, setPendingTx] = useState(false);
+  const { t } = useTranslation();
+  const { toastSuccess, toastError } = useToast();
+  const { farmsWithStakedBalance, earningsSum: farmEarningsSum } = useFarmsWithBalance();
 
-  const masterChefContract = useMasterchef()
-  const cakePriceBusd = usePriceCakeBusd()
-  const earningsBusd = new BigNumber(farmEarningsSum).multipliedBy(cakePriceBusd)
-  const numTotalToCollect = farmsWithStakedBalance.length
-  const numFarmsToCollect = farmsWithStakedBalance.filter((value) => value.pid !== 0).length
-  const hasCakePoolToCollect = numTotalToCollect - numFarmsToCollect > 0
+  const masterChefContract = useMasterchef();
+  const cakePriceBusd = usePriceCakeBusd();
+  const earningsBusd = new BigNumber(farmEarningsSum).multipliedBy(cakePriceBusd);
+  const numTotalToCollect = farmsWithStakedBalance.length;
+  const numFarmsToCollect = farmsWithStakedBalance.filter((value) => value.pid !== 0).length;
+  const hasCakePoolToCollect = numTotalToCollect - numFarmsToCollect > 0;
 
-  const earningsText = getEarningsText(numFarmsToCollect, hasCakePoolToCollect, earningsBusd, t)
-  const [preText, toCollectText] = earningsText.split(earningsBusd.toString())
+  const earningsText = getEarningsText(numFarmsToCollect, hasCakePoolToCollect, earningsBusd, t);
+  const [preText, toCollectText] = earningsText.split(earningsBusd.toString());
 
   const harvestAllFarms = useCallback(async () => {
-    setPendingTx(true)
+    setPendingTx(true);
     // eslint-disable-next-line no-restricted-syntax
     for (const farmWithBalance of farmsWithStakedBalance) {
       try {
         // eslint-disable-next-line no-await-in-loop
-        await harvestFarm(masterChefContract, farmWithBalance.pid)
+        await harvestFarm(masterChefContract, farmWithBalance.pid);
         toastSuccess(
           `${t('Harvested')}!`,
           t('Your %symbol% earnings have been sent to your wallet!', { symbol: 'CAKE' }),
-        )
+        );
       } catch (error) {
-        logError(error)
-        toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
+        logError(error);
+        toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'));
       }
     }
-    setPendingTx(false)
-  }, [farmsWithStakedBalance, masterChefContract, toastSuccess, toastError, t])
+    setPendingTx(false);
+  }, [farmsWithStakedBalance, masterChefContract, toastSuccess, toastError, t]);
 
   return (
     <StyledCard>
@@ -105,7 +105,7 @@ const HarvestCard = () => {
         </Flex>
       </CardBody>
     </StyledCard>
-  )
-}
+  );
+};
 
-export default HarvestCard
+export default HarvestCard;

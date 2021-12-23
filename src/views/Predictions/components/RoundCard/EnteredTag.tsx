@@ -1,20 +1,20 @@
-import React from 'react'
-import { ethers } from 'ethers'
-import { CheckmarkCircleIcon, CheckmarkCircleFillIcon, Tag, useTooltip } from '@pancakeswap/uikit'
-import { useTranslation } from 'contexts/Localization'
-import { formatBnbv2 } from '../../helpers'
+import React from 'react';
+import { ethers } from 'ethers';
+import { CheckmarkCircleIcon, CheckmarkCircleFillIcon, Tag, useTooltip } from '@pancakeswap/uikit';
+import { useTranslation } from 'contexts/Localization';
+import { formatBnbv2 } from '../../helpers';
 
 interface EnteredTagProps {
-  amount?: ethers.BigNumber
-  hasClaimed?: boolean
+  amount?: ethers.BigNumber;
+  hasClaimed?: boolean;
 }
 
 const EnteredTag: React.FC<EnteredTagProps> = ({ amount, hasClaimed = false }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { targetRef, tooltipVisible, tooltip } = useTooltip(
     <div style={{ whiteSpace: 'nowrap' }}>{`${formatBnbv2(amount)} BNB`}</div>,
     { placement: 'bottom' },
-  )
+  );
 
   return (
     <>
@@ -31,7 +31,7 @@ const EnteredTag: React.FC<EnteredTagProps> = ({ amount, hasClaimed = false }) =
       </span>{' '}
       {tooltipVisible && tooltip}
     </>
-  )
-}
+  );
+};
 
-export default EnteredTag
+export default EnteredTag;

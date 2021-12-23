@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useModal } from '@pancakeswap/uikit'
-import AvatarImage from 'views/Nft/market/components/BannerHeader/AvatarImage'
-import EditProfileModal from './EditProfileModal'
+import React from 'react';
+import styled from 'styled-components';
+import { useModal } from '@pancakeswap/uikit';
+import AvatarImage from 'views/Nft/market/components/BannerHeader/AvatarImage';
+import EditProfileModal from './EditProfileModal';
 
 const EditOverlay = styled.div`
   background: rgba(0, 0, 0, 0.6) url('/images/camera.svg') no-repeat center center;
@@ -15,7 +15,7 @@ const EditOverlay = styled.div`
   transition: opacity 300ms;
   width: 100%;
   z-index: 1;
-`
+`;
 
 const StyledEditProfileAvatar = styled.div`
   position: relative;
@@ -27,17 +27,17 @@ const StyledEditProfileAvatar = styled.div`
       opacity: 1;
     }
   }
-`
+`;
 
 const EditProfileAvatar: React.FC<{ src: string; alt?: string }> = ({ src, alt }) => {
-  const [onEditProfileModal] = useModal(<EditProfileModal />, false)
+  const [onEditProfileModal] = useModal(<EditProfileModal />, false);
 
   return (
     <StyledEditProfileAvatar onClick={onEditProfileModal}>
       <AvatarImage src={src} alt={alt} />
       <EditOverlay />
     </StyledEditProfileAvatar>
-  )
-}
+  );
+};
 
-export default EditProfileAvatar
+export default EditProfileAvatar;

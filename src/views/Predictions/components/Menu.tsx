@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { Flex, HelpIcon, Button, PrizeIcon } from '@pancakeswap/uikit'
-import FlexRow from './FlexRow'
-import { PricePairLabel, TimerLabel } from './Label'
-import PrevNextNav from './PrevNextNav'
-import HistoryButton from './HistoryButton'
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Flex, HelpIcon, Button, PrizeIcon } from '@pancakeswap/uikit';
+import FlexRow from './FlexRow';
+import { PricePairLabel, TimerLabel } from './Label';
+import PrevNextNav from './PrevNextNav';
+import HistoryButton from './HistoryButton';
 
 const SetCol = styled.div`
   flex: none;
@@ -14,7 +14,7 @@ const SetCol = styled.div`
   ${({ theme }) => theme.mediaQueries.lg} {
     width: 270px;
   }
-`
+`;
 
 const HelpButtonWrapper = styled.div`
   order: 1;
@@ -24,7 +24,7 @@ const HelpButtonWrapper = styled.div`
     order: 2;
     margin: 0 0 0 8px;
   }
-`
+`;
 
 const TimerLabelWrapper = styled.div`
   order: 3;
@@ -34,7 +34,7 @@ const TimerLabelWrapper = styled.div`
     order: 1;
     width: auto;
   }
-`
+`;
 
 const LeaderboardButtonWrapper = styled.div`
   display: block;
@@ -46,7 +46,7 @@ const LeaderboardButtonWrapper = styled.div`
     order: 3;
     margin: 0 0 0 8px;
   }
-`
+`;
 
 const ButtonWrapper = styled.div`
   display: none;
@@ -55,7 +55,7 @@ const ButtonWrapper = styled.div`
     display: block;
     margin-left: 8px;
   }
-`
+`;
 
 const Menu = () => {
   return (
@@ -94,7 +94,7 @@ const Menu = () => {
         </Flex>
       </SetCol>
     </FlexRow>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;
