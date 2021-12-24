@@ -1,4 +1,4 @@
-import { SubMenuItems } from '@pancakeswap/uikit';
+import { SubMenuItems } from 'bubbles-uikit';
 import { useWeb3React } from '@web3-react/core';
 import Container from 'components/Layout/Container';
 import { useTranslation } from 'contexts/Localization';

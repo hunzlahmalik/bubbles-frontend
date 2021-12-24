@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@pancakeswap/uikit';
+import { Box } from 'bubbles-uikit';
 import { PredictionUser } from 'state/types';
 import MobileRow from './MobileRow';
 

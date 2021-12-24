@@ -1,4 +1,4 @@
-import { Box, Flex, HelpIcon, Skeleton, Text, useMatchBreakpoints, useTooltip } from '@pancakeswap/uikit';
+import { Box, Flex, HelpIcon, Skeleton, Text, useMatchBreakpoints, useTooltip } from 'bubbles-uikit';
 import BigNumber from 'bignumber.js';
 import Balance from 'components/Balance';
 import { useTranslation } from 'contexts/Localization';

@@ -11,7 +11,7 @@ import {
   useTooltip,
   LinkExternal,
   Link,
-} from '@pancakeswap/uikit';
+} from 'bubbles-uikit';
 import BigNumber from 'bignumber.js';
 import Balance from 'components/Balance';
 import { TokenPairImage } from 'components/TokenImage';

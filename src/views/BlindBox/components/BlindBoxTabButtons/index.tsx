@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation, Link } from 'react-router-dom';
-import { ButtonMenu, ButtonMenuItem, NotificationDot } from '@pancakeswap/uikit';
+import { ButtonMenu, ButtonMenuItem, NotificationDot } from 'bubbles-uikit';
 import { useTranslation } from 'contexts/Localization';
 
 /*
