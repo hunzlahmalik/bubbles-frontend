@@ -27,15 +27,16 @@ e.g
 };
 */
 
-interface BlindBoxTabButtonsProps {
+interface TabButtonMenuProps {
   data: {
     text: string;
     link: string;
     notificationShow: boolean;
   }[];
+  scale?: 'md' | 'xs' | 'sm';
 }
 
-const BlindBoxTabButtons: React.FC<BlindBoxTabButtonsProps> = ({ data }) => {
+const TabButtonMenu: React.FC<TabButtonMenuProps> = ({ data, scale }) => {
   const location = useLocation();
   const { t } = useTranslation();
 
@@ -43,11 +44,11 @@ const BlindBoxTabButtons: React.FC<BlindBoxTabButtonsProps> = ({ data }) => {
 
   return (
     <Wrapper>
-      <ButtonMenu activeIndex={activeIndex} scale="md" variant="primary">
+      <ButtonMenu activeIndex={activeIndex} scale={scale || 'md'} variant="primary">
         {data.map((tab) => {
           return (
             <NotificationDot key={tab.text} show={tab.notificationShow}>
-              <ButtonMenuItem id="finished-blindboxs-button" as={Link} to={`${tab.link}`}>
+              <ButtonMenuItem id="asdasdas" as={Link} to={`${tab.link}`}>
                 {t(tab.text)}
               </ButtonMenuItem>
             </NotificationDot>
@@ -58,7 +59,7 @@ const BlindBoxTabButtons: React.FC<BlindBoxTabButtonsProps> = ({ data }) => {
   );
 };
 
-export default BlindBoxTabButtons;
+export default TabButtonMenu;
 
 const Wrapper = styled.div`
   display: flex;
