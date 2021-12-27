@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabButtonMenu as BlindBoxTabButtons } from 'components/TabButtonMenu';
-import BlindBoxCard from './components/BlindBoxCard';
+import BlindBoxImageCard from './components/BlindBoxImageCard';
 // @todo Make the rudux for the data @crackaf @Arbab
 const BlindBoxTabButtonsData = {
   data: [
@@ -22,11 +22,14 @@ const BlindBoxTabButtonsData = {
   ],
 };
 const BlindBoxCardData = {
-  BackgroundImage: 'https://dl0d5jadwbp9c.cloudfront.net/cdn/img/d51088aeabe4ffa3964f0dd33de94ebe.jpeg',
+  imgUrl: 'https://dl0d5jadwbp9c.cloudfront.net/cdn/img/d51088aeabe4ffa3964f0dd33de94ebe.jpeg',
   gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
   title: 'Kingdom Box',
   stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
   status: false,
+  width: '1100px',
+  height: '200px',
+  shouldHover: true,
 };
 // END
 
@@ -34,7 +37,7 @@ const BlindBox: React.FC = () => {
   return (
     <>
       <BlindBoxTabButtons {...BlindBoxTabButtonsData} />
-      <BlindBoxCard {...BlindBoxCardData} />
+      <BlindBoxImageCard {...BlindBoxCardData} />
     </>
   );
 };

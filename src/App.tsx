@@ -21,6 +21,7 @@ import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus';
 import history from './routerHistory';
 // Views included in the main bundle
 import Pools from './views/Pools';
+import Temp from './views/Temp';
 import Swap from './views/Swap';
 import BlindBox from './views/BlindBox';
 import {
@@ -94,6 +95,11 @@ const App: React.FC = () => {
             {/* Adding the Blindbox here @crackaf */}
             <Route path="/blindbox">
               <BlindBox />
+            </Route>
+
+            {/* Adding the temp here for the temporay testing @crackaf */}
+            <Route path="/temp">
+              <Temp />
             </Route>
 
             <Route path="/farms">
