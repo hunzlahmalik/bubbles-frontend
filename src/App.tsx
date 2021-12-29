@@ -21,7 +21,6 @@ import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus';
 import history from './routerHistory';
 // Views included in the main bundle
 import Pools from './views/Pools';
-import Temp from './views/Temp';
 import Swap from './views/Swap';
 import BlindBox from './views/BlindBox';
 import {
