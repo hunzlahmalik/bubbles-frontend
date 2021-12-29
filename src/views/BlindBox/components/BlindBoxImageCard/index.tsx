@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CardProps } from 'bubbles-uikit';
+import { CardProps, Link } from 'bubbles-uikit';
 import GradientCard, { GradientCardProps } from 'components/GradientCard';
 import ImageCard, { ImageCardProps } from 'components/ImageCard';
 
@@ -63,27 +63,31 @@ const Content = styled.div`
 export interface BlindBoxImageCardProps extends BlindBoxHeadingProps, GradientCardProps, ImageCardProps {
   stageTitle: string;
   title: string;
-  status: boolean;
+  isSoldOut: boolean;
+  url: string;
 }
 
 const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
   title,
   stageTitle,
-  status,
+  isSoldOut,
+  url,
   imgUrl,
   gradient,
   ...props
 }) => {
   return (
-    <GradientCard gradient={gradient} {...props}>
-      <ImageCard imgUrl={imgUrl} {...props}>
-        <Content>
-          <StageTitle>{stageTitle}</StageTitle>
-          <Heading {...props}>{title}</Heading>
-          <Status>{status ? 'In Stock' : 'Sold Out'}</Status>
-        </Content>
-      </ImageCard>
-    </GradientCard>
+    <Link href={url}>
+      <GradientCard gradient={gradient} {...props}>
+        <ImageCard imgUrl={imgUrl} {...props}>
+          <Content>
+            <StageTitle>{stageTitle}</StageTitle>
+            <Heading {...props}>{title}</Heading>
+            <Status>{isSoldOut ? 'In Stock' : 'Sold Out'}</Status>
+          </Content>
+        </ImageCard>
+      </GradientCard>
+    </Link>
   );
 };
 export default BlindBoxImageCard;

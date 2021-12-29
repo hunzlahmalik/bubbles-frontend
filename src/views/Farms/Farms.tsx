@@ -127,6 +127,10 @@ const Farms: React.FC = () => {
   const chosenFarmsLength = useRef(0);
 
   const isArchived = pathname.includes('archived');
+  // eslint-disable-next-line no-console
+  console.log(path);
+  // eslint-disable-next-line no-console
+  console.log(pathname);
   const isInactive = pathname.includes('history');
   const isActive = !isInactive && !isArchived;
 

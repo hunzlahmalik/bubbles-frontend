@@ -96,10 +96,11 @@ const App: React.FC = () => {
             <Route path="/blindbox">
               <BlindBox />
             </Route>
-
-            {/* Adding the temp here for the temporay testing @crackaf */}
-            <Route path="/temp">
-              <Temp />
+            <Route path="/blindbox/:link">
+              <BlindBox />
+            </Route>
+            <Route path="/blindbox/:link/:id">
+              <BlindBox />
             </Route>
 
             <Route path="/farms">
