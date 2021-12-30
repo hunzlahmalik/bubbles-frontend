@@ -1,9 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { CardProps } from 'bubbles-uikit';
+import { CardProps, Link } from 'bubbles-uikit';
 
 export interface ImageCardProps extends CardProps {
   imgUrl: string;
+  redirectUrl?: string;
   width?: string;
   height?: string;
   borderRadius?: string;
@@ -43,8 +44,14 @@ const StyledImageCard = styled.div<ImageCardProps>`
     `}
 `;
 
-const ImageCard: React.FC<ImageCardProps> = ({ children, ...props }) => {
-  return <StyledImageCard {...props}>{children}</StyledImageCard>;
+const ImageCard: React.FC<ImageCardProps> = ({ redirectUrl, children, ...props }) => {
+  return redirectUrl ? (
+    <Link href={redirectUrl}>
+      <StyledImageCard {...props}>{children}</StyledImageCard>
+    </Link>
+  ) : (
+    <StyledImageCard {...props}>{children}</StyledImageCard>
+  );
 };
 
 export default ImageCard;
