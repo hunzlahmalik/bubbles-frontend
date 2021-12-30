@@ -30,28 +30,36 @@ e.g
 export interface TabButtonMenuProps {
   data: {
     text: string;
-    link: string;
+    link?: string;
     showDot: boolean; // notification dot
   }[];
   scale?: 'md' | 'xs' | 'sm';
-  onClick?: any;
+  onClick?: (index: number) => void;
+  activeIndex?: number;
 }
 
-const TabButtonMenu: React.FC<TabButtonMenuProps> = ({ data, scale, onClick }) => {
-  const location = useLocation();
+const TabButtonMenu: React.FC<TabButtonMenuProps> = ({ data, scale, onClick, activeIndex }) => {
   const { t } = useTranslation();
-
-  const activeIndex = data.findIndex((tab) => tab.link === location.pathname);
 
   return (
     <Wrapper>
-      <ButtonMenu activeIndex={activeIndex} onItemClick={onClick()} scale={scale || 'md'} variant="primary">
+      <ButtonMenu
+        activeIndex={activeIndex}
+        // eslint-disable-next-line no-console
+        onItemClick={onClick}
+        scale={scale || 'md'}
+        variant="primary"
+      >
         {data.map((tab) => {
           return (
             <NotificationDot key={tab.text} show={tab.showDot}>
-              <ButtonMenuItem id={`${tab.text}`} as={Link} to={`${tab.link}`}>
-                {t(tab.text)}
-              </ButtonMenuItem>
+              {tab.link ? (
+                <ButtonMenuItem id={`${tab.text}`} as={Link} to={`${tab.link}`}>
+                  {t(tab.text)}
+                </ButtonMenuItem>
+              ) : (
+                <ButtonMenuItem id={`${tab.text}`}>{t(tab.text)}</ButtonMenuItem>
+              )}
             </NotificationDot>
           );
         })}

@@ -1,112 +1,138 @@
-import React, { useMemo } from 'react';
-import styled from 'styled-components';
-import { Pair } from '@pancakeswap/sdk';
-import { Text, Flex, CardBody, CardFooter, Button, AddIcon } from 'bubbles-uikit';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'contexts/Localization';
-import useActiveWeb3React from 'hooks/useActiveWeb3React';
-import FullPositionCard from '../../components/PositionCard';
-import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks';
-import { usePairs } from '../../hooks/usePairs';
-import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks';
-import Dots from '../../components/Loader/Dots';
-import { AppHeader, AppBody } from '../../components/App';
-import Page from '../Page';
+import React, { useState, useEffect } from 'react';
+import Page from 'components/Layout/Page';
+import TabButtonMenu, { TabButtonMenuProps } from 'components/TabButtonMenu';
+import ImageCard, { ImageCardProps } from 'components/ImageCard';
+import GradientCard from 'components/GradientCard';
+import GamePool from './components/GamePool';
 
-const Body = styled(CardBody)`
-  background-color: ${({ theme }) => theme.colors.dropdownDeep};
-`;
+const gamepooldata = {
+  large: [
+    {
+      title: 'Game Base Pool',
+      amount: '600,810,000',
+      usd: '207,533',
+      coinUrl: 'https://jojo.fun/img/icon-jojo.dd768e0c.png',
+    },
+  ],
+  normal: [
+    {
+      title: 'Game Base Pool',
+      amount: '60000',
+      usd: '203',
+      coinUrl: 'https://jojo.fun/img/icon-jojo.dd768e0c.png',
+    },
+    {
+      title: 'Game Base Pool',
+      amount: '60000',
+      usd: '203',
+      coinUrl: 'https://jojo.fun/img/icon-jojo.dd768e0c.png',
+    },
+    {
+      title: 'Game Base Pool',
+      amount: '60000',
+      usd: '203',
+      coinUrl: 'https://jojo.fun/img/icon-jojo.dd768e0c.png',
+    },
+  ],
+};
 
-export default function Pool() {
-  const { account } = useActiveWeb3React();
-  const { t } = useTranslation();
-
-  // fetch the user's balances of all tracked V2 LP tokens
-  const trackedTokenPairs = useTrackedTokenPairs();
-  const tokenPairsWithLiquidityTokens = useMemo(
-    () => trackedTokenPairs.map((tokens) => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
-    [trackedTokenPairs],
-  );
-  const liquidityTokens = useMemo(
-    () => tokenPairsWithLiquidityTokens.map((tpwlt) => tpwlt.liquidityToken),
-    [tokenPairsWithLiquidityTokens],
-  );
-  const [v2PairsBalances, fetchingV2PairBalances] = useTokenBalancesWithLoadingIndicator(
-    account ?? undefined,
-    liquidityTokens,
-  );
-
-  // fetch the reserves for all V2 pools in which the user has a balance
-  const liquidityTokensWithBalances = useMemo(
-    () =>
-      tokenPairsWithLiquidityTokens.filter(({ liquidityToken }) =>
-        v2PairsBalances[liquidityToken.address]?.greaterThan('0'),
-      ),
-    [tokenPairsWithLiquidityTokens, v2PairsBalances],
-  );
-
-  const v2Pairs = usePairs(liquidityTokensWithBalances.map(({ tokens }) => tokens));
-  const v2IsLoading =
-    fetchingV2PairBalances ||
-    v2Pairs?.length < liquidityTokensWithBalances.length ||
-    v2Pairs?.some((V2Pair) => !V2Pair);
-
-  const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair));
-
-  const renderBody = () => {
-    if (!account) {
-      return (
-        <Text color="textSubtle" textAlign="center">
-          {t('Connect to a wallet to view your liquidity.')}
-        </Text>
-      );
-    }
-    if (v2IsLoading) {
-      return (
-        <Text color="textSubtle" textAlign="center">
-          <Dots>{t('Loading')}</Dots>
-        </Text>
-      );
-    }
-    if (allV2PairsWithLiquidity?.length > 0) {
-      return allV2PairsWithLiquidity.map((v2Pair, index) => (
-        <FullPositionCard
-          key={v2Pair.liquidityToken.address}
-          pair={v2Pair}
-          mb={index < allV2PairsWithLiquidity.length - 1 ? '16px' : 0}
-        />
-      ));
-    }
-    return (
-      <Text color="textSubtle" textAlign="center">
-        {t('No liquidity found.')}
-      </Text>
-    );
+const Pool: React.FC = () => {
+  const imageData: ImageCardProps = {
+    imgUrl: 'https://jojo.fun/img/banner.d9740456.png',
+    title: 'Kingdom Box',
+    width: '1100px',
+    height: '200px',
+    shouldHover: true,
   };
 
+  const menu = [
+    {
+      text: 'Kingdom',
+      showDot: false,
+      subMenu: [
+        {
+          text: 'Witcher',
+          link: '/blindbox/witcher',
+          showDot: false,
+        },
+        {
+          text: 'Witcher',
+          link: '/blindbox/witcher',
+          showDot: false,
+        },
+      ],
+    },
+    {
+      text: 'Origon',
+      showDot: false,
+      subMenu: [
+        {
+          text: 'Witcher',
+          link: '/blindbox/witcher',
+          showDot: false,
+        },
+        {
+          text: 'Witcher',
+          link: '/blindbox/witcher',
+          showDot: false,
+        },
+        {
+          text: 'Witcher',
+          link: '/blindbox/witcher',
+          showDot: false,
+        },
+        {
+          text: 'Witcher',
+          link: '/blindbox/witcher',
+          showDot: false,
+        },
+      ],
+    },
+  ];
+
+  // Current Data to Be displayed
+  const [gamepool, setGamepool] = useState(Object);
+  // ActiveIndex this will move the nested menus according to the clicked data
+  const [activeIndex, setActiveIndex] = useState(0);
+  // NestedIndex this will move the component according to the clicked data
+  const [nestedIndex, setNestedIndex] = useState(0);
+
+  // DataGetter According to the index
+  const getData = (idx1: number, idx2: number) => {
+    return gamepooldata;
+  };
+
+  // // Handler for the Indexes
+  // useEffect(() => {
+  //   setGamepool(getData(activeIndex, nestedIndex));
+  // }, [activeIndex, nestedIndex]);
+
+  // Making data for the first Menu
+  const menu1 = menu.map((ele) => {
+    return (({ showDot, text }) => ({ showDot, text }))(ele);
+  });
+
+  console.log(menu);
+  console.log(menu1);
+
+  // Making data for the nested Menu
+  const menu2 = menu.map((ele) => ele.subMenu);
+
+  console.log(menu2);
+
   return (
-    <Page>
-      <AppBody>
-        <AppHeader title={t('Your Liquidity')} subtitle={t('Remove liquidity to receive tokens back')} />
-        <Body>
-          {renderBody()}
-          {account && !v2IsLoading && (
-            <Flex flexDirection="column" alignItems="center" mt="24px">
-              <Text color="textSubtle" mb="8px">
-                {t("Don't see a pool you joined?")}
-              </Text>
-              <Button id="import-pool-link" variant="secondary" scale="sm" as={Link} to="/find">
-                {t('Find other LP tokens')}
-              </Button>
-            </Flex>
-          )}
-        </Body>
-        <CardFooter style={{ textAlign: 'center' }}>
-          <Button id="join-pool-button" as={Link} to="/add" width="100%" startIcon={<AddIcon color="white" />}>
-            {t('Add Liquidity')}
-          </Button>
-        </CardFooter>
-      </AppBody>
-    </Page>
+    <>
+      <TabButtonMenu data={menu1} onClick={setActiveIndex} activeIndex={activeIndex} />
+      <br />
+      <TabButtonMenu data={menu2[activeIndex]} onClick={setNestedIndex} activeIndex={nestedIndex} />
+      <GradientCard width="1100px" height="200px" gradient="linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))">
+        <ImageCard {...imageData} />
+      </GradientCard>
+      <br />
+      <br />
+      <GamePool />
+    </>
   );
-}
+};
+
+export default Pool;

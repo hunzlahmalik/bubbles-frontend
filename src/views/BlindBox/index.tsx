@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Page from 'components/Layout/Page';
 import TabButtonMenu, { TabButtonMenuProps } from 'components/TabButtonMenu';
 import { useLocation } from 'react-router-dom';
@@ -123,43 +122,26 @@ const BlindBoxData: BlindBoxProps = {
 
 const BlindBox: React.FC = () => {
   const { pathname } = useLocation();
-  // const { data: farmsLP, userDataLoaded } = useFarms();  In future get the data like this......
 
   // Getting the active page Link
   const getActiveLink = () => {
-    return (
-      (BlindBoxData.menu.data.find((element) => pathname.includes(element.link)) &&
-        BlindBoxData.menu.data.find((element) => pathname.includes(element.link)).link) ||
-      (BlindBoxData.menu.data[0] && BlindBoxData.menu.data[0].link) ||
-      '#'
-    );
+    return BlindBoxData.menu.data.findIndex((element) => pathname.includes(element.link)) || 0;
   };
-  // Getting the active page list data
-  const getActiveList = (alink: string) => {
-    return (
-      (BlindBoxData.data.find((element) => alink.includes(element.link)) &&
-        BlindBoxData.data.find((element) => alink.includes(element.link)).list) ||
-      (BlindBoxData.data[0] && BlindBoxData.data[0].list) ||
-      []
-    );
-  };
-
-  // Getting the page link and comparing it with the data
-  const [activeLink, setActiveLink] = useState(getActiveLink());
 
   // Getting the list data
-  const [activeList, setActiveList] = useState(getActiveList(activeLink));
+  const [activeList, setActiveList] = useState([]);
 
-  // Handle the change here. TODO will later useEffect instead of useState becuase it's good Practice
-  const handleMenuButton = () => {
-    setActiveLink(getActiveLink());
-    setActiveList(getActiveList(activeLink));
-  };
+  // Index Handler
+  const [index, setIndex] = useState(getActiveLink());
+
+  useEffect(() => {
+    setActiveList((BlindBoxData.data[index] && BlindBoxData.data[index].list) || BlindBoxData.data[0].list);
+  }, [index]);
 
   const renderContent = (): JSX.Element => {
     return (
       <>
-        <TabButtonMenu {...BlindBoxData.menu} onClick={() => handleMenuButton()} />
+        <TabButtonMenu {...BlindBoxData.menu} onClick={setIndex} activeIndex={index} />
         <br />
         <br />
         <br />
