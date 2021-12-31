@@ -82,7 +82,7 @@ const Home = () => {
         concaveDivider
         dividerPosition="top"
       >
-        <Collections />
+        {/* <Collections /> */}
         <Newest />
       </PageSection>
       <Gradient p="64px 0">
