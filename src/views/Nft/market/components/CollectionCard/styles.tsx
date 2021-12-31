@@ -17,12 +17,6 @@ import { useTranslation } from 'contexts/Localization';
 import { multiplyPriceByAmount } from 'utils/prices';
 import styled from 'styled-components';
 
-export const Footer: React.FC<BoxProps> = ({ children, ...props }) => (
-  <Box borderTop={[null, null, null, '1px solid']} borderColor="cardBorder" pt="8px" {...props}>
-    {children}
-  </Box>
-);
-
 interface BNBAmountLabelProps extends FlexProps {
   amount: number;
 }
@@ -76,51 +70,7 @@ export const MetaRow: React.FC<MetaRowProps> = ({ title, children, ...props }) =
   </Flex>
 );
 
-export interface NftTagProps extends FlexProps {
-  icon?: ReactElement;
-  color?: string;
-}
-
-export const NftTag: React.FC<NftTagProps> = ({ icon, color = 'text', children, ...props }) => (
-  <Flex display="inline-flex" alignItems="center" height="24px" {...props}>
-    {icon}
-    <Text color={color} fontSize="14px" fontWeight="600">
-      {children}
-    </Text>
-  </Flex>
-);
-
-export const ProfileNftTag: React.FC<NftTagProps> = (props) => {
-  const { t } = useTranslation();
-
-  return (
-    <NftTag icon={<CameraIcon mr="4px" width="16px" color="textSubtle" />} color="textSubtle" {...props}>
-      {t('Profile')}
-    </NftTag>
-  );
-};
-
-export const WalletNftTag: React.FC<NftTagProps> = (props) => {
-  const { t } = useTranslation();
-
-  return (
-    <NftTag icon={<WalletFilledIcon mr="4px" width="16px" color="secondary" />} color="secondary" {...props}>
-      {t('Wallet')}
-    </NftTag>
-  );
-};
-
-export const SellingNftTag: React.FC<NftTagProps> = (props) => {
-  const { t } = useTranslation();
-
-  return (
-    <NftTag icon={<SellIcon mr="4px" width="16px" color="failure" />} color="failure" {...props}>
-      {t('Selling')}
-    </NftTag>
-  );
-};
-
-export const StyledCollectibleCard = styled(Card)`
+export const StyledCollectionCard = styled(Card)`
   border-radius: 16px;
   max-width: 400px;
   transition: opacity 200ms;
@@ -136,26 +86,3 @@ export const StyledCollectibleCard = styled(Card)`
     }
   }
 `;
-interface LowestPriceMetaRowProps {
-  lowestPrice: number;
-  isFetching: boolean;
-  bnbBusdPrice: Price;
-}
-
-export const LowestPriceMetaRow = ({ lowestPrice, isFetching, bnbBusdPrice }: LowestPriceMetaRowProps) => {
-  const { t } = useTranslation();
-
-  if (!isFetching && !lowestPrice) {
-    return null;
-  }
-
-  return (
-    <MetaRow title={t('Lowest price')}>
-      {isFetching ? (
-        <Skeleton height="24px" width="30px" />
-      ) : (
-        <CostLabel cost={lowestPrice} bnbBusdPrice={bnbBusdPrice} />
-      )}
-    </MetaRow>
-  );
-};

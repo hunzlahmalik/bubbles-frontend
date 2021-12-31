@@ -20,6 +20,7 @@ import { useTranslation } from 'contexts/Localization';
 import Page from 'components/Layout/Page';
 import PageHeader from 'components/PageHeader';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
+import CollectionLinkCard from '../components/CollectionCard/CollectionLinkCard';
 
 export const ITEMS_PER_PAGE = 10;
 
@@ -44,6 +45,14 @@ export const Arrow = styled.div`
   :hover {
     cursor: pointer;
   }
+`;
+const GridBox = styled.div`
+  position: realtive;
+  font-size: 16px;
+  color: 694f4e;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Collectible = () => {
@@ -113,6 +122,23 @@ const Collectible = () => {
         </Heading>
       </PageHeader>
       <Page>
+        <GridBox>
+          {sortedCollections.map((collection) => {
+            return (
+              <>
+                <CollectionLinkCard
+                  collection={collection}
+                  collectionImg={collection.avatar}
+                  collectionSupply={collection.totalSupply}
+                  collectionItems={collection.numberTokensListed}
+                  collectionVolume={collection.totalVolumeBNB}
+                />
+              </>
+            );
+          })}
+        </GridBox>
+
+        {/* 
         <Card>
           <Table>
             <thead>
@@ -143,7 +169,7 @@ const Collectible = () => {
                       minimumFractionDigits: 3,
                       maximumFractionDigits: 3,
                     })
-                  : '0';
+                  : '0'
                 return (
                   <tr key={collection.address}>
                     <Td>
@@ -167,14 +193,14 @@ const Collectible = () => {
                       </>
                     )}
                   </tr>
-                );
+                )
               })}
             </tbody>
           </Table>
           <PageButtons>
             <Arrow
               onClick={() => {
-                setPage(page === 1 ? page : page - 1);
+                setPage(page === 1 ? page : page - 1)
               }}
             >
               <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
@@ -184,13 +210,13 @@ const Collectible = () => {
 
             <Arrow
               onClick={() => {
-                setPage(page === maxPage ? page : page + 1);
+                setPage(page === maxPage ? page : page + 1)
               }}
             >
               <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
             </Arrow>
           </PageButtons>
-        </Card>
+        </Card> */}
       </Page>
     </>
   );
