@@ -183,7 +183,7 @@ const Pool: React.FC = () => {
       </GradientCard>
       <br />
       <br />
-      <GamePool />
+      <GamePool {...gamepooldata} />
       <CardBox>
         <CardDesign>
           {data.map((cardT) => (

@@ -83,11 +83,11 @@ const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
 }) => {
   function renderComponents() {
     return (
-      <GradientCard gradient={gradient} {...props}>
-        <ImageCard imgUrl={imgUrl} {...props}>
+      <GradientCard gradient={gradient}>
+        <ImageCard imgUrl={imgUrl}>
           <Content>
             <StageTitle>{stageTitle}</StageTitle>
-            <Heading {...props}>{title}</Heading>
+            <Heading>{title}</Heading>
             <Status>{isSoldOut ? 'In Stock' : 'Sold Out'}</Status>
           </Content>
         </ImageCard>
