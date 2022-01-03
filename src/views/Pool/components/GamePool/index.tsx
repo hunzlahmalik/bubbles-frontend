@@ -27,7 +27,7 @@ export interface GamePoolProps extends CardProps {
   normal?: PriceCardProps[];
 }
 
-const GamePool: React.FC = () => {
+const GamePool: React.FC<GamePoolProps> = ({ large, normal }) => {
   // Get this data from redux @crackaf
   const data: GamePoolProps = {
     large: [
@@ -62,7 +62,7 @@ const GamePool: React.FC = () => {
 
   return (
     <StyledGamePool>
-      {data.large && data.large.length > 0 && (
+      {large && large.length > 0 && (
         <GamePoolWrap>
           {data.large.map((ele) => (
             <PriceCardLarge key={ele.amount} {...ele} />
@@ -70,7 +70,7 @@ const GamePool: React.FC = () => {
         </GamePoolWrap>
       )}
 
-      {data.normal && data.normal.length > 0 && (
+      {normal && normal.length > 0 && (
         <GamePoolWrap>
           {data.normal.map((ele) => (
             <PriceCard key={ele.amount} {...ele} />

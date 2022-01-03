@@ -1,5 +1,4 @@
 import React from 'react';
-// import { lightColors } from 'bubbles-uikit';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -15,33 +14,41 @@ const RulesHeading = styled.div`
   display: flex;
   font-size: 14px;
   font-weight: 700;
-  color: #191326; //Light colors contrast
+  color: #191326;
   justify-content: space-between;
   margin-bottom: 12px;
 `;
 
 const RulesContent = styled.div`
   font-size: 13px;
-  color: #191326; //Light colors contrast
+  color: #191326;
 `;
 
 const LI = styled.li`
   margin-bottom: 10px;
 `;
 
-function Rules({ rulesContent }: { rulesContent: string[] }) {
+export interface RulesProps {
+  title: string;
+  moreinfo: string;
+  rulesContent: string[];
+}
+
+function BlindBoxRules({ title, moreinfo, rulesContent }: RulesProps) {
   return (
     <Container>
       <RulesHeading>
-        Blind Box Rules
-        <a href="##" target="_blank" style={{ color: 'black' }}>
-          More Info
-        </a>
+        {title}
+        {moreinfo && (
+          <a href={moreinfo} target="_blank" rel="noreferrer" style={{ color: 'black' }}>
+            More Info
+          </a>
+        )}
       </RulesHeading>
       <RulesContent>
         <ol>
           {rulesContent.map((text) => {
-            return <LI>{text}</LI>;
+            return <LI key={text}>{text}</LI>;
           })}
         </ol>
       </RulesContent>
@@ -49,4 +56,4 @@ function Rules({ rulesContent }: { rulesContent: string[] }) {
   );
 }
 
-export default Rules;
+export default BlindBoxRules;

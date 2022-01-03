@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PricingBox } from './PricingBox';
-import Rules from './Rules';
-import { ItemContainer, InnerDiv, Icon, Title } from './ItemStyles';
+import PriceCard, { PriceCardProps } from 'components/PriceCard';
+import BlindBoxRules from '../BlindBoxRules';
+import { ItemContainer, InnerDiv, Icon, Title } from '../BlindBoxStyles';
 
-const userData = {
-  user: { id: 1, name: 'JoJo', amnt: '0', bop: true, usd: '≈$0' },
-};
+const userData: PriceCardProps = { title: 'JoJo', amount: '0', usd: '0' };
 
 const BlindBoxRulesData = {
   rulesContent: [
@@ -83,7 +81,7 @@ const ComponentDiv = styled.div<{ isRuleBox?: boolean }>`
  * @param endTime (time at which current phase ends)
  * @returns Blindbox item
  */
-function BlindboxInfo({ title, stock, creationTime }: { title: string; stock: number; creationTime: Date }) {
+function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: number; creationTime: Date }) {
   const imageDimension = {
     1: {
       height: '100%',
@@ -145,15 +143,13 @@ function BlindboxInfo({ title, stock, creationTime }: { title: string; stock: nu
           <Time>00:00:00</Time>
         </StockInfo>
         <ComponentDiv>
-          <PricingBox {...userData.user} />
+          <PriceCard {...userData} />
         </ComponentDiv>
         <Button>Buy Now</Button>
-        <ComponentDiv isRuleBox>
-          <Rules {...BlindBoxRulesData} />
-        </ComponentDiv>
+        <ComponentDiv isRuleBox>{/* <BlindBoxRules {...BlindBoxRulesData} /> */}</ComponentDiv>
       </InnerDiv>
     </ItemContainer>
   );
 }
 
-export default BlindboxInfo;
+export default BlindBoxInfo;

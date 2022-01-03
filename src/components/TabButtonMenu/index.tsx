@@ -27,12 +27,14 @@ e.g
 };
 */
 
+export interface TabButtonProps {
+  text: string;
+  showDot: boolean;
+  link?: string;
+}
+
 export interface TabButtonMenuProps {
-  data: {
-    text: string;
-    link?: string;
-    showDot: boolean; // notification dot
-  }[];
+  data: TabButtonProps[];
   scale?: 'md' | 'xs' | 'sm';
   onClick?: (index: number) => void;
   activeIndex?: number;

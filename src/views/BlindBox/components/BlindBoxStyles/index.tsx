@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 export const ItemContainer = styled.div<{ shouldHover?: boolean }>`
-  width: 100%; //1100
-  height: 100%; //580
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   border-radius: 15px;
@@ -53,8 +53,8 @@ export const Icon = styled.div<{
   backgroundImage: string;
   hoverImage?: string;
 }>`
-  height: 100%; //240
-  width: 100%; //240
+  height: 100%;
+  width: 100%;
   border-radius: 15px;
   background-image: url(${({ backgroundImage }) => backgroundImage ?? '#'});
   background-position: center;

@@ -60,11 +60,16 @@ const Content = styled.div`
   }
 `;
 
+const Wrapper = styled.div<{ height?: string; maxWidth?: string } & CardProps>`
+  height: ${({ height }) => height || '200px'};
+  max-width: ${({ maxWidth }) => maxWidth || '1100px'};
+`;
+
 export interface BlindBoxImageCardProps extends BlindBoxHeadingProps, GradientCardProps, ImageCardProps {
   stageTitle: string;
   title: string;
   isSoldOut: boolean;
-  url: string;
+  url?: string;
 }
 
 const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
@@ -76,8 +81,8 @@ const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
   gradient,
   ...props
 }) => {
-  return (
-    <Link href={url}>
+  function renderComponents() {
+    return (
       <GradientCard gradient={gradient} {...props}>
         <ImageCard imgUrl={imgUrl} {...props}>
           <Content>
@@ -87,7 +92,13 @@ const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
           </Content>
         </ImageCard>
       </GradientCard>
-    </Link>
+    );
+  }
+
+  return (
+    <>
+      <Wrapper {...props}>{url ? <a href={url}>{renderComponents()}</a> : renderComponents()}</Wrapper>
+    </>
   );
 };
 export default BlindBoxImageCard;

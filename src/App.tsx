@@ -92,13 +92,13 @@ const App: React.FC = () => {
             </Route>
 
             {/* Adding the Blindbox here @crackaf */}
+            <Route path="/blindbox/:box/:id">
+              <BlindBox />
+            </Route>
+            <Route path="/blindbox/:box">
+              <BlindBox />
+            </Route>
             <Route path="/blindbox">
-              <BlindBox />
-            </Route>
-            <Route path="/blindbox/:link">
-              <BlindBox />
-            </Route>
-            <Route path="/blindbox/:link/:id">
               <BlindBox />
             </Route>
 

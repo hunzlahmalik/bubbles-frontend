@@ -1,42 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Page from 'components/Layout/Page';
-import TabButtonMenu, { TabButtonMenuProps } from 'components/TabButtonMenu';
-import { useLocation } from 'react-router-dom';
+import TabButtonMenu, { TabButtonProps } from 'components/TabButtonMenu';
+import { Redirect, useLocation, useParams } from 'react-router-dom';
 import BlindBoxImageCard, { BlindBoxImageCardProps } from './components/BlindBoxImageCard';
+import BlindBoxBuy from './components/BlindBoxBuy';
 
 export interface BlindBoxProps {
-  menu: TabButtonMenuProps;
   data: {
-    link: string;
+    button: TabButtonProps;
     list: BlindBoxImageCardProps[];
   }[];
 }
 
 // @todo Make the rudux for the data @crackaf @Arbab
 const BlindBoxData: BlindBoxProps = {
-  menu: {
-    data: [
-      {
+  data: [
+    {
+      button: {
         text: 'Kingdom',
         link: '/blindbox/kingdom',
         showDot: false,
       },
-      {
-        text: 'Witcher',
-        link: '/blindbox/witcher',
-        showDot: false,
-      },
-      {
-        text: 'Orignal',
-        link: '/blindbox/orignal',
-        showDot: false,
-      },
-    ],
-    scale: 'md',
-  },
-  data: [
-    {
-      link: '/kingdom',
       list: [
         {
           imgUrl: 'https://dl0d5jadwbp9c.cloudfront.net/cdn/img/d51088aeabe4ffa3964f0dd33de94ebe.jpeg',
@@ -74,7 +58,11 @@ const BlindBoxData: BlindBoxProps = {
       ],
     },
     {
-      link: '/witcher',
+      button: {
+        text: 'Witcher',
+        link: '/blindbox/witcher',
+        showDot: false,
+      },
       list: [
         {
           imgUrl: 'https://dl0d5jadwbp9c.cloudfront.net/cdn/img/d51088aeabe4ffa3964f0dd33de94ebe.jpeg',
@@ -101,14 +89,18 @@ const BlindBoxData: BlindBoxProps = {
       ],
     },
     {
-      link: '/orignal',
+      button: {
+        text: 'Orignal',
+        link: '/blindbox/orignal',
+        showDot: false,
+      },
       list: [
         {
           imgUrl: 'https://dl0d5jadwbp9c.cloudfront.net/cdn/img/d51088aeabe4ffa3964f0dd33de94ebe.jpeg',
           gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
           title: 'Kingdom Box',
           stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
-          url: '/#',
+          id: '12',
           isSoldOut: false,
           width: '1100px',
           height: '200px',
@@ -118,39 +110,30 @@ const BlindBoxData: BlindBoxProps = {
     },
   ],
 };
-
-const BlindboxItemData = {
-  title: 'Ranger Girl',
-  imgSrc: '	https://dl0d5jadwbp9c.cloudfront.net/cdn/img/35737edafdd527f024bdd1aaf7fe2058.png',
-  iconSrc: {
-    nonHoverImg: 'https://dl0d5jadwbp9c.cloudfront.net/cdn/img/12e630fda585d8f2758ae780baab5b78.png',
-    hoverImg: 'https://dl0d5jadwbp9c.cloudfront.net/cdn/img/67c670aff8692b481b1f133e62392656.gif',
-  },
-  stats: [
-    {
-      title: 'Probablity',
-      value: '12.69%',
-    },
-    {
-      title: 'Supply',
-      value: '1800',
-    },
-    {
-      title: 'HashRate',
-      value: 'x150',
-      color: '#f15f61',
-    },
-  ],
-};
 // END
+
+export interface BlindBoxUrlProps {
+  box?: string;
+  id?: string | number;
+}
 
 const BlindBox: React.FC = () => {
   const { pathname } = useLocation();
+  const urlPramas: BlindBoxUrlProps = useParams();
 
-  // Getting the active page Link
+  const isBox = 'box' in urlPramas;
+  const isId = 'id' in urlPramas;
+  const isData = BlindBoxData.data && BlindBoxData.data.length > 0;
+
+  const isValidBox = isBox && isData && BlindBoxData.data.findIndex((ele) => ele.button.link === urlPramas.box) >= 0;
+  const isValidId = isValidBox && isId && isData;
+
   const getActiveLink = () => {
-    return BlindBoxData.menu.data.findIndex((element) => pathname.includes(element.link)) || 0;
+    if (isValidBox) return BlindBoxData.data.findIndex((ele) => ele.button.link === urlPramas.box);
+    return 0;
   };
+
+  const menu = BlindBoxData.data.map((ele) => ele.button);
 
   // Getting the list data
   const [activeList, setActiveList] = useState([]);
@@ -163,9 +146,11 @@ const BlindBox: React.FC = () => {
   }, [index]);
 
   const renderContent = (): JSX.Element => {
+    if (!isBox && !isId && isData) return <Redirect to={BlindBoxData.data[0].button.link} />;
+    if (isId) return <BlindBoxBuy id={1} />;
     return (
       <>
-        <TabButtonMenu {...BlindBoxData.menu} onClick={setIndex} activeIndex={index} />
+        <TabButtonMenu data={menu} onClick={setIndex} activeIndex={index} />
         <br />
         <br />
         <br />
