@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PriceCard, { PriceCardProps } from 'components/PriceCard';
+import Icon from 'components/BlindBoxIcon';
 import BlindBoxRules from '../BlindBoxRules';
-import { ItemContainer, InnerDiv, Icon, Title } from '../BlindBoxStyles';
+import { ItemContainer, InnerDiv, Title } from '../BlindBoxStyles';
 
 const userData: PriceCardProps = { title: 'JoJo', amount: '0', usd: '0' };
 
@@ -93,43 +94,11 @@ function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: nu
       <InnerDiv>
         <div
           style={{
-            width: '240px',
-            height: '240px',
+            width: '520px',
+            height: '500px',
           }}
         >
-          <Icon backgroundImage="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/4c5c4d784f4324884beb335877cb8ff1.png">
-            1
-          </Icon>
-        </div>
-        <div
-          style={{
-            width: '240px',
-            height: '240px',
-          }}
-        >
-          <Icon backgroundImage="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/4c5c4d784f4324884beb335877cb8ff1.png">
-            2
-          </Icon>
-        </div>
-        <div
-          style={{
-            width: '240px',
-            height: '240px',
-          }}
-        >
-          <Icon backgroundImage="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/4c5c4d784f4324884beb335877cb8ff1.png">
-            3
-          </Icon>
-        </div>
-        <div
-          style={{
-            width: '240px',
-            height: '240px',
-          }}
-        >
-          <Icon backgroundImage="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/4c5c4d784f4324884beb335877cb8ff1.png">
-            4
-          </Icon>
+          <Icon backgroundImage="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/4c5c4d784f4324884beb335877cb8ff1.png" />
         </div>
       </InnerDiv>
       <InnerDiv alignment>

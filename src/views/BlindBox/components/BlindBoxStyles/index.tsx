@@ -41,41 +41,6 @@ export const InnerDiv = styled.div<{ alignment?: boolean }>`
   }
 `;
 
-// Used in blindbox item (Not for blindbox info)
-export const OuterDiv = styled.div`
-  display: flex;
-  gap: 10px;
-  height: 100%;
-  width: 100%;
-`;
-
-export const Icon = styled.div<{
-  backgroundImage: string;
-  hoverImage?: string;
-}>`
-  height: 100%;
-  width: 100%;
-  border-radius: 15px;
-  background-image: url(${({ backgroundImage }) => backgroundImage ?? '#'});
-  background-position: center;
-  background-size: cover;
-  ${({ hoverImage }) =>
-    hoverImage &&
-    css`
-      ${OuterDiv}:hover & {
-        background-image: url(${hoverImage});
-      }
-    `}
-
-  @media screen and (max-width: 760px) {
-    /* margin-bottom: 28px; */
-  }
-
-  &:nth-child(odd) {
-    /* margin-right: 20px; */
-  }
-`;
-
 export const Title = styled.div<{ fontSize?: string }>`
   font-size: ${({ fontSize }) => fontSize ?? '28px'};
   font-weight: 600;

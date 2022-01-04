@@ -1,7 +1,9 @@
 import { CardProps } from 'bubbles-uikit';
 import React from 'react';
 import styled from 'styled-components';
-import { ItemContainer, InnerDiv, Icon, Title, OuterDiv } from '../BlindBoxStyles';
+import Icon from 'components/BlindBoxIcon';
+import { OuterDiv } from 'components/BlindBoxIcon/BlindBoxIconStyles';
+import { ItemContainer, InnerDiv, Title } from '../BlindBoxStyles';
 
 const Stats = styled.div<CardProps>`
   text-align: left;
@@ -43,7 +45,7 @@ function BlindBoxItem({ title, imgUrl, stats, iconUrl, hoverImgUrl }: BlindBoxIt
                 width: '140px',
               }}
             >
-              <Icon backgroundImage={imgUrl} hoverImage={hoverImgUrl} />
+              <Icon backgroundImage={imgUrl} hoverImage={hoverImgUrl} item />
             </div>
           </InnerDiv>
           <InnerDiv>
