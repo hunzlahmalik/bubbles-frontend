@@ -29,7 +29,7 @@ const useNewestNfts = () => {
 
   useEffect(() => {
     const fetchNewestNfts = async () => {
-      const nftsFromSg = await getLatestListedNfts(16);
+      const nftsFromSg = await getLatestListedNfts(100);
       const nftsFromApi = await getNftsFromDifferentCollectionsApi(
         nftsFromSg.map((nft) => ({ collectionAddress: nft.collection.id, tokenId: nft.tokenId })),
       );
@@ -52,7 +52,7 @@ const Newest: React.FC = () => {
 
   return (
     <div>
-      <Flex justifyContent="space-between" alignItems="center" mb="26px">
+      {/* <Flex justifyContent="space-between" alignItems="center" mb="26px">
         <Heading>{t('Newest Arrivals')}</Heading>
         <Button
           as={Link}
@@ -63,7 +63,7 @@ const Newest: React.FC = () => {
         >
           {t('View All')}
         </Button>
-      </Flex>
+      </Flex> */}
       {nfts ? (
         <GridBox>
           {nfts.map((nft) => {
