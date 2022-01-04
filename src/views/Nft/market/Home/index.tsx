@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Box, Button, Heading, Flex } from 'bubbles-uikit';
+import { Box, Button, Heading, Flex, Text } from 'bubbles-uikit';
 import { useWeb3React } from '@web3-react/core';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'contexts/Localization';
 import PageHeader from 'components/PageHeader';
 import SectionsWithFoldableText from 'components/FoldableSection/SectionsWithFoldableText';
@@ -10,6 +10,7 @@ import PageSection from 'components/PageSection';
 import { PageMeta } from 'components/Layout/Page';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
 import useTheme from 'hooks/useTheme';
+import TabButtonMenu, { TabButtonMenuProps } from 'components/TabButtonMenu';
 import SearchBar from '../components/SearchBar';
 import Collections from './Collections';
 import Newest from './Newest';
@@ -49,14 +50,37 @@ const StyledHeaderInner = styled(Flex)`
   }
 `;
 
+const NFTPageData = {
+  menu: {
+    data: [
+      {
+        text: 'Overview',
+        link: nftsBaseUrl,
+        showDot: false,
+      },
+      {
+        text: 'Collections',
+        link: `${nftsBaseUrl}/collections`,
+        showDot: false,
+      },
+    ],
+  },
+};
+
 const Home = () => {
   const { t } = useTranslation();
   const { account } = useWeb3React();
   const { theme } = useTheme();
+  const { pathname } = useLocation();
+  const getActiveLink = () => {
+    return NFTPageData.menu.data.findIndex((ele) => ele.link === pathname);
+  };
+  // Index Handler
+  const [index, setIndex] = useState(getActiveLink());
 
   return (
     <>
-      <PageMeta />
+      {/* <PageMeta />
       <StyledPageHeader>
         <StyledHeaderInner>
           <div>
@@ -75,6 +99,8 @@ const Home = () => {
           <SearchBar />
         </StyledHeaderInner>
       </StyledPageHeader>
+       */}
+
       <PageSection
         innerProps={{ style: { margin: '0', width: '100%' } }}
         background={theme.colors.background}
@@ -82,12 +108,25 @@ const Home = () => {
         concaveDivider
         dividerPosition="top"
       >
+        <div style={{ margin: '10px', padding: '10px' }}>
+          <Flex justifyContent="space-between" flexWrap="wrap">
+            <Heading as="h1" scale="xxl" color="secondary" mb="24px">
+              {t('NFT Market')}
+            </Heading>
+            <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
+          </Flex>
+
+          <Flex justifyContent="space-between" flexWrap="wrap">
+            <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
+            <SearchBar />
+          </Flex>
+        </div>
         {/* <Collections /> */}
         <Newest />
       </PageSection>
-      <Gradient p="64px 0">
+      {/* <Gradient p="64px 0">
         <SectionsWithFoldableText header={t('FAQs')} config={config(t)} m="auto" />
-      </Gradient>
+      </Gradient> */}
     </>
   );
 };
