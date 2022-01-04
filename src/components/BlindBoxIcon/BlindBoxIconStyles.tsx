@@ -54,6 +54,9 @@ export const InnerView = styled.div<{
         transform: scale(1.05);
       }
     `}
+    @media screen and (max-width: 760px) {
+    width: 90%;
+  }
 `;
 
 export const IconView = styled.div`

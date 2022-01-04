@@ -1,4 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
+import { Box, Flex, Heading } from 'bubbles-uikit';
+import Container from 'components/Layout/Container';
 import BlindBoxItem, { BlindBoxItemProps } from '../BlindBoxItem';
 import BlindBoxInfo from '../BlindBoxInfo';
 
@@ -22,13 +25,32 @@ const BlindboxItemData: BlindBoxItemProps = {
       color: '#f15f61',
     },
   ],
+  height: '180px',
+  width: '350px',
 };
 
 const BlindBoxBuy = ({ id }: { id: number }) => {
   return (
     <>
-      <BlindBoxItem {...BlindboxItemData} />
-      <BlindBoxInfo title="info box" stock={4} creationTime={undefined} />
+      <Heading marginLeft="15px" marginBottom="20px" scale="xl">
+        BlindBox
+      </Heading>
+      <Box marginBottom="50px">
+        <BlindBoxInfo title="info box" stock={4} creationTime={undefined} />
+      </Box>
+      <Heading marginLeft="15px" marginBottom="20px" scale="lg">
+        Bubble Treasure
+      </Heading>
+      <Flex flexWrap="wrap">
+        <BlindBoxItem {...BlindboxItemData} />
+        <BlindBoxItem {...BlindboxItemData} />
+        <BlindBoxItem {...BlindboxItemData} />
+        <BlindBoxItem {...BlindboxItemData} />
+        <BlindBoxItem {...BlindboxItemData} />
+        <BlindBoxItem {...BlindboxItemData} />
+        <BlindBoxItem {...BlindboxItemData} />
+        <BlindBoxItem {...BlindboxItemData} />
+      </Flex>
     </>
   );
 };

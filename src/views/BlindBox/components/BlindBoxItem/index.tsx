@@ -32,11 +32,13 @@ export interface BlindBoxItemProps extends CardProps {
     value: string;
     color?: string;
   }[];
+  width?: string;
+  height?: string;
 }
-function BlindBoxItem({ title, imgUrl, stats, iconUrl, hoverImgUrl }: BlindBoxItemProps): JSX.Element {
+function BlindBoxItem({ title, imgUrl, stats, iconUrl, hoverImgUrl, width, height }: BlindBoxItemProps): JSX.Element {
   return (
     <>
-      <ItemContainer shouldHover>
+      <ItemContainer shouldHover width={width} height={height}>
         <OuterDiv>
           <InnerDiv>
             <div

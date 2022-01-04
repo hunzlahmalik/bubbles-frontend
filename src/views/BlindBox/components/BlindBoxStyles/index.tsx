@@ -1,14 +1,15 @@
 import styled, { css } from 'styled-components';
 
-export const ItemContainer = styled.div<{ shouldHover?: boolean }>`
-  width: 100%;
-  height: 100%;
+export const ItemContainer = styled.div<{ height?: string; width?: string; shouldHover?: boolean }>`
+  width: ${({ width }) => width ?? '100%'};
+  height: ${({ height }) => height ?? '100%'};
   display: flex;
   flex-direction: row;
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
   transition: all 0.3s ease-in-out;
   padding-bottom: 10px;
+  margin: 15px;
   ${({ shouldHover }) =>
     shouldHover &&
     css`
@@ -21,7 +22,6 @@ export const ItemContainer = styled.div<{ shouldHover?: boolean }>`
   @media screen and (max-width: 760px) {
     width: 90%;
     height: fit-content;
-    min-height: 800px;
     flex-direction: column;
     padding-bottom: 20px;
   }

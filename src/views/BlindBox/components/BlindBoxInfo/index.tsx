@@ -94,8 +94,9 @@ function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: nu
       <InnerDiv>
         <div
           style={{
-            width: '520px',
+            width: '500px',
             height: '500px',
+            marginBottom: '10px',
           }}
         >
           <Icon backgroundImage="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/4c5c4d784f4324884beb335877cb8ff1.png" />
