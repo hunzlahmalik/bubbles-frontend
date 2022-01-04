@@ -55,7 +55,9 @@ export const InnerView = styled.div<{
       }
     `}
     @media screen and (max-width: 760px) {
+    height: 80%;
     width: 90%;
+    top: 10%;
   }
 `;
 
