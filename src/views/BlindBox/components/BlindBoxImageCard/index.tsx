@@ -79,12 +79,13 @@ const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
   url,
   imgUrl,
   gradient,
+  shouldHover = false,
   ...props
 }) => {
   function renderComponents() {
     return (
       <GradientCard gradient={gradient}>
-        <ImageCard imgUrl={imgUrl}>
+        <ImageCard shouldHover={shouldHover} imgUrl={imgUrl}>
           <Content>
             <StageTitle>{stageTitle}</StageTitle>
             <Heading>{title}</Heading>
