@@ -5,6 +5,7 @@ import {
   Td,
   Card,
   Flex,
+  Box,
   BnbUsdtPairTokenIcon,
   Heading,
   useMatchBreakpoints,
@@ -14,12 +15,15 @@ import {
   ArrowForwardIcon,
 } from 'bubbles-uikit';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useGetCollections } from 'state/nftMarket/hooks';
 import { useTranslation } from 'contexts/Localization';
 import Page from 'components/Layout/Page';
+import TabButtonMenu, { TabButtonMenuProps } from 'components/TabButtonMenu';
 import PageHeader from 'components/PageHeader';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
+import PageSection from 'components/PageSection';
+import SearchBar from '../components/SearchBar';
 import CollectionLinkCard from '../components/CollectionCard/CollectionLinkCard';
 
 export const ITEMS_PER_PAGE = 10;
@@ -55,6 +59,22 @@ const GridBox = styled.div`
   flex-wrap: wrap;
 `;
 
+const NFTPageData = {
+  menu: {
+    data: [
+      {
+        text: 'Overview',
+        link: nftsBaseUrl,
+        showDot: false,
+      },
+      {
+        text: 'Collections',
+        link: `${nftsBaseUrl}/collections`,
+        showDot: false,
+      },
+    ],
+  },
+};
 const Collectible = () => {
   const { t } = useTranslation();
   const collections = useGetCollections();
@@ -63,6 +83,13 @@ const Collectible = () => {
   const [sortDirection, setSortDirection] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
+
+  const { pathname } = useLocation();
+  const getActiveLink = () => {
+    return NFTPageData.menu.data.findIndex((ele) => ele.link === pathname);
+  };
+  // Index Handler
+  const [index, setIndex] = useState(getActiveLink());
 
   useEffect(() => {
     setTimeout(() => {
@@ -116,28 +143,48 @@ const Collectible = () => {
 
   return (
     <>
-      <PageHeader>
+      {/* <PageHeader>
         <Heading as="h1" scale="xxl" color="secondary">
           {t('Collections')}
         </Heading>
-      </PageHeader>
-      <Page>
-        <GridBox>
-          {sortedCollections.map((collection) => {
-            return (
-              <>
-                <CollectionLinkCard
-                  collection={collection}
-                  collectionImg={collection.avatar}
-                  collectionSupply={collection.totalSupply}
-                  collectionItems={collection.numberTokensListed}
-                  collectionVolume={collection.totalVolumeBNB}
-                />
-              </>
-            );
-          })}
-        </GridBox>
+      </PageHeader> */}
 
+      <PageSection
+        innerProps={{ style: { margin: '0', width: '100%' } }}
+        index={1}
+        concaveDivider
+        dividerPosition="top"
+      >
+        <div style={{ margin: '10px', padding: '10px' }}>
+          <Flex justifyContent="space-between" flexWrap="wrap">
+            <Heading as="h1" scale="xxl" color="secondary">
+              {t('Collections')}
+            </Heading>
+            <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
+          </Flex>
+
+          <Flex justifyContent="space-between" flexWrap="wrap">
+            <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
+            <SearchBar />
+          </Flex>
+        </div>
+        <div>
+          <GridBox>
+            {sortedCollections.map((collection) => {
+              return (
+                <>
+                  <CollectionLinkCard
+                    collection={collection}
+                    collectionImg={collection.avatar}
+                    collectionSupply={collection.totalSupply}
+                    collectionItems={collection.numberTokensListed}
+                    collectionVolume={collection.totalVolumeBNB}
+                  />
+                </>
+              );
+            })}
+          </GridBox>
+        </div>
         {/* 
         <Card>
           <Table>
@@ -217,7 +264,7 @@ const Collectible = () => {
             </Arrow>
           </PageButtons>
         </Card> */}
-      </Page>
+      </PageSection>
     </>
   );
 };
