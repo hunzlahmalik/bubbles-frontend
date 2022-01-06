@@ -20,6 +20,7 @@ import EasterEgg from './components/EasterEgg';
 import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus';
 import history from './routerHistory';
 // Views included in the main bundle
+import Temp from './views/Temp';
 import Pools from './views/Pools';
 import Swap from './views/Swap';
 import BlindBox from './views/BlindBox';
@@ -100,6 +101,11 @@ const App: React.FC = () => {
             </Route>
             <Route path="/blindbox">
               <BlindBox />
+            </Route>
+
+            {/* Adding Temp for testing */}
+            <Route path="/temp">
+              <Temp />
             </Route>
 
             <Route path="/farms">

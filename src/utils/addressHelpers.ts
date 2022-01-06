@@ -8,6 +8,12 @@ export const getAddress = (address: Address): string => {
   return address[chainId] ? address[chainId] : address[ChainId.MAINNET];
 };
 
+// For bubbles 97 address
+export const getBubbleAddress = (address: Address): string => {
+  const chainId = process.env.BUBBLE_APP_CHAIN_ID;
+  return address[chainId] ? address[chainId] : address['97'];
+};
+
 export const getMasterChefAddress = () => {
   return getAddress(addresses.masterChef);
 };
@@ -87,4 +93,24 @@ export const getNftSaleAddress = () => {
 };
 export const getPancakeSquadAddress = () => {
   return getAddress(addresses.pancakeSquad);
+};
+
+// export for bubbles @crackaf
+export const getMockTokenAddress = () => {
+  return getBubbleAddress(addresses.mockToken);
+};
+export const getBubbleTokenAddress = () => {
+  return getBubbleAddress(addresses.bubbleToken);
+};
+export const getBubbleNFTAddress = () => {
+  return getBubbleAddress(addresses.bubbleNFT);
+};
+export const getBubbleMarketplaceAddress = () => {
+  return getBubbleAddress(addresses.bubbleMarketplace);
+};
+export const getCBFIFarmAddress = () => {
+  return getBubbleAddress(addresses.CBFIFarm);
+};
+export const getBubblePoolAddress = () => {
+  return getBubbleAddress(addresses.bubblePool);
 };

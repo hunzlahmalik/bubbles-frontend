@@ -32,6 +32,7 @@ import {
   getNftSaleContract,
   getPancakeSquadContract,
   getErc721CollectionContract,
+  getMockTokenContract,
 } from 'utils/contractHelpers';
 import { getMulticallAddress } from 'utils/addressHelpers';
 import { VaultKey } from 'state/types';
@@ -293,4 +294,11 @@ export function usePairContract(pairAddress?: string, withSignerIfPossible?: boo
 
 export function useMulticallContract(): Contract | null {
   return useContract(getMulticallAddress(), multiCallAbi, false);
+}
+
+// bubbles use contracts
+
+export function useMockTokenContract(): Contract | null {
+  const { library } = useActiveWeb3React();
+  return useMemo(() => getMockTokenContract(library.getSigner()), [library]);
 }
