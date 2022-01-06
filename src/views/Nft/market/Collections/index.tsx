@@ -156,14 +156,14 @@ const Collectible = () => {
         dividerPosition="top"
       >
         <div style={{ margin: '10px', padding: '10px' }}>
-          <Flex justifyContent="space-between" flexWrap="wrap">
-            <Heading as="h1" scale="xxl" color="secondary">
+          <Flex justifyContent="space-between" flexWrap="wrap" mr="30px">
+            <Heading as="h1" scale="xxl" color="secondary" mb="24px">
               {t('Collections')}
             </Heading>
             <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
           </Flex>
 
-          <Flex justifyContent="space-between" flexWrap="wrap">
+          <Flex justifyContent="space-between" flexWrap="wrap" mr="30px">
             <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
             <SearchBar />
           </Flex>
