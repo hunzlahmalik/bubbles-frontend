@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CardProps, Link } from 'bubbles-uikit';
+import { CardProps } from 'bubbles-uikit';
 import GradientCard, { GradientCardProps } from 'components/GradientCard';
 import ImageCard, { ImageCardProps } from 'components/ImageCard';
 

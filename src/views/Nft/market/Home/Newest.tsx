@@ -1,11 +1,11 @@
 /* eslint-disable react/void-dom-elements-no-children */
 import React, { useState, useEffect } from 'react';
-import { Heading, Flex, Button, Grid, ChevronRightIcon } from 'bubbles-uikit';
-import { useTranslation } from 'contexts/Localization';
-import { Link } from 'react-router-dom';
+// import { Heading, Flex, Button, Grid, ChevronRightIcon } from 'bubbles-uikit';
+// import { useTranslation } from 'contexts/Localization';
+// import { Link } from 'react-router-dom';
 import { NftToken } from 'state/nftMarket/types';
 import { getLatestListedNfts, getNftsFromDifferentCollectionsApi } from 'state/nftMarket/helpers';
-import { nftsBaseUrl, pancakeBunniesAddress } from 'views/Nft/market/constants';
+import { pancakeBunniesAddress } from 'views/Nft/market/constants';
 import styled from 'styled-components';
 import { CollectibleLinkCard } from '../components/CollectibleCard';
 import GridPlaceholder from '../components/GridPlaceholder';
@@ -47,7 +47,7 @@ const useNewestNfts = () => {
 };
 
 const Newest: React.FC = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const nfts = useNewestNfts();
 
   return (

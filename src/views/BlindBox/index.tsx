@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Page from 'components/Layout/Page';
 import TabButtonMenu, { TabButtonProps } from 'components/TabButtonMenu';
-import { Redirect, useLocation, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import BlindBoxImageCard, { BlindBoxImageCardProps } from './components/BlindBoxImageCard';
 import BlindBoxBuy from './components/BlindBoxBuy';
 
@@ -118,7 +118,7 @@ export interface BlindBoxUrlProps {
 }
 
 const BlindBox: React.FC = () => {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   const urlPramas: BlindBoxUrlProps = useParams();
 
   const isBox = 'box' in urlPramas;
@@ -126,7 +126,7 @@ const BlindBox: React.FC = () => {
   const isData = BlindBoxData.data && BlindBoxData.data.length > 0;
 
   const isValidBox = isBox && isData && BlindBoxData.data.findIndex((ele) => ele.button.link === urlPramas.box) >= 0;
-  const isValidId = isValidBox && isId && isData;
+  // const isValidId = isValidBox && isId && isData;
 
   const getActiveLink = () => {
     if (isValidBox) return BlindBoxData.data.findIndex((ele) => ele.button.link === urlPramas.box);

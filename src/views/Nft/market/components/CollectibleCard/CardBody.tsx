@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-no-undef */
 
 import React from 'react';
-import { Box, CardBody, Flex, Text, BinanceChainIcon, BinanceIcon } from 'bubbles-uikit';
+import { Box, CardBody, Flex, Text, BinanceIcon } from 'bubbles-uikit';
 import { useTranslation } from 'contexts/Localization';
 import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import styled from 'styled-components';
 import PreviewImage from './PreviewImage';
 import { CostLabel, LowestPriceMetaRow, MetaRow } from './styles';
-import LocationTag from './LocationTag';
+// import LocationTag from './LocationTag';
 import { CollectibleCardProps } from './types';
 import { useGetLowestPriceFromNft } from '../../hooks/useGetLowestPrice';
 import { pancakeBunniesAddress } from '../../constants';
@@ -17,7 +17,7 @@ const MediaBox = styled.div`
   position: relative;
   padding-bottom: 100%;
   height: 0;
-  border-top-radius: 16px;
+  /* border-top-radius: 16px; */
   overflow: hidden;
   // height:100%;
   // width:100%;
@@ -52,7 +52,7 @@ const BoxLine = styled.div`
   position: relative;
   background-position-x: 50%;
   background-position-y: center;
-  '::before': {
+  &:before {
     left: -15px;
     -webkit-transform: translate(50%) translateY(-50%);
     transform: translate(50%) translateY(-50%);
@@ -65,7 +65,7 @@ const BoxLine = styled.div`
     position: absolute;
     content: ' ';
   }
-  '::after': {
+  &:after {
     right: -15px;
     -webkit-transform: translate(50%) translateY(-50%);
     transform: translate(50%) translateY(-50%);
@@ -90,7 +90,7 @@ const PricedBar = styled.div`
   flex: 1;
 `;
 
-const CollectibleCardBody: React.FC<CollectibleCardProps> = ({ nft, nftLocation, currentAskPrice, isUserNft }) => {
+const CollectibleCardBody: React.FC<CollectibleCardProps> = ({ nft, currentAskPrice, isUserNft }) => {
   const { t } = useTranslation();
   const { name } = nft;
   const bnbBusdPrice = useBNBBusdPrice();

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import Page from 'components/Layout/Page';
-import TabButtonMenu, { TabButtonMenuProps } from 'components/TabButtonMenu';
+import React, { useState } from 'react';
+// import Page from 'components/Layout/Page';
+import TabButtonMenu from 'components/TabButtonMenu';
 import ImageCard, { ImageCardProps } from 'components/ImageCard';
 import GradientCard from 'components/GradientCard';
 import styled from 'styled-components';
@@ -40,7 +40,6 @@ const CardDesign = styled.div`
   margin-right: auto;
   margin-bottom: 10px;
   margin-left: auto;
-  box-size: inherit;
   border-radius: 16px;
   overflow: hidden;
   -webkit-box-orient: vertical;
@@ -134,16 +133,16 @@ const Pool: React.FC = () => {
   ];
 
   // Current Data to Be displayed
-  const [gamepool, setGamepool] = useState(Object);
+  // const [gamepool, setGamepool] = useState(Object);
   // ActiveIndex this will move the nested menus according to the clicked data
   const [activeIndex, setActiveIndex] = useState(0);
   // NestedIndex this will move the component according to the clicked data
   const [nestedIndex, setNestedIndex] = useState(0);
 
   // DataGetter According to the index
-  const getData = (idx1: number, idx2: number) => {
-    return gamepooldata;
-  };
+  // const getData = (idx1: number, idx2: number) => {
+  //   return gamepooldata;
+  // };
 
   // // Handler for the Indexes
   // useEffect(() => {
@@ -155,13 +154,9 @@ const Pool: React.FC = () => {
     return (({ showDot, text }) => ({ showDot, text }))(ele);
   });
 
-  console.log(menu);
-  console.log(menu1);
-
   // Making data for the nested Menu
   const menu2 = menu.map((ele) => ele.subMenu);
 
-  console.log(menu2);
   const data = [
     { id: 1, title: 'Add Nft', img: 'https://jojo.fun/img/add.e4b25d9e.svg' },
     { id: 2, title: 'Add Nft', img: 'https://jojo.fun/img/add.e4b25d9e.svg' },

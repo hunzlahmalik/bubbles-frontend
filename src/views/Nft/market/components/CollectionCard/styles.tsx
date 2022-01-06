@@ -1,19 +1,7 @@
-import React, { ReactElement } from 'react';
-import {
-  Card,
-  BinanceIcon,
-  Box,
-  BoxProps,
-  CameraIcon,
-  Flex,
-  FlexProps,
-  SellIcon,
-  Text,
-  WalletFilledIcon,
-  Skeleton,
-} from 'bubbles-uikit';
+import React from 'react';
+import { Card, BinanceIcon, Box, Flex, FlexProps, Text } from 'bubbles-uikit';
 import { Price } from '@pancakeswap/sdk';
-import { useTranslation } from 'contexts/Localization';
+// import { useTranslation } from 'contexts/Localization';
 import { multiplyPriceByAmount } from 'utils/prices';
 import styled from 'styled-components';
 

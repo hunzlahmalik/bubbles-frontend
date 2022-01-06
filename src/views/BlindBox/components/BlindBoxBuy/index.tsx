@@ -1,7 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Box, Flex, Heading } from 'bubbles-uikit';
-import Container from 'components/Layout/Container';
 import BlindBoxItem, { BlindBoxItemProps } from '../BlindBoxItem';
 import BlindBoxInfo from '../BlindBoxInfo';
 

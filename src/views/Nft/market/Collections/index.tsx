@@ -1,26 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  Table,
-  Th,
-  Td,
-  Card,
-  Flex,
-  Box,
-  BnbUsdtPairTokenIcon,
-  Heading,
-  useMatchBreakpoints,
-  ProfileAvatar,
-  ArrowBackIcon,
-  Text,
-  ArrowForwardIcon,
-} from 'bubbles-uikit';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Flex, Heading } from 'bubbles-uikit';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useGetCollections } from 'state/nftMarket/hooks';
 import { useTranslation } from 'contexts/Localization';
-import Page from 'components/Layout/Page';
-import TabButtonMenu, { TabButtonMenuProps } from 'components/TabButtonMenu';
-import PageHeader from 'components/PageHeader';
+// import Page from 'components/Layout/Page';
+import TabButtonMenu from 'components/TabButtonMenu';
+// import PageHeader from 'components/PageHeader';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
 import PageSection from 'components/PageSection';
 import SearchBar from '../components/SearchBar';
@@ -28,11 +14,11 @@ import CollectionLinkCard from '../components/CollectionCard/CollectionLinkCard'
 
 export const ITEMS_PER_PAGE = 10;
 
-const SORT_FIELD = {
-  volumeBNB: 'totalVolumeBNB',
-  items: 'numberTokensListed',
-  supply: 'totalSupply',
-};
+// const SORT_FIELD = {
+//   volumeBNB: 'totalVolumeBNB',
+//   items: 'numberTokensListed',
+//   supply: 'totalSupply',
+// };
 
 export const PageButtons = styled.div`
   width: 100%;
@@ -63,13 +49,13 @@ const NFTPageData = {
   menu: {
     data: [
       {
-        text: 'Overview',
+        text: 'Market',
         link: nftsBaseUrl,
         showDot: false,
       },
       {
-        text: 'Collections',
-        link: `${nftsBaseUrl}/collections`,
+        text: 'Auction',
+        link: `${nftsBaseUrl}/auction`,
         showDot: false,
       },
     ],
@@ -78,7 +64,7 @@ const NFTPageData = {
 const Collectible = () => {
   const { t } = useTranslation();
   const collections = useGetCollections();
-  const { isMobile } = useMatchBreakpoints();
+  // const { isMobile } = useMatchBreakpoints();
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState<boolean>(false);
   const [page, setPage] = useState(1);
@@ -125,21 +111,21 @@ const Collectible = () => {
       .slice(ITEMS_PER_PAGE * (page - 1), page * ITEMS_PER_PAGE);
   }, [page, collections, sortDirection, sortField]);
 
-  const handleSort = useCallback(
-    (newField: string) => {
-      setSortField(newField);
-      setSortDirection(sortField !== newField ? true : !sortDirection);
-    },
-    [sortDirection, sortField],
-  );
+  // const handleSort = useCallback(
+  //   (newField: string) => {
+  //     setSortField(newField);
+  //     setSortDirection(sortField !== newField ? true : !sortDirection);
+  //   },
+  //   [sortDirection, sortField],
+  // );
 
-  const arrow = useCallback(
-    (field: string) => {
-      const directionArrow = !sortDirection ? '↑' : '↓';
-      return sortField === field ? directionArrow : '';
-    },
-    [sortDirection, sortField],
-  );
+  // const arrow = useCallback(
+  //   (field: string) => {
+  //     const directionArrow = !sortDirection ? '↑' : '↓';
+  //     return sortField === field ? directionArrow : '';
+  //   },
+  //   [sortDirection, sortField],
+  // );
 
   return (
     <>
