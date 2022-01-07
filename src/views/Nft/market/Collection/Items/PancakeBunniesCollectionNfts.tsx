@@ -2,9 +2,9 @@ import React from 'react';
 import { Grid } from 'bubbles-uikit';
 import orderBy from 'lodash/orderBy';
 import { Collection } from 'state/nftMarket/types';
-import { CollectibleLinkCard } from '../../components/CollectibleCard';
+import { CollectibleLinkCard } from '../../../components/CollectibleCard';
 import useAllPancakeBunnyNfts from '../../hooks/useAllPancakeBunnyNfts';
-import GridPlaceholder from '../../components/GridPlaceholder';
+import GridPlaceholder from '../../../components/GridPlaceholder';
 
 interface CollectionNftsProps {
   collection: Collection;

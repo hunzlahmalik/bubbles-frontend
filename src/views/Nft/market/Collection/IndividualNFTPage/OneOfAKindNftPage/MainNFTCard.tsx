@@ -4,10 +4,10 @@ import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import React from 'react';
 import { NftToken } from 'state/nftMarket/types';
 import { multiplyPriceByAmount } from 'utils/prices';
-import NFTMedia from 'views/Nft/market/components/NFTMedia';
+import NFTMedia from 'views/Nft/components/NFTMedia';
 import EditProfileModal from 'views/Nft/market/Profile/components/EditProfileModal';
-import BuyModal from '../../../components/BuySellModals/BuyModal';
-import SellModal from '../../../components/BuySellModals/SellModal';
+import BuyModal from '../../../../components/BuySellModals/BuyModal';
+import SellModal from '../../../../components/BuySellModals/SellModal';
 import { nftsBaseUrl } from '../../../constants';
 import { CollectionLink, Container } from '../shared/styles';
 

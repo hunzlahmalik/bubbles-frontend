@@ -8,9 +8,9 @@ import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import { formatNumber } from 'utils/formatBalance';
 import { multiplyPriceByAmount } from 'utils/prices';
 import useNftOwner from 'views/Nft/market/hooks/useNftOwner';
-import BuyModal from '../../../components/BuySellModals/BuyModal';
-import SellModal from '../../../components/BuySellModals/SellModal';
-import ProfileCell from '../../../components/ProfileCell';
+import BuyModal from '../../../../components/BuySellModals/BuyModal';
+import SellModal from '../../../../components/BuySellModals/SellModal';
+import ProfileCell from '../../../../components/ProfileCell';
 import { ButtonContainer, TableHeading } from '../shared/styles';
 
 const StyledCard = styled(Card)`

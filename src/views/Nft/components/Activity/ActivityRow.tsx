@@ -6,11 +6,11 @@ import { Price } from '@pancakeswap/sdk';
 import styled from 'styled-components';
 import { getBscScanLink } from 'utils';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
-import ProfileCell from 'views/Nft/market/components/ProfileCell';
+import ProfileCell from 'views/Nft/components/ProfileCell';
 import MobileModal from './MobileModal';
 import ActivityPrice from './ActivityPrice';
 import ActivityEventText from './ActivityEventText';
-import { nftsBaseUrl, pancakeBunniesAddress } from '../../constants';
+import { nftsBaseUrl, pancakeBunniesAddress } from '../../market/constants';
 
 const RoundedImage = styled(Image)`
   & > img {

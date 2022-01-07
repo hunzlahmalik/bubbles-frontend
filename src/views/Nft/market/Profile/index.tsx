@@ -7,9 +7,9 @@ import Page from 'components/Layout/Page';
 import { useTranslation } from 'contexts/Localization';
 import ConnectedProfile from './ConnectedProfile';
 import UnconnectedProfile from './UnconnectedProfile';
-import MarketPageHeader from '../components/MarketPageHeader';
+import MarketPageHeader from '../../components/MarketPageHeader';
 import ProfileHeader from './components/ProfileHeader';
-import NoNftsImage from '../components/Activity/NoNftsImage';
+import NoNftsImage from '../../components/Activity/NoNftsImage';
 
 const NftProfile = () => {
   const { account } = useWeb3React();

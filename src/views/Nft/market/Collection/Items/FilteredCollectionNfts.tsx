@@ -9,8 +9,8 @@ import {
 } from 'state/nftMarket/hooks';
 import { Collection, NftFilterLoadingState } from 'state/nftMarket/types';
 import { useTranslation } from 'contexts/Localization';
-import GridPlaceholder from '../../components/GridPlaceholder';
-import { CollectibleLinkCard } from '../../components/CollectibleCard';
+import GridPlaceholder from '../../../components/GridPlaceholder';
+import { CollectibleLinkCard } from '../../../components/CollectibleCard';
 import { REQUEST_SIZE } from '../config';
 
 interface FilteredCollectionNftsProps {

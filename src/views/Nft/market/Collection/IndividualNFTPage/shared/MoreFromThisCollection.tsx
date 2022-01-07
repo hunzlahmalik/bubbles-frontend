@@ -10,7 +10,7 @@ import { useNftsFromCollection } from 'state/nftMarket/hooks';
 import { fetchNftsFromCollections } from 'state/nftMarket/reducer';
 import { useAppDispatch } from 'state';
 import { pancakeBunniesAddress } from '../../../constants';
-import { CollectibleLinkCard } from '../../../components/CollectibleCard';
+import { CollectibleLinkCard } from '../../../../components/CollectibleCard';
 import useAllPancakeBunnyNfts from '../../../hooks/useAllPancakeBunnyNfts';
 
 import 'swiper/swiper-bundle.css';

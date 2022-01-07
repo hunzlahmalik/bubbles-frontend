@@ -12,8 +12,8 @@ import { Collection, NftFilterLoadingState, NftToken, TokenMarketData } from 'st
 import { fetchNftsFromCollections } from 'state/nftMarket/reducer';
 import { getNftApi, getNftsMarketData } from 'state/nftMarket/helpers';
 import { useTranslation } from 'contexts/Localization';
-import GridPlaceholder from '../../components/GridPlaceholder';
-import { CollectibleLinkCard } from '../../components/CollectibleCard';
+import GridPlaceholder from '../../../components/GridPlaceholder';
+import { CollectibleLinkCard } from '../../../components/CollectibleCard';
 import { REQUEST_SIZE } from '../config';
 
 interface CollectionNftsProps {

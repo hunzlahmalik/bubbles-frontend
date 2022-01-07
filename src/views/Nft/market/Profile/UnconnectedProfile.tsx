@@ -5,7 +5,7 @@ import { Box } from 'bubbles-uikit';
 import Page from 'components/Layout/Page';
 import { Route, useParams } from 'react-router';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
-import MarketPageHeader from '../components/MarketPageHeader';
+import MarketPageHeader from '../../components/MarketPageHeader';
 import ProfileHeader from './components/ProfileHeader';
 import TabMenu from './components/TabMenu';
 import Achievements from './components/Achievements';

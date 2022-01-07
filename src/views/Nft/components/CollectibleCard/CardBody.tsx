@@ -9,8 +9,8 @@ import PreviewImage from './PreviewImage';
 import { CostLabel, LowestPriceMetaRow, MetaRow } from './styles';
 // import LocationTag from './LocationTag';
 import { CollectibleCardProps } from './types';
-import { useGetLowestPriceFromNft } from '../../hooks/useGetLowestPrice';
-import { pancakeBunniesAddress } from '../../constants';
+import { useGetLowestPriceFromNft } from '../../market/hooks/useGetLowestPrice';
+import { pancakeBunniesAddress } from '../../market/constants';
 import NFTMedia from '../NFTMedia';
 
 const MediaBox = styled.div`

@@ -17,8 +17,8 @@ import { NftLocation, NftToken } from 'state/nftMarket/types';
 import ConnectWalletButton from 'components/ConnectWalletButton';
 import { useTranslation } from 'contexts/Localization';
 import ExpandableCard from '../shared/ExpandableCard';
-import SellModal from '../../../components/BuySellModals/SellModal';
-import ProfileNftModal from '../../../components/ProfileNftModal';
+import SellModal from '../../../../components/BuySellModals/SellModal';
+import ProfileNftModal from '../../../../components/ProfileNftModal';
 import { SmallRoundedImage, CollectibleRowContainer } from '../shared/styles';
 
 const LocationColors = {

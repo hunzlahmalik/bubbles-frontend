@@ -2,9 +2,9 @@ import React from 'react';
 import { Grid, Text, Flex } from 'bubbles-uikit';
 import { NftToken } from 'state/nftMarket/types';
 import { useTranslation } from 'contexts/Localization';
-import { CollectibleLinkCard } from '../../components/CollectibleCard';
-import GridPlaceholder from '../../components/GridPlaceholder';
-import NoNftsImage from '../../components/Activity/NoNftsImage';
+import { CollectibleLinkCard } from '../../../components/CollectibleCard';
+import GridPlaceholder from '../../../components/GridPlaceholder';
+import NoNftsImage from '../../../components/Activity/NoNftsImage';
 
 const UserNfts: React.FC<{ nfts: NftToken[]; isLoading: boolean }> = ({ nfts, isLoading }) => {
   const { t } = useTranslation();

@@ -6,8 +6,8 @@ import { NftToken } from 'state/nftMarket/types';
 import { useTranslation } from 'contexts/Localization';
 import { getBscScanLinkForNft } from 'utils';
 import { HorizontalDivider, RoundedImage } from './BuySellModals/shared/styles';
-import EditProfileModal from '../Profile/components/EditProfileModal';
-import { nftsBaseUrl, pancakeBunniesAddress } from '../constants';
+import EditProfileModal from '../market/Profile/components/EditProfileModal';
+import { nftsBaseUrl, pancakeBunniesAddress } from '../market/constants';
 
 export const StyledModal = styled(Modal)`
   & > div:last-child {

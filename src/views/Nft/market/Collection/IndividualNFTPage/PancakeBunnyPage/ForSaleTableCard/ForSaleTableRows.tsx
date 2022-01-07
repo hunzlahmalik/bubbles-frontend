@@ -9,9 +9,9 @@ import { useTranslation } from 'contexts/Localization';
 import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import { multiplyPriceByAmount } from 'utils/prices';
 import { NftToken } from 'state/nftMarket/types';
-import BuyModal from 'views/Nft/market/components/BuySellModals/BuyModal';
-import SellModal from 'views/Nft/market/components/BuySellModals/SellModal';
-import ProfileCell from 'views/Nft/market/components/ProfileCell';
+import BuyModal from 'views/Nft/components/BuySellModals/BuyModal';
+import SellModal from 'views/Nft/components/BuySellModals/SellModal';
+import ProfileCell from 'views/Nft/components/ProfileCell';
 import { ButtonContainer } from '../../shared/styles';
 
 const OwnersTableRow = styled(Grid)`

@@ -11,6 +11,7 @@ import { usePollCoreFarmData } from 'state/farms/hooks';
 import { useFetchProfile } from 'state/profile/hooks';
 import { DatePickerPortal } from 'components/DatePicker';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
+import Auction from 'views/Nft/auction';
 import GlobalStyle from './style/Global';
 import Menu from './components/Menu';
 import SuspenseWithChunkError from './components/SuspenseWithChunkError';
@@ -143,6 +144,9 @@ const App: React.FC = () => {
             </Route>
 
             {/* NFT */}
+            <Route path="/nfts/auction">
+              <Auction />
+            </Route>
             <Route path="/nfts">
               <NftMarket />
             </Route>

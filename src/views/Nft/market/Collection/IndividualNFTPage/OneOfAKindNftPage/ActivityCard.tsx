@@ -5,12 +5,12 @@ import useTheme from 'hooks/useTheme';
 import { Activity, NftToken } from 'state/nftMarket/types';
 import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import { useAppDispatch } from '../../../../../../state';
-import NoNftsImage from '../../../components/Activity/NoNftsImage';
+import NoNftsImage from '../../../../components/Activity/NoNftsImage';
 import TableLoader from '../../../../../../components/TableLoader';
-import { Arrow, PageButtons } from '../../../components/PaginationButtons';
+import { Arrow, PageButtons } from '../../../../components/PaginationButtons';
 import { getTokenActivity } from '../../../../../../state/nftMarket/helpers';
 import { sortActivity } from '../../../ActivityHistory/utils/sortActivity';
-import ActivityRow from '../../../components/Activity/ActivityRow';
+import ActivityRow from '../../../../components/Activity/ActivityRow';
 
 interface ActivityCardProps {
   nft: NftToken;

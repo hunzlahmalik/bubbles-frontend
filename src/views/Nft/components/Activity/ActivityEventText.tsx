@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TextProps } from 'bubbles-uikit';
 import { useTranslation } from 'contexts/Localization';
-import { MarketEvent } from '../../../../../state/nftMarket/types';
+import { MarketEvent } from '../../../../state/nftMarket/types';
 
 interface ActivityEventTextProps extends TextProps {
   marketEvent: MarketEvent;

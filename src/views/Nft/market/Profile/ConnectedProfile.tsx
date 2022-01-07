@@ -11,7 +11,7 @@ import { useAchievements, useFetchAchievements } from 'state/achievements/hooks'
 import { AchievementFetchStatus } from 'state/types';
 import { UserNftInitializationState } from 'state/nftMarket/types';
 import useFetchUserNfts from './hooks/useFetchUserNfts';
-import MarketPageHeader from '../components/MarketPageHeader';
+import MarketPageHeader from '../../components/MarketPageHeader';
 import ProfileHeader from './components/ProfileHeader';
 import TabMenu from './components/TabMenu';
 import Achievements from './components/Achievements';

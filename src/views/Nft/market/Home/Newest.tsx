@@ -7,8 +7,8 @@ import { NftToken } from 'state/nftMarket/types';
 import { getLatestListedNfts, getNftsFromDifferentCollectionsApi } from 'state/nftMarket/helpers';
 import { pancakeBunniesAddress } from 'views/Nft/market/constants';
 import styled from 'styled-components';
-import { CollectibleLinkCard } from '../components/CollectibleCard';
-import GridPlaceholder from '../components/GridPlaceholder';
+import { CollectibleLinkCard } from '../../components/CollectibleCard';
+import GridPlaceholder from '../../components/GridPlaceholder';
 
 /**
  * Fetch latest NFTs data from SG+API and combine them

@@ -3,10 +3,10 @@ import { Flex, Box, Card, CardBody, Text, Button, BinanceIcon, Skeleton, useModa
 import { useTranslation } from 'contexts/Localization';
 import { multiplyPriceByAmount } from 'utils/prices';
 import { NftToken } from 'state/nftMarket/types';
-import NFTMedia from 'views/Nft/market/components/NFTMedia';
+import NFTMedia from 'views/Nft/components/NFTMedia';
 import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
-import BuyModal from '../../../components/BuySellModals/BuyModal';
-import SellModal from '../../../components/BuySellModals/SellModal';
+import BuyModal from '../../../../components/BuySellModals/BuyModal';
+import SellModal from '../../../../components/BuySellModals/SellModal';
 import { nftsBaseUrl } from '../../../constants';
 import { Container, CollectionLink } from '../shared/styles';
 

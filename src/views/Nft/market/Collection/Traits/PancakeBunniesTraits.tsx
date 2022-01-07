@@ -9,7 +9,7 @@ import { ApiResponseCollectionTokens } from 'state/nftMarket/types';
 import { useTranslation } from 'contexts/Localization';
 import CollapsibleCard from 'components/CollapsibleCard';
 import { useGetLowestPriceFromBunnyId } from '../../hooks/useGetLowestPrice';
-import { BNBAmountLabel } from '../../components/CollectibleCard/styles';
+import { BNBAmountLabel } from '../../../components/CollectibleCard/styles';
 import { sortBunniesByRarityBuilder } from './utils';
 import { nftsBaseUrl } from '../../constants';
 import { SortType } from '../../types';

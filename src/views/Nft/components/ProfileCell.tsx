@@ -5,7 +5,7 @@ import truncateHash from 'utils/truncateHash';
 import { useGetProfileAvatar } from 'state/profile/hooks';
 import { ProfileAvatarFetchStatus } from 'state/types';
 import { Link } from 'react-router-dom';
-import { nftsBaseUrl } from '../constants';
+import { nftsBaseUrl } from '../market/constants';
 
 const Avatar = styled.img`
   margin-right: 4px;

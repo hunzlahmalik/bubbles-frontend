@@ -2,7 +2,7 @@ import { Box, BoxProps } from 'bubbles-uikit';
 import React, { FC } from 'react';
 import { NftToken } from 'state/nftMarket/types';
 import styled from 'styled-components';
-import { RoundedImage } from '../Collection/IndividualNFTPage/shared/styles';
+import { RoundedImage } from '../market/Collection/IndividualNFTPage/shared/styles';
 
 const StyledAspectRatio = styled(Box)`
   position: absolute;

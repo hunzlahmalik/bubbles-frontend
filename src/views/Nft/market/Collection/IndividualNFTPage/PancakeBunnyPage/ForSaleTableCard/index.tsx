@@ -20,7 +20,7 @@ import { NftToken } from 'state/nftMarket/types';
 import ForSaleTableRows from './ForSaleTableRows';
 import { StyledSortButton, TableHeading } from '../../shared/styles';
 import UpdateIndicator from './UpdateIndicator';
-import { Arrow, PageButtons } from '../../../../components/PaginationButtons';
+import { Arrow, PageButtons } from '../../../../../components/PaginationButtons';
 
 const ITEMS_PER_PAGE_DESKTOP = 10;
 const ITEMS_PER_PAGE_MOBILE = 5;

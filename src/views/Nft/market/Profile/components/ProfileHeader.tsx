@@ -9,11 +9,11 @@ import truncateHash from 'utils/truncateHash';
 import { Achievement, Profile } from 'state/types';
 import { useWeb3React } from '@web3-react/core';
 import EditProfileAvatar from './EditProfileAvatar';
-import BannerHeader from '../../components/BannerHeader';
-import StatBox, { StatBoxItem } from '../../components/StatBox';
-import MarketPageTitle from '../../components/MarketPageTitle';
+import BannerHeader from '../../../components/BannerHeader';
+import StatBox, { StatBoxItem } from '../../../components/StatBox';
+import MarketPageTitle from '../../../components/MarketPageTitle';
 import EditProfileModal from './EditProfileModal';
-import AvatarImage from '../../components/BannerHeader/AvatarImage';
+import AvatarImage from '../../../components/BannerHeader/AvatarImage';
 
 interface HeaderProps {
   accountPath: string;

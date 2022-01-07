@@ -14,9 +14,9 @@ import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import useTheme from 'hooks/useTheme';
 import { useParams } from 'react-router';
 import { sortUserActivity } from '../../utils/sortUserActivity';
-import NoNftsImage from '../../../components/Activity/NoNftsImage';
-import { Arrow, PageButtons } from '../../../components/PaginationButtons';
-import ActivityRow from '../../../components/Activity/ActivityRow';
+import NoNftsImage from '../../../../components/Activity/NoNftsImage';
+import { Arrow, PageButtons } from '../../../../components/PaginationButtons';
+import ActivityRow from '../../../../components/Activity/ActivityRow';
 
 const MAX_PER_PAGE = 8;
 

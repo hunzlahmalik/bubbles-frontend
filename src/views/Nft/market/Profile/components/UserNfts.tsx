@@ -3,11 +3,11 @@ import { Grid, useModal, Text, Flex } from 'bubbles-uikit';
 import { useUserNfts } from 'state/nftMarket/hooks';
 import { NftLocation, UserNftInitializationState, NftToken } from 'state/nftMarket/types';
 import { useTranslation } from 'contexts/Localization';
-import { CollectibleActionCard } from '../../components/CollectibleCard';
-import GridPlaceholder from '../../components/GridPlaceholder';
-import ProfileNftModal from '../../components/ProfileNftModal';
-import NoNftsImage from '../../components/Activity/NoNftsImage';
-import SellModal from '../../components/BuySellModals/SellModal';
+import { CollectibleActionCard } from '../../../components/CollectibleCard';
+import GridPlaceholder from '../../../components/GridPlaceholder';
+import ProfileNftModal from '../../../components/ProfileNftModal';
+import NoNftsImage from '../../../components/Activity/NoNftsImage';
+import SellModal from '../../../components/BuySellModals/SellModal';
 
 interface ProfileNftProps {
   nft: NftToken;

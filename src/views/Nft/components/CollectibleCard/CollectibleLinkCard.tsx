@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { StyledCollectibleCard } from './styles';
 import CardBody from './CardBody';
 import { CollectibleCardProps } from './types';
-import { nftsBaseUrl, pancakeBunniesAddress } from '../../constants';
+import { nftsBaseUrl, pancakeBunniesAddress } from '../../market/constants';
 
 const CardBox = styled.div`
   

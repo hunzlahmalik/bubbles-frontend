@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { useGetCollections } from 'state/nftMarket/hooks';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
 import { useTranslation } from 'contexts/Localization';
-import { HotCollectionCard } from '../components/CollectibleCard';
-import { BNBAmountLabel } from '../components/CollectibleCard/styles';
+import { HotCollectionCard } from '../../components/CollectibleCard';
+import { BNBAmountLabel } from '../../components/CollectibleCard/styles';
 
 const Collections = () => {
   const { t } = useTranslation();

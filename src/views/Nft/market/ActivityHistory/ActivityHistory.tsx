@@ -22,10 +22,10 @@ import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import useTheme from 'hooks/useTheme';
 import useLastUpdated from 'hooks/useLastUpdated';
 import { useGetNftActivityFilters } from 'state/nftMarket/hooks';
-import { Arrow, PageButtons } from '../components/PaginationButtons';
-import NoNftsImage from '../components/Activity/NoNftsImage';
+import { Arrow, PageButtons } from '../../components/PaginationButtons';
+import NoNftsImage from '../../components/Activity/NoNftsImage';
 import ActivityFilters from './ActivityFilters';
-import ActivityRow from '../components/Activity/ActivityRow';
+import ActivityRow from '../../components/Activity/ActivityRow';
 import { sortActivity } from './utils/sortActivity';
 
 const MAX_PER_PAGE = 8;

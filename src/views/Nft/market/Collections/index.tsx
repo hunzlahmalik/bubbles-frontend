@@ -9,8 +9,8 @@ import TabButtonMenu from 'components/TabButtonMenu';
 // import PageHeader from 'components/PageHeader';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
 import PageSection from 'components/PageSection';
-import SearchBar from '../components/SearchBar';
-import CollectionLinkCard from '../components/CollectionCard/CollectionLinkCard';
+import SearchBar from '../../components/SearchBar';
+import CollectionLinkCard from '../../components/CollectionCard/CollectionLinkCard';
 
 export const ITEMS_PER_PAGE = 10;
 
