@@ -31,6 +31,13 @@ import {
   getNftSaleAddress,
   getPancakeSquadAddress,
   getTradingCompetitionAddressV2,
+  // bubbles addresses
+  getMockTokenAddress,
+  getBubbleMarketplaceAddress,
+  getBubbleNFTAddress,
+  getBubblePoolAddress,
+  getBubbleTokenAddress,
+  getCBFIFarmAddress,
 } from 'utils/addressHelpers';
 
 // ABI
@@ -68,10 +75,24 @@ import nftMarketAbi from 'config/abi/nftMarket.json';
 import nftSaleAbi from 'config/abi/nftSale.json';
 import pancakeSquadAbi from 'config/abi/pancakeSquad.json';
 import erc721CollectionAbi from 'config/abi/erc721collection.json';
+// bubbles abi @crackaf
+import mockTokenAbi from 'config/abi/mockToken.json';
+import bubbleTokenAbi from 'config/abi/bubbleToken.json';
+import bubbleNFTAbi from 'config/abi/bubbleNFT.json';
+import bubbleMarketplaceAbi from 'config/abi/bubbleMarketplace.json';
+import CBFIFarmAbi from 'config/abi/CBFIFarm.json';
+import bubblePoolAbi from 'config/abi/bubblePool.json';
+
 import { ChainLinkOracleContract, FarmAuctionContract, PancakeProfileContract, PredictionsContract } from './types';
 
 const getContract = (abi: any, address: string, signer?: ethers.Signer | ethers.providers.Provider) => {
   const signerOrProvider = signer ?? simpleRpcProvider;
+  return new ethers.Contract(address, abi, signerOrProvider);
+};
+
+// For specifically development. Because the Pancakeswap are using differnet RPC and We are using different
+const getBubbleContract = (abi: any, address: string, signer?: ethers.Signer | ethers.providers.Provider) => {
+  const signerOrProvider = signer ?? new ethers.providers.StaticJsonRpcProvider(process.env.BUBBLE_APP_NODE_1);
   return new ethers.Contract(address, abi, signerOrProvider);
 };
 
@@ -179,4 +200,24 @@ export const getPancakeSquadContract = (signer?: ethers.Signer | ethers.provider
 };
 export const getErc721CollectionContract = (signer?: ethers.Signer | ethers.providers.Provider, address?: string) => {
   return getContract(erc721CollectionAbi, address, signer);
+};
+
+// bubbles contract @crackaf
+export const getMockTokenContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
+  return getContract(mockTokenAbi, getMockTokenAddress(), signer);
+};
+export const getBubbleTokenContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
+  return getContract(bubbleTokenAbi, getBubbleTokenAddress(), signer);
+};
+export const getBubbleNFTContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
+  return getContract(bubbleNFTAbi, getBubbleNFTAddress(), signer);
+};
+export const getBubbleMarketplaceContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
+  return getContract(bubbleMarketplaceAbi, getBubbleMarketplaceAddress(), signer);
+};
+export const getCBFIFarmContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
+  return getContract(CBFIFarmAbi, getCBFIFarmAddress(), signer);
+};
+export const getBubblePoolContract = (signer?: ethers.Signer | ethers.providers.Provider) => {
+  return getContract(bubblePoolAbi, getBubblePoolAddress(), signer);
 };

@@ -1,0 +1,181 @@
+
+
+root@Mudasers-MacBook-Pro nftian-pets # truffle migrate --reset --network bscTestnet
+
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+
+Starting migrations...
+======================
+> Network name:    'bscTestnet'
+> Network id:      97
+> Block gas limit: 30000000 (0x1c9c380)
+
+
+1_deploy_contracts.js
+=====================
+Owner: 0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+
+   Deploying 'BubbleToken'
+   -----------------------
+   > transaction hash:    0x391e225e456ea07c7e51d4e12d1c9590e681542722daeec56223d7e4fc5a38d2
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863
+   > block number:        15539800
+   > block timestamp:     1641213227
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.97899749
+   > gas used:            2100251 (0x200c1b)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02100251 ETH
+
+
+   Deploying 'MockToken'
+   ---------------------
+   > transaction hash:    0x7c032a91bec31343cbf5c237518e1dc4711503fe49593525330dcd0d2af382f7
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5
+   > block number:        15539806
+   > block timestamp:     1641213245
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.97217717
+   > gas used:            682032 (0xa6830)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00682032 ETH
+
+
+   Deploying 'BubbleNFT'
+   ---------------------
+   > transaction hash:    0x9a81f3e03ababafa1afb48266b17441de5e6db11e4d0d115794e92c0fd5726ee
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x3b074c56F8FbeF326d7f15fBa2B8358884fdde1D
+   > block number:        15539814
+   > block timestamp:     1641213269
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.95340306
+   > gas used:            1877411 (0x1ca5a3)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01877411 ETH
+
+
+   Deploying 'ProxyAdmin'
+   ----------------------
+   > transaction hash:    0x7a9953b7ebe8cb02cad0862daf78058f0281d7dcdd6723332ecd0643d3234363
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x968298Cb61ED7B4c3DccD8EBE869a47Ba4831a07
+   > block number:        15539821
+   > block timestamp:     1641213290
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.94857586
+   > gas used:            482720 (0x75da0)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0048272 ETH
+
+
+   Deploying 'TransparentUpgradeableProxy'
+   ---------------------------------------
+   > transaction hash:    0x6dd4c74200edc4294af61bf5da004e084f24f697ebef5d82a291a23dcff62292
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x007734Cf4C6Af68B8F3662E33A3a3fe211A9A25e
+   > block number:        15539828
+   > block timestamp:     1641213311
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.94129081
+   > gas used:            728505 (0xb1db9)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00728505 ETH
+
+
+   Deploying 'BubbleMarketplace'
+   -----------------------------
+   > transaction hash:    0x744215130b800271fdb1a5e95878f9d582084d19d39ec6abfef52296ede1fa0e
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81
+   > block number:        15539836
+   > block timestamp:     1641213335
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.91341696
+   > gas used:            2787385 (0x2a8839)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02787385 ETH
+
+
+   Deploying 'TransparentUpgradeableProxy'
+   ---------------------------------------
+   > transaction hash:    0x402772090ea454bb1f1294ddbe4a767964f2505640f21b9855c12ff09a98e80e
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x791628fe1EB2390710ad91AEa42Fe3F745AD6e23
+   > block number:        15539843
+   > block timestamp:     1641213356
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.90296252
+   > gas used:            1045444 (0xff3c4)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01045444 ETH
+
+
+   Deploying 'CBFIFarm'
+   --------------------
+   > transaction hash:    0xe910a91856daa0dbc9c085f4d5865dd88ee53176ed86ff9b4dfe5dcf39ecddcb
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x9eFb0DFB1b2B752E0B4C3556aA066D1751150404
+   > block number:        15539849
+   > block timestamp:     1641213374
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.88999464
+   > gas used:            1296788 (0x13c994)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01296788 ETH
+
+
+   Deploying 'BubblePool'
+   ----------------------
+   > transaction hash:    0x64f95f15762046e240906f96524d27cf588f4f1f0141013c9b6ac6e3f19d328c
+   > Blocks: 3            Seconds: 9
+   > contract address:    0xc2B75B7d846B603735d5A4988Ce34723cBe727Bf
+   > block number:        15539855
+   > block timestamp:     1641213392
+   > account:             0x019B78fD0027563687f4B15E5e20A55a0D33fFD4
+   > balance:             0.88072816
+   > gas used:            926648 (0xe23b8)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00926648 ETH
+
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.11927184 ETH
+
+
+Summary
+=======
+> Total deployments:   9
+> Final cost:          0.11927184 ETH
+
+
+truffle run verify BubbleToken MockToken BubbleNFT@0x3b074c56F8FbeF326d7f15fBa2B8358884fdde1D BubbleMarketplace@0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81 CBFIFarm BubblePool --network bscTestnet
+
+Verifying BubbleToken
+Pass - Verified: https://testnet.bscscan.com/address/0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863#code
+Verifying MockToken
+Pass - Verified: https://testnet.bscscan.com/address/0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5#code
+Verifying BubbleNFT@0x3b074c56F8FbeF326d7f15fBa2B8358884fdde1D
+Pass - Verified: https://testnet.bscscan.com/address/0x3b074c56F8FbeF326d7f15fBa2B8358884fdde1D#code
+Verifying BubbleMarketplace@0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81
+Pass - Verified: https://testnet.bscscan.com/address/0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81#code
+Verifying CBFIFarm
+Pass - Verified: https://testnet.bscscan.com/address/0x9eFb0DFB1b2B752E0B4C3556aA066D1751150404#code
+Verifying BubblePool
+Pass - Verified: https://testnet.bscscan.com/address/0xc2B75B7d846B603735d5A4988Ce34723cBe727Bf#code
+Successfully verified 6 contract(s).

@@ -1,4 +1,5 @@
 import { BinanceIcon, Box, Button, Card, CardBody, Flex, Skeleton, Text, useModal } from 'bubbles-uikit';
+import PriceCard from 'components/PriceCard';
 import { useTranslation } from 'contexts/Localization';
 import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import React from 'react';
@@ -56,19 +57,38 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
   );
 
   return (
-    <Card mb="40px">
+    <Card mb="20px">
       <CardBody>
-        <Container flexDirection={['column-reverse', null, 'row']}>
+        <Container flexDirection={['column-reverse', null, 'row']} flexWrap="wrap">
+          <Flex
+            flex="2"
+            justifyContent={['center', null, 'flex-end']}
+            alignItems="center"
+            maxWidth={220}
+            minWidth={220}
+          >
+            <NFTMedia nft={nft} width={220} height={220} />
+          </Flex>
           <Flex flex="2">
             <Box>
-              <CollectionLink to={`${nftsBaseUrl}/collections/${nft.collectionAddress}`}>
+              {/* <CollectionLink to={`${nftsBaseUrl}/collections/${nft.collectionAddress}`}>
                 {nft.collectionName}
-              </CollectionLink>
+              </CollectionLink> */}
               <Text fontSize="40px" bold mt="12px">
                 {nft.name}
               </Text>
-              {nft.description && <Text mt={['16px', '16px', '48px']}>{t(nft.description)}</Text>}
-              <Text color="textSubtle" mt={['16px', '16px', '48px']}>
+              {/* {nft.description && <Text mt={['16px', '16px', '48px']}>{t(nft.description)}</Text>} */}
+              <Flex justifyContent="space-around">
+                <PriceCard
+                  title="Price"
+                  amount={nft.marketData.currentAskPrice}
+                  coinUrl="https://jojo.fun/img/icon-jojo.dd768e0c.png"
+                  usd={`(~${priceInUsd.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })} USD)`}
+                />
+                {/* <Text color="textSubtle" mt={['16px', '16px', '48px']}>
                 {t('Price')}
               </Text>
               {currentAskPriceAsNumber > 0 ? (
@@ -88,31 +108,29 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
                 </Flex>
               ) : (
                 <Text>{t('Not for sale')}</Text>
-              )}
-              {nftIsProfilePic && (
-                <Text color="failure">
-                  {t(
-                    'This NFT is your profile picture, you must change it to some other NFT if you want to sell this one.',
-                  )}
-                </Text>
-              )}
-              {isOwnNft && ownerButtons}
-              {!isOwnNft && (
-                <Button
-                  minWidth="168px"
-                  disabled={!nft.marketData?.isTradable}
-                  mr="16px"
-                  width={['100%', null, 'max-content']}
-                  mt="24px"
-                  onClick={onPresentBuyModal}
-                >
-                  {t('Buy')}
-                </Button>
-              )}
+              )} */}
+                {nftIsProfilePic && (
+                  <Text color="failure">
+                    {t(
+                      'This NFT is your profile picture, you must change it to some other NFT if you want to sell this one.',
+                    )}
+                  </Text>
+                )}
+                {isOwnNft && ownerButtons}
+                {!isOwnNft && (
+                  <Button
+                    minWidth="168px"
+                    disabled={!nft.marketData?.isTradable}
+                    mr="16px"
+                    width={['100%', null, 'max-content']}
+                    mt="24px"
+                    onClick={onPresentBuyModal}
+                  >
+                    {t('Buy')}
+                  </Button>
+                )}
+              </Flex>
             </Box>
-          </Flex>
-          <Flex flex="2" justifyContent={['center', null, 'flex-end']} alignItems="center" maxWidth={440}>
-            <NFTMedia nft={nft} width={440} height={440} />
           </Flex>
         </Container>
       </CardBody>
