@@ -9,8 +9,8 @@ import NFTMedia from 'views/Nft/components/NFTMedia';
 import EditProfileModal from 'views/Nft/market/Profile/components/EditProfileModal';
 import BuyModal from '../../../../components/BuySellModals/BuyModal';
 import SellModal from '../../../../components/BuySellModals/SellModal';
-import { nftsBaseUrl } from '../../../constants';
-import { CollectionLink, Container } from '../shared/styles';
+// import { nftsBaseUrl } from '../../../constants';
+import { Container } from '../shared/styles';
 
 interface MainNFTCardProps {
   nft: NftToken;

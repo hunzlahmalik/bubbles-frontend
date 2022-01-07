@@ -2,17 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import PriceCard, { PriceCardProps } from 'components/PriceCard';
 import Icon from 'components/BlindBoxIcon';
-// import BlindBoxRules from '../BlindBoxRules';
+import ItemRules from 'components/Rules';
 import { ItemContainer, InnerDiv, Title } from '../BlindBoxStyles';
 
 const userData: PriceCardProps = { title: 'JoJo', amount: '0', usd: '0' };
 
-// const BlindBoxRulesData = {
-//   rulesContent: [
-//     'You can buy Fate/Origin BOX NFT with BNB, and get a BOX randomly after purchase',
-//     'Fate/Origin NFT can be staked for mining in the Fate/Origin Pool, or traded on the NFT trading market.',
-//   ],
-// };
+const BlindBoxRulesData = {
+  title: 'Blindbox Rules',
+  moreinfo: '#',
+  rulesContent: [
+    'You can buy Fate/Origin BOX NFT with BNB, and get a BOX randomly after purchase',
+    'Fate/Origin NFT can be staked for mining in the Fate/Origin Pool, or traded on the NFT trading market.',
+  ],
+};
 
 const StockInfo = styled.div`
   height: fit-content;
@@ -116,7 +118,9 @@ function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: nu
           <PriceCard {...userData} />
         </ComponentDiv>
         <Button>Buy Now</Button>
-        <ComponentDiv isRuleBox>{/* <BlindBoxRules {...BlindBoxRulesData} /> */}</ComponentDiv>
+        <ComponentDiv isRuleBox>
+          <ItemRules {...BlindBoxRulesData} />
+        </ComponentDiv>
       </InnerDiv>
     </ItemContainer>
   );

@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.div<{ backgroundColor?: string }>`
   width: 100%;
   height: 100%;
-  background-color: #f7f7f783;
+  background-color: ${({ backgroundColor }) => backgroundColor ?? '#f7f7f783'};
   padding: 20px;
   border-radius: 15px;
-  border: 1px solid black;
 `;
 
 const RulesHeading = styled.div`
@@ -30,13 +29,14 @@ const LI = styled.li`
 
 export interface RulesProps {
   title: string;
-  moreinfo: string;
+  moreinfo?: string;
+  backgroundColor?: string;
   rulesContent: string[];
 }
 
-function BlindBoxRules({ title, moreinfo, rulesContent }: RulesProps) {
+function ItemRules({ title, moreinfo, backgroundColor, rulesContent }: RulesProps) {
   return (
-    <Container>
+    <Container backgroundColor={backgroundColor}>
       <RulesHeading>
         {title}
         {moreinfo && (
@@ -56,4 +56,4 @@ function BlindBoxRules({ title, moreinfo, rulesContent }: RulesProps) {
   );
 }
 
-export default BlindBoxRules;
+export default ItemRules;
