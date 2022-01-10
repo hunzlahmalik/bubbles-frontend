@@ -19,7 +19,7 @@ const Table = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
   table-layout: fixed;
-  width: 92%;
+  width: 100%;
 `;
 
 function AuctionBid({ biddingRows }: AuctionBidProps) {

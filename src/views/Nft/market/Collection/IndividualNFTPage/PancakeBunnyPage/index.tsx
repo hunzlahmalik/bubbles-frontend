@@ -1,23 +1,24 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { Flex } from 'bubbles-uikit';
+import { Flex, Box } from 'bubbles-uikit';
 import orderBy from 'lodash/orderBy';
 import sum from 'lodash/sum';
 import Page from 'components/Layout/Page';
-import { useFetchByBunnyIdAndUpdate, useGetAllBunniesByBunnyId } from 'state/nftMarket/hooks';
+import { useFetchByBunnyIdAndUpdate, useGetAllBunniesByBunnyId, useUserNfts } from 'state/nftMarket/hooks';
 import { getNftsFromCollectionApi } from 'state/nftMarket/helpers';
-import { NftToken } from 'state/nftMarket/types';
+import { NftLocation, NftToken } from 'state/nftMarket/types';
 import PageLoader from 'components/Loader/PageLoader';
 import usePreviousValue from 'hooks/usePreviousValue';
 import useRefresh from 'hooks/useRefresh';
 import useIsWindowVisible from 'hooks/useIsWindowVisible';
 import { PANCAKE_BUNNIES_UPDATE_FREQUENCY } from 'config';
 import { useGetCollectionDistributionPB } from 'views/Nft/market/hooks/useGetCollectionDistribution';
+import useFetchUserNfts from 'views/Nft/market/Profile/hooks/useFetchUserNfts';
 import MainPancakeBunnyCard from './MainPancakeBunnyCard';
 import ManagePancakeBunniesCard from './ManagePancakeBunniesCard';
 import PropertiesCard from '../shared/PropertiesCard';
 import DetailsCard from '../shared/DetailsCard';
-import MoreFromThisCollection from '../shared/MoreFromThisCollection';
+// import MoreFromThisCollection from '../shared/MoreFromThisCollection';
 import ForSaleTableCard from './ForSaleTableCard';
 import { pancakeBunniesAddress } from '../../../constants';
 import { sortNFTsByPriceBuilder } from './ForSaleTableCard/utils';
@@ -29,6 +30,15 @@ interface IndividualPancakeBunnyPageProps {
 }
 
 const IndividualPancakeBunnyPage: React.FC<IndividualPancakeBunnyPageProps> = ({ bunnyId }) => {
+  const [nfts] = useState<NftToken>(null);
+  const [isOwnNft] = useState(false);
+  const { nfts: userNfts } = useUserNfts();
+  useFetchUserNfts();
+  const userProfilePicture = userNfts.find((userNft) => userNft.location === NftLocation.PROFILE);
+  const nftIsProfilePic = userProfilePicture
+    ? nfts.tokenId === userProfilePicture.tokenId && nfts.collectionAddress === userProfilePicture.collectionAddress
+    : false;
+
   const { account } = useWeb3React();
   const [nothingForSaleBunny, setNothingForSaleBunny] = useState<NftToken>(null);
   const allBunnies = useGetAllBunniesByBunnyId(bunnyId);
@@ -140,16 +150,26 @@ const IndividualPancakeBunnyPage: React.FC<IndividualPancakeBunnyPageProps> = ({
         cheapestNftFromOtherSellers={cheapestBunnyFromOtherSellers}
         nothingForSaleBunny={nothingForSaleBunny}
       />
-      <TwoColumnsContainer flexDirection={['column', 'column', 'row']}>
-        <Flex flexDirection="column" width="100%">
-          <ManagePancakeBunniesCard bunnyId={bunnyId} lowestPrice={cheapestBunny?.marketData?.currentAskPrice} />
+      <Flex justifyContent="space-between" flexDirection={['column', 'column', 'column', 'row']}>
+        <Box marginLeft="10px" marginRight="10px" marginBottom="10px" marginTop="10px">
           <PropertiesCard properties={properties} rarity={propertyRarity} />
+        </Box>
+        <Box style={{ minWidth: '350px' }} marginLeft="10px" marginRight="10px" marginBottom="10px" marginTop="10px">
           <DetailsCard
             contractAddress={pancakeBunniesAddress}
             ipfsJson={cheapestBunny?.marketData?.metadataUrl}
             rarity={propertyRarity?.bunnyId}
             count={getBunnyIdCount()}
+            nft={nfts}
+            isOwnNft={isOwnNft}
+            nftIsProfilePic={nftIsProfilePic}
           />
+        </Box>
+      </Flex>
+
+      <TwoColumnsContainer flexDirection={['column', 'column', 'row']}>
+        <Flex flexDirection="column" width="100%">
+          <ManagePancakeBunniesCard bunnyId={bunnyId} lowestPrice={cheapestBunny?.marketData?.currentAskPrice} />
         </Flex>
         <ForSaleTableCard
           nftsForSale={sortedNfts}
@@ -161,10 +181,6 @@ const IndividualPancakeBunnyPage: React.FC<IndividualPancakeBunnyPageProps> = ({
           isFetchingMoreNfts={isUpdatingPancakeBunnies}
         />
       </TwoColumnsContainer>
-      <MoreFromThisCollection
-        collectionAddress={pancakeBunniesAddress}
-        currentTokenName={cheapestBunny?.name || nothingForSaleBunny?.name}
-      />
     </Page>
   );
 };

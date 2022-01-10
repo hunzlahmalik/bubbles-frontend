@@ -14,16 +14,20 @@ const KNOWN_TRAITS_TEXT = {
   bunnyId: 'Bunny ID',
 };
 
-const SingleProperty: React.FC<{ title: string; value: string | number; rarity: number }> = ({
+const SingleProperty: React.FC<{ title: string; value: string | number; rarity: number; imgSource: string }> = ({
   title,
   value,
   rarity,
+  imgSource,
 }) => {
   return (
-    <Flex justifyContent="space-between" alignItems="center">
-      <Text fontSize="12px" color="textSubtle" bold textTransform="uppercase">
-        {KNOWN_TRAITS_TEXT[title] ?? title}
-      </Text>
+    <Box marginLeft="20px" marginRight="20px" marginTop="20px" marginBottom="20px">
+      <Flex alignItems="center">
+        <img style={{ height: '30px', width: '30px', marginTop: '10px' }} alt="nothing" src={imgSource} />
+        <Text fontSize="14px" color="textSubtle" bold textTransform="uppercase" marginLeft="4px" marginTop="20px">
+          {KNOWN_TRAITS_TEXT[title] ?? title}
+        </Text>
+      </Flex>
       <Flex alignItems="center">
         <Text bold textTransform="uppercase" mr="4px">
           {value}
@@ -34,23 +38,24 @@ const SingleProperty: React.FC<{ title: string; value: string | number; rarity: 
           </Text>
         )}
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 
 const PropertiesCard: React.FC<PropertiesCardProps> = ({ properties, rarity }) => {
   const { t } = useTranslation();
   const content = (
-    <Box p="24px">
+    <Flex flexWrap="wrap" flexBasis="100%" alignItems="center" justifyContent="center">
       {properties.map((property) => (
         <SingleProperty
           key={property.traitType}
           title={property.traitType}
           value={property.value}
           rarity={rarity[property.traitType]}
+          imgSource="https://jojo.fun/img/icon-jojo.dd768e0c.png"
         />
       ))}
-    </Box>
+    </Flex>
   );
   return <ExpandableCard title={t('Properties')} icon={<NftIcon width="24px" height="24px" />} content={content} />;
 };

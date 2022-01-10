@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useWeb3React } from '@web3-react/core';
-import { Flex } from 'bubbles-uikit';
+import { Box, Flex } from 'bubbles-uikit';
 import sum from 'lodash/sum';
 import Page from 'components/Layout/Page';
 import { getNftApi, getNftsMarketData } from 'state/nftMarket/helpers';
@@ -9,14 +9,15 @@ import { NftLocation, NftToken, UserNftInitializationState } from 'state/nftMark
 import PageLoader from 'components/Loader/PageLoader';
 import { useUserNfts } from 'state/nftMarket/hooks';
 import MainNFTCard from './MainNFTCard';
-import ManageNFTsCard from './ManageNFTsCard';
+// import ManageNFTsCard from './ManageNFTsCard';
 import useFetchUserNfts from '../../../Profile/hooks/useFetchUserNfts';
 import { TwoColumnsContainer } from '../shared/styles';
 import PropertiesCard from '../shared/PropertiesCard';
 import DetailsCard from '../shared/DetailsCard';
 import useGetCollectionDistribution from '../../../hooks/useGetCollectionDistribution';
-import OwnerCard from './OwnerCard';
-import MoreFromThisCollection from '../shared/MoreFromThisCollection';
+// import OwnerCard from './OwnerCard';
+// import MoreFromThisCollection from '../shared/MoreFromThisCollection';
+import AuctionBid from '../../../../auction/components/AuctionBidding';
 import ActivityCard from './ActivityCard';
 
 interface IndividualNFTPageProps {
@@ -107,22 +108,44 @@ const IndividualNFTPage: React.FC<IndividualNFTPageProps> = ({ collectionAddress
   return (
     <Page>
       <MainNFTCard nft={nft} isOwnNft={isOwnNft} nftIsProfilePic={nftIsProfilePic} />
-      <TwoColumnsContainer flexDirection={['column', 'column', 'row']}>
-        <Flex flexDirection="column" width="100%">
-          <ManageNFTsCard
+      <Flex justifyContent="space-between" flexDirection={['column', 'column', 'column', 'row']}>
+        <Box marginLeft="10px" marginRight="10px" marginBottom="10px" marginTop="10px">
+          <PropertiesCard properties={properties} rarity={getAttributesRarity()} />
+        </Box>
+        {/* <ManageNFTsCard
             nft={nft}
             isOwnNft={isOwnNft}
             isLoading={userNftsInitializationState !== UserNftInitializationState.INITIALIZED}
+            
+          /> */}
+        {/* <OwnerCard nft={nft} isOwnNft={isOwnNft} nftIsProfilePic={nftIsProfilePic} /> */}
+        <Box
+          style={{ minWidth: '350px', maxWidth: '550px' }}
+          marginLeft="10px"
+          marginRight="10px"
+          marginBottom="10px"
+          marginTop="10px"
+        >
+          <DetailsCard
+            contractAddress={collectionAddress}
+            ipfsJson={nft?.marketData?.metadataUrl}
+            nft={nft}
+            isOwnNft={isOwnNft}
+            nftIsProfilePic={nftIsProfilePic}
           />
-          <PropertiesCard properties={properties} rarity={getAttributesRarity()} />
-          <DetailsCard contractAddress={collectionAddress} ipfsJson={nft?.marketData?.metadataUrl} />
-        </Flex>
+        </Box>
+      </Flex>
+
+      <TwoColumnsContainer flexDirection={['column', 'column', 'row']}>
+        {/* <Flex flexDirection="column" width="100%">
+        </Flex> */}
         <OwnerActivityContainer flexDirection="column" width="100%">
-          <OwnerCard nft={nft} isOwnNft={isOwnNft} nftIsProfilePic={nftIsProfilePic} />
           <ActivityCard nft={nft} />
+          <div style={{ width: '100%' }}>
+            <AuctionBid biddingRows={[]} />
+          </div>
         </OwnerActivityContainer>
       </TwoColumnsContainer>
-      <MoreFromThisCollection collectionAddress={collectionAddress} currentTokenName={nft.name} />
     </Page>
   );
 };
