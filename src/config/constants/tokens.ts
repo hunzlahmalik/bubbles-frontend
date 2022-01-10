@@ -13,6 +13,10 @@ interface SerializedTokenList {
 }
 
 export const mainnetTokens = {
+  // <bubbles tokens>
+  bubble: new Token(TESTNET, '0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863', 18, 'BUBBLE', 'Bubble'),
+  mock: new Token(TESTNET, '0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5', 18, 'MOCK', 'Mock'),
+  // </bubbles tokens>
   wbnb: new Token(
     MAINNET,
     '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
@@ -1898,6 +1902,8 @@ export const testnetTokens = {
     'Bakeryswap Token',
     'https://www.bakeryswap.org/',
   ),
+  bubble: new Token(TESTNET, '0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863', 18, 'BUBBLE', 'Bubble'),
+  mock: new Token(TESTNET, '0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5', 18, 'MOCK', 'Mock'),
 };
 
 const tokens = (): TokenList => {

@@ -129,6 +129,23 @@
       "chainId": 56,
       "decimals": 18,
       "logoURI": "https://pancakeswap.finance/images/tokens/0xa7f552078dcc247c2684336020c03648500c6d9f.png"
+    },
+
+    {
+      "name": "Bubble",
+      "symbol": "BUBBLE",
+      "address": "0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863",
+      "chainId": 97,
+      "decimals": 18,
+      "logoURI": "https://pancakeswap.finance/images/tokens/0xa7f552078dcc247c2684336020c03648500c6d9f.png"
+    },
+    {
+      "name": "Mock",
+      "symbol": "MOCK",
+      "address": "0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5",
+      "chainId": 97,
+      "decimals": 18,
+      "logoURI": "https://pancakeswap.finance/images/tokens/0xa7f552078dcc247c2684336020c03648500c6d9f.png"
     }
   ]
 }

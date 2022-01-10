@@ -1,4 +1,30 @@
 export default {
+  // Bubbles @crackaf
+  mockToken: {
+    56: '',
+    97: '0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5',
+  },
+  bubbleToken: {
+    56: '',
+    97: '0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863',
+  },
+  bubbleNFT: {
+    56: '',
+    97: '0x3b074c56F8FbeF326d7f15fBa2B8358884fdde1D',
+  },
+  bubbleMarketplace: {
+    56: '',
+    97: '0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81',
+  },
+  CBFIFarm: {
+    56: '',
+    97: '0x9eFb0DFB1b2B752E0B4C3556aA066D1751150404',
+  },
+  bubblePool: {
+    56: '',
+    97: '0xc2B75B7d846B603735d5A4988Ce34723cBe727Bf',
+  },
+  //
   masterChef: {
     97: '0x1d32c2945C8FDCBc7156c553B7cEa4325a17f4f9',
     56: '0x73feaa1eE314F8c655E354234017bE2193C9E24E',
@@ -98,31 +124,5 @@ export default {
   pancakeSquad: {
     56: '0x0a8901b0E25DEb55A87524f0cC164E9644020EBA',
     97: '0xfC0c3F11fDA72Cb9A56F28Ec8D44C0ae4B3ABF86',
-  },
-
-  // Bubbles NFT @crackaf
-  mockToken: {
-    56: '',
-    97: '0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5',
-  },
-  bubbleToken: {
-    56: '',
-    97: '0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863',
-  },
-  bubbleNFT: {
-    56: '',
-    97: '0x3b074c56F8FbeF326d7f15fBa2B8358884fdde1D',
-  },
-  bubbleMarketplace: {
-    56: '',
-    97: '0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81',
-  },
-  CBFIFarm: {
-    56: '',
-    97: '0x9eFb0DFB1b2B752E0B4C3556aA066D1751150404',
-  },
-  bubblePool: {
-    56: '',
-    97: '0xc2B75B7d846B603735d5A4988Ce34723cBe727Bf',
   },
 };

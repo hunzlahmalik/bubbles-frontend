@@ -1,4 +1,6 @@
 import { VaultKey } from 'state/types';
+import { getBubbleAddress } from 'utils/addressHelpers';
+import addresses from 'config/constants/contracts';
 import tokens, { serializeTokens } from './tokens';
 import { SerializedPoolConfig, PoolCategory } from './types';
 
@@ -42,6 +44,23 @@ const pools: SerializedPoolConfig[] = [
     sortOrder: 1,
     isFinished: false,
   },
+
+  // bubbles pool
+  {
+    sousId: 4,
+    stakingToken: serializedTokens.bubble,
+    earningToken: serializedTokens.bubble,
+    contractAddress: {
+      97: getBubbleAddress(addresses.bubblePool),
+      56: '',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    tokenPerBlock: '10',
+    sortOrder: 1,
+    isFinished: false,
+  },
+
   {
     sousId: 247,
     stakingToken: serializedTokens.cake,

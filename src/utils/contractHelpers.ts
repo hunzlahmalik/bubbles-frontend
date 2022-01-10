@@ -90,12 +90,6 @@ const getContract = (abi: any, address: string, signer?: ethers.Signer | ethers.
   return new ethers.Contract(address, abi, signerOrProvider);
 };
 
-// For specifically development. Because the Pancakeswap are using differnet RPC and We are using different
-const getBubbleContract = (abi: any, address: string, signer?: ethers.Signer | ethers.providers.Provider) => {
-  const signerOrProvider = signer ?? new ethers.providers.StaticJsonRpcProvider(process.env.BUBBLE_APP_NODE_1);
-  return new ethers.Contract(address, abi, signerOrProvider);
-};
-
 export const getBep20Contract = (address: string, signer?: ethers.Signer | ethers.providers.Provider) => {
   return getContract(bep20Abi, address, signer);
 };
