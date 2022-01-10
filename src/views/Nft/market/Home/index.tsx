@@ -74,6 +74,7 @@ const Home = () => {
   const getActiveLink = () => {
     return NFTPageData.menu.data.findIndex((ele) => ele.link === pathname);
   };
+
   // Index Handler
   const [index, setIndex] = useState(getActiveLink());
 
