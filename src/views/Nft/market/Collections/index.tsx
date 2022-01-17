@@ -65,10 +65,10 @@ const Collectible = () => {
   const { t } = useTranslation();
   const collections = useGetCollections();
   // const { isMobile } = useMatchBreakpoints();
-  const [sortField, setSortField] = useState(null);
-  const [sortDirection, setSortDirection] = useState<boolean>(false);
-  const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(1);
+  const [sortField] = useState(null);
+  const [sortDirection] = useState<boolean>(false);
+  const [page] = useState(1);
+  const [, setMaxPage] = useState(1);
 
   const { pathname } = useLocation();
   const getActiveLink = () => {
