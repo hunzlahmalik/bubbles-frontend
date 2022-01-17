@@ -7,6 +7,8 @@ import { NftToken } from 'state/nftMarket/types';
 import { multiplyPriceByAmount } from 'utils/prices';
 import NFTMedia from 'views/Nft/components/NFTMedia';
 import EditProfileModal from 'views/Nft/market/Profile/components/EditProfileModal';
+import Timer from 'components/Timer';
+import styled from 'styled-components';
 import BuyModal from '../../../../components/BuySellModals/BuyModal';
 import SellModal from '../../../../components/BuySellModals/SellModal';
 // import { nftsBaseUrl } from '../../../constants';
@@ -17,6 +19,21 @@ interface MainNFTCardProps {
   isOwnNft: boolean;
   nftIsProfilePic: boolean;
 }
+
+const StyledTimerBox = styled.div`
+  -webkit-box-flex: 1;
+  flex: 1;
+  min-width: 150px;
+  max-width: 150px;
+  margin-top: 24px;
+  margin-right: 12px;
+  margin-bottom: 0px;
+  margin-left: 12px;
+  box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 6%), 0 -1px 2px 0 rgb(0 0 0 / 2%);
+  border-radius: 24px;
+  padding: 24px;
+  font-size: 24px;
+`;
 
 const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePic }) => {
   const { t } = useTranslation();
@@ -57,17 +74,17 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
   );
 
   return (
-    <Card mb="20px">
-      <CardBody mb="20px">
+    <Card>
+      <CardBody>
         <Container flexDirection={['column', null, 'row']} flexWrap="wrap">
           <Flex
             flex="2"
             justifyContent={['center', null, 'flex-end']}
             alignItems="center"
-            maxWidth={250}
-            minWidth={250}
+            maxWidth={400}
+            minWidth={400}
           >
-            <NFTMedia nft={nft} width={250} height={250} />
+            <NFTMedia nft={nft} width={400} height={400} />
           </Flex>
           {/* <Flex flex="2"> */}
           <Box>
@@ -77,6 +94,10 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
             <Text fontSize="40px" bold mt="12px" marginLeft="12px">
               {nft.name}
             </Text>
+
+            <StyledTimerBox>
+              <Timer initHour={69} initMin={21} />
+            </StyledTimerBox>
             {/* {nft.description && <Text mt={['16px', '16px', '48px']}>{t(nft.description)}</Text>} */}
             <Box>
               <PriceCard
