@@ -14,7 +14,8 @@ export default {
   },
   bubbleMarketplace: {
     56: '',
-    97: '0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81',
+    // 97: '0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81',
+    97: '0x7304763DB812DDC2936C797521ae806ec39afb39',
   },
   CBFIFarm: {
     56: '',
@@ -55,7 +56,7 @@ export default {
   },
   claimRefund: {
     56: '0xE7e53A7e9E3Cf6b840f167eF69519175c497e149',
-    97: '',
+    97: '0x97a912C6b6EA8f1d5C529a67dBD77305FBEd6770',
   },
   pointCenterIfo: {
     56: '0x3C6919b132462C1FEc572c6300E83191f4F0012a',

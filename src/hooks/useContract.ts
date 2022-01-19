@@ -33,6 +33,11 @@ import {
   getPancakeSquadContract,
   getErc721CollectionContract,
   getMockTokenContract,
+  getBubbleMarketplaceContract,
+  getBubbleNFTContract,
+  getBubblePoolContract,
+  getBubbleTokenContract,
+  getCBFIFarmContract,
 } from 'utils/contractHelpers';
 import { getMulticallAddress } from 'utils/addressHelpers';
 import { VaultKey } from 'state/types';
@@ -67,6 +72,34 @@ export const useERC20 = (address: string) => {
   const { library } = useActiveWeb3React();
   return useMemo(() => getBep20Contract(address, library.getSigner()), [address, library]);
 };
+
+/**
+ * Bubbles Contracts
+ */
+export function useMockTokenContract(): Contract | null {
+  const { library } = useActiveWeb3React();
+  return useMemo(() => getMockTokenContract(library.getSigner()), [library]);
+}
+export function useBubbleMarketplaceContract(): Contract | null {
+  const { library } = useActiveWeb3React();
+  return useMemo(() => getBubbleMarketplaceContract(library.getSigner()), [library]);
+}
+export function useBubbleNFTContract(): Contract | null {
+  const { library } = useActiveWeb3React();
+  return useMemo(() => getBubbleNFTContract(library.getSigner()), [library]);
+}
+export function useBubblePoolContract(): Contract | null {
+  const { library } = useActiveWeb3React();
+  return useMemo(() => getBubblePoolContract(library.getSigner()), [library]);
+}
+export function useBubbleTokenContract(): Contract | null {
+  const { library } = useActiveWeb3React();
+  return useMemo(() => getBubbleTokenContract(library.getSigner()), [library]);
+}
+export function useCBFIFarmContract(): Contract | null {
+  const { library } = useActiveWeb3React();
+  return useMemo(() => getCBFIFarmContract(library.getSigner()), [library]);
+}
 
 /**
  * @see https://docs.openzeppelin.com/contracts/3.x/api/token/erc721
@@ -294,11 +327,4 @@ export function usePairContract(pairAddress?: string, withSignerIfPossible?: boo
 
 export function useMulticallContract(): Contract | null {
   return useContract(getMulticallAddress(), multiCallAbi, false);
-}
-
-// bubbles use contracts
-
-export function useMockTokenContract(): Contract | null {
-  const { library } = useActiveWeb3React();
-  return useMemo(() => getMockTokenContract(library.getSigner()), [library]);
 }

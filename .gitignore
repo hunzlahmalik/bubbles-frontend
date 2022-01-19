@@ -3,6 +3,7 @@
 # My
 # **/temp/**
 # **/Temp/**
+src/config/abi/types
 
 # dependencies
 /node_modules
