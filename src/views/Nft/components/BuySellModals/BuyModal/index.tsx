@@ -25,7 +25,7 @@ import { PaymentCurrency, BuyingStage } from './types';
 import TransactionConfirmed from '../shared/TransactionConfirmed';
 
 const modalTitles = {
-  [BuyingStage.REVIEW]: 'Review',
+  [BuyingStage.REVIEW]: 'Auction payment confirmation',
   [BuyingStage.APPROVE_AND_CONFIRM]: 'Back',
   [BuyingStage.CONFIRM]: 'Back',
   [BuyingStage.TX_CONFIRMED]: 'Transaction Confirmed',
