@@ -6,9 +6,9 @@ export const Container = styled.div<{ padding?: string; changeAlign?: boolean }>
   flex-direction: row;
   padding: ${({ padding }) => padding ?? '0px'};
   width: 100%;
-  height: fit-content;
-  min-height: 450px;
+  height: 450px;
   @media screen and (max-width: 760px) {
+    height: fit-content;
     flex-direction: ${({ changeAlign }) => (changeAlign ? 'column' : 'row')};
   }
 `;
