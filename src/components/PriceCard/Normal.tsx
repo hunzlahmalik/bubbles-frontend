@@ -7,7 +7,7 @@ import { CardProps } from 'bubbles-uikit';
 const StyledPriceCard = styled.div<CardProps>`
   -webkit-box-flex: 1;
   flex: 1;
-  min-width: 250px;
+  min-width: 300px;
   max-width: 350px;
   margin-top: 24px;
   margin-right: 12px;

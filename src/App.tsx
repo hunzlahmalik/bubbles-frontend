@@ -23,6 +23,7 @@ import history from './routerHistory';
 // Views included in the main bundle
 import Temp from './views/Temp';
 import Pools from './views/Pools';
+import Stats from './views/Stats';
 import Swap from './views/Swap';
 import BlindBox from './views/BlindBox';
 import {
@@ -111,6 +112,9 @@ const App: React.FC = () => {
 
             <Route path="/farms">
               <Farms />
+            </Route>
+            <Route path="/stats">
+              <Stats />
             </Route>
             <Route path="/pools">
               <Pools />
