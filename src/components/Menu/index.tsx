@@ -22,7 +22,10 @@ const Menu = (props) => {
 
   const activeMenuItem = getActiveMenuItem({ menuConfig: config(t), pathname });
   const activeSubMenuItem = getActiveSubMenuItem({ menuItem: activeMenuItem, pathname });
-
+  let cakePriceUsdto = 0;
+  if (cakePriceUsd) {
+    cakePriceUsdto = cakePriceUsd.toNumber();
+  }
   return (
     <UikitMenu
       userMenu={<UserMenu />}
@@ -33,7 +36,7 @@ const Menu = (props) => {
       currentLang={currentLanguage.code}
       langs={languageList}
       setLang={setLanguage}
-      cakePriceUsd={cakePriceUsd.toNumber()}
+      cakePriceUsd={cakePriceUsdto}
       links={config(t)}
       subLinks={activeMenuItem?.hideSubNav ? [] : activeMenuItem?.items}
       footerLinks={footerLinks(t)}

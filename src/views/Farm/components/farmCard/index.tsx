@@ -5,8 +5,10 @@ import { CardProps } from 'bubbles-uikit';
 const StyledPriceCard = styled.div<CardProps>`
   -webkit-box-flex: 1;
   flex: 1;
-  min-width: 300px;
-  max-width: 350px;
+  @media screen and (max-width: 760px) {
+    width: 300px;
+  }
+  width: 500px;
   margin-top: 24px;
   margin-right: 12px;
   margin-bottom: 0px;
@@ -54,17 +56,20 @@ export interface PriceCardProps extends CardProps {
   amount: number | string;
   usd?: string;
   coinUrl?: string;
+  widthimg?: string;
 }
 
 // "https://jojo.fun/img/icon-jojo.dd768e0c.png"
 
-export const PriceCard: React.FC<PriceCardProps> = ({ title, amount, coinUrl, usd, ...props }) => {
+export const FarmCard: React.FC<PriceCardProps> = ({ title, amount, coinUrl, usd, widthimg, ...props }) => {
   return (
     <>
       <StyledPriceCard {...props}>
         <PriceCardTitle {...props}>{title}</PriceCardTitle>
         <PriceCardIcon {...props}>
-          {coinUrl && <img style={{ height: '24px', width: '24px', marginTop: '10px' }} alt="nothing" src={coinUrl} />}
+          {coinUrl && (
+            <img style={{ height: '50px', width: widthimg || '50px', marginTop: '10px' }} alt="nothing" src={coinUrl} />
+          )}
           <PriceCardValue {...props}>{amount}</PriceCardValue>
           {usd && <PriceCardAmount {...props}>≈ ${usd}</PriceCardAmount>}
         </PriceCardIcon>
@@ -73,4 +78,4 @@ export const PriceCard: React.FC<PriceCardProps> = ({ title, amount, coinUrl, us
   );
 };
 
-export default PriceCard;
+export default FarmCard;
