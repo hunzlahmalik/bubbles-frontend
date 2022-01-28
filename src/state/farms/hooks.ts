@@ -20,27 +20,31 @@ const deserializeFarmUserData = (farm: SerializedFarm): DeserializedFarmUserData
   };
 };
 
+// eslint-disable-next-line consistent-return
 const deserializeFarm = (farm: SerializedFarm): DeserializedFarm => {
-  const { lpAddresses, lpSymbol, pid, dual, multiplier, isCommunity, quoteTokenPriceBusd, tokenPriceBusd } = farm;
+  if (farm) {
+    const { lpAddresses, lpSymbol, pid, dual, multiplier, isCommunity, quoteTokenPriceBusd, tokenPriceBusd } = farm;
 
-  return {
-    lpAddresses,
-    lpSymbol,
-    pid,
-    dual,
-    multiplier,
-    isCommunity,
-    quoteTokenPriceBusd,
-    tokenPriceBusd,
-    token: deserializeToken(farm.token),
-    quoteToken: deserializeToken(farm.quoteToken),
-    userData: deserializeFarmUserData(farm),
-    tokenAmountTotal: farm.tokenAmountTotal ? new BigNumber(farm.tokenAmountTotal) : BIG_ZERO,
-    lpTotalInQuoteToken: farm.lpTotalInQuoteToken ? new BigNumber(farm.lpTotalInQuoteToken) : BIG_ZERO,
-    lpTotalSupply: farm.lpTotalSupply ? new BigNumber(farm.lpTotalSupply) : BIG_ZERO,
-    tokenPriceVsQuote: farm.tokenPriceVsQuote ? new BigNumber(farm.tokenPriceVsQuote) : BIG_ZERO,
-    poolWeight: farm.poolWeight ? new BigNumber(farm.poolWeight) : BIG_ZERO,
-  };
+    return {
+      lpAddresses,
+      lpSymbol,
+      pid,
+      dual,
+      multiplier,
+      isCommunity,
+      quoteTokenPriceBusd,
+      tokenPriceBusd,
+      token: deserializeToken(farm.token),
+      quoteToken: deserializeToken(farm.quoteToken),
+      userData: deserializeFarmUserData(farm),
+      tokenAmountTotal: farm.tokenAmountTotal ? new BigNumber(farm.tokenAmountTotal) : BIG_ZERO,
+      lpTotalInQuoteToken: farm.lpTotalInQuoteToken ? new BigNumber(farm.lpTotalInQuoteToken) : BIG_ZERO,
+      lpTotalSupply: farm.lpTotalSupply ? new BigNumber(farm.lpTotalSupply) : BIG_ZERO,
+      tokenPriceVsQuote: farm.tokenPriceVsQuote ? new BigNumber(farm.tokenPriceVsQuote) : BIG_ZERO,
+      poolWeight: farm.poolWeight ? new BigNumber(farm.poolWeight) : BIG_ZERO,
+    };
+  }
+  console.log('No farm data');
 };
 
 export const usePollFarmsPublicData = (includeArchive = false) => {
@@ -144,14 +148,18 @@ export const useLpTokenPrice = (symbol: string) => {
 
 // /!\ Deprecated , use the BUSD hook in /hooks
 
+// eslint-disable-next-line consistent-return
 export const usePriceCakeBusd = (): BigNumber => {
   const cakeBnbFarm = useFarmFromPid(251);
 
-  const cakePriceBusdAsString = cakeBnbFarm.tokenPriceBusd;
+  if (cakeBnbFarm) {
+    const cakePriceBusdAsString = cakeBnbFarm.tokenPriceBusd;
 
-  const cakePriceBusd = useMemo(() => {
-    return new BigNumber(cakePriceBusdAsString);
-  }, [cakePriceBusdAsString]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const cakePriceBusd = useMemo(() => {
+      return new BigNumber(cakePriceBusdAsString);
+    }, [cakePriceBusdAsString]);
 
-  return cakePriceBusd;
+    return cakePriceBusd;
+  }
 };
