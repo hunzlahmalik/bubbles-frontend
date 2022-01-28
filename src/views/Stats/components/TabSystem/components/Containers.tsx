@@ -1,5 +1,4 @@
-import * as React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div<{ padding?: string; changeAlign?: boolean }>`
   display: flex;

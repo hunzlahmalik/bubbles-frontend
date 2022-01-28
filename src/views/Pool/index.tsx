@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-// import Page from 'components/Layout/Page';
-import TabButtonMenu from 'components/TabButtonMenu';
-import ImageCard, { ImageCardProps } from 'components/ImageCard';
-import GradientCard from 'components/GradientCard';
+import React from 'react';
 import styled from 'styled-components';
+import { Box } from 'bubbles-uikit';
+import Page from 'components/Layout/Page';
 import GamePool from './components/GamePool';
 import PoolCard from './components/PoolCard';
+import PoolBanner, { PoolBannerProps } from './components/PoolBanner';
 
 const CardBox = styled.div`
   margin-top: 6px;
@@ -79,65 +78,16 @@ const gamepooldata = {
 };
 
 const Pool: React.FC = () => {
-  const imageData: ImageCardProps = {
-    imgUrl: 'https://jojo.fun/img/banner.d9740456.png',
-    title: 'Kingdom Box',
-    width: '1100px',
-    height: '200px',
-    shouldHover: true,
+  const bannerData: PoolBannerProps = {
+    imgSrc: 'https://jojo.fun/img/banner.d9740456.png',
+    width: '100%',
+    height: '212px',
+    bannerHeader: 'Bubbles Total Mining Pool (Bubble)',
+    bannerAmntInBubble: '26,936,124,034',
+    bannerAmntInUSD: '≈ $4,760,384',
   };
 
-  const menu = [
-    {
-      text: 'Kingdom',
-      showDot: false,
-      subMenu: [
-        {
-          text: 'Witcher',
-          link: '/blindbox/witcher',
-          showDot: false,
-        },
-        {
-          text: 'Witcher',
-          link: '/blindbox/witcher',
-          showDot: false,
-        },
-      ],
-    },
-    {
-      text: 'Origon',
-      showDot: false,
-      subMenu: [
-        {
-          text: 'Witcher',
-          link: '/blindbox/witcher',
-          showDot: false,
-        },
-        {
-          text: 'Witcher',
-          link: '/blindbox/witcher',
-          showDot: false,
-        },
-        {
-          text: 'Witcher',
-          link: '/blindbox/witcher',
-          showDot: false,
-        },
-        {
-          text: 'Witcher',
-          link: '/blindbox/witcher',
-          showDot: false,
-        },
-      ],
-    },
-  ];
-
   // Current Data to Be displayed
-  // const [gamepool, setGamepool] = useState(Object);
-  // ActiveIndex this will move the nested menus according to the clicked data
-  const [activeIndex, setActiveIndex] = useState(0);
-  // NestedIndex this will move the component according to the clicked data
-  const [nestedIndex, setNestedIndex] = useState(0);
 
   // DataGetter According to the index
   // const getData = (idx1: number, idx2: number) => {
@@ -148,14 +98,6 @@ const Pool: React.FC = () => {
   // useEffect(() => {
   //   setGamepool(getData(activeIndex, nestedIndex));
   // }, [activeIndex, nestedIndex]);
-
-  // Making data for the first Menu
-  const menu1 = menu.map((ele) => {
-    return (({ showDot, text }) => ({ showDot, text }))(ele);
-  });
-
-  // Making data for the nested Menu
-  const menu2 = menu.map((ele) => ele.subMenu);
 
   const data = [
     { id: 1, title: 'Add Nft', img: 'https://jojo.fun/img/add.e4b25d9e.svg' },
@@ -169,13 +111,10 @@ const Pool: React.FC = () => {
   ];
 
   return (
-    <>
-      <TabButtonMenu data={menu1} onClick={setActiveIndex} activeIndex={activeIndex} />
+    <Page>
       <br />
-      <TabButtonMenu data={menu2[activeIndex]} onClick={setNestedIndex} activeIndex={nestedIndex} />
-      <GradientCard width="1100px" height="200px" gradient="linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))">
-        <ImageCard {...imageData} />
-      </GradientCard>
+      <br />
+      <PoolBanner {...bannerData} />
       <br />
       <br />
       <GamePool {...gamepooldata} />
@@ -186,7 +125,7 @@ const Pool: React.FC = () => {
           ))}
         </CardDesign>
       </CardBox>
-    </>
+    </Page>
   );
 };
 

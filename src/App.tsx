@@ -22,6 +22,7 @@ import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus';
 import history from './routerHistory';
 // Views included in the main bundle
 import Temp from './views/Temp';
+import Home from './views/Homepage';
 import Pools from './views/Pools';
 import Stats from './views/Stats';
 import Swap from './views/Swap';
@@ -38,7 +39,7 @@ import useSentryUser from './hooks/useSentryUser';
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
-const Home = lazy(() => import('./views/Home'));
+// const Home = lazy(() => import('./views/Home'));
 const Farms = lazy(() => import('./views/Farms'));
 const Farm = lazy(() => import('./views/Farm'));
 const FarmAuction = lazy(() => import('./views/FarmAuction'));

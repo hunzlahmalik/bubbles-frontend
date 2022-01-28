@@ -8,8 +8,7 @@ const StyledGamePool = styled.div`
   background: #fff;
   border-radius: 32px;
   padding: 32px;
-  max-width: calc(75% - 30px);
-  margin: auto;
+  max-width: 100%;
   min-width: 230px;
 `;
 
