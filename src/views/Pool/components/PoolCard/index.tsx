@@ -111,6 +111,18 @@ const Body = styled(CardBody)`
   flex-basis: 0%;
 `;
 
+const PoolButton = styled.button<{ height?: string; backgroundColor?: string; color?: string }>`
+  width: 100%;
+  height: ${({ height }) => height ?? '100%'};
+  background-color: ${({ backgroundColor }) => backgroundColor ?? '#FEBF32'};
+  color: ${({ color }) => color ?? 'black'};
+  border: none;
+  border-radius: 12px;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const BodyTitle = styled.div`
   display: flex;
   -webkit-box-pack: justify;
@@ -121,6 +133,11 @@ const BodyTitle = styled.div`
 export default function PoolCard(title, BackImg) {
   const { account } = useActiveWeb3React();
   const { t } = useTranslation();
+  function redirectLink() {
+    // eslint-disable-next-line no-restricted-globals
+    location.href =
+      'https://pcs.nhancv.com/?_ga=2.207808530.106752841.1643134854-286364221.1642675558#/add/BNB/0x18F7a6Fa61659AcfA4Db07E9D672C843De8B5ce5';
+  }
 
   // fetch the user's balances of all tracked V2 LP tokens
   const trackedTokenPairs = useTrackedTokenPairs();
@@ -234,12 +251,9 @@ export default function PoolCard(title, BackImg) {
               )}
             </BodyTitle>
             <CardFooter style={{ textAlign: 'center' }}>
-              <Button style={{ marginTop: '10px' }} id="join-pool-button" as={Link} to="/add" width="100%">
-                {t('Stake')}
-              </Button>
-              <Button style={{ marginTop: '10px' }} id="join-pool-button" as={Link} to="/add" width="100%">
-                {t('upgrade hashrate')}
-              </Button>
+              <PoolButton style={{ marginTop: '10px' }} height="50px" onClick={redirectLink}>
+                {t('Add Liquidity')}
+              </PoolButton>
             </CardFooter>
           </Body>
         </AppBody>
