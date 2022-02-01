@@ -20,7 +20,7 @@ const MediaBox = styled.div`
   /* border-top-radius: 16px; */
   overflow: hidden;
   // height:100%;
-  // width:100%;
+  width: 100%;
 `;
 const TextStyle = styled.div`
   font-size: 24px;
@@ -48,44 +48,17 @@ const BoxLine = styled.div`
   background-repeat: repeat-x;
   background-size: auto 1px;
   margin: 0px auto;
-  background-color: #fff;
+  color: inherit;
   position: relative;
   background-position-x: 50%;
   background-position-y: center;
-  &:before {
-    left: -15px;
-    -webkit-transform: translate(50%) translateY(-50%);
-    transform: translate(50%) translateY(-50%);
-    background-image: url(https://jojo.fun/img/icon-ticket-arrow-left.199f0487.svg);
-    width: 30px;
-    height: 30px;
-    top: 50%;
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    content: ' ';
-  }
-  &:after {
-    right: -15px;
-    -webkit-transform: translate(50%) translateY(-50%);
-    transform: translate(50%) translateY(-50%);
-    background-image: url(https://jojo.fun/img/icon-ticket-arrow-left.199f0487.svg);
-    width: 30px;
-    height: 30px;
-    top: 50%;
-    left: unset;
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    content: ' ';
-  }
 `;
 const PricedBar = styled.div`
   padding-top: 5px;
   //padding-right: 24px;
   padding-bottom: 20px;
   //padding-left: 24px;
-  background-color: #fff;
+  color: inherit;
   -webkit-box-flex: 1;
   flex: 1;
 `;
@@ -100,7 +73,7 @@ const CollectibleCardBody: React.FC<CollectibleCardProps> = ({ nft, currentAskPr
   return (
     <CardBody p="8px">
       <MediaBox>
-        <NFTMedia as={PreviewImage} nft={nft} width={400} height={400} />
+        <NFTMedia as={PreviewImage} nft={nft} width={500} height={500} />
       </MediaBox>
       <TextStyle>
         {name}

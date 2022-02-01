@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Pair } from '@pancakeswap/sdk';
-import { Text, CardBody, CardFooter, Button } from 'bubbles-uikit';
-import { Link } from 'react-router-dom';
+import { Text, CardBody, CardFooter } from 'bubbles-uikit';
+// import { Link } from 'react-router-dom';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
 import FullPositionCard from '../../../../components/PositionCard';
@@ -69,7 +69,6 @@ const BoxHeaderTitle = styled.div`
   padding-right: 24px;
   padding-bottom: 3px;
   padding-left: 24px;
-  background-color: #fff;
   height: 36px;
   align-items: center;
   display: flex;
@@ -92,7 +91,7 @@ const BoxLine = styled.div`
   background-repeat: repeat-x;
   background-size: auto 1px;
   margin: 0px auto;
-  background-color: #fff;
+  color: inherit;
   position: relative;
   background-position-x: 50%;
   background-position-y: center;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Box } from 'bubbles-uikit';
+// import { Box } from 'bubbles-uikit';
 import Page from 'components/Layout/Page';
 import GamePool from './components/GamePool';
 import PoolCard from './components/PoolCard';

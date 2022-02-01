@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Flex, Heading } from 'bubbles-uikit';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useGetCollections } from 'state/nftMarket/hooks';
 import { useTranslation } from 'contexts/Localization';
 // import Page from 'components/Layout/Page';
-import TabButtonMenu from 'components/TabButtonMenu';
+// import TabButtonMenu from 'components/TabButtonMenu';
 // import PageHeader from 'components/PageHeader';
-import { nftsBaseUrl } from 'views/Nft/market/constants';
+// import { nftsBaseUrl } from 'views/Nft/market/constants';
 import PageSection from 'components/PageSection';
 import SearchBar from '../../components/SearchBar';
 import CollectionLinkCard from '../../components/CollectionCard/CollectionLinkCard';
@@ -45,22 +45,22 @@ const GridBox = styled.div`
   flex-wrap: wrap;
 `;
 
-const NFTPageData = {
-  menu: {
-    data: [
-      {
-        text: 'Market',
-        link: nftsBaseUrl,
-        showDot: false,
-      },
-      {
-        text: 'Auction',
-        link: `${nftsBaseUrl}/auction`,
-        showDot: false,
-      },
-    ],
-  },
-};
+// const NFTPageData = {
+//   menu: {
+//     data: [
+//       {
+//         text: 'Market',
+//         link: nftsBaseUrl,
+//         showDot: false,
+//       },
+//       {
+//         text: 'Auction',
+//         link: `${nftsBaseUrl}/auction`,
+//         showDot: false,
+//       },
+//     ],
+//   },
+// };
 const Collectible = () => {
   const { t } = useTranslation();
   const collections = useGetCollections();
@@ -70,12 +70,12 @@ const Collectible = () => {
   const [page] = useState(1);
   const [, setMaxPage] = useState(1);
 
-  const { pathname } = useLocation();
-  const getActiveLink = () => {
-    return NFTPageData.menu.data.findIndex((ele) => ele.link === pathname);
-  };
+  // const { pathname } = useLocation();
+  // const getActiveLink = () => {
+  //   return NFTPageData.menu.data.findIndex((ele) => ele.link === pathname);
+  // };
   // Index Handler
-  const [index, setIndex] = useState(getActiveLink());
+  // const [index, setIndex] = useState(getActiveLink());
 
   useEffect(() => {
     setTimeout(() => {
@@ -142,15 +142,18 @@ const Collectible = () => {
         dividerPosition="top"
       >
         <div style={{ margin: '10px', padding: '10px' }}>
-          <Flex justifyContent="space-between" flexWrap="wrap" mr="30px">
+          {/* <Flex justifyContent="space-between" flexWrap="wrap" mr="30px">
             <Heading as="h1" scale="xxl" color="secondary" mb="24px">
               {t('Collections')}
             </Heading>
             <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
-          </Flex>
+          </Flex> */}
 
-          <Flex justifyContent="space-between" flexWrap="wrap" mr="30px">
-            <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} />
+          <Flex justifyContent="space-between" flexWrap="wrap" mr="30px" marginTop="10px">
+            <Heading as="h1" scale="xxl" color="secondary" mb="24px" marginTop="-15px">
+              {t('Collections')}
+            </Heading>
+            {/* <TabButtonMenu {...NFTPageData.menu} onClick={setIndex} activeIndex={index} /> */}
             <SearchBar />
           </Flex>
         </div>
