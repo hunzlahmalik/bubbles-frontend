@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { CardProps, darkColors } from 'bubbles-uikit';
 import PriceCard, { PriceCardLarge, PriceCardLargeProps, PriceCardProps } from 'components/PriceCard';
-import { CardProps } from 'bubbles-uikit';
 
 const StyledGamePool = styled.div`
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 3%), 0 4px 6px -2px rgb(0 0 0 / 1%);
-  background: #fff;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  background: ${darkColors.background};
+  border: 1px solid ${darkColors.cardBorder};
   border-radius: 32px;
   padding: 32px;
   max-width: 100%;
@@ -14,6 +15,8 @@ const StyledGamePool = styled.div`
 
 const GamePoolWrap = styled.div`
   display: flex;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  background: ${darkColors.background};
   flex-wrap: wrap;
   margin-top: 8px;
   margin-right: -12px;

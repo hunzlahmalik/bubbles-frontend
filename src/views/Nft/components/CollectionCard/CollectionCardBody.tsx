@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import React from 'react';
-import { Box, CardBody, Flex, Text, Image } from 'bubbles-uikit';
+import { Box, CardBody, Flex, Text, Image, darkColors } from 'bubbles-uikit';
 // import { useTranslation } from 'contexts/Localization';
 // import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import styled from 'styled-components';
@@ -15,7 +15,10 @@ import { CollectionCardProps } from './types';
 
 export const RoundedImage = styled(Image)`
   height: max-content;
-  border-radius: ${({ theme }) => theme.radii.default};
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: ${({ theme }) => theme.radii.default};
+  border-top-left-radius: ${({ theme }) => theme.radii.default};
   overflow: hidden;
   & > img {
     object-fit: contain;
@@ -47,6 +50,9 @@ const TextStyle = styled.div`
   overflow: hidden;
   display: block;
   text-overflow: ellipsis;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: ${darkColors.textSubtle};
 `;
 
 const BoxLine = styled.div`
@@ -70,6 +76,8 @@ const PricedBar = styled.div`
   color: inherit;
   -webkit-box-flex: 1;
   flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const CollectionCardBody: React.FC<CollectionCardProps> = ({
@@ -84,7 +92,7 @@ const CollectionCardBody: React.FC<CollectionCardProps> = ({
   // const {t}=useTranslation();co
 
   return (
-    <CardBody p="8px">
+    <CardBody p="0px">
       <MediaBox>
         <RoundedImage src={collectionImg} width={400} height={400} alt={collection.name} {...props} />{' '}
       </MediaBox>

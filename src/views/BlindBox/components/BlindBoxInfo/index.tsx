@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PriceCard, { PriceCardProps } from 'components/PriceCard';
 import Icon from 'components/BlindBoxIcon';
 import ItemRules from 'components/Rules';
+import { darkColors, Button } from 'bubbles-uikit';
 import { ItemContainer, InnerDiv, Title } from '../BlindBoxStyles';
 
 const userData: PriceCardProps = { title: 'JoJo', amount: '0', usd: '0' };
@@ -20,7 +21,7 @@ const StockInfo = styled.div`
   height: fit-content;
   display: flex;
   width: 100%;
-  color: #431216;
+  color: ${darkColors.text};
   margin: 0 20px;
   font-family: Poppins;
   font-style: normal;
@@ -51,16 +52,12 @@ const Time = styled.div`
   margin-left: 10px;
 `;
 
-const Button = styled.button`
+const B = styled(Button)`
   width: 100%;
   height: 40px;
   margin: 0 20px;
   padding: 0;
-  border-radius: 10px;
   position: 'relative';
-  border: none;
-  background-color: #febf32;
-  color: black;
   @media screen and (max-width: 760px) {
     margin-bottom: 30px;
   }
@@ -117,7 +114,7 @@ function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: nu
         <ComponentDiv>
           <PriceCard {...userData} />
         </ComponentDiv>
-        <Button>Buy Now</Button>
+        <B>Buy Now</B>
         <ComponentDiv isRuleBox>
           <ItemRules {...BlindBoxRulesData} />
         </ComponentDiv>
