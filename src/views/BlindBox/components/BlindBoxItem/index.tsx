@@ -1,4 +1,4 @@
-import { CardProps } from 'bubbles-uikit';
+import { CardProps, darkColors } from 'bubbles-uikit';
 import React from 'react';
 import styled from 'styled-components';
 import Icon from 'components/BlindBoxIcon';
@@ -9,6 +9,7 @@ const Stats = styled.div<CardProps>`
   text-align: left;
   margin-left: 25px;
   margin-top: 20px;
+  color: ${darkColors.text};
 `;
 
 const StatsInfo = styled.div<CardProps>`
@@ -17,7 +18,7 @@ const StatsInfo = styled.div<CardProps>`
 `;
 
 const ValueSpan = styled.span<CardProps>`
-  color: ${({ color }) => color || 'black'};
+  color: ${({ color }) => color || darkColors.text};
   font-weight: 800;
   margin-left: 5px;
 `;

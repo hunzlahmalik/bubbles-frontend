@@ -26,7 +26,19 @@ const NFTMedia: FC<
   if (nft.image.webm || nft.image.mp4) {
     return (
       <AspectRatio ratio={width / height} {...props}>
-        <Box borderRadius={borderRadius} as="video" width="100%" height="100%" autoPlay muted loop playsInline>
+        <Box
+          borderBottomLeftRadius="0px"
+          borderBottomRightRadius="0px"
+          borderTopRightRadius={borderRadius}
+          borderTopLeftRadius={borderRadius}
+          as="video"
+          width="100%"
+          height="100%"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
           <source src={nft.image.webm} type="video/webm" />
           <source src={nft.image.mp4} type="video/mp4" />
         </Box>

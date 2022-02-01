@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 
 import React from 'react';
-import { Box, CardBody, Flex, Text, BinanceIcon } from 'bubbles-uikit';
+import { Box, CardBody, Flex, Text, BinanceIcon, darkColors } from 'bubbles-uikit';
 import { useTranslation } from 'contexts/Localization';
 import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
 import styled from 'styled-components';
@@ -17,16 +17,17 @@ const MediaBox = styled.div`
   position: relative;
   padding-bottom: 100%;
   height: 0;
-  /* border-top-radius: 16px; */
   overflow: hidden;
-  // height:100%;
   width: 100%;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: ${({ theme }) => theme.radii.default};
+  border-top-left-radius: ${({ theme }) => theme.radii.default};
 `;
 const TextStyle = styled.div`
   font-size: 24px;
   line-height: 1.2;
   word-break: break-word;
-  //padding-left: 24px;
   font-weight: 700;
   overflow: hidde;
   text-overflow: ellipisis;
@@ -37,7 +38,10 @@ const TextStyle = styled.div`
   white-space: nowrap;
   overflow: hidden;
   display: block;
+  color: ${darkColors.textSubtle};
   text-overflow: ellipsis;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const BoxLine = styled.div`
@@ -60,6 +64,8 @@ const PricedBar = styled.div`
   //padding-left: 24px;
   color: inherit;
   -webkit-box-flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
   flex: 1;
 `;
 
@@ -71,7 +77,7 @@ const CollectibleCardBody: React.FC<CollectibleCardProps> = ({ nft, currentAskPr
   const { isFetching, lowestPrice } = useGetLowestPriceFromNft(nft);
 
   return (
-    <CardBody p="8px">
+    <CardBody p="0px">
       <MediaBox>
         <NFTMedia as={PreviewImage} nft={nft} width={500} height={500} />
       </MediaBox>
