@@ -15,7 +15,7 @@ const Stats = () => {
     <>
       <Box margin="2% 3%">
         <Heading as="h1" scale="xxl" color="secondary" mb="24px">
-          {t('Stats testing welcome')}
+          {t('Stats')}
         </Heading>
         <Heading as="h2" scale="xl" color="secondary" mb="24px">
           {t('Bubble Token')}
