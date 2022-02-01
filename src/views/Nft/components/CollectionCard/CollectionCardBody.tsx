@@ -57,44 +57,17 @@ const BoxLine = styled.div`
   background-repeat: repeat-x;
   background-size: auto 1px;
   margin: 0px auto;
-  background-color: #fff;
+  color: inherit;
   position: relative;
   background-position-x: 50%;
   background-position-y: center;
-  &:before {
-    left: -15px;
-    transform: translate(50%) translateY(-50%);
-    -webkit-transform: translate(50%) translateY(-50%);
-    background-image: url(https://jojo.fun/img/icon-ticket-arrow-left.199f0487.svg);
-    width: 30px;
-    height: 30px;
-    top: 50%;
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    content: ' ';
-  }
-  &:after {
-    right: -15px;
-    transform: translate(50%) translateY(-50%);
-    -webkit-transform: translate(50%) translateY(-50%);
-    background-image: url(https://jojo.fun/img/icon-ticket-arrow-left.199f0487.svg);
-    width: 30px;
-    height: 30px;
-    top: 50%;
-    left: unset;
-    background-repeat: no-repeat;
-    background-size: contain;
-    position: absolute;
-    content: ' ';
-  }
 `;
 const PricedBar = styled.div`
   padding-top: 5px;
   //padding-right: 24px;
   padding-bottom: 20px;
   //padding-left: 24px;
-  background-color: #fff;
+  color: inherit;
   -webkit-box-flex: 1;
   flex: 1;
 `;

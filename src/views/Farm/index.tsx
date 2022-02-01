@@ -95,14 +95,14 @@ const BottomCard = styled.div`
 `;
 const Divi = styled.div`
   display: flex;
-  align-items: space-arround;
+  align-items: space-between;
+  justify-content: space-between;
   @media screen and (max-width: 760px) {
     margin-left: 0px;
     margin-right: 0px;
     display: block;
   }
 `;
-
 const Farm: React.FC = () => {
   const { t } = useTranslation();
   return (
@@ -115,10 +115,7 @@ const Farm: React.FC = () => {
       <ToggleWrapper>
         <Wrapper>
           <GradientCard gradient="linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))">
-            <ImageCard
-              shouldHover
-              imgUrl="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/d51088aeabe4ffa3964f0dd33de94ebe.jpeg"
-            >
+            <ImageCard imgUrl="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/d51088aeabe4ffa3964f0dd33de94ebe.jpeg">
               <Content>
                 <Status>Farms - Share 2,200,000,000 $JOJO</Status>
                 <Headering>Stake JOJO/BNB LP and Earn $JOJO, share 2,200,000,000 $JOJO</Headering>
@@ -129,37 +126,39 @@ const Farm: React.FC = () => {
       </ToggleWrapper>
       <StyledGamePool>
         <StyledUperCardLarge>
-          <Flex justifyContent="space-between">
-            <Flex>
+          <Divi>
+            <Flex marginLeft="20px" marginRight="20px">
               <img
                 style={{ height: '50px', width: '100px', marginTop: '10px' }}
                 alt="nothing"
                 src="https://jojo.fun/img/icon-token-jojo-bnb.6d0d1e97.png"
               />
-              <Text fontSize="40px">JOJO/BNB</Text>
+              <Text fontSize="35px" marginTop="10px">
+                JOJO/BNB
+              </Text>
             </Flex>
-            <Box>
+            <Box marginLeft="20px" marginRight="20px">
               <Text fontSize="30px">$1,011,283</Text>
               <Text fontSize="15px">Liquidity</Text>
             </Box>
-            <Box>
+            <Box marginLeft="20px" marginRight="20px">
               <Text fontSize="30px">30.22%</Text>
               <Text fontSize="15px">APR</Text>
             </Box>
-            <Box>
+            <Box marginLeft="20px" marginRight="20px">
               <Flex>
                 <img
                   style={{ height: '25px', width: '25px', marginTop: '10px' }}
                   alt="nothing"
                   src="https://jojo.fun/img/icon-jojo.dd768e0c.png"
                 />
-                <Text>164,486,580</Text>
-                <Text> ≈ $29,069</Text>
+                <Text marginTop="10px">164,486,580</Text>
+                <Text marginTop="10px"> ≈ $29,069</Text>
               </Flex>
 
               <Text fontSize="15px">Remaining tokens in pool</Text>
             </Box>
-          </Flex>
+          </Divi>
         </StyledUperCardLarge>
         <BottomCard>
           <Divi>

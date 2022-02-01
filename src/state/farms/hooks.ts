@@ -44,7 +44,6 @@ const deserializeFarm = (farm: SerializedFarm): DeserializedFarm => {
       poolWeight: farm.poolWeight ? new BigNumber(farm.poolWeight) : BIG_ZERO,
     };
   }
-  console.log('No farm data');
 };
 
 export const usePollFarmsPublicData = (includeArchive = false) => {
