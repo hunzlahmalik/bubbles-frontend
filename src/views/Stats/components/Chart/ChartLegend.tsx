@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { darkColors } from 'bubbles-uikit';
 import LegendIcon from './LegendIcon';
 
 const LegendContainer = styled.div<{ hoverColor?: string }>`
@@ -9,13 +10,14 @@ const LegendContainer = styled.div<{ hoverColor?: string }>`
   height: fit-content;
   padding: 2px;
   margin: 2px 5px;
-  color: black;
+  color: ${darkColors.textSubtle};
   border-radius: 10px;
-  background-color: white;
-  border: 1px solid transparent;
+  background-color: ${darkColors.disabled};
+  border: 1px solid ${darkColors.cardBorder};
   transition: 0.4s;
   :hover {
     color: white;
+    border: 1px solid ${({ hoverColor }) => hoverColor ?? darkColors.cardBorder};
     background-color: ${({ hoverColor }) => hoverColor ?? 'white'};
   }
 `;

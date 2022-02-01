@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darkColors } from 'bubbles-uikit';
 
 export interface StyledStatsProps {
   alignment?: string;
@@ -7,8 +8,9 @@ export interface StyledStatsProps {
 
 export const StyledStats = styled.div<StyledStatsProps>`
   text-align: ${({ alignment }) => alignment ?? 'left'};
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 3%), 0 4px 6px -2px rgb(0 0 0 / 1%);
-  background: #fff;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  background: ${darkColors.background};
+  border: 1px solid ${darkColors.cardBorder};
   border-radius: 32px;
   padding: ${({ padding }) => padding ?? '30px'};
   max-width: 100%;

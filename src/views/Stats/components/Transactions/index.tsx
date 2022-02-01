@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'contexts/Localization';
 import { Heading } from 'bubbles-uikit';
 import TransactionItem from './TransactionItem';
 
@@ -31,13 +32,15 @@ const TransactionsContainer = styled.div`
 `;
 
 function Transactions({ data }: TranscationProps) {
+  const { t } = useTranslation();
+
   return (
     <TransactionsContainer>
       {data.map((transaction) => {
         return (
           <Container>
             <Heading as="h6" scale="md" color="secondary" marginLeft="10px" marginBottom="8px">
-              {transaction.title}
+              {t(transaction.title)}
             </Heading>
             {transaction.transactionItems.map((item) => {
               return (

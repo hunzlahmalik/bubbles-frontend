@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { darkColors } from 'bubbles-uikit';
 
 const TransContainer = styled.div`
-  background-color: #fcf4f4;
+  background-color: ${darkColors.background};
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border: 1px solid ${darkColors.cardBorder};
   padding: 10px;
   width: 100%;
   height: 100%;
@@ -14,6 +17,7 @@ const TransContainer = styled.div`
 
 const TransContent = styled.div<{ fontWeight?: string }>`
   font-weight: ${({ fontWeight }) => fontWeight ?? 'normal'};
+  color: ${darkColors.textSubtle};
   text-align: left;
   margin-left: 20px;
   margin-bottom: 5px;

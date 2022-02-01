@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Heading } from 'bubbles-uikit';
+import { useTranslation } from 'contexts/Localization';
 import NFTChart from './NFTChart';
 import ChartLegend from './ChartLegend';
 
@@ -37,11 +38,13 @@ interface ChartProps {
 }
 
 function ChartComponent({ totalNFT, inCirculation, staked, ...props }: ChartProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       <Container>
         <Heading as="h6" scale="md" color="secondary">
-          NFT Supply
+          {t('NFT Supply')}
         </Heading>
         <div
           style={{

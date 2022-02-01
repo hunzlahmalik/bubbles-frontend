@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { darkColors } from 'bubbles-uikit';
 
 export const Tabs = styled.div`
   width: 25%;
