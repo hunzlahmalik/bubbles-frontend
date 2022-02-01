@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
-import { StyledCollectionCard } from './styles';
+import { darkColors } from 'bubbles-uikit';
+// import { StyledCollectionCard } from './styles';
 import { CollectionCardProps } from './types';
 import CollectionCardBody from './CollectionCardBody';
 
@@ -20,6 +21,9 @@ const CardBox = styled.div`
   flex:1;
   margin:30px 15px 0;
   border-radius:16px;
+    box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  background: ${darkColors.background};
+  border: 1px solid ${darkColors.cardBorder};
   overflow:hidden;
   flex-direction:cloumn;
   display-flex;
@@ -37,17 +41,17 @@ const CollectionLinkCard: React.FC<CollectionCardProps> = ({
   return (
     <>
       <CardBox>
-        <StyledCollectionCard {...props}>
-          <Link to={`${nftsBaseUrl}/collections/${collection.address}`}>
-            <CollectionCardBody
-              collection={collection}
-              collectionImg={collectionImg}
-              collectionVolume={collectionVolume}
-              collectionItems={collectionItems}
-              collectionSupply={collectionSupply}
-            />
-          </Link>
-        </StyledCollectionCard>
+        {/* <StyledCollectionCard {...props}> */}
+        <Link to={`${nftsBaseUrl}/collections/${collection.address}`}>
+          <CollectionCardBody
+            collection={collection}
+            collectionImg={collectionImg}
+            collectionVolume={collectionVolume}
+            collectionItems={collectionItems}
+            collectionSupply={collectionSupply}
+          />
+        </Link>
+        {/* </StyledCollectionCard> */}
       </CardBox>
     </>
   );

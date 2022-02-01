@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { darkColors } from 'bubbles-uikit';
 
 export const ItemContainer = styled.div<{ height?: string; width?: string; shouldHover?: boolean }>`
   width: ${({ width }) => width ?? '100%'};
@@ -6,7 +7,9 @@ export const ItemContainer = styled.div<{ height?: string; width?: string; shoul
   display: flex;
   flex-direction: row;
   border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  background: ${darkColors.background};
+  border: 1px solid ${darkColors.cardBorder};
   transition: all 0.3s ease-in-out;
   padding-bottom: 10px;
   margin: 15px;
@@ -47,7 +50,7 @@ export const Title = styled.div<{ fontSize?: string }>`
   margin-left: 20px;
   height: fit-content;
   line-height: 1.1;
-  color: #431216;
+  color: ${darkColors.text};
   word-break: break-word;
   @media screen and (max-width: 760px) {
     margin-bottom: 20px;
