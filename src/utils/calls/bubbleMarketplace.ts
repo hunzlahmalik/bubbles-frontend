@@ -2,6 +2,7 @@
 import { ethers } from 'ethers';
 import { get } from 'lodash';
 import { getAddress } from 'ethers/lib/utils';
+import { EggInfoContract } from 'config/constants/egg/types';
 
 // Read Functions
 export const getEggPerWeek = async (contract: ethers.Contract): Promise<{ result?: string; error?: string }> => {
@@ -137,11 +138,7 @@ export const getEggInfo = async (
   contract: ethers.Contract,
   tokenId: number,
 ): Promise<{
-  result?: {
-    tokenId: string;
-    owner: string;
-    eggType: string;
-  };
+  result?: EggInfoContract;
   error?: string;
 }> => {
   const method = 'eggInfo';

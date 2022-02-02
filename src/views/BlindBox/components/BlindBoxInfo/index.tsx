@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import PriceCard, { PriceCardProps } from 'components/PriceCard';
 import Icon from 'components/BlindBoxIcon';
 import ItemRules from 'components/Rules';
-import { darkColors, Button } from 'bubbles-uikit';
+import { darkColors } from 'bubbles-uikit';
 import { ItemContainer, InnerDiv, Title } from '../BlindBoxStyles';
+import BuyEggButton from '../BuyEggButton';
 
 const userData: PriceCardProps = { title: 'JoJo', amount: '0', usd: '0' };
 
@@ -55,18 +56,6 @@ const Time = styled.div`
   margin-left: 10px;
 `;
 
-const Buton = styled(Button)`
-  width: 350px;
-  height: 40px;
-  margin: 0 10px;
-  boder-radius: 10px;
-  padding: 0;
-  position: 'relative';
-  @media screen and (max-width: 760px) {
-    margin-bottom: 30px;
-  }
-`;
-
 const ComponentDiv = styled.div<{ isRuleBox?: boolean }>`
   height: fit-content;
   width: ${({ isRuleBox }) => (isRuleBox ? '85%' : '98%')};
@@ -86,12 +75,6 @@ const ComponentDiv = styled.div<{ isRuleBox?: boolean }>`
  * @returns Blindbox item
  */
 function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: number; creationTime: Date }) {
-  // const imageDimension = {
-  //   1: {
-  //     height: '100%',
-  //     width: '100%',
-  //   },
-  // };
   return (
     <ItemContainer>
       <InnerDiv>
@@ -118,7 +101,7 @@ function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: nu
         <ComponentDiv>
           <PriceCard {...userData} />
         </ComponentDiv>
-        <Buton>Buy Now</Buton>
+        <BuyEggButton />
         <ComponentDiv isRuleBox>
           <ItemRules {...BlindBoxRulesData} />
         </ComponentDiv>

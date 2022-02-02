@@ -15,7 +15,8 @@ export default {
   bubbleMarketplace: {
     56: '',
     // 97: '0x34D954e27d44fdCb4Cba7b7E1fB6747B32ADeF81',
-    97: '0x7304763DB812DDC2936C797521ae806ec39afb39',
+    // 97: '0x7304763DB812DDC2936C797521ae806ec39afb39',
+    97: '0x791628fe1EB2390710ad91AEa42Fe3F745AD6e23',
   },
   CBFIFarm: {
     56: '',
