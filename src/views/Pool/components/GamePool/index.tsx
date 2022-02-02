@@ -5,7 +5,7 @@ import PriceCard, { PriceCardLarge, PriceCardLargeProps, PriceCardProps } from '
 
 const StyledGamePool = styled.div`
   box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
-  background: ${darkColors.background};
+  background: ${darkColors.neutralColors.gray23};
   border: 1px solid ${darkColors.cardBorder};
   border-radius: 32px;
   padding: 32px;

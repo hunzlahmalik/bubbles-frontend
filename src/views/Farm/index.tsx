@@ -8,7 +8,7 @@ import { FarmCard } from './components/farmCard';
 
 const StyledGamePool = styled.div<{ maxWidth?: string }>`
   box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
-  background: ${darkColors.background};
+  background: ${darkColors.neutralColors.gray23};
   border: 1px solid ${darkColors.cardBorder};
   border-radius: 32px;
   display: block;
@@ -82,7 +82,6 @@ const Wrapper = styled.div<{ height?: string; maxWidth?: string }>`
   height: ${({ height }) => height || '200px'};
   max-width: ${({ maxWidth }) => maxWidth || '1100px'};
   box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
-  border: 1px solid ${darkColors.cardBorder};
   border-radius: 24px;
 `;
 const Headering = styled.h1`
