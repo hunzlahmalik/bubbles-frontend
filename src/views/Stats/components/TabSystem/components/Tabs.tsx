@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-// import { darkColors } from 'bubbles-uikit';
+import { darkColors } from 'bubbles-uikit';
 
 export const Tabs = styled.div`
   width: 25%;
@@ -10,7 +10,8 @@ export const Tabs = styled.div`
   border-top-left-radius: 32px;
   border-bottom-left-radius: 32px;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: ${darkColors.transparentColors.transBlue};
+  /* background-color: rgba(0, 0, 0, 0); */
   @media screen and (max-width: 760px) {
     width: 20%;
   }

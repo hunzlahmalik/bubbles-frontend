@@ -1,5 +1,5 @@
-// import * as React from 'react';
 import styled from 'styled-components';
+import { darkColors } from 'bubbles-uikit';
 
 export const TabTitle = styled.div`
   margin: auto 0;
@@ -16,8 +16,9 @@ export const TabItem = styled.button<{ activeTab: boolean }>`
   padding: 10px;
   display: flex;
   flex-direction: row;
+  color: ${darkColors.text};
   border: none;
-  background-color: ${({ activeTab }) => (activeTab ? '#ffffff' : '#f5f5f5')};
+  background-color: ${({ activeTab }) => (activeTab ? darkColors.background : '#2a2d3c')}; // GRAY 12
   :hover {
     cursor: pointer;
   }
