@@ -1,9 +1,12 @@
+import { darkColors } from 'bubbles-uikit';
 import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div<{ backgroundColor?: string }>`
   width: 100%;
   height: 100%;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border: 1px solid ${darkColors.cardBorder};
   background-color: ${({ backgroundColor }) => backgroundColor ?? '#f7f7f783'};
   padding: 20px;
   border-radius: 15px;

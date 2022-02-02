@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import { Grid, Text, Card, Box, ChevronUpIcon, ChevronDownIcon, IconButton } from 'bubbles-uikit';
+import { Grid, Text, Box, darkColors } from 'bubbles-uikit';
 import useTheme from 'hooks/useTheme';
 
 const expandAnimation = keyframes`
@@ -32,8 +32,13 @@ const ExpandableCardBody = styled(Box)<{ expanded: boolean }>`
         `};
 `;
 
-const FullWidthCard = styled(Card)`
+const FullWidthCard = styled.div`
   width: 100%;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border: 1px solid ${darkColors.cardBorder};
+  background: ${darkColors.background};
+  border-radius: 32px;
+  margin-bottom: 24px;
 `;
 
 interface ExpandableCardProps {
@@ -43,12 +48,12 @@ interface ExpandableCardProps {
 }
 
 const ExpandableCard: React.FC<ExpandableCardProps> = ({ icon, title, content }) => {
-  const [expanded, setExpanded] = useState(true);
+  // const [expanded, setExpanded] = useState(true);
   const { theme } = useTheme();
   return (
     <FullWidthCard>
       <Grid
-        gridTemplateColumns="1fr 8fr 1fr"
+        gridTemplateColumns="1fr 20fr 1fr"
         alignItems="center"
         height="72px"
         px="24px"
@@ -56,7 +61,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ icon, title, content })
       >
         {icon}
         <Text bold>{title}</Text>
-        <IconButton
+        {/* <IconButton
           onClick={() => {
             setExpanded((prev) => !prev);
           }}
@@ -68,9 +73,9 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({ icon, title, content })
           ) : (
             <ChevronDownIcon width="24px" height="24px" color="textSubtle" />
           )}
-        </IconButton>
+        </IconButton> */}
       </Grid>
-      <ExpandableCardBody expanded={expanded}>{content}</ExpandableCardBody>
+      <ExpandableCardBody expanded>{content}</ExpandableCardBody>
     </FullWidthCard>
   );
 };

@@ -18,7 +18,7 @@ import useGetCollectionDistribution from '../../../hooks/useGetCollectionDistrib
 // import OwnerCard from './OwnerCard';
 // import MoreFromThisCollection from '../shared/MoreFromThisCollection';
 import AuctionBid from '../../../../auction/components/AuctionBidding';
-import ActivityCard from './ActivityCard';
+// import ActivityCard from './ActivityCard';
 
 interface IndividualNFTPageProps {
   collectionAddress: string;
@@ -104,6 +104,42 @@ const IndividualNFTPage: React.FC<IndividualNFTPageProps> = ({ collectionAddress
     }
     return {};
   };
+  const AuctionBidData = {
+    biddingRows: [
+      {
+        accAddress: '0x67B14E1b6A249Ae5251004906eA7Eda0112e1AdE',
+        hash: '0x68fd84c0131f72f12a9a26f422cbe1c34ad862a52013a33a813be5fe610b8223',
+        auctionPrice: '1,000',
+        auctionTime: 'Jan 5, 2022, 15:52',
+        profits: 69.6,
+        status: 2,
+      },
+      {
+        accAddress: '0x67B14E1b6A249Ae5251004906eA7Eda0112e1AdE',
+        hash: '0x68fd84c0131f72f12a9a26f422cbe1c34ad862a52013a33a813be5fe610b8223',
+        auctionPrice: '1,000',
+        auctionTime: 'Jan 5, 2022, 15:52',
+        profits: 69.6,
+        status: 2,
+      },
+      {
+        accAddress: '0x67B14E1b6A249Ae5251004906eA7Eda0112e1AdE',
+        hash: '0x68fd84c0131f72f12a9a26f422cbe1c34ad862a52013a33a813be5fe610b8223',
+        auctionPrice: '1,000',
+        auctionTime: 'Jan 5, 2022, 15:52',
+        profits: 69.6,
+        status: 2,
+      },
+      {
+        accAddress: '0x67B14E1b6A249Ae5251004906eA7Eda0112e1AdE',
+        hash: '0x68fd84c0131f72f12a9a26f422cbe1c34ad862a52013a33a813be5fe610b8223',
+        auctionPrice: '1,000',
+        auctionTime: 'Jan 5, 2022, 15:52',
+        profits: 69.6,
+        status: 2,
+      },
+    ],
+  };
 
   return (
     <Page>
@@ -140,9 +176,9 @@ const IndividualNFTPage: React.FC<IndividualNFTPageProps> = ({ collectionAddress
         {/* <Flex flexDirection="column" width="100%">
         </Flex> */}
         <OwnerActivityContainer flexDirection="column" width="100%">
-          <ActivityCard nft={nft} />
+          {/* <ActivityCard nft={nft} /> */}
           <div style={{ width: '100%' }}>
-            <AuctionBid biddingRows={[]} />
+            <AuctionBid {...AuctionBidData} />{' '}
           </div>
         </OwnerActivityContainer>
       </TwoColumnsContainer>

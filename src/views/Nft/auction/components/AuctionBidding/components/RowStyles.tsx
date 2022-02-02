@@ -1,3 +1,4 @@
+import { darkColors } from 'bubbles-uikit';
 import styled from 'styled-components';
 
 export const RowDiv = styled.tr`
@@ -9,8 +10,9 @@ export const RowDiv = styled.tr`
   justify-content: space-around;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 6%);
   -webkit-box-shadow: 0 4px 8px 0 rgb(0 0 0 / 6%);
-  background-color: #fff;
+  background: ${darkColors.neutralColors.gray21};
   border-radius: 24px;
+
   padding: 24px;
 `;
 
@@ -24,7 +26,7 @@ export const Item = styled.td<{
   text-align: center;
   width: 25%;
   font-weight: ${({ fontWeight }) => fontWeight ?? 'normal'};
-  color: ${({ fontColor }) => fontColor ?? 'black'};
+  color: ${({ fontColor }) => fontColor ?? 'white'};
   @media screen and (max-width: 880px) {
     ${({ hide }) =>
       hide &&
