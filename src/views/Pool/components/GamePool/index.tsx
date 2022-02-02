@@ -15,8 +15,6 @@ const StyledGamePool = styled.div`
 
 const GamePoolWrap = styled.div`
   display: flex;
-  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
-  background: ${darkColors.background};
   flex-wrap: wrap;
   margin-top: 8px;
   margin-right: -12px;

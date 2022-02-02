@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { CardProps } from 'bubbles-uikit';
 import GradientCard, { GradientCardProps } from 'components/GradientCard';
@@ -69,14 +70,14 @@ export interface BlindBoxImageCardProps extends BlindBoxHeadingProps, GradientCa
   stageTitle: string;
   title: string;
   isSoldOut: boolean;
-  url?: string;
+  boxID: string;
 }
 
 const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
   title,
   stageTitle,
   isSoldOut,
-  url,
+  boxID,
   imgUrl,
   gradient,
   shouldHover = false,
@@ -95,10 +96,17 @@ const BlindBoxImageCard: React.FC<BlindBoxImageCardProps> = ({
       </GradientCard>
     );
   }
+  const { pathname } = useLocation();
 
+  function getURL() {
+    if (pathname[pathname.length - 1] === '/') return pathname + boxID;
+    return `${pathname}/${boxID}`;
+  }
   return (
     <>
-      <Wrapper {...props}>{url ? <a href={url}>{renderComponents()}</a> : renderComponents()}</Wrapper>
+      <Wrapper {...props}>
+        <a href={getURL()}>{renderComponents()}</a>
+      </Wrapper>
     </>
   );
 };

@@ -27,7 +27,7 @@ const BlindBoxData: BlindBoxProps = {
           gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
           title: 'Kingdom Box',
           stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
-          url: '/#sfasfag',
+          boxID: '1',
           isSoldOut: false,
           width: '1100px',
           height: '200px',
@@ -38,7 +38,7 @@ const BlindBoxData: BlindBoxProps = {
           gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
           title: 'Kingdom Box',
           stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
-          url: '/#sdf',
+          boxID: '2',
           isSoldOut: false,
           width: '1100px',
           height: '200px',
@@ -49,7 +49,7 @@ const BlindBoxData: BlindBoxProps = {
           gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
           title: 'Kingdom Box',
           stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
-          url: '/#asaaas',
+          boxID: '9',
           isSoldOut: false,
           width: '1100px',
           height: '200px',
@@ -69,7 +69,7 @@ const BlindBoxData: BlindBoxProps = {
           gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
           title: 'Kingdom Box',
           stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
-          url: '/asdfasdf',
+          boxID: '10',
           isSoldOut: false,
           width: '1100px',
           height: '200px',
@@ -80,7 +80,7 @@ const BlindBoxData: BlindBoxProps = {
           gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
           title: 'Kingdom Box',
           stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
-          url: '/#asdfasdf',
+          boxID: '11',
           isSoldOut: false,
           width: '1100px',
           height: '200px',
@@ -100,7 +100,7 @@ const BlindBoxData: BlindBoxProps = {
           gradient: 'linear-gradient(90deg, rgb(175, 42, 205), rgb(26, 9, 4))',
           title: 'Kingdom Box',
           stageTitle: 'Phase2 Dec-17 12:00 PM +UTC',
-          id: '12',
+          boxID: '12',
           isSoldOut: false,
           width: '1100px',
           height: '200px',
@@ -118,7 +118,6 @@ export interface BlindBoxUrlProps {
 }
 
 const BlindBox: React.FC = () => {
-  // const { pathname } = useLocation();
   const urlPramas: BlindBoxUrlProps = useParams();
 
   const isBox = 'box' in urlPramas;

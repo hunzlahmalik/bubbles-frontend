@@ -37,23 +37,10 @@ const config: (t: ContextApi['t']) => ConfigMenuItemsType[] = (t) => [
     ],
   },
   {
-    label: t('Win'),
-    href: '/prediction',
-    icon: 'Trophy',
-    items: [
-      {
-        label: t('Trading Competition'),
-        href: '/competition',
-      },
-      {
-        label: t('Prediction (BETA)'),
-        href: '/prediction',
-      },
-      {
-        label: t('Lottery'),
-        href: '/lottery',
-      },
-    ],
+    label: t('Blindbox'),
+    href: '/blindbox',
+    icon: 'Blindbox',
+    items: [],
   },
   {
     label: t('NFT'),

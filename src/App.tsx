@@ -112,17 +112,18 @@ const App: React.FC = () => {
               <Temp />
             </Route>
 
-            <Route path="/farm">
-              <Farm />
-            </Route>
+            {/* <Route path="/farm">
+            </Route> */}
             <Route path="/farms">
-              <Farms />
+              <Farm />
+              {/* <Farms /> */}
             </Route>
             <Route path="/stats">
               <Stats />
             </Route>
             <Route path="/pools">
-              <Pools />
+              {/* <Pools /> */}
+              <Redirect to="/liquidity" />
             </Route>
             <Route path="/lottery">
               <Lottery />
