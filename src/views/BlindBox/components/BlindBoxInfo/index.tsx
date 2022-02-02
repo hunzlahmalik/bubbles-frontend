@@ -43,7 +43,10 @@ const SPAN = styled.span`
 `;
 
 const Time = styled.div`
-  background-color: #f7f7f783;
+  box-shadow: 0 5px 5px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border: 1px solid ${darkColors.cardBorder};
+  background: ${darkColors.neutralColors.gray21};
+  border-radius: 10px;
   height: fit-content;
   width: fit-content;
   margin-top: -5px;
@@ -52,10 +55,11 @@ const Time = styled.div`
   margin-left: 10px;
 `;
 
-const B = styled(Button)`
-  width: 100%;
+const Buton = styled(Button)`
+  width: 350px;
   height: 40px;
-  margin: 0 20px;
+  margin: 0 10px;
+  boder-radius: 10px;
   padding: 0;
   position: 'relative';
   @media screen and (max-width: 760px) {
@@ -66,7 +70,7 @@ const B = styled(Button)`
 const ComponentDiv = styled.div<{ isRuleBox?: boolean }>`
   height: fit-content;
   width: ${({ isRuleBox }) => (isRuleBox ? '85%' : '98%')};
-  margin-left: ${({ isRuleBox }) => (isRuleBox ? '20px' : '0')};
+  margin-left: ${({ isRuleBox }) => (isRuleBox ? '10px' : '0')};
   margin-bottom: ${({ isRuleBox }) => (isRuleBox ? '20px' : '0')};
   @media screen and (max-width: 760px) {
     margin-top: 0;
@@ -114,7 +118,7 @@ function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: nu
         <ComponentDiv>
           <PriceCard {...userData} />
         </ComponentDiv>
-        <B>Buy Now</B>
+        <Buton>Buy Now</Buton>
         <ComponentDiv isRuleBox>
           <ItemRules {...BlindBoxRulesData} />
         </ComponentDiv>

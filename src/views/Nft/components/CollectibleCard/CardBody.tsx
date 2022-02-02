@@ -19,10 +19,6 @@ const MediaBox = styled.div`
   height: 0;
   overflow: hidden;
   width: 100%;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: ${({ theme }) => theme.radii.default};
-  border-top-left-radius: ${({ theme }) => theme.radii.default};
 `;
 const TextStyle = styled.div`
   font-size: 24px;

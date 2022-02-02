@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Heading, Text } from 'bubbles-uikit';
+import { Box, Flex, Heading, Text, darkColors } from 'bubbles-uikit';
 import styled from 'styled-components';
 import { useTranslation } from 'contexts/Localization';
 import ImageCard from 'components/ImageCard';
@@ -7,8 +7,9 @@ import GradientCard from 'components/GradientCard';
 import { FarmCard } from './components/farmCard';
 
 const StyledGamePool = styled.div<{ maxWidth?: string }>`
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 3%), 0 4px 6px -2px rgb(0 0 0 / 1%);
-  background: #fff;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  background: ${darkColors.background};
+  border: 1px solid ${darkColors.cardBorder};
   border-radius: 32px;
   display: block;
   justify-content: center;
@@ -29,12 +30,14 @@ const StyledUperCardLarge = styled.div`
   -webkit-box-flex: 1;
   flex: 1;
   min-width: 250px;
-  background-image: linear-gradient(90deg, rgb(255, 239, 241), rgb(216, 241, 255));
+  background: ${darkColors.gradients.gradient6};
   /* margin-top: 24px;
   margin-right: 12px;
   margin-bottom: 0px;
   margin-left: 12px; */
-  box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 6%), 0 -1px 2px 0 rgb(0 0 0 / 2%);
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  // background: ${darkColors.background};
+  border: 1px solid ${darkColors.cardBorder};
   border-radius: 24px;
   padding: 24px;
 `;
@@ -78,6 +81,9 @@ const Status = styled.p`
 const Wrapper = styled.div<{ height?: string; maxWidth?: string }>`
   height: ${({ height }) => height || '200px'};
   max-width: ${({ maxWidth }) => maxWidth || '1100px'};
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border: 1px solid ${darkColors.cardBorder};
+  border-radius: 24px;
 `;
 const Headering = styled.h1`
   color: ${({ color }) => color || 'white'};

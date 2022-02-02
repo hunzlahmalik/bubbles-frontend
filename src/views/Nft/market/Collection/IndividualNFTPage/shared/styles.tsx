@@ -16,10 +16,7 @@ export const TwoColumnsContainer = styled(Flex)`
 
 export const RoundedImage = styled(Image)`
   height: max-content;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: ${({ theme }) => theme.radii.default};
-  border-top-left-radius: ${({ theme }) => theme.radii.default};
+  border-radius: ${({ theme }) => theme.radii.default};
   overflow: hidden;
   & > img {
     object-fit: contain;
@@ -28,10 +25,8 @@ export const RoundedImage = styled(Image)`
 
 export const SmallRoundedImage = styled(Image)`
   & > img {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: ${({ theme }) => theme.radii.default};
-    border-top-left-radius: ${({ theme }) => theme.radii.default};
+    border-radius: ${({ theme }) => theme.radii.default};
+    border-radius: ${({ theme }) => theme.radii.default};
   }
 `;
 

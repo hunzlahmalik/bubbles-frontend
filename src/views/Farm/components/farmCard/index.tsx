@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CardProps } from 'bubbles-uikit';
+import { CardProps, darkColors } from 'bubbles-uikit';
 
 const StyledPriceCard = styled.div<CardProps>`
   -webkit-box-flex: 1;
@@ -13,7 +13,9 @@ const StyledPriceCard = styled.div<CardProps>`
   margin-right: 12px;
   margin-bottom: 0px;
   margin-left: 12px;
-  box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 6%), 0 -1px 2px 0 rgb(0 0 0 / 2%);
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  background: ${darkColors.background};
+  border: 1px solid ${darkColors.cardBorder};
   border-radius: 24px;
   padding: 24px;
 `;
@@ -24,7 +26,7 @@ const PriceCardTitle = styled.div<CardProps>`
   justify-content: space-between;
   align-items: center;
   min-height: 24px;
-  color: #694f4e;
+  color: ${darkColors.text};
 `;
 
 const PriceCardValue = styled.div<CardProps>`
@@ -33,7 +35,7 @@ const PriceCardValue = styled.div<CardProps>`
   justify-content: space-between;
   align-items: center;
   min-height: 24px;
-  color: #431216;
+  color: ${darkColors.text};
   line-height: 1.1;
   margin-top: 10px;
   margin-left: 4px;
@@ -41,7 +43,7 @@ const PriceCardValue = styled.div<CardProps>`
 
 const PriceCardAmount = styled.div<CardProps>`
   font-size: 14px;
-  color: #694f4e;
+  color: ${darkColors.textSubtle};
   margin-left: 4px;
   margin-top: 20px;
 `;

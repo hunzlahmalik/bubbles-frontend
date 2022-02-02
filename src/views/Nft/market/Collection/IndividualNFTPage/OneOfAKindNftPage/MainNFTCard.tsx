@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, Flex, Text, useModal } from 'bubbles-uikit';
+import { Box, Button, CardBody, Flex, Text, useModal, darkColors } from 'bubbles-uikit';
 import PriceCard from 'components/PriceCard';
 import { useTranslation } from 'contexts/Localization';
 import { useBNBBusdPrice } from 'hooks/useBUSDPrice';
@@ -19,19 +19,27 @@ interface MainNFTCardProps {
   isOwnNft: boolean;
   nftIsProfilePic: boolean;
 }
+const StyledCard = styled.div`
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border: 1px solid ${darkColors.cardBorder};
+  background: ${darkColors.background};
+  border-radius: 32px;
+  margin-bottom: 24px;
+`;
 
 const StyledTimerBox = styled.div`
   -webkit-box-flex: 1;
   flex: 1;
-  min-width: 150px;
-  max-width: 150px;
+  width: 120px;
   margin-top: 24px;
   margin-right: 12px;
   margin-bottom: 0px;
   margin-left: 12px;
-  box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 6%), 0 -1px 2px 0 rgb(0 0 0 / 2%);
-  border-radius: 24px;
-  padding: 24px;
+  box-shadow: 0 5px 5px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border: 1px solid ${darkColors.cardBorder};
+  background: ${darkColors.neutralColors.gray21};
+  border-radius: 10px;
+  padding: 10px;
   font-size: 24px;
 `;
 
@@ -74,7 +82,7 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
   );
 
   return (
-    <Card>
+    <StyledCard>
       <CardBody>
         <Container flexDirection={['column', null, 'row']} flexWrap="wrap">
           <Flex
@@ -156,7 +164,7 @@ const MainNFTCard: React.FC<MainNFTCardProps> = ({ nft, isOwnNft, nftIsProfilePi
           {/* </Flex> */}
         </Container>
       </CardBody>
-    </Card>
+    </StyledCard>
   );
 };
 
