@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Pair } from '@pancakeswap/sdk';
-import { Text, CardBody, CardFooter } from 'bubbles-uikit';
+import { Text, CardBody, CardFooter, darkColors } from 'bubbles-uikit';
 // import { Link } from 'react-router-dom';
 import { useTranslation } from 'contexts/Localization';
 import useActiveWeb3React from 'hooks/useActiveWeb3React';
@@ -15,14 +15,18 @@ import { AppBody } from '../../../../components/App';
 const PageCardDesign = styled.div`
   margin-top: 10px;
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+
   width: calc(50%-30px);
   min-width: 300px;
   padding: 0;
   font-size: 16px;
   line-height: 1.4;
   color: inherit;
-  background: transparent;
+  box-shadow: 0 10px 15px -3px ${darkColors.cardShadow}, 0 4px 6px -2px ${darkColors.cardShadow};
+  border-radius: ${({ theme }) => theme.radii.default};
+  border: 1px solid ${darkColors.cardBorder};
+  background-color: ${darkColors.neutralColors.gray23};
   :hover {
     filter: brightness(95%);
   }
@@ -74,7 +78,7 @@ const BoxHeaderTitle = styled.div`
   display: flex;
   font-size: 18px;
   line-height: 1.2;
-  color: inherit;
+  color: ${darkColors.text};
   word-break: break-word;
   font-weight: 700;
   overflow: hidden;
@@ -91,7 +95,7 @@ const BoxLine = styled.div`
   background-repeat: repeat-x;
   background-size: auto 1px;
   margin: 0px auto;
-  color: inherit;
+  color: ${darkColors.text};
   position: relative;
   background-position-x: 50%;
   background-position-y: center;
@@ -211,51 +215,51 @@ export default function PoolCard(title, BackImg) {
   return (
     <>
       <PageCardDesign>
-        <AppBody>
-          <BoxHeader>
-            <img
-              src={BackImg}
-              style={{
-                backgroundColor: 'rgb(249,244,211)',
-                filter: 'blur(0px)',
-                backgroundSize: 'contain',
-                backgroundPositionX: '40%',
-                backgroundPositionY: '50%',
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                width: '100%',
-                height: '100%',
-                borderRadius: '20px',
-              }}
-              alt="nothing"
-            />
+        {/* <AppBody> */}
+        <BoxHeader>
+          <img
+            src={BackImg}
+            style={{
+              backgroundColor: 'rgb(249,244,211)',
+              filter: 'blur(0px)',
+              backgroundSize: 'contain',
+              backgroundPositionX: '40%',
+              backgroundPositionY: '50%',
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              borderRadius: '20px',
+            }}
+            alt="nothing"
+          />
 
-            <SubBoxHeader2 />
-          </BoxHeader>
-          <BoxHeaderTitle>
-            {title}
-            {/* 
+          <SubBoxHeader2 />
+        </BoxHeader>
+        <BoxHeaderTitle>
+          {title}
+          {/* 
                     <AppHeader title={t('Your Liquidity')} subtitle={t('Remove liquidity to receive tokens back')} /> */}
-          </BoxHeaderTitle>
-          <BoxLine />
+        </BoxHeaderTitle>
+        <BoxLine />
 
-          <Body>
-            <BodyTitle>
-              {renderBody()}
-              {account && !v2IsLoading && (
-                <Text color="textSubtle" mb="8px">
-                  {t("Don't see a pool you joined?")}
-                </Text>
-              )}
-            </BodyTitle>
-            <CardFooter style={{ textAlign: 'center' }}>
-              <PoolButton style={{ marginTop: '10px' }} height="50px" onClick={redirectLink}>
-                {t('Add Liquidity')}
-              </PoolButton>
-            </CardFooter>
-          </Body>
-        </AppBody>
+        <Body>
+          <BodyTitle>
+            {renderBody()}
+            {account && !v2IsLoading && (
+              <Text color="textSubtle" mb="8px">
+                {t("Don't see a pool you joined?")}
+              </Text>
+            )}
+          </BodyTitle>
+          <CardFooter style={{ textAlign: 'center' }}>
+            <PoolButton style={{ marginTop: '10px' }} height="50px" onClick={redirectLink}>
+              {t('Add Liquidity')}
+            </PoolButton>
+          </CardFooter>
+        </Body>
+        {/* </AppBody> */}
       </PageCardDesign>
     </>
   );
