@@ -18,7 +18,7 @@ export const TabItem = styled.button<{ activeTab: boolean }>`
   flex-direction: row;
   color: ${darkColors.text};
   border: none;
-  background-color: ${({ activeTab }) => (activeTab ? darkColors.background : '#2a2d3c')}; // GRAY 12
+  background-color: ${({ activeTab }) => (activeTab ? darkColors.background : darkColors.neutralColors.gray12)};
   :hover {
     cursor: pointer;
   }
