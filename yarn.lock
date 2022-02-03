@@ -6570,10 +6570,10 @@ btoa@^1.2.1:
   resolved "https://registry.yarnpkg.com/btoa/-/btoa-1.2.1.tgz#01a9909f8b2c93f6bf680ba26131eb30f7fa3d73"
   integrity sha512-SB4/MIGlsiVkMcHmT+pSmIPoNDoHg+7cMzmt3Uxt628MTz2487DKSqK/fuhFBrkuqrYv5UCEnACpF4dTFNKc/g==
 
-bubbles-uikit@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/bubbles-uikit/-/bubbles-uikit-0.1.0.tgz#50287b0b59562072395fd6c114e64079601f7758"
-  integrity sha512-N4OQ6MozNxNe7Z/VsNl3jnJX/3JZ/n+NkdXbCrpE/iBu9XyLgw3JQynaJyo0jpNK7FhS/psvF8bvf+p6Nl3rRw==
+bubbles-uikit@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/bubbles-uikit/-/bubbles-uikit-0.1.1.tgz#378c3b59ea07901fca49621e175b88a335174e6b"
+  integrity sha512-5W21u6u+D15s28qM6Ycan2ixFyfacyDPTDTF50ygHw2Zfb5vZJD3pLz3TJLGY/q36y6a0A/rp6e1hMWKy3g1bg==
   dependencies:
     "@popperjs/core" "^2.9.2"
     "@types/lodash" "^4.14.168"

@@ -10,8 +10,12 @@ export const IconOuter = styled.div`
 export const OuterDiv = styled.div`
   display: flex;
   gap: 10px;
+  margin-top: -15px;
   height: 100%;
   width: 100%;
+  @media screen and (max-width: 760px) {
+    margin-top: 20px;
+  }
 `;
 
 export const AlphaView = styled.div<{

@@ -126,12 +126,14 @@ const ProfileHeader: React.FC<HeaderProps> = ({
       if (!profile) {
         return (
           <ReactRouterLink to="/create-profile">
-            <Button mt="16px">{t('Activate Profile')}</Button>
+            <Button mt="16px" mb="24px">
+              {t('Activate Profile')}
+            </Button>
           </ReactRouterLink>
         );
       }
       return (
-        <Button width="fit-content" mt="16px" onClick={onEditProfileModal}>
+        <Button width="fit-content" mt="16px" mb="24px" onClick={onEditProfileModal}>
           {t('Reactivate Profile')}
         </Button>
       );

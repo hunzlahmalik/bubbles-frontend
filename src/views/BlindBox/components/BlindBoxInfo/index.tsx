@@ -60,7 +60,6 @@ const ComponentDiv = styled.div<{ isRuleBox?: boolean }>`
   height: fit-content;
   width: ${({ isRuleBox }) => (isRuleBox ? '85%' : '98%')};
   margin-left: ${({ isRuleBox }) => (isRuleBox ? '10px' : '0')};
-  margin-bottom: ${({ isRuleBox }) => (isRuleBox ? '20px' : '0')};
   @media screen and (max-width: 760px) {
     margin-top: 0;
     margin-bottom: 30px;
@@ -82,7 +81,7 @@ function BlindBoxInfo({ title, stock, creationTime }: { title: string; stock: nu
           style={{
             width: '500px',
             height: '500px',
-            marginBottom: '10px',
+            // marginBottom: '10px',
           }}
         >
           <Icon backgroundImage="https://dl0d5jadwbp9c.cloudfront.net/cdn/img/4c5c4d784f4324884beb335877cb8ff1.png" />

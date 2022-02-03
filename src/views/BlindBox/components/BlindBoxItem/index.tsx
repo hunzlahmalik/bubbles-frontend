@@ -14,7 +14,7 @@ const Stats = styled.div<CardProps>`
 
 const StatsInfo = styled.div<CardProps>`
   margin: 3px 0;
-  color: ${({ color }) => color || '#694f4e'};
+  color: ${({ color }) => color || darkColors.textSubtle};
 `;
 
 const ValueSpan = styled.span<CardProps>`

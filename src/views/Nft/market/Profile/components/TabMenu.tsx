@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'contexts/Localization';
 import { Link as RouterLink, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Flex } from 'bubbles-uikit';
+import { Flex, Text } from 'bubbles-uikit';
 import { nftsBaseUrl } from 'views/Nft/market/constants';
 
 const Tab = styled.button<{ $active: boolean }>`
@@ -24,7 +23,6 @@ const Tab = styled.button<{ $active: boolean }>`
 `;
 
 const TabMenu = () => {
-  const { t } = useTranslation();
   const { accountAddress } = useParams<{ accountAddress: string }>();
   const { pathname } = useLocation();
   const [achievementsActive, setIsAchievementsActive] = useState(pathname.includes('achievements'));
@@ -41,16 +39,18 @@ const TabMenu = () => {
         as={RouterLink}
         to={`${nftsBaseUrl}/profile/${accountAddress}`}
       >
-        NFTs
+        <Text color="white" fontWeight="bold">
+          NFTs
+        </Text>
       </Tab>
-      <Tab
+      {/* <Tab
         onClick={() => setIsAchievementsActive(true)}
         $active={achievementsActive}
         as={RouterLink}
         to={`${nftsBaseUrl}/profile/${accountAddress}/achievements`}
       >
         {t('Achievements')}
-      </Tab>
+      </Tab> */}
     </Flex>
   );
 };

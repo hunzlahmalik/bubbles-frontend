@@ -11,8 +11,9 @@ export const ItemContainer = styled.div<{ height?: string; width?: string; shoul
   background: ${darkColors.background};
   border: 1px solid ${darkColors.cardBorder};
   transition: all 0.3s ease-in-out;
-  padding-bottom: 10px;
   margin: 15px;
+  padding-top: 3%;
+  padding-bottom: 3%;
   ${({ shouldHover }) =>
     shouldHover &&
     css`
@@ -22,26 +23,39 @@ export const ItemContainer = styled.div<{ height?: string; width?: string; shoul
       }
     `}
 
+  @media screen and (max-width: 950px) {
+    width: 90%;
+    height: fit-content;
+    flex-direction: column;
+    padding-bottom: 20px;
+    gap: 20px;
+  }
+
   @media screen and (max-width: 760px) {
     width: 90%;
     height: fit-content;
     flex-direction: column;
     padding-bottom: 20px;
+    padding-top: 0;
+    gap: 20px;
   }
 `;
 
-export const InnerDiv = styled.div<{ alignment?: boolean }>`
+export const InnerDiv = styled.div<{ alignment?: boolean; item?: boolean }>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 19px;
   justify-content: ${({ alignment }) => (alignment ? 'left' : 'center')};
   width: 100%;
-  height: 100%;
-  margin-top: ${({ alignment }) => (alignment ? '25px' : '20px')};
-  @media screen and (max-width: 760px) {
-    /* margin-bottom: -20px; */
-  }
+  height: fit-content;
+  ${({ alignment }) =>
+    alignment &&
+    css`
+      @media screen and (max-width: 760px) {
+        margin-left: 4%;
+      }
+    `}
 `;
 
 export const Title = styled.div<{ fontSize?: string }>`
