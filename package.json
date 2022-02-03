@@ -1,7 +1,6 @@
 {
   "name": "bubbles-frontend",
   "version": "0.1.0",
-  "homepage": "/bubbles-frontend/",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
