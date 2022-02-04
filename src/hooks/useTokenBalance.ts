@@ -8,6 +8,7 @@ import { BIG_ZERO } from 'utils/bigNumber';
 import { simpleRpcProvider } from 'utils/providers';
 import useRefresh from './useRefresh';
 import useLastUpdated from './useLastUpdated';
+import { useMockTokenContract } from './useContract';
 
 type UseTokenBalanceState = {
   balance: BigNumber;
@@ -113,6 +114,46 @@ export const useGetBnbBalance = () => {
 
 export const useGetCakeBalance = () => {
   const { balance, fetchStatus } = useTokenBalance(tokens.cake.address);
+
+  // TODO: Remove ethers conversion once useTokenBalance is converted to ethers.BigNumber
+  return { balance: ethers.BigNumber.from(balance.toString()), fetchStatus };
+};
+
+// @crackaf
+export const useTokenContractBalance = (contract: ethers.Contract) => {
+  const { NOT_FETCHED, SUCCESS, FAILED } = FetchStatus;
+  const [balanceState, setBalanceState] = useState<UseTokenBalanceState>({
+    balance: BIG_ZERO,
+    fetchStatus: NOT_FETCHED,
+  });
+  const { account } = useWeb3React();
+  const { fastRefresh } = useRefresh();
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const res = await contract.balanceOf(account);
+        setBalanceState({ balance: new BigNumber(res.toString()), fetchStatus: SUCCESS });
+      } catch (e) {
+        console.error(e);
+        setBalanceState((prev) => ({
+          ...prev,
+          fetchStatus: FAILED,
+        }));
+      }
+    };
+
+    if (account) {
+      fetchBalance();
+    }
+  }, [account, fastRefresh, SUCCESS, FAILED, contract]);
+
+  return balanceState;
+};
+
+export const useGetBubbleBalance = () => {
+  const contract = useMockTokenContract();
+  const { balance, fetchStatus } = useTokenContractBalance(contract);
 
   // TODO: Remove ethers conversion once useTokenBalance is converted to ethers.BigNumber
   return { balance: ethers.BigNumber.from(balance.toString()), fetchStatus };

@@ -9,7 +9,7 @@ import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice';
 import { useBubbleMarketplaceContract, useMockTokenContract } from 'hooks/useContract';
 import ApproveConfirmButtons, { ButtonArrangement } from 'components/ApproveConfirmButtons';
 import useToast from 'hooks/useToast';
-import useTokenBalance, { FetchStatus } from 'hooks/useTokenBalance';
+import useTokenBalance, { FetchStatus, useTokenContractBalance } from 'hooks/useTokenBalance';
 import { BIG_ZERO, ethersToBigNumber } from 'utils/bigNumber';
 import { getFullDisplayBalance } from 'utils/formatBalance';
 import { getEggPrice } from 'utils/calls/bubbleMarketplace';
@@ -40,7 +40,7 @@ const BuyEggModel: React.FC<{
   const { callWithGasPrice } = useCallWithGasPrice();
   const [totalCost, setTotalCost] = useState(BIG_ZERO);
   const [userNotEnoughCake, setUserNotEnoughCake] = useState(false);
-  const { balance: userBubble, fetchStatus } = useTokenBalance(tokens.mock.address);
+  const { balance: userBubble, fetchStatus } = useTokenContractBalance(bubbleContract);
 
   const hasFetchedBalance = fetchStatus === FetchStatus.SUCCESS;
   const userBubbleDisplayBalance = getFullDisplayBalance(userBubble, 18, 3);
