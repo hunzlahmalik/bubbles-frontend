@@ -16,8 +16,11 @@ import { getEggPrice } from 'utils/calls/bubbleMarketplace';
 import { ToastDescriptionWithTx } from 'components/Toast';
 import { ethers } from 'ethers';
 import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction';
-import { Modal, Text, Flex, Skeleton, Button, ArrowForwardIcon } from 'bubbles-uikit';
+import { Modal, Text, Flex, Skeleton, Button, ArrowForwardIcon, useModal } from 'bubbles-uikit';
 import ConnectWalletButton from 'components/ConnectWalletButton';
+import GifModal from 'components/GifModal';
+import * as Egg from 'config/constants/egg';
+import { EggInfoContract } from 'config/constants/egg';
 
 const StyledModal = styled(Modal)`
   min-width: 280px;
@@ -36,7 +39,13 @@ const BuyEggModel: React.FC<{
   const bubbleContract = useMockTokenContract();
   const marketContract = useBubbleMarketplaceContract();
   const { toastSuccess, toastError } = useToast();
-
+  // getting egg details to show that info on the modal
+  const addr = marketContract.address;
+  const own = marketContract.owner;
+  const ty = marketContract.type;
+  const eggCon: EggInfoContract = { tokenId: addr, owner: own, eggType: ty };
+  const purchaseDetails = Egg.makeEggObj(eggCon);
+  //  added by Ash
   const { callWithGasPrice } = useCallWithGasPrice();
   const [totalCost, setTotalCost] = useState(BIG_ZERO);
   const [userNotEnoughCake, setUserNotEnoughCake] = useState(false);
@@ -80,6 +89,26 @@ const BuyEggModel: React.FC<{
     const inputAsBN = new BigNumber(inputAsInt);
     validateInput(inputAsBN);
   };
+  // making a modal to show details of the egg
+  function eggModal() {
+    console.log('egg k andar');
+    onPresentShowEggModal();
+  }
+  const [onPresentShowEggModal] = useModal(
+    <GifModal
+      gifSrc="https://3961423229-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-Mjo_Dop_CQYHP_e6iyh%2Fuploads%2FqHv1OHNpvMwk01oWtdyC%2FPearl-Hatch.gif?alt=media&token=30503f9e-e24c-4da0-b4d3-0a786e06db5e"
+      title="Pearl Bubble"
+    >
+      <Text color="textSubtle">Owner : {purchaseDetails.owner}</Text>
+      <Text color="textSubtle">ID : {purchaseDetails.id}</Text>
+      <Text color="textSubtle">Type : {purchaseDetails.type}</Text>
+      <Text color="textSubtle">Maturity : {purchaseDetails.maturity}</Text>
+      <Text color="textSubtle">Rarity : {purchaseDetails.rarity}</Text>
+      <Text color="textSubtle">Hash rate : {purchaseDetails.hashrate}</Text>
+    </GifModal>,
+  );
+
+  // added by Ash
 
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
@@ -115,7 +144,10 @@ const BuyEggModel: React.FC<{
         console.log('onSuccess');
 
         toastSuccess(t('Egg purchased!'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />);
+        console.log(receipt.logs);
         onDismiss();
+
+        eggModal();
       },
     });
 
