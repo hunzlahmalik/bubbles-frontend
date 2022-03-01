@@ -115,8 +115,8 @@ const App: React.FC = () => {
             {/* <Route path="/farm">
             </Route> */}
             <Route path="/farms">
-              <Farm />
-              {/* <Farms /> */}
+              {/* <Farm /> */}
+              <Farms />
             </Route>
             <Route path="/stats">
               <Stats />

@@ -6,7 +6,7 @@ export default {
   },
   bubbleToken: {
     56: '',
-    97: '0x6Fa34cc7F41d7687023547eB9Ecb590bcc1B9863',
+    97: '0xEC692B78FBa79C0C10d8cAc5379Bbc159c86F2CC',
   },
   bubbleNFT: {
     56: '',
